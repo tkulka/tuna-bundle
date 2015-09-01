@@ -6,7 +6,6 @@
   "require": {
     "php": ">=5.3.3"
   },
-  "target-dir" : "TheCodeine/AdminBundle",
   "autoload": {
     "psr-0" : {
       "TheCodeine\\AdminBundle" : ""
