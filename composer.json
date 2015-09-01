@@ -10,10 +10,5 @@
     "psr-4": {
       "TheCodeine\\AdminBundle\\" : ""
     }
-  },
-  "extra" : {
-    "branch-alias" : {
-      "dev-master" : ""
-    }
   }
 }
