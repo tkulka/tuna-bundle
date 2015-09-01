@@ -8,8 +8,8 @@
   },
   "target-dir" : "TheCodeine/AdminBundle",
   "autoload": {
-    "psr-4": {
-      "TheCodeine\\Bundle\\AdminBundle\\": ""
+    "psr-0" : {
+      "TheCodeine\\AdminBundle" : ""
     }
   },
   "extra" : {
