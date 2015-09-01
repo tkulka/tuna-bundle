@@ -1,0 +1,16 @@
+{
+  "name": "thecodeine/tuna-adminbundle",
+  "type": "symfony-bundle",
+  "description": "Admin pages for CMS",
+  "homepage": "http://thecodeine.com",
+  "require": {
+    "php": ">=5.3.3",
+    "symfony/framework-bundle": "~2.3"
+  },
+  "target-dir" : "TheCodeine/AdminBundle",
+  "autoload": {
+    "psr-4": {
+      "TheCodeine\\Bundle\\AdminBundle\\": ""
+    }
+  }
+}

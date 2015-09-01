@@ -1,0 +1,55 @@
+{% extends "TheCodeineAdminBundle::layout.html.twig" %}
+
+{% form_theme form 'TheCodeineAdminBundle::_form_theme.html.twig' %}
+
+{% block content %}
+    <div class="admin-container container">
+        {{ form_errors(form) }}
+        {{ form_start(form) }}
+        {{ form_widget(form._token) }}
+        <div class="admin-option-container" data-dynamic-height="1">
+            <a href="javascript:void(0)"
+               class="btn close">
+                <i class="fui-cross"></i>
+            </a>
+
+        </div>
+        <div clas="row">
+            <div class="text-center"><h3>SARP</h3></div>
+            <div class="col-md-12">
+                {% set dofa = 0 %}
+                {% set akupunktura = 0 %}
+                {% set duze_a = 0 %}
+
+                {% for row in form.rows %}
+                    {% if row.vars.value.parent == 'Dofa' and dofa == 0 %}
+                        <div class="text-center ptl"><h3>DOFA</h3></div>
+                        {% set dofa = 1 %}
+                    {% endif %}
+
+                    {% if row.vars.value.parent == 'Aku.ura' and akupunktura == 0 %}
+                        <div class="text-center ptl"><h3>Aku.ura</h3></div>
+                        {% set akupunktura = 1 %}
+                    {% endif %}
+
+                    {% if row.vars.value.parent == 'Duże A' and duze_a == 0 %}
+                        <div class="text-center ptl"><h3>Duże A</h3></div>
+                        {% set duze_a = 1 %}
+                    {% endif %}
+
+                        <div style="margin-left: {{ row.vars.value.lvl*40-10 }}px">
+                            <input type="hidden" name="{{ row.translations.defaultLocale.pl.vars.full_name }}[name]" value="{{ row.vars.value.name }}">
+                            {{ form_label(row.translations.defaultLocale.pl.name, row.vars.value.name) }}
+                            {{ form_widget(row.translations.translations.en.name, {'attr': {'placeholder': 'Nazwa angielska', 'class': 'form-control input-sm flat'}}) }}
+                        </div>
+
+                {% endfor %}
+
+        </div>
+
+        <div class="admin-edit-footer">
+            <button type="submit" class="btn btn-primary pull-right">{% trans %}Zapisz{% endtrans %}</button>
+        </div>
+        {{ form_end(form, {'render_rest': false}) }}
+    </div>
+{% endblock content %}

@@ -1,0 +1,6 @@
+{% set url = path('thecodeine_admin_news_edit',{'newsId' : item.id}) %}
+
+    <div class="admin-list-thumbnail jelly-in">
+        <p class="lead"><a href="{{ url }}">{{ item.title }}</a></p>
+        <p><small>{{ item.body|striptags|raw|replace({'&nbsp;':' '})|slice(0, 105) }}</small></p>
+    </div>
