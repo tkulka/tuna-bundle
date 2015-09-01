@@ -4,13 +4,17 @@
   "description": "Admin pages for CMS",
   "homepage": "http://thecodeine.com",
   "require": {
-    "php": ">=5.3.3",
-    "symfony/framework-bundle": "~2.3"
+    "php": ">=5.3.3"
   },
   "target-dir" : "TheCodeine/AdminBundle",
   "autoload": {
     "psr-4": {
       "TheCodeine\\Bundle\\AdminBundle\\": ""
+    }
+  },
+  "extra" : {
+    "branch-alias" : {
+      "dev-master" : ""
     }
   }
 }
