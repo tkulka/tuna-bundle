@@ -1,0 +1,9 @@
+suites:
+    Command:
+        { namespace: TheCodeine\AdminBundle\Command, psr4_prefix: TheCodeine\AdminBundle\Command, spec_prefix: Command, spec_path: Spec, src_path: Command }
+    Controller:
+        { namespace: TheCodeine\AdminBundle\Controller, psr4_prefix: TheCodeine\AdminBundle\Controller, spec_prefix: Controller, spec_path: Spec, src_path: Controller }
+    DependencyInjection:
+        { namespace: TheCodeine\AdminBundle\DependencyInjection, psr4_prefix: TheCodeine\AdminBundle\DependencyInjection, spec_prefix: DependencyInjection, spec_path: Spec, src_path: DependencyInjection }
+    Menu:
+        { namespace: TheCodeine\AdminBundle\Menu, psr4_prefix: TheCodeine\AdminBundle\Menu, spec_prefix: Menu, spec_path: Spec, src_path: Menu }
