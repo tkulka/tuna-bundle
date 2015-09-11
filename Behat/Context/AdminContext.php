@@ -6,6 +6,7 @@ use Behat\Mink\Mink;
 use Behat\MinkExtension\Context\MinkAwareContext;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\Symfony2Extension\Context\KernelDictionary;
+use PHPUnit_Framework_Assert;
 
 use Symfony\Component\HttpKernel\KernelInterface;
 
