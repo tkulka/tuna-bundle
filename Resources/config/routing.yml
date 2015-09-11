@@ -1,0 +1,5 @@
+the_codeine_news:
+    resource: "@TheCodeineNewsBundle/Resources/config/routing.yml"
+
+the_codeine_page:
+    resource: "@TheCodeinePageBundle/Resources/config/routing.yml"

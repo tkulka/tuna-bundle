@@ -9,7 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 use TheCodeine\NewsBundle\Entity\Category;
 
-class DefaultController extends Controller
+class AdminController extends Controller
 {
     /**
      * @Route("/admin/", name="thecodeine_admin_homepage")

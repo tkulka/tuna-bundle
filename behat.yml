@@ -2,6 +2,8 @@ default:
     extensions:
         Behat\Symfony2Extension:
             kernel:
+                env: test
+                debug: false
                 path: Behat/Fixtures/app/AppKernel.php
                 bootstrap: Behat/Fixtures/app/bootstrap.php
 
@@ -13,7 +15,7 @@ default:
 
     suites:
         default:
-            paths: [%paths.base%/Behat/Features]
+            paths: [%paths.base%/Behat/Features, %paths.base%/vendor/thecodeine/]
             contexts:
                 - Behat\MinkExtension\Context\MinkContext
                 - TheCodeine\AdminBundle\Behat\Context\AdminContext

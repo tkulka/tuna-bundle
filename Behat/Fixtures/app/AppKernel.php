@@ -36,6 +36,7 @@ class AppKernel extends Kernel
             new TheCodeine\GalleryBundle\TheCodeineGalleryBundle(),
             new TheCodeine\NewsBundle\TheCodeineNewsBundle(),
             new TheCodeine\TagBundle\TheCodeineTagBundle(),
+            new TheCodeine\PageBundle\TheCodeinePageBundle(),
 
             # Self bundle
             new TheCodeine\AdminBundle\TheCodeineAdminBundle()

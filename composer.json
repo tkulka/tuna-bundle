@@ -32,7 +32,8 @@
         "thecodeine/tuna-editorbundle": "dev-devel",
         "thecodeine/tuna-gallerybundle": "dev-devel",
         "thecodeine/tuna-imagebundle": "dev-devel",
-        "thecodeine/tuna-tagbundle": "dev-devel"
+        "thecodeine/tuna-tagbundle": "dev-devel",
+        "thecodeine/tuna-pagebundle": "dev-devel"
     },
     "require-dev": {
         "behat/behat": "~3.0",
@@ -66,6 +67,10 @@
         {
             "type": "vcs",
             "url":  "git@bitbucket.org:thecodeine/tuna-tagbundle.git"
+        },
+        {
+            "type": "vcs",
+            "url":  "git@bitbucket.org:thecodeine/tuna-pagebundle.git"
         }
     ],
     "autoload": {
