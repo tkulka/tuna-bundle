@@ -12,8 +12,10 @@ use TheCodeine\NewsBundle\Entity\Category;
 class AdminController extends Controller
 {
     /**
-     * @Route("/admin/", name="thecodeine_admin_homepage")
+     *
      * @Template()
+     *
+     * @return \Symfony\Component\HttpFoundation\Response|\Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
     public function indexAction()
     {
@@ -31,16 +33,19 @@ class AdminController extends Controller
             $categoryId = $category->getId();
         }
 
-        return $this->forward('TheCodeineAdminBundle:Default:category', array(
+        return $this->forward('TheCodeineAdminBundle:Admin:category', array(
             'cid' => $categoryId
         ));
 
     }
 
     /**
-     * @Route("/admin/cid/{cid}", name="thecodeine_admin_category")
-     * @ParamConverter("category", class="TheCodeineNewsBundle:Category", options={"id" = "cid"})
+     *
      * @Template()
+     *
+     * @param Category $category
+     *
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function categoryAction(Category $category)
     {
@@ -53,22 +58,22 @@ class AdminController extends Controller
             )));
         }
         if($category->getLvl() == 0 ) {
-            return $this->forward('TheCodeineAdminBundle:Default:category', array(
+            return $this->forward('TheCodeineAdminBundle:Admin:category', array(
                 'cid' => $category->getChildren()->first()->getId()
             ));
         } else if ($category->getLvl() == 1 && $category->isGroup() && count($category->getChildren())) {
-            return $this->forward('TheCodeineAdminBundle:Default:category', array(
+            return $this->forward('TheCodeineAdminBundle:Admin:category', array(
                 'cid' => $category->getChildren()->first()->getId()
             ));
         } else if ( $category->isGroup() && !$category->getHasNews() && count($category->getChildren())) {
 
-            return $this->forward('TheCodeineAdminBundle:Default:category', array(
+            return $this->forward('TheCodeineAdminBundle:Admin:category', array(
                 'cid' => $category->getChildren()->first()->getId()
             ));
         }
 
         if($category->getHasNews()) {
-            return $this->redirect($this->generateUrl('thecodeine_admin_news_list', array('cid' => $category->getId())));
+            return $this->redirect($this->generateUrl('thecodeine_admin_news_list'));
         }
 
         $pages = array();

@@ -3,3 +3,11 @@ the_codeine_news:
 
 the_codeine_page:
     resource: "@TheCodeinePageBundle/Resources/config/routing.yml"
+
+thecodeine_admin_homepage:
+    path: /admin/
+    defaults:  { _controller: TheCodeineAdminBundle:Admin:index }
+
+thecodeine_admin_category:
+    path: /admin/cid/{cid}
+    defaults:  { _controller: TheCodeineAdminBundle:Admin:category }
