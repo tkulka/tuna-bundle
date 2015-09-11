@@ -28,11 +28,11 @@
         "a2lix/translation-form-bundle": "1.*",
         "gedmo/doctrine-extensions": "^2.4",
         "doctrine/doctrine-fixtures-bundle": "^2.2",
-        "thecodeine/tuna-newsbundle": "dev-TUNACMS-15",
-        "thecodeine/tuna-editorbundle": "dev-TUNACMS-15",
-        "thecodeine/tuna-gallerybundle": "dev-TUNACMS-15",
-        "thecodeine/tuna-imagebundle": "dev-TUNACMS-15",
-        "thecodeine/tuna-tagbundle": "dev-TUNACMS-15"
+        "thecodeine/tuna-newsbundle": "dev-devel",
+        "thecodeine/tuna-editorbundle": "dev-devel",
+        "thecodeine/tuna-gallerybundle": "dev-devel",
+        "thecodeine/tuna-imagebundle": "dev-devel",
+        "thecodeine/tuna-tagbundle": "dev-devel"
     },
     "require-dev": {
         "behat/behat": "~3.0",
