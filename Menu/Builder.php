@@ -71,21 +71,21 @@ class Builder
      */
     public function buildTopMenu(Request $request)
     {
-        $selectedCategory   = $this->categoryRepository->findOneById($request->get('cid',1));
-        $rootCategory       = $this->getParentCategory($selectedCategory, 0);
+//        $selectedCategory   = $this->categoryRepository->findOneById($request->get('cid',1));
+//        $rootCategory       = $this->getParentCategory($selectedCategory, 0);
 
         $menu = $this->factory->createItem('root', array(
            'childrenAttributes' => array('class' => 'nav')
         ));
 
-        $categories = $this->categoryRepository->findBy(array('parent'=>null));
-        foreach($categories as $category) {
-            $menu->addChild($category->getName(), array(
-                'route' => 'thecodeine_admin_category',
-                'routeParameters' => array('cid' => $category->getId()),
-                'attributes' => array("selected" => $rootCategory == $category ? "selected" : "")
-            ));
-        }
+//        $categories = $this->categoryRepository->findBy(array('parent'=>null));
+//        foreach($categories as $category) {
+//            $menu->addChild($category->getName(), array(
+//                'route' => 'thecodeine_admin_category',
+//                'routeParameters' => array('cid' => $category->getId()),
+//                'attributes' => array("selected" => $rootCategory == $category ? "selected" : "")
+//            ));
+//        }
         return $menu;
     }
 
@@ -95,25 +95,25 @@ class Builder
      */
     public function buildTopMenuStatic(Request $request)
     {
-        $selectedCategory = $this->categoryRepository->findOneById($request->get('cid',1));
-        $category = $this->getParentCategory(
-            $selectedCategory,
-            0
-        );
+//        $selectedCategory = $this->categoryRepository->findOneById($request->get('cid',1));
+//        $category = $this->getParentCategory(
+//            $selectedCategory,
+//            0
+//        );
 
         $menu = $this->factory->createItem('root', array(
             'childrenAttributes' => array('class' => 'nav')
         ));
-
-        foreach($this->getStaticPages($category) as $page) {
-            $menu->addChild($page->getTitle(), array(
-                'route' => 'thecodeine_admin_page_edit',
-                'routeParameters' => array('id' => $page->getId()),
-                'attributes' => array(
-                    "class" => $selectedCategory == $page->getCategory() && $request->get('id') == $page->getId() ? "active" : "",
-                )
-            ));
-        }
+//
+//        foreach($this->getStaticPages($category) as $page) {
+//            $menu->addChild($page->getTitle(), array(
+//                'route' => 'thecodeine_admin_page_edit',
+//                'routeParameters' => array('id' => $page->getId()),
+//                'attributes' => array(
+//                    "class" => $selectedCategory == $page->getCategory() && $request->get('id') == $page->getId() ? "active" : "",
+//                )
+//            ));
+//        }
 
         return $menu;
     }
@@ -125,9 +125,9 @@ class Builder
     public function buildSubmenu(Request $request)
     {
         //check if parent level 2 is group category (used to render in select)
-        $requestCategory     = $this->categoryRepository->findOneById($request->get('cid',1));
-        $selectedCategoryTop = $this->getParentCategory($requestCategory, 2);
-        $selectedCategory    = $this->getParentCategory($requestCategory, 3);
+//        $requestCategory     = $this->categoryRepository->findOneById($request->get('cid',1));
+//        $selectedCategoryTop = $this->getParentCategory($requestCategory, 2);
+//        $selectedCategory    = $this->getParentCategory($requestCategory, 3);
 
         if ($selectedCategoryTop->getParent() && !$selectedCategoryTop->getParent()->isGroup()) {
             $selectedCategoryTop = $this->getParentCategory($this->categoryRepository->findOneById($request->get('cid',1)), 1);

@@ -34,9 +34,9 @@
 
             </div>
         </div>
-        <a href="{{ path('fos_user_security_logout') }}" class="btn-logout btn btn-default mlm navbar-right">
-            <i class="glyphicon glyphicon-log-out"></i>
-        </a>
+        {#<a href="{{ path('fos_user_security_logout') }}" class="btn-logout btn btn-default mlm navbar-right">#}
+            {#<i class="glyphicon glyphicon-log-out"></i>#}
+        {#</a>#}
     </div>
     <div class="navbar navbar-inverse navbar-sub clear">
         <div class="navbar-inner">
@@ -44,27 +44,27 @@
                 <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target="#nav-collapse-01">
                 </button>
                 <div class="nav-collapse collapse " id="nav-collapse-01">
-                    {% set menuItems = knp_menu_get('menu.sub') %}
+                    {#{% set menuItems = knp_menu_get('menu.sub') %}#}
 
-                        {% for item in menuItems %}
-                                {% if item.attributes.template is defined and item.attributes.template == 'select' %}
-                                    <div class="navbar-sub-select">
-                                        <select name="huge" class="btn-group select select-block mbl" style="display: none;">
-                                            {% for option in item %}
-                                                <option value="{{ option.uri }}" data-url="{{ option.uri }}" {{ option.attributes.selected }}>{{ option.label }}</option>
-                                            {% endfor %}
-                                        </select>
-                                    </div>
+                        {#{% for item in menuItems %}#}
+                                {#{% if item.attributes.template is defined and item.attributes.template == 'select' %}#}
+                                    {#<div class="navbar-sub-select">#}
+                                        {#<select name="huge" class="btn-group select select-block mbl" style="display: none;">#}
+                                            {#{% for option in item %}#}
+                                                {#<option value="{{ option.uri }}" data-url="{{ option.uri }}" {{ option.attributes.selected }}>{{ option.label }}</option>#}
+                                            {#{% endfor %}#}
+                                        {#</select>#}
+                                    {#</div>#}
 
-                                {% else %}
-                                    <ul class="nav">
-                                        <li {% if item.attributes.class is defined %}class="{{ item.attributes.class }}"{% endif %}>
-                                        <a href="{{ item.uri }}">{{ item.label }}</a>
-                                        </li>
-                                    </ul>
-                                {% endif %}
+                                {#{% else %}#}
+                                    {#<ul class="nav">#}
+                                        {#<li {% if item.attributes.class is defined %}class="{{ item.attributes.class }}"{% endif %}>#}
+                                        {#<a href="{{ item.uri }}">{{ item.label }}</a>#}
+                                        {#</li>#}
+                                    {#</ul>#}
+                                {#{% endif %}#}
 
-                        {% endfor %}
+                        {#{% endfor %}#}
 
                 </div><!--/.nav-collapse -->
 

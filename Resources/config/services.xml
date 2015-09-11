@@ -7,9 +7,17 @@
     <parameters>
         <parameter key="the_codeine_admin.menu_builder.class">TheCodeine\AdminBundle\Menu\Builder</parameter>
         <parameter key="the_codeine_admin.menu.item.class">Knp\Menu\MenuItem</parameter>
+        <parameter key="the_codeine_admin.gedmo_tree_listener.class">Gedmo\Tree\TreeListener</parameter>
     </parameters>
 
     <services>
+        <service id="gedmo.listener.tree" class="%the_codeine_admin.gedmo_tree_listener.class%">
+            <tag name="doctrine.event_subscriber" connection="default" />
+            <call method="setAnnotationReader">
+                <argument type="service" id="annotation_reader" />
+            </call>
+        </service>
+
         <service id="the_codeine_admin.menu_builder" class="%the_codeine_admin.menu_builder.class%">
             <argument type="service" id="knp_menu.factory" />
             <argument type="service" id="doctrine.orm.entity_manager" />

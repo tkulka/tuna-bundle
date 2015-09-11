@@ -6,8 +6,12 @@ the_codeine_page:
 
 thecodeine_admin_homepage:
     path: /admin/
-    defaults:  { _controller: TheCodeineAdminBundle:Admin:index }
+    defaults: { _controller: TheCodeineAdminBundle:Admin:index }
 
 thecodeine_admin_category:
     path: /admin/cid/{cid}
-    defaults:  { _controller: TheCodeineAdminBundle:Admin:category }
+    defaults: { _controller: TheCodeineAdminBundle:Admin:category }
+
+thecodeine_admin_category_list:
+    path: /admin/category
+    defaults: { _controller: TheCodeineAdminBundle:Category:index }

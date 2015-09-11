@@ -3,7 +3,6 @@
 namespace TheCodeine\AdminBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
@@ -43,6 +42,7 @@ class AdminController extends Controller
      *
      * @Template()
      *
+     * @ParamConverter("category", class="TheCodeineNewsBundle:Category", options={"id" = "cid"})
      * @param Category $category
      *
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response

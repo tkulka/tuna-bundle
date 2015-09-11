@@ -3,23 +3,22 @@
 namespace TheCodeine\AdminBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Component\HttpFoundation\Response;
 
-use TheCodeine\NewsBundle\Entity\Category,
-    TheCodeine\NewsBundle\Entity\Categories;
+use TheCodeine\NewsBundle\Entity\Category;
+use TheCodeine\NewsBundle\Entity\Categories;
 
-use  TheCodeine\NewsBundle\Form\CategoryType,
-TheCodeine\NewsBundle\Form\CategoryEditType;
+use  TheCodeine\NewsBundle\Form\CategoryType;
+use TheCodeine\NewsBundle\Form\CategoryEditType;
 
 class CategoryController extends Controller
 {
 
     /**
-     * @Route("/admin/category", name="thecodeine_admin_category_list")
+     *
      * @Template()
+     *
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function indexAction()
     {
