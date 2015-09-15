@@ -42,7 +42,7 @@ class LoadStaticUserData extends AbstractFixture implements OrderedFixtureInterf
 
     public function getOrder()
     {
-        return 11;
+        return 12;
     }
 
 }

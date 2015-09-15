@@ -35,6 +35,9 @@ assetic:
     use_controller: false
     bundles:        [ 'TheCodeineEditorBundle', 'TheCodeineGalleryBundle', 'TheCodeineAdminBundle' ]
     filters:
+        lessphp:
+            file: %kernel.root_dir%/../../../vendor/leafo/lessphp/lessc.inc.php
+            apply_to: "\.less$"
         cssrewrite: ~
 
 # Doctrine Configuration

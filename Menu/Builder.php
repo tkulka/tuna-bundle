@@ -107,7 +107,7 @@ class Builder
 
         foreach($this->getStaticPages($category) as $page) {
             $menu->addChild($page->getTitle(), array(
-                'route' => 'thecodeine_news_edit',
+                'route' => 'thecodeine_page_edit',
                 'routeParameters' => array('id' => $page->getId()),
                 'attributes' => array(
                     "class" => $selectedCategory == $page->getCategory() && $request->get('id') == $page->getId() ? "active" : "",
@@ -208,7 +208,7 @@ class Builder
             foreach($children as $child) {
                 if($child->hasNews()) {
                     $menu->addChild($child->getName(), array(
-                        'route' => 'thecodeine_admin_news_list',
+                        'route' => 'thecodeine_news_list',
                         'routeParameters' => array('cid' => $child->getId()),
                         'attributes' => array(
                             "class" => $selectedCategory == $child && $requestCategory === $selectedCategory ? "active" : "",
@@ -236,7 +236,7 @@ class Builder
 
         foreach($this->getStaticPages($selectedCategoryTop) as $page) {
             $menu->addChild($page->getTitle(), array(
-                'route' => 'thecodeine_admin_page_edit',
+                'route' => 'thecodeine_page_edit',
                 'routeParameters' => array('id' => $page->getId()),
                 'attributes' => array(
                     "class" => $selectedCategory == $page->getCategory() && $requestItemId == $page->getId() ? "active" : "",
