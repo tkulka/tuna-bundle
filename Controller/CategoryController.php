@@ -51,7 +51,7 @@ class CategoryController extends Controller
             $em->flush();
             $em->clear();
 
-            return $this->redirect($this->generateUrl('thecodeine_admin_category_list'));
+            return $this->redirect($this->generateUrl('thecodeine_news_list'));
         }
 
         return array(

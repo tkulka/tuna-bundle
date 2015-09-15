@@ -1,5 +1,6 @@
 imports:
     - { resource: parameters.yml }
+    - { resource: security.yml }
 
 framework:
     #esi:             ~
@@ -47,6 +48,11 @@ doctrine:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
+
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: TheCodeine\AdminBundle\Entity\User
 
 # Swiftmailer Configuration
 swiftmailer:

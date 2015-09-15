@@ -15,7 +15,7 @@ default:
 
     suites:
         default:
-            paths: [%paths.base%/Behat/Features, %paths.base%/vendor/thecodeine/]
+            paths: [%paths.base%/Behat/Features]
             contexts:
                 - Behat\MinkExtension\Context\MinkContext
                 - TheCodeine\AdminBundle\Behat\Context\AdminContext

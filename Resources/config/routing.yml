@@ -1,3 +1,6 @@
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+
 the_codeine_news:
     resource: "@TheCodeineNewsBundle/Resources/config/routing.yml"
 

@@ -53,7 +53,7 @@ class AdminController extends Controller
         //we need to select proper subcategory while being in top menu
         if ($category->isSinglePage()) {
             $page = $this->getDoctrine()->getRepository('TheCodeinePageBundle:Page')->findOneByCategory($category);
-            return $this->redirect($this->generateUrl('thecodeine_admin_page_edit', array(
+            return $this->redirect($this->generateUrl('thecodeine_page_edit', array(
                 'id' => $page->getId(),
             )));
         }
@@ -73,7 +73,7 @@ class AdminController extends Controller
         }
 
         if($category->getHasNews()) {
-            return $this->redirect($this->generateUrl('thecodeine_admin_news_list'));
+            return $this->redirect($this->generateUrl('thecodeine_news_list'));
         }
 
         $pages = array();
