@@ -1,0 +1,80 @@
+{% extends "TheCodeineAdminBundle::layout.html.twig" %}
+
+{% form_theme form 'TheCodeineAdminBundle::_form_theme.html.twig' %}
+
+{% block content %}
+    <div class="admin-container container">
+        {{ form_errors(form) }}
+        {{ form_start(form, { 'attr' : { 'class' : 'wysiwyg' } }) }}
+        {{ form_widget(form._token) }}
+        <div class="admin-option-container" data-dynamic-height="1">
+            <a href="javascript:void(0)"
+               class="btn close">
+                <i class="fui-cross"></i>
+            </a>
+            <h6 class="text-inverse">{% trans %}Opcje{% endtrans %}</h6>
+
+            {{ form_widget(form.published) }}
+            {{ form_widget(form.image) }}
+
+            <a href="javascript:void(0)" class="btn btn-small btn-block btn-gallery">
+                {% trans %}Galeria{% endtrans %}
+                <i class="fui-arrow-right pull-right"></i>
+            </a>
+            <a href="javascript:void(0)" class="btn btn-small btn-block btn-attachments">
+                {% trans %}Załączniki{% endtrans %}
+                <i class="fui-arrow-right pull-right"></i>
+            </a>
+        </div>
+
+        <div class="admin-attachments-container" data-dynamic-height="1">
+            <a href="javascript:void(0)"
+               class="btn btn-default close">
+                <i class="fui-cross"></i>
+            </a>
+            <h6>{% trans %}Załączniki{% endtrans %}</h6>
+            {{ form_widget(form.attachments) }}
+        </div>
+
+        {{ form_widget(form.category) }}
+        <div class="a2lix_translations tabbable">
+            <ul class="a2lix_translationsLocales nav nav-tabs">
+                <li class="active">
+                    <a href="javascript:void(0)" data-toggle="tab" data-target=".locale-pl">
+                        pl
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)" data-toggle="tab" data-target=".locale-en">
+                        en
+                    </a>
+                </li>
+            </ul>
+            <div class="a2lix_translationsFields tab-content">
+                <div class="locale-pl tab-pane active">
+                    {{ form_widget(form.translations.defaultLocale.pl.title) }}
+                    {{ form_widget(form.translations.defaultLocale.pl.body) }}
+                </div>
+                <div class="locale-en tab-pane ">
+                    {{ form_widget(form.translations.translations.en.title) }}
+                    {{ form_widget(form.translations.translations.en.body) }}
+                </div>
+            </div>
+        </div>
+        <div class="admin-gallery-container" data-dynamic-height="1">
+            <a href="javascript:void(0)"
+               class="btn btn-default close">
+                <i class="fui-cross"></i>
+            </a>
+            <h6>{% trans %}Galeria{% endtrans %}</h6>
+            {{ form_widget(form.gallery) }}
+        </div>
+        <div class="admin-edit-footer">
+            <a href="javascript:void(0)" class="btn btn-inverse btn-hg btn-options">
+                <i class="fui-gear"></i>
+            </a>
+            <button type="submit" class="btn btn-primary pull-right">{% trans %}Zapisz{% endtrans %}</button>
+        </div>
+        {{ form_end(form, {'render_rest': false}) }}
+    </div>
+{% endblock content %}
