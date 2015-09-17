@@ -32,9 +32,9 @@ class AdminController extends Controller
             $categoryId = $category->getId();
         }
 
-        return $this->forward('TheCodeineAdminBundle:Admin:category', array(
+        return array(
             'cid' => $categoryId
-        ));
+        );
 
     }
 
