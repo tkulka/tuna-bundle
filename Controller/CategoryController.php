@@ -4,6 +4,7 @@ namespace TheCodeine\AdminBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\Request;
 
 use TheCodeine\NewsBundle\Entity\Category;
 use TheCodeine\NewsBundle\Entity\Categories;
@@ -48,6 +49,34 @@ class CategoryController extends Controller
             foreach ($categoriesArray as $category) {
                 $em->persist($category);
             }
+            $em->flush();
+            $em->clear();
+
+            return $this->redirect($this->generateUrl('thecodeine_news_list'));
+        }
+
+        return array(
+            'form' => $form->createView()
+        );
+    }
+
+    /**
+     * @Template()
+     *
+     * @param Request $request
+     *
+     * @return array
+     */
+    public function createAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        $category = new Category();
+        $form = $this->createForm(new CategoryType(), $category);
+
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $category->setParent($em->getRepository('TheCodeineNewsBundle:Category')->find(1));
+            $em->persist($category);
             $em->flush();
             $em->clear();
 
