@@ -4,6 +4,10 @@ fos_user:
 _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"
 
+# IMAGE Route
+thecodeine_image:
+    resource: "@TheCodeineImageBundle/Resources/config/routing.yml"
+
 # NEWS Route
 thecodeine_news_list:
     pattern:  /admin/news/list

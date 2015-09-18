@@ -4,76 +4,12 @@
     <div class="navbar">
         <div class="navbar-inner">
             <div class="container">
-
-                <div class="navbar ">
-                    <!-- top menu select -->
-                    <div class="navbar-top-select">
-                        {% set menuItems = knp_menu_get('menu.top') %}
-                        <select name="large" class="btn-group select select-block mbl" style="display: none;">
-                            {% for item in menuItems %}
-                                <option value="{{ item.uri }}" data-url="{{ item.uri }}" {{ item.attributes.selected }}>{{ item.label }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-
-                    {{ knp_menu_render('menu.top.static') }}
-
-                    <div class="navbar-top-select navbar-top-right-select">
-                        <div class="btn-group">
-                            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                <span class="fui-gear"></span>
-                            </button>
-                            <span class="dropdown-arrow"></span>
-                            <ul class="dropdown-menu  pull-right" role="menu">
-                                <li><a href="{{ path('thecodeine_admin_category_list') }}">Kategorie</a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                </div><!--/.nav-collapse -->
-
+                {% include 'TheCodeineAdminBundle::_partials/menu.top.html.twig' %}
             </div>
         </div>
         <a href="{{ path('fos_user_security_logout') }}" class="btn-logout btn btn-default mlm navbar-right">
             <i class="glyphicon glyphicon-log-out"></i>
         </a>
     </div>
-    <div class="navbar navbar-inverse navbar-sub clear">
-        <div class="navbar-inner">
-            <div class="container">
-                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target="#nav-collapse-01">
-                </button>
-                <div class="nav-collapse collapse " id="nav-collapse-01">
-                    {% set menuItems = knp_menu_get('menu.sub') %}
-
-                        {% for item in menuItems %}
-                                {% if item.attributes.template is defined and item.attributes.template == 'select' %}
-                                    <div class="navbar-sub-select">
-                                        <select name="huge" class="btn-group select select-block mbl" style="display: none;">
-                                            {% for option in item %}
-                                                <option value="{{ option.uri }}" data-url="{{ option.uri }}" {{ option.attributes.selected }}>{{ option.label }}</option>
-                                            {% endfor %}
-                                        </select>
-                                    </div>
-
-                                {% else %}
-                                    <ul class="nav">
-                                        <li {% if item.attributes.class is defined %}class="{{ item.attributes.class }}"{% endif %}>
-                                        <a href="{{ item.uri }}">{{ item.label }}</a>
-                                        </li>
-                                    </ul>
-                                {% endif %}
-
-                        {% endfor %}
-
-                </div><!--/.nav-collapse -->
-
-            </div>
-        </div>
-    </div>
+    {% include 'TheCodeineAdminBundle::_partials/menu.sub.html.twig' %}
 {% endblock navigation %}
-
-
-{% block footer %}
-        &copy; The Codeine {{ ("now"|date('Y') > 2013) ? '2013 - ' ~ "now"|date('Y') : '2012' }}
-{% endblock footer %}

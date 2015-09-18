@@ -9,14 +9,10 @@
         <i class="fui-plus-inverted"></i>
     </a>
     <div class="container">
-        {#{{ render(controller('AcmeArticleBundle:Article:recentArticles', {#}
-        {#'cid': 3#}
-        {#})) }}#}
         {% if pages is defined and pages|length > 0 %}
             <ul class="list-group admin-pages admin-list">
                 {% for page in pages %}
                     <li class="list-group-item" data-enabled="{{ page.published|round }}">
-                        {#<span onclick="location.href='{{ path('thecodeine_page_edit',{'id' : page.id}) }}'">{{ page.title }}</span>#}
                         <a href="{{ path('thecodeine_page_edit',{'id' : page.id}) }}"
                            class="">
                             {{ page.title }}
@@ -33,15 +29,6 @@
                     </li>
                 {% endfor %}
             </ul>
-            {#<div class="row text-center">#}
-            {#<div class="col-md-2"></div>#}
-            {#<div class="col-md-8">#}
-            {#{% for page in pages %}#}
-            {#<a href="{{ path('thecodeine_page_edit',{'id' : page.id}) }}" class="btn btn-lg btn-primary btn-square">{{ page.title }}</a>#}
-            {#{% endfor %}#}
-            {#</div>#}
-            {#<div class="col-md-2"></div>#}
-            {#</div>#}
         {% endif %}
     </div>
 {% endblock content %}
