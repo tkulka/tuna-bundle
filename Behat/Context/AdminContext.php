@@ -3,16 +3,14 @@
 namespace TheCodeine\AdminBundle\Behat\Context;
 
 use Behat\Mink\Mink;
-use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\MinkAwareContext;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\Symfony2Extension\Context\KernelDictionary;
 use PHPUnit_Framework_Assert;
 
+use Symfony\Component\BrowserKit\Cookie;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\HttpKernel\KernelInterface;
-use Doctrine\ORM\Tools\SchemaTool;
-
-use TheCodeine\PageBundle\Entity\Page;
 
 class AdminContext implements MinkAwareContext
 {
@@ -57,16 +55,28 @@ class AdminContext implements MinkAwareContext
         $this->minkParameters = $parameters;
     }
 
-    /** @BeforeScenario */
-    public function before(BeforeScenarioScope $scope)
+    /**
+     * @BeforeScenario @logged-in
+     */
+    public function beforeLoggedInScenario(BeforeScenarioScope $scope)
     {
-        $metadata = $this->getMetadata();
+        $driver = $this->mink->getSession()->getDriver();
 
-        if (!empty($metadata)) {
-            $tool = new SchemaTool($this->getEntityManager());
-            $tool->dropSchema($metadata);
-            $tool->createSchema($metadata);
-        }
+        $client = $driver->getClient();
+        $client->getCookieJar()->set(new Cookie(session_name(), true));
+
+        $session = $this->getContainer()->get('session');
+
+        $user = $this->getContainer()->get('fos_user.user_manager')->findUserByUsername('admin');
+        $providerKey = $this->getContainer()->getParameter('fos_user.firewall_name');
+
+        $token = new UsernamePasswordToken($user, null, $providerKey, $user->getRoles());
+        $session->set('_security_'.$providerKey, serialize($token));
+        $session->save();
+
+        $cookie = new Cookie($session->getName(), $session->getId());
+        $client->getCookieJar()->set($cookie);
+
     }
 
     /**
@@ -91,30 +101,6 @@ class AdminContext implements MinkAwareContext
     public function iShouldHaveEditorExtensionServiceInContainer()
     {
         return is_a($this->getContainer()->get('thecodeine_editor.twig.form_extension'), 'TheCodeine\EditorBundle\Twig\Extension\EditorExtension');
-    }
-
-    /**
-     * @Given /^There is a page:$/
-     */
-    public function thereIsANews(TableNode $table)
-    {
-        $em = $this->getEntityManager();
-
-        $hash = $table->getHash();
-        foreach ($hash as $row) {
-            if (!isset($row['title']) || !isset($row['slug']) || !isset($row['body'])) {
-                throw new \Exception("You must provide a 'title', 'slug' and 'body' column in your table node.");
-            }
-
-            $news = new Page();
-            $news->setTitle($row['title']);
-            $news->setBody($row['body']);
-            $news->setSlug($row['slug']);
-
-            $em->persist($news);
-        }
-
-        $em->flush();
     }
 
     /**
