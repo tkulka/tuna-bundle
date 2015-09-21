@@ -1,4 +1,4 @@
-window.thecodeineAdmin || (window.thecodeineAdmin = {
+window.tuna || (window.tuna = {
     locale: 'pl',
     website: {},
     backbone: {},
@@ -16,16 +16,16 @@ window.thecodeineAdmin || (window.thecodeineAdmin = {
  * Main admin website object
  *
  */
-thecodeineAdmin.website = {
+tuna.website = {
     init: function() {
 
         //init main views
-        new thecodeineAdmin.view.NavigationView({el: $('nav')[0]});
-        new thecodeineAdmin.view.ListView({el: $('.admin-list')[0]});
+        new tuna.view.NavigationView({el: $('nav')[0]});
+        new tuna.view.ListView({el: $('.admin-list')[0]});
 
         //OPTIONS
         if( $('.admin-option-container').size()) {
-            new thecodeineAdmin.view.OptionsView({el: $('.admin-option-container')[0]});
+            new tuna.view.OptionsView({el: $('.admin-option-container')[0]});
             $('.btn-options').click(function(e){
                 e.stopPropagation();
                 $('.admin-option-container').trigger('open');
@@ -33,18 +33,18 @@ thecodeineAdmin.website = {
         }
         //WYSIWYG EDITOR
         $('.thecodeine_admin_editor').each(function(){
-            new thecodeineAdmin.view.EditorView({el:  $(this)[0] });
+            new tuna.view.EditorView({el:  $(this)[0] });
         });
 
         //GALLERY
-        if($('.admin-gallery-container').size()) new thecodeineAdmin.view.GalleryView({el: $('.admin-gallery-container')[0]});
+        if($('.admin-gallery-container').size()) new tuna.view.GalleryView({el: $('.admin-gallery-container')[0]});
         //ATTACHMENTS
-        if($('.admin-attachments-container').size()) new thecodeineAdmin.view.AttachmentsView({el: $('.admin-attachments-container')[0]});
+        if($('.admin-attachments-container').size()) new tuna.view.AttachmentsView({el: $('.admin-attachments-container')[0]});
 
 
         //setup minimal height for main container
         this.resizeContainer();
-        $(window).resize(thecodeineAdmin.website.resizeContainer);
+        $(window).resize(tuna.website.resizeContainer);
     },
 
     resizeContainer: function() {
@@ -66,13 +66,13 @@ thecodeineAdmin.website = {
  *
  * @type {*|void}
  */
-thecodeineAdmin.view.NavigationView = Backbone.View.extend({
+tuna.view.NavigationView = Backbone.View.extend({
    events: {
        'change select': "onSelectChange"
    },
 
    onSelectChange: function(e)  {
-       thecodeineAdmin.website.goToUri($(e.target).val());
+       tuna.website.goToUri($(e.target).val());
    }
 });
 
@@ -81,7 +81,7 @@ thecodeineAdmin.view.NavigationView = Backbone.View.extend({
  *
  * @type {*|void}
  */
-thecodeineAdmin.view.ListView = Backbone.View.extend({
+tuna.view.ListView = Backbone.View.extend({
     events: {
         'click [data-action="delete"]': "onDeleteItem"
     },
@@ -114,30 +114,36 @@ thecodeineAdmin.view.ListView = Backbone.View.extend({
  *
  * @type {*|void}
  */
-thecodeineAdmin.view.EditorView = Backbone.View.extend({
+tuna.view.EditorView = Backbone.View.extend({
 
     initialize: function() {
-        this.divEditorId    = this.$el.attr('id') + '-editor';
-        this.divEditor      = $( '#' + this.divEditorId );
-        this.editorToolbar  = $('div[data-target="' + this.divEditorId + '"]');
+        var root = this;
 
-        $(this.divEditor)
+        this.divEditorId    = this.$el.attr('id') + '-editor';
+        this.$divEditor      = $( '#' + this.divEditorId );
+        this.$editorToolbar  = $('div[data-target="#' + this.divEditorId + '"]');
+
+        this.$divEditor
             .html(this.$el.val())
             .show()
             .wysiwyg();
 
         this.$el.hide();
+        this.$editorToolbar.find('input[data-target="#pictureBtn"]').hide();
 
-        $(this.divEditor).on('blur', _.bind(this.onEditorChange, this));
-        $(this.editorToolbar).find('.dropdown-menu input').on('click', function(e){
+        this.$divEditor.on('blur', _.bind(this.onEditorChange, this));
+        this.$editorToolbar.find('.dropdown-menu input').on('click', function(e){
             e.stopPropagation();
         });
+        this.$editorToolbar.find('#pictureBtn').click(function(e) {
+            e.preventDefault();
+            root.$editorToolbar.find('input[data-target="#pictureBtn"]').trigger('click');
+        });
 
-        var oThis = this;
         $('div[data-role="editor-toolbar"] .insertHTML-insertBtn').click(function(e){
             e.preventDefault();
-            oThis._insertHtmlAtCursor($(this).parent().parent().find('.insertHTML-value').val());
-            oThis.onEditorChange();
+            root._insertHtmlAtCursor($(this).parent().parent().find('.insertHTML-value').val());
+            root.onEditorChange();
         });
         $('.insertHTML-value').click(function(e){
             e.preventDefault();
@@ -168,13 +174,13 @@ thecodeineAdmin.view.EditorView = Backbone.View.extend({
                 allowComments: false,
             }));
 
-            oThis.onEditorChange();
+            root.onEditorChange();
             e.preventDefault();
         })
     },
 
     onEditorChange: function() {
-        this.$el.html( $(this.divEditor).html() );
+        this.$el.html( this.$divEditor.html() );
     },
 
     _insertHtmlAtCursor: function(html) {
@@ -196,7 +202,7 @@ thecodeineAdmin.view.EditorView = Backbone.View.extend({
     }
 });
 
-thecodeineAdmin.view.OptionsView = Backbone.View.extend({
+tuna.view.OptionsView = Backbone.View.extend({
     events: {
         'click .close': "_onClose",
         'close': "_onClose",
@@ -265,7 +271,7 @@ thecodeineAdmin.view.OptionsView = Backbone.View.extend({
     }
 });
 
-thecodeineAdmin.view.GalleryView = Backbone.View.extend({
+tuna.view.GalleryView = Backbone.View.extend({
 
     events: {
         "click .add_new_image": "_onAddNewImage",
@@ -397,7 +403,7 @@ thecodeineAdmin.view.GalleryView = Backbone.View.extend({
     }
 });
 
-thecodeineAdmin.view.AttachmentsView = Backbone.View.extend({
+tuna.view.AttachmentsView = Backbone.View.extend({
 
     events: {
         "click .add_new_attachment": "_onAddNewAttachment",

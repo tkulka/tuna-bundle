@@ -22,7 +22,7 @@
     <div class="form-group">
         {% set type = type|default('text') %}
 
-        <div class="btn-toolbar" data-role="editor-toolbar" data-target="{{ id }}-editor">
+        <div class="btn-toolbar" data-role="editor-toolbar" data-target="#{{ id }}-editor">
             <div class="btn-group">
                 <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" title="Font Size"><i class="glyphicon glyphicon-text-height"></i>&nbsp;<b class="caret"></b></a>
                 <ul class="dropdown-menu">
@@ -81,6 +81,7 @@
 {% endblock %}
 
 {% block choice_widget %}
+    {{ attr.original_widget }}
     {% spaceless %}
         {% if attr.original_widget is defined %}
             <select {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %} class="form-control select select-primary">

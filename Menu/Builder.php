@@ -79,13 +79,13 @@ class Builder
         ));
 
         $categories = $this->categoryRepository->findBy(array('parent'=>null));
-        foreach($categories as $category) {
-            $menu->addChild($category->getName(), array(
-                'route' => 'thecodeine_admin_category',
-                'routeParameters' => array('cid' => $category->getId()),
-                'attributes' => array("selected" => $rootCategory == $category ? "selected" : "")
-            ));
-        }
+//        foreach($categories as $category) {
+//            $menu->addChild($category->getName(), array(
+//                'route' => 'thecodeine_admin_category',
+//                'routeParameters' => array('cid' => $category->getId()),
+//                'attributes' => array("selected" => $rootCategory == $category ? "selected" : "")
+//            ));
+//        }
         return $menu;
     }
 
@@ -169,30 +169,30 @@ class Builder
 
         if($parentCategory->isGroup()) {
 
-            $groupMenu = $menu->addChild($parentCategory->getName(), array(
-                'route' => 'thecodeine_admin_category',
-                'routeParameters' => array('cid' => $parentCategory->getId()),
-                'attributes' => array("template" => "select")
-            ));
-
-            foreach($parentCategory->getChildren() as $child) {
-
-                $groupMenu->addChild($child->getName(), array(
-                    'route' => 'thecodeine_admin_category',
-                    'routeParameters' => array('cid' => $child->getId()),
-                    'attributes' => array("selected" => $selectedCategory->getParent() == $child && $requestCategory === $selectedCategory ? "selected" : "")
-                ));
-            }
-
-            foreach($selectedCategoryTop->getChildren() as $child) {
-                $menu->addChild($child->getName(), array(
-                    'route' => 'thecodeine_admin_category',
-                    'routeParameters' => array('cid' => $child->getId()),
-                    'attributes' => array(
-                        "class" => $selectedCategory == $child && $requestCategory === $selectedCategory ? "active" : "",
-                    )
-                ));
-            }
+//            $groupMenu = $menu->addChild($parentCategory->getName(), array(
+//                'route' => 'thecodeine_admin_category',
+//                'routeParameters' => array('cid' => $parentCategory->getId()),
+//                'attributes' => array("template" => "select")
+//            ));
+//
+//            foreach($parentCategory->getChildren() as $child) {
+//
+//                $groupMenu->addChild($child->getName(), array(
+//                    'route' => 'thecodeine_admin_category',
+//                    'routeParameters' => array('cid' => $child->getId()),
+//                    'attributes' => array("selected" => $selectedCategory->getParent() == $child && $requestCategory === $selectedCategory ? "selected" : "")
+//                ));
+//            }
+//
+//            foreach($selectedCategoryTop->getChildren() as $child) {
+//                $menu->addChild($child->getName(), array(
+//                    'route' => 'thecodeine_admin_category',
+//                    'routeParameters' => array('cid' => $child->getId()),
+//                    'attributes' => array(
+//                        "class" => $selectedCategory == $child && $requestCategory === $selectedCategory ? "active" : "",
+//                    )
+//                ));
+//            }
 
         } else {
             $children = array();
@@ -215,13 +215,13 @@ class Builder
                         )
                     ));
                 } else {
-                    $menu->addChild($child->getName(), array(
-                        'route' => 'thecodeine_admin_category',
-                        'routeParameters' => array('cid' => $child->getId()),
-                        'attributes' => array(
-                            "class" => $selectedCategory == $child && $requestCategory === $selectedCategory ? "active" : "",
-                        )
-                    ));
+//                    $menu->addChild($child->getName(), array(
+//                        'route' => 'thecodeine_admin_category',
+//                        'routeParameters' => array('cid' => $child->getId()),
+//                        'attributes' => array(
+//                            "class" => $selectedCategory == $child && $requestCategory === $selectedCategory ? "active" : "",
+//                        )
+//                    ));
                 }
             }
         }

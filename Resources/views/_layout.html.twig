@@ -19,7 +19,21 @@
     </head>
     <body class="{% block body_class %}{% endblock %}">
         <nav>
-            {% block navigation %}{% endblock navigation %}
+            {% block navigation %}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <div class="navbar">
+                        <div class="navbar-inner">
+                            <div class="container">
+                                {% include 'TheCodeineAdminBundle::_partials/_menu.top.html.twig' %}
+                            </div>
+                        </div>
+                        <a href="{{ path('fos_user_security_logout') }}" class="btn-logout btn btn-default mlm navbar-right">
+                            <i class="glyphicon glyphicon-log-out"></i>
+                        </a>
+                    </div>
+                    {% include 'TheCodeineAdminBundle::_partials/_menu.sub.html.twig' %}
+                {% endif %}
+            {% endblock navigation %}
         </nav>
 
         <section class="main_container {% block main_class %}{% endblock %}">
@@ -83,7 +97,7 @@
 
         <script type="text/javascript">
             (function() {
-                thecodeineAdmin.website.init();
+                tuna.website.init();
             })();
         </script>
     </body>

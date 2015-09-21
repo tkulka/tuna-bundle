@@ -72,7 +72,7 @@ a2lix_translation_form:
     templating: "A2lixTranslationFormBundle::default.html.twig"
 
 the_codeine_editor:
-    autoinclude: true
+    autoinclude: false
 
 stof_doctrine_extensions:
     default_locale: pl
@@ -87,7 +87,7 @@ stof_doctrine_extensions:
 knp_paginator:
     page_range: 5
     template:
-        pagination: TheCodeineAdminBundle:Pagination:sliding.html.twig
+        pagination: TheCodeineAdminBundle::_partials/_pagination.html.twig
 
 knp_gaufrette:
     adapters:

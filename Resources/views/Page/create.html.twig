@@ -1,6 +1,5 @@
-{% extends "TheCodeineAdminBundle::layout.html.twig" %}
-
-{% form_theme form 'TheCodeineAdminBundle::_form_theme.html.twig' %}
+{% extends "TheCodeineAdminBundle::_layout.html.twig" %}
+{% form_theme form 'TheCodeineAdminBundle::_partials/_form_theme.html.twig' %}
 
 {% block content %}
     <div class="admin-container container">
@@ -14,7 +13,7 @@
             </a>
             <h6 class="text-inverse">{% trans %}Opcje{% endtrans %}</h6>
 
-            {{ form_widget(form.published) }}
+            {{ form_widget(form.published, {'label': 'Opublikowany'|trans}) }}
             {{ form_widget(form.image) }}
 
             <a href="javascript:void(0)" class="btn btn-small btn-block btn-gallery">
@@ -52,12 +51,12 @@
             </ul>
             <div class="a2lix_translationsFields tab-content">
                 <div class="locale-pl tab-pane active">
-                    {{ form_widget(form.translations.defaultLocale.pl.title) }}
-                    {{ form_widget(form.translations.defaultLocale.pl.body) }}
+                    {{ form_widget(form.translations.defaultLocale.pl.title, {'label': 'Tytuł polski'|trans}) }}
+                    {{ form_widget(form.translations.defaultLocale.pl.body, {'label': 'Treść polska'|trans}) }}
                 </div>
                 <div class="locale-en tab-pane ">
-                    {{ form_widget(form.translations.translations.en.title) }}
-                    {{ form_widget(form.translations.translations.en.body) }}
+                    {{ form_widget(form.translations.translations.en.title, {'label': 'Tytuł angielski'|trans}) }}
+                    {{ form_widget(form.translations.translations.en.body, {'label': 'Treść angielska'|trans}) }}
                 </div>
             </div>
         </div>

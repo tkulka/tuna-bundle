@@ -72,15 +72,3 @@ thecodeine_page_delete:
 thecodeine_admin_homepage:
     path: /admin/
     defaults: { _controller: TheCodeineAdminBundle:Admin:index }
-
-thecodeine_admin_category:
-    path: /admin/cid/{cid}
-    defaults: { _controller: TheCodeineAdminBundle:Admin:category }
-
-thecodeine_category_create:
-    path: /admin/category/create
-    defaults: { _controller: TheCodeineAdminBundle:Category:create }
-
-thecodeine_admin_category_list:
-    path: /admin/category
-    defaults: { _controller: TheCodeineAdminBundle:Category:index }
