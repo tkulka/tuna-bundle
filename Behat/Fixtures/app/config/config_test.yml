@@ -71,9 +71,6 @@ a2lix_translation_form:
     manager_registry: doctrine
     templating: "A2lixTranslationFormBundle::default.html.twig"
 
-the_codeine_editor:
-    autoinclude: false
-
 stof_doctrine_extensions:
     default_locale: pl
     persist_default_translation: false
@@ -96,9 +93,9 @@ knp_gaufrette:
                 directory: %kernel.root_dir%/../web/files
     filesystems:
         attachment_fs:
-            adapter:    attachment_adapter
+            adapter: attachment_adapter
     stream_wrapper:
-        protocol: data
+        protocol: http
 
 vich_uploader:
     db_driver: orm
@@ -108,8 +105,6 @@ vich_uploader:
             uri_prefix: /files
             upload_destination: attachment_fs
             namer: vich_uploader.namer_origname
-
-the_codeine_tag: ~
 
 liip_imagine:
     resolvers:
@@ -144,3 +139,8 @@ liip_imagine:
             quality: 90
             filters:
                 relative_resize: { widen: 170 }
+
+the_codeine_tag: ~
+
+the_codeine_editor:
+    autoinclude: false

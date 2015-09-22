@@ -25,12 +25,8 @@ class AppKernel extends Kernel
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new FOS\UserBundle\FOSUserBundle(),
-
-            # ImageBundle
             new Knp\Bundle\GaufretteBundle\KnpGaufretteBundle(),
             new Liip\ImagineBundle\LiipImagineBundle(),
-
-            # NewsBundle
             new Vich\UploaderBundle\VichUploaderBundle(),
 
             new TheCodeine\EditorBundle\TheCodeineEditorBundle(),

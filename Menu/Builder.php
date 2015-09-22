@@ -58,35 +58,7 @@ class Builder
      */
     private function getStaticPages($category)
     {
-        return $this->em
-            ->getRepository('TheCodeinePageBundle:Page')
-            ->findBy(array(
-                'category'=>$category
-            ));
-    }
-
-    /**
-     * @param Request $request
-     * @return \Knp\Menu\ItemInterface
-     */
-    public function buildTopMenu(Request $request)
-    {
-        $selectedCategory   = $this->categoryRepository->findOneById($request->get('cid',1));
-        $rootCategory       = $this->getParentCategory($selectedCategory, 0);
-
-        $menu = $this->factory->createItem('root', array(
-           'childrenAttributes' => array('class' => 'nav')
-        ));
-
-        $categories = $this->categoryRepository->findBy(array('parent'=>null));
-//        foreach($categories as $category) {
-//            $menu->addChild($category->getName(), array(
-//                'route' => 'thecodeine_admin_category',
-//                'routeParameters' => array('cid' => $category->getId()),
-//                'attributes' => array("selected" => $rootCategory == $category ? "selected" : "")
-//            ));
-//        }
-        return $menu;
+        return $this->em->getRepository('TheCodeinePageBundle:Page')->findBy(array('category'=>$category));
     }
 
     /**
@@ -95,25 +67,23 @@ class Builder
      */
     public function buildTopMenuStatic(Request $request)
     {
-        $selectedCategory = $this->categoryRepository->findOneById($request->get('cid',1));
-        $category = $this->getParentCategory(
-            $selectedCategory,
-            0
-        );
-
         $menu = $this->factory->createItem('root', array(
             'childrenAttributes' => array('class' => 'nav')
         ));
 
-        foreach($this->getStaticPages($category) as $page) {
-            $menu->addChild($page->getTitle(), array(
-                'route' => 'thecodeine_page_edit',
-                'routeParameters' => array('id' => $page->getId()),
-                'attributes' => array(
-                    "class" => $selectedCategory == $page->getCategory() && $request->get('id') == $page->getId() ? "active" : "",
-                )
-            ));
-        }
+        $menu->addChild('Strony', array(
+            'route' => 'thecodeine_page_list',
+            'attributes' => array(
+                "class" => $request->get('_route') == "thecodeine_page_list" ? "active" : ""
+            )
+        ));
+
+        $menu->addChild('Newsy', array(
+            'route' => 'thecodeine_news_list',
+            'attributes' => array(
+                "class" => $request->get('_route') == "thecodeine_news_list" ? "active" : ""
+            )
+        ));
 
         return $menu;
     }

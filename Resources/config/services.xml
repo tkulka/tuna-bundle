@@ -22,13 +22,6 @@
             <argument type="service" id="knp_menu.factory" />
             <argument type="service" id="doctrine.orm.entity_manager" />
         </service>
-        <service id="the_codeine_admin.menu.top" class="%the_codeine_admin.menu.item.class%"
-                 factory-service="the_codeine_admin.menu_builder"
-                 factory-method="buildTopMenu"
-                 scope="request">
-            <argument type="service" id="request" />
-            <tag name="knp_menu.menu" alias="menu.top" />
-        </service>
         <service id="the_codeine_admin.menu.top.static" class="%the_codeine_admin.menu.item.class%"
                  factory-service="the_codeine_admin.menu_builder"
                  factory-method="buildTopMenuStatic"

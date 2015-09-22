@@ -8,6 +8,10 @@ _liip_imagine:
 thecodeine_image:
     resource: "@TheCodeineImageBundle/Resources/config/routing.yml"
 
+# GALLERY Route
+thecodeine_gallery:
+    resource: "@TheCodeineGalleryBundle/Resources/config/routing.yml"
+
 # NEWS Route
 thecodeine_news_list:
     pattern:  /admin/news/list

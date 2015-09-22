@@ -1,0 +1,21 @@
+<div class="modal" id="modalConfirm">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">{% trans %}Uwaga{% endtrans %}</h4>
+            </div>
+
+            <div class="modal-body">
+                <p>
+                    {% trans %}Czy na pewno chcesz usunąć wybrany element?{% endtrans %}
+                </p>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-dismiss="modal">{% trans %}Anuluj{% endtrans %}</button>
+                <button class="btn btn-danger" data-action="accept">{% trans %}Usuń{% endtrans %}</button>
+            </div>
+        </div>
+    </div>
+</div>

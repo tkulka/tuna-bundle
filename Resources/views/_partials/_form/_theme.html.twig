@@ -170,9 +170,7 @@
 
 {% block thecodeine_gallerybundle_gallery_widget %}
     <div class="form-group thecodeine_admin_gallery">
-        <a href="javascript:void(0)"
-           class="btn btn-hg btn-default add_new_image "
-           data-prototype="{{ form_widget(form.images.vars.prototype)|e }}">
+        <a href="javascript:void(0)" class="btn btn-hg btn-default add_new_image " data-prototype="{{ form_widget(form.images.vars.prototype)|e }}">
             <i class="fui-plus"></i>
         </a>
         <ul class="gallery-images">
@@ -184,23 +182,26 @@
     </div>
 {% endblock %}
 
-{% block thecodeine_gallerybundle_galleryimage_widget %}
+{% block thecodeine_gallerybundle_image_widget %}
     {% spaceless %}
         {% set galleryImage =  form.vars.value %}
+
         <li class="thumbnail {% if(galleryImage is null) %}empty{% endif %}">
             {{ form_widget(form.position, {'attr': {'class': 'position'} }) }}
             <a href="javascript:void(0)" class="delete"><i class="fui-cross-inverted"></i></a>
+
             {% if(galleryImage is not null) %}
                 {% if(galleryImage.image is not null) %}
-                    <img class="gallery-image" src="{{  ('/uploads/' ~ galleryImage.image.path) | imagine_filter('admin_thumb') }}" />
+                    <img class="gallery-image" src="{{ ('uploads/' ~ galleryImage.image.path) | imagine_filter('admin_thumb') }}" />
                 {% endif %}
             {% else %}
                 {{ form_widget(form.image) }}
                 <span class="fui-plus"></span>
             {% endif %}
+
             <div class="image-name">
-                {{ form_widget(form.translations.defaultLocale.pl.name, {'attr': {'placeholder': 'opis (PL)', 'class': 'form-control input-sm'} }) }}
-                {{ form_widget(form.translations.translations.en.name, {'attr': {'placeholder': 'opis (EN)', 'class': 'form-control input-sm'} }) }}
+                {{ form_widget(form.translations.defaultLocale.pl.name, {'attr': {'placeholder': 'Opis polski', 'class': 'form-control input-sm'} }) }}
+                {{ form_widget(form.translations.translations.en.name, {'attr': {'placeholder': 'Opis angielski', 'class': 'form-control input-sm'} }) }}
             </div>
         </li>
     {% endspaceless %}
@@ -208,16 +209,16 @@
 
 {% block attachments_widget %}
     <div class="form-group thecodeine_admin_attachments">
-        <a href="javascript:void(0)"
-           class="btn btn-hg btn-default add_new_attachment "
-           data-prototype="{{ form_widget(form.vars.prototype)|e }}">
+        <a href="javascript:void(0)" class="btn btn-hg btn-default add_new_attachment " data-prototype="{{ form_widget(form.vars.prototype)|e }}">
             <i class="fui-plus"></i>
         </a>
+
         <ul class="attachments">
             {% for attachment in form %}
                 {{ form_widget(attachment) }}
             {% endfor %}
         </ul>
+
         <div class="clear"></div>
     </div>
 {% endblock %}

@@ -1,12 +1,4 @@
 <div class="navbar">
-    <div class="navbar-top-select">
-        <select name="large" class="btn-group select select-block mbl" style="display: none;">
-            {% for item in knp_menu_get('menu.top') %}
-                <option value="{{ item.uri }}" data-url="{{ item.uri }}" {{ item.attributes.selected }}>{{ item.label }}</option>
-            {% endfor %}
-        </select>
-    </div>
-
     {{ knp_menu_render('menu.top.static') }}
 
     <div class="navbar-top-select navbar-top-right-select">
@@ -15,7 +7,13 @@
                 <span class="fui-gear"></span>
             </button>
             <span class="dropdown-arrow"></span>
-            <ul class="dropdown-menu  pull-right" role="menu"></ul>
+            <ul class="dropdown-menu  pull-right" role="menu">
+                <li>
+                    <a href="{{ path('fos_user_security_logout') }}">
+                        <span>{% trans %}Wyloguj się{% endtrans %} <i class="glyphicon glyphicon-log-out pull-right"></i></span>
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
 </div>
