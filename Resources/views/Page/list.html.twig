@@ -5,45 +5,39 @@
     {% if pagination|length == 0 %}
         <div class="admin-alert alert alert-success text-center">
             <h3>{% trans %}Oops there is nothing here!{% endtrans %}</h3>
-            <a href="{{ path('thecodeine_page_create') }}"
-               class="btn btn-primary btn-wide">
+            <a href="{{ path('thecodeine_page_create') }}" class="btn btn-primary btn-wide">
                 <i class="fui-plus-inverted"></i> {% trans %}Add first news item{% endtrans %}
             </a>
         </div>
     {% else %}
         <div class="row admin-container">
-            <div class="table-responsive admin-list">
-                <table class="table table-striped table-hover">
-                    <thead>
-                        <tr>
-                            <th>Lp</th>
-                            <th>{{ knp_pagination_sortable(pagination, 'Tytuł', 'p.title') }}</th>
-                            <th class="center">{{ knp_pagination_sortable(pagination, 'Opublikowany', 'p.published') }}</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for item in pagination %}
-                        <tr data-enabled="{{ item.published|round }}">
-                            <td>{{ loop.index + lp}}</td>
-                            <td>{{ item.title }}</td>
-                            <td class="center">{% if item.published %}<span class="fui-check-inverted"></span>{% endif %}</td>
-                            <td class="options">
-                                <a href="{{path('thecodeine_page_edit',{'id' : item.id})}}"
-                                   class="fui-new">
-                                </a>
-                                <a href="#"
-                                   data-title="{{ item.title }}"
-                                   data-url="{{ path('thecodeine_page_delete',{'id' : item.id})}}"
-                                   data-target="#modal-confirm" data-action="delete"
-                                   class="fui-cross-inverted">
-                                </a>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-                {{ knp_pagination_render(pagination, 'TheCodeineAdminBundle::_partials/_pagination.html.twig') }}
+            <div class="col-xs-12 col-sm-12 col-lg-10 col-lg-offset-1">
+                <div class="table-responsive admin-list">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Lp</th>
+                                <th>{{ knp_pagination_sortable(pagination, 'Tytuł', 'p.title') }}</th>
+                                <th class="center">{{ knp_pagination_sortable(pagination, 'Opublikowany', 'p.published') }}</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in pagination %}
+                            <tr data-enabled="{{ item.published|round }}">
+                                <td>{{ loop.index + lp}}</td>
+                                <td>{{ item.title }}</td>
+                                <td class="center">{% if item.published %}<span class="fui-check-inverted"></span>{% endif %}</td>
+                                <td class="options">
+                                    <a href="{{path('thecodeine_page_edit',{'id' : item.id})}}" class="fui-new"></a>
+                                    <a href="#" data-title="{{ item.title }}" data-url="{{ path('thecodeine_page_delete',{'id' : item.id})}}" data-target="#modal-confirm" data-action="delete" class="fui-cross-inverted"></a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {{ knp_pagination_render(pagination, 'TheCodeineAdminBundle::_partials/_pagination.html.twig') }}
+                </div>
             </div>
         </div>
     {% endif %}
