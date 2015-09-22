@@ -18,9 +18,9 @@
         {% endblock %}
     </head>
     <body class="{% block body_class %}{% endblock %}">
-        <nav>
-            {% block navigation %}
-                {% if is_granted('ROLE_ADMIN') %}
+        {% if is_granted('ROLE_ADMIN') %}
+            <nav>
+                {% block navigation %}
                     <div class="navbar">
                         <div class="navbar-inner">
                             <div class="container">
@@ -29,11 +29,11 @@
                         </div>
                     </div>
                     {% include 'TheCodeineAdminBundle::_partials/_menu.sub.html.twig' %}
-                {% endif %}
-            {% endblock navigation %}
-        </nav>
+                {% endblock navigation %}
+            </nav>
+        {% endif %}
 
-        <section class="main_container {% block main_class %}{% endblock %}">
+        <section class="main_container container {% block main_class %}{% endblock %}">
             {% block content_title %}{% endblock content_title %}
 
             <div class="main_container_wrapper">

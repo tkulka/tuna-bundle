@@ -1,6 +1,10 @@
 {% extends "TheCodeineAdminBundle::_layout.html.twig" %}
 {% block main_class %}bg-lightgray{% endblock %}
 
+{% block content_title %}
+    <h3>{% trans %}Lista newsów{% endtrans %}</h3>
+{% endblock content_title %}
+
 {% block content %}
     {% if pagination|length == 0 %}
         <div class="admin-alert alert alert-success text-center">

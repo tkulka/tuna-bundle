@@ -1,1 +1,8 @@
-{% include 'TheCodeineAdminBundle::_partials/_form/_main.html.twig' %}
+{% extends "TheCodeineAdminBundle::_layout.html.twig" %}
+{% block content_title %}
+    <h3>{% trans %}Edycja strony{% endtrans %}: {{ page.title }}</h3>
+{% endblock content_title %}
+
+{% block content %}
+    {% include 'TheCodeineAdminBundle::_partials/_form/_main.html.twig' %}
+{% endblock %}
