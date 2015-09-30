@@ -23,15 +23,15 @@
         </div>
         <div class="locale-en tab-pane ">
             {% if form.translations.translations.en.title is defined %}
-                {{ form_widget(form.translations.translations.en.title, {'label': 'Tytuł angielski'|trans}) }}
+                {{ form_widget(form.translations.translations.en.title, {'label': 'Tytuł angielski'|trans, 'required': false}) }}
             {% endif %}
 
             {% if form.translations.translations.en.subTitle is defined %}
-                {{ form_widget(form.translations.translations.en.subTitle, {'label': 'Podtytuł angielski'|trans}) }}
+                {{ form_widget(form.translations.translations.en.subTitle, {'label': 'Podtytuł angielski'|trans, 'required': false}) }}
             {% endif %}
 
             {% if form.translations.translations.en.body is defined %}
-                {{ form_widget(form.translations.translations.en.body, {'label': 'Treść angielska'|trans}) }}
+                {{ form_widget(form.translations.translations.en.body, {'label': 'Treść angielska'|trans, 'required': false}) }}
             {% endif %}
         </div>
     </div>
