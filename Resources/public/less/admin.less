@@ -619,7 +619,7 @@ div[data-role="editor-toolbar"] {
 @gallery-item-height: 190px;
 @gallery-item-width: 100%;
 
-ul.gallery-images {
+ul.gallery-items {
   padding-left: 0;
   margin-top: @default_element_margin;
   li.sortable-placeholder {
@@ -631,9 +631,14 @@ ul.gallery-images {
     margin-right: 18px;
     position: relative;
     width: @gallery-item-width;
-    height: @gallery-item-height;
+    min-height: 50px;
+    max-height: @gallery-item-height;
     border: 1px solid @inverse;
     float: left;
+
+    .select {
+      margin-bottom: 0;
+    }
 
     img {
       .filter("grayscale(100%)");

@@ -81,7 +81,6 @@
 {% endblock %}
 
 {% block choice_widget %}
-    {{ attr.original_widget }}
     {% spaceless %}
         {% if attr.original_widget is defined %}
             <select {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %} class="form-control select select-primary">
@@ -170,38 +169,54 @@
 
 {% block thecodeine_gallerybundle_gallery_widget %}
     <div class="form-group thecodeine_admin_gallery">
-        <a href="javascript:void(0)" class="btn btn-hg btn-default add_new_image " data-prototype="{{ form_widget(form.images.vars.prototype)|e }}">
+        <a href="javascript:void(0)" class="btn btn-hg btn-default add_new_item" data-prototype="{{ form_widget(form.items.vars.prototype)|e }}">
             <i class="fui-plus"></i>
         </a>
-        <ul class="gallery-images">
-            {% for image in form.images %}
-                {{ form_widget(image) }}
+        <ul class="gallery-items">
+            {% for item in form.items %}
+                {{ form_widget(item) }}
             {% endfor %}
         </ul>
         <div class="clear"></div>
     </div>
 {% endblock %}
 
-{% block thecodeine_gallerybundle_image_widget %}
+{% block thecodeine_gallerybundle_item_widget %}
     {% spaceless %}
-        {% set galleryImage =  form.vars.value %}
+        <li class="thumbnail image" id="{{ form.vars.id }}">
 
-        <li class="thumbnail {% if(galleryImage is null) %}empty{% endif %}">
-            {{ form_widget(form.position, {'attr': {'class': 'position'} }) }}
+            {% if form.image is not defined and form.video is not defined %}
+                {{ form_widget(form.type) }}
+            {% else %}
+                <div class="hide">{{ form_widget(form.type) }}</div>
+            {% endif %}
+
             <a href="javascript:void(0)" class="delete"><i class="fui-cross-inverted"></i></a>
 
-            {% if(galleryImage is not null) %}
-                {% if(galleryImage.image is not null) %}
-                    <img class="gallery-image" src="{{ ('uploads/' ~ galleryImage.image.path) | imagine_filter('admin_thumb') }}" />
+            {% if form.position is defined %}
+                {{ form_widget(form.position, {'attr': {'class': 'position'} }) }}
+            {% endif %}
+
+            {% if form.image is defined %}
+                {% set image = form.vars.value.image %}
+                {% if(image is not null) %}
+                    <img class="gallery-image" src="{{ ('uploads/' ~ image.path) | imagine_filter('admin_thumb') }}" />
+                {% else %}
+                    {{ form_widget(form.image) }}
+                    <span class="fui-plus"></span>
                 {% endif %}
-            {% else %}
-                {{ form_widget(form.image) }}
+            {% endif %}
+
+            {% if form.video is defined %}
+                {{ form_widget(form.video, {'attr': {'style': 'position: absolute;'}}) }}
                 <span class="fui-plus"></span>
             {% endif %}
 
             <div class="image-name">
-                {{ form_widget(form.translations.defaultLocale.pl.name, {'attr': {'placeholder': 'Opis polski', 'class': 'form-control input-sm'} }) }}
-                {{ form_widget(form.translations.translations.en.name, {'attr': {'placeholder': 'Opis angielski', 'class': 'form-control input-sm'} }) }}
+                {% if form.translations is defined %}
+                    {{ form_widget(form.translations.defaultLocale.pl.name, {'attr': {'placeholder': 'Opis polski', 'class': 'form-control input-sm'} }) }}
+                    {{ form_widget(form.translations.translations.en.name, {'attr': {'placeholder': 'Opis angielski', 'class': 'form-control input-sm'} }) }}
+                {% endif %}
             </div>
         </li>
     {% endspaceless %}

@@ -3,6 +3,7 @@ Behat/Fixtures/app/cache/
 Behat/Fixtures/app/logs/
 Behat/Fixtures/web/files/
 Behat/Fixtures/web/uploads/
+Behat/Fixtures/web/media/
 
 Behat/Fixtures/app/test.db
 nohup.out
