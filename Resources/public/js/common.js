@@ -320,10 +320,8 @@ tuna.view.GalleryView = Backbone.View.extend({
         $('.admin-attachments-container').trigger('close');
         this.$el.removeClass('holeOut').show().addClass('slideLeftRetourn');
 
-        var root = this;
         setTimeout(function(){
             $('.gallery-items li:not(.jelly-in)').each(function(idx) {
-                root.choiceEventListener(idx);
                 $(this)
                     .show()
 //                    .css({
@@ -343,8 +341,8 @@ tuna.view.GalleryView = Backbone.View.extend({
     },
 
     choiceEventListener: function(index) {
-        var $type = $('#thecodeine_pagebundle_page_gallery_items_' + index + '_type');
-        var $_token = $('#thecodeine_pagebundle_page__token');
+        var oThis = this,
+            $type = $('#thecodeine_pagebundle_page_gallery_items_' + index + '_type');
 
         // When sport gets selected ...
         $type.change(function() {
@@ -358,20 +356,23 @@ tuna.view.GalleryView = Backbone.View.extend({
                 url : $form.attr('action'),
                 type: $form.attr('method'),
                 data : data,
+                beforeSend: function() {
+                    oThis._destroySortable();
+                },
                 success: function(html) {
                     // Replace current position field ...
                     $('#thecodeine_pagebundle_page_gallery_items_' + index).replaceWith(
                         // ... with the returned one from the AJAX response.
                         $(html).find('#thecodeine_pagebundle_page_gallery_items_' + index)
                     );
+                    oThis.recalculateImagePositions();
+                    oThis._initSortable();
                 }
             });
         });
     },
 
     _onAddNewItem: function(e) {
-        this._destroySortable();
-
         var prototype = $(e.currentTarget).data('prototype');
         // get the new index
         var index = $(e.currentTarget).data('index');
@@ -383,9 +384,7 @@ tuna.view.GalleryView = Backbone.View.extend({
         $(e.currentTarget).data('index', index + 1);
 
         this.$('.gallery-items').prepend($(newForm).addClass('jelly-in'));
-        this.recalculateImagePositions();
         this.choiceEventListener(index);
-        this._initSortable();
     },
 
     _onClickDelete: function(e) {
