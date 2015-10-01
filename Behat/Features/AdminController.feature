@@ -39,12 +39,11 @@ Feature: As a developer I want to test AdminBundle integration
       | thecodeine_newsbundle_news[translations][defaultLocale][pl][body]     | body_pl     |
     And I press "thecodeine_newsbundle_news[save]"
     And I go to "/admin/news/list"
-    Then I should see 9 ".admin-list>.table.table-striped.table-hover>tbody>tr" elements
     And I should see "title_pl"
 
   @logged-in
   Scenario: as admin i want to edit news
-    When I go to "/admin/news/9/edit"
+    When I go to "/admin/news/2/edit"
     Then the "thecodeine_newsbundle_news[translations][defaultLocale][pl][title]" field should contain "title_pl"
     And the "thecodeine_newsbundle_news[translations][defaultLocale][pl][subTitle]" field should contain "subTitle_pl"
     And the "thecodeine_newsbundle_news[translations][defaultLocale][pl][body]" field should contain "body_pl"
@@ -68,17 +67,17 @@ Feature: As a developer I want to test AdminBundle integration
       | thecodeine_pagebundle_page[translations][defaultLocale][pl][title] | title_pl |
       | thecodeine_pagebundle_page[translations][defaultLocale][pl][body]  | body_pl  |
     And I press "thecodeine_pagebundle_page[save]"
-    And I go to "/admin/page/list?page=3"
+    And I go to "/admin/page/list"
     And I should see "title_pl"
 
   @logged-in
   Scenario: as admin i want to edit page
-    When I go to "/admin/page/26/edit"
+    When I go to "/admin/page/3/edit"
     Then the "thecodeine_pagebundle_page[translations][defaultLocale][pl][title]" field should contain "title_pl"
     And the "thecodeine_pagebundle_page[translations][defaultLocale][pl][body]" field should contain "body_pl"
     When I fill in the following:
       | thecodeine_pagebundle_page[translations][defaultLocale][pl][title] | title_pl_edit |
       | thecodeine_pagebundle_page[translations][defaultLocale][pl][body]  | body_pl_edit  |
     And I press "thecodeine_pagebundle_page[save]"
-    And I go to "/admin/page/list?page=3"
+    And I go to "/admin/page/list"
     And I should see "title_pl_edit"
