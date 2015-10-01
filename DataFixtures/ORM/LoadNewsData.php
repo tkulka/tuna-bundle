@@ -15,8 +15,14 @@ class LoadNewsData extends AbstractFixture implements OrderedFixtureInterface
     public function load(ObjectManager $om)
     {
         $statics = array(
-            'sarp' => array('Organizacja', 'Informator', 'Kontakt', 'Partnerzy'),
-            'dofa' => array('Festiwal', 'Kontakt', 'Partnerzy', 'Poprzednie edycje'),
+            'sarp' => array(
+                'Organizacja', 'Informator', 'Kontakt', 'Partnerzy',
+                'Organizacja', 'Informator', 'Kontakt', 'Partnerzy'
+            ),
+            'dofa' => array(
+                'Festiwal', 'Kontakt', 'Partnerzy', 'Poprzednie edycje',
+                'Festiwal', 'Kontakt', 'Partnerzy', 'Poprzednie edycje'
+            ),
         );
         foreach ($statics as $branch => $newsNames) {
             foreach ($newsNames as $newsName) {

@@ -19,34 +19,31 @@ class NewsController extends Controller
      */
     public function listAction(Request $request)
     {
-        $page = $this->get('request')->query->get('page', 1);
-        $limit = 10;
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('TheCodeineNewsBundle:News');
 
         $categoryId = $request->get('cid');
-        $em = $this->getDoctrine()->getManager();
-        if($categoryId) {
-            $query = $em
-                ->createQuery('SELECT n FROM TheCodeineNewsBundle:News n WHERE n.category = :category ORDER BY n.createdAt DESC')
-                ->setParameter('category', $categoryId)
-            ;
-        } else {
-            $query = $em
-                ->createQuery('SELECT n FROM TheCodeineNewsBundle:News n ORDER BY n.createdAt DESC')
-            ;
+        $page = $request->get('page', 1);
+        $limit = 10;
+
+        $query = $repository->createQueryBuilder('n');
+
+        if ($categoryId) {
+            $query
+                ->where('n.category = :categoryId')
+                ->setParameter('categoryId', $categoryId);
         }
-        $pages = $query->getResult();
+
+        $query = $query->getQuery();
+        $news = $query->getResult();
 
         $paginator =  $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
-            $query,
-            $page,
-            $limit
-        );
+        $pagination = $paginator->paginate($news, $page, $limit);
 
         return array(
             'pagination' => $pagination,
             'lp' => $page * $limit - $limit,
-            'newsList' => $pages
+            'newsList' => $news
         );
     }
 }

@@ -6,7 +6,6 @@ Feature: As a developer I want to test AdminBundle integration
 
   Scenario: i try to log in to admin area with bad credentials
     When I go to "/admin"
-    Then I should see "Ahoy! Let's log in"
     When I fill in the following:
       | _username | bad          |
       | _password | credentials  |
@@ -15,7 +14,6 @@ Feature: As a developer I want to test AdminBundle integration
 
   Scenario: i try to log in to admin area
     When I go to "/admin"
-    Then I should see "Ahoy! Let's log in"
     When I fill in the following:
       | _username | admin |
       | _password | admin |

@@ -16,21 +16,21 @@ class PageController extends Controller
      */
     public function listAction()
     {
-        $page = $this->get('request')->query->get('page', 1);
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('TheCodeinePageBundle:Page');
+
+        $page = $this->get('request')->get('page', 1);
         $limit = 10;
-        $query = $this->getDoctrine()->getManager()->getRepository("TheCodeinePageBundle:Page")->findAll();
+
+        $pages = $repository->findAll();
 
         $paginator =  $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
-            $query,
-            $page,
-            $limit
-        );
+        $pagination = $paginator->paginate($pages, $page, $limit);
 
         return array(
             'pagination' => $pagination,
             'lp' => $page * $limit - $limit,
-            'pagesList' => $query
+            'pagesList' => $pages
         );
     }
 }
