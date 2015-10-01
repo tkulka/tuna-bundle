@@ -341,8 +341,17 @@ tuna.view.GalleryView = Backbone.View.extend({
     },
 
     choiceEventListener: function(index) {
-        var oThis = this,
-            $type = $('#thecodeine_pagebundle_page_gallery_items_' + index + '_type');
+        var oThis = this;
+
+        if ($('#thecodeine_pagebundle_page_gallery_items_' + index + '_type').length > 0) {
+            var id = 'thecodeine_pagebundle_page_gallery_items_';
+        } else if ($('#thecodeine_newsbundle_news_gallery_items_' + index + '_type').length > 0) {
+            var id = 'thecodeine_newsbundle_news_gallery_items_';
+        }
+
+        var $type = $('#' + id + index + '_type');
+
+        console.log($type);
 
         // When sport gets selected ...
         $type.change(function() {
@@ -361,9 +370,9 @@ tuna.view.GalleryView = Backbone.View.extend({
                 },
                 success: function(html) {
                     // Replace current position field ...
-                    $('#thecodeine_pagebundle_page_gallery_items_' + index).replaceWith(
+                    $('#' + id + index).replaceWith(
                         // ... with the returned one from the AJAX response.
-                        $(html).find('#thecodeine_pagebundle_page_gallery_items_' + index)
+                        $(html).find('#' + id + index)
                     );
                     oThis.recalculateImagePositions();
                     oThis._initSortable();
