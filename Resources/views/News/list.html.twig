@@ -2,7 +2,7 @@
 {% block main_class %}bg-lightgray{% endblock %}
 
 {% block content_title %}
-    <h3>{% trans %}Lista newsów{% endtrans %}</h3>
+    <h3>{% trans %}List of news{% endtrans %}</h3>
 {% endblock content_title %}
 
 {% block content %}
@@ -21,11 +21,11 @@
                         <thead>
                             <tr>
                                 <th>Lp</th>
-                                <th>{{ knp_pagination_sortable(pagination, 'Tytuł', 'p.title') }}</th>
-                                <th>{{ knp_pagination_sortable(pagination, 'Data dodania', 'p.createdAt') }}</th>
-                                <th class="center">{{ knp_pagination_sortable(pagination, 'Opublikowany', 'p.published') }}</th>
-                                <th class="center">{{ knp_pagination_sortable(pagination, 'Featured', 'p.important') }}</th>
-                                <th class="text-right">{% trans %}Opcje{% endtrans %}</th>
+                                <th>{{ knp_pagination_sortable(pagination, 'Title'|trans, 'p.title') }}</th>
+                                <th>{{ knp_pagination_sortable(pagination, 'Create date'|trans, 'p.createdAt') }}</th>
+                                <th class="center">{{ knp_pagination_sortable(pagination, 'Published'|trans, 'p.published') }}</th>
+                                <th class="center">{{ knp_pagination_sortable(pagination, 'Featured'|trans, 'p.important') }}</th>
+                                <th class="text-right">{% trans %}Options{% endtrans %}</th>
                             </tr>
                         </thead>
                         <tbody>

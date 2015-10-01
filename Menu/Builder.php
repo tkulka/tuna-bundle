@@ -34,14 +34,14 @@ class Builder
             'childrenAttributes' => array('class' => 'nav')
         ));
 
-        $menu->addChild('Strony', array(
+        $menu->addChild('Pages', array(
             'route' => 'thecodeine_page_list',
             'attributes' => array(
                 "class" => preg_match_all('/thecodeine_page/i', $request->get('_route')) ? "active" : ""
             )
         ));
 
-        $menu->addChild('Newsy', array(
+        $menu->addChild('News', array(
             'route' => 'thecodeine_news_list',
             'attributes' => array(
                 "class" => preg_match_all('/thecodeine_news/i', $request->get('_route')) ? "active" : ""
@@ -74,13 +74,13 @@ class Builder
 
     private function buildPageSubmenu($menu, $request)
     {
-        $menu->addChild('Lista stron', array(
+        $menu->addChild('List of pages', array(
             'route' => 'thecodeine_page_list',
             'attributes' => array(
                 "class" => $request->get('_route') === 'thecodeine_page_list' ? "active" : ""
             )
         ));
-        $menu->addChild('Nowa strona', array(
+        $menu->addChild('Create page', array(
             'route' => 'thecodeine_page_create',
             'attributes' => array(
                 "class" => $request->get('_route') === 'thecodeine_page_create' ? "active" : ""
@@ -92,13 +92,13 @@ class Builder
 
     private function buildNewsSubmenu($menu, $request)
     {
-        $menu->addChild('Lista newsów', array(
+        $menu->addChild('List of news', array(
             'route' => 'thecodeine_news_list',
             'attributes' => array(
                 "class" => $request->get('_route') === 'thecodeine_news_list' ? "active" : ""
             )
         ));
-        $menu->addChild('Nowy news', array(
+        $menu->addChild('Create news', array(
             'route' => 'thecodeine_news_create',
             'attributes' => array(
                 "class" => $request->get('_route') === 'thecodeine_news_create' ? "active" : ""

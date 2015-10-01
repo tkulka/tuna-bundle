@@ -1,17 +1,17 @@
 <div class="admin-option-container" data-dynamic-height="1">
     <a href="javascript:void(0)" class="btn close"><i class="fui-cross"></i></a>
-    <h6 class="text-inverse">{% trans %}Opcje{% endtrans %}</h6>
+    <h6 class="text-inverse">{% trans %}Options{% endtrans %}</h6>
 
     {% if form.important is defined %}
-        {{ form_widget(form.important, {'label': 'Ważny'|trans}) }}
+        {{ form_widget(form.important, {'label': 'Important'|trans}) }}
     {% endif %}
 
     {% if form.published is defined %}
-        {{ form_widget(form.published, {'label': 'Opublikowany'|trans}) }}
+        {{ form_widget(form.published, {'label': 'Published'|trans}) }}
     {% endif %}
 
     {% if form.createdAt is defined %}
-        {{ form_widget(form.createdAt, {'label': 'Data dodania'|trans}) }}
+        {{ form_widget(form.createdAt, {'label': 'Create date'|trans}) }}
     {% endif %}
 
     {% if form.image is defined %}
@@ -19,29 +19,29 @@
     {% endif %}
 
     <a href="javascript:void(0)" class="btn btn-small btn-block btn-gallery">
-        {% trans %}Galeria{% endtrans %}
+        {% trans %}Gallery{% endtrans %}
         <i class="fui-arrow-right pull-right"></i>
     </a>
 
     <a href="javascript:void(0)" class="btn btn-small btn-block btn-attachments">
-        {% trans %}Załączniki{% endtrans %}
+        {% trans %}Attachments{% endtrans %}
         <i class="fui-arrow-right pull-right"></i>
     </a>
 
     {% if form.tags is defined %}
-        <h6 class="text-inverse">{% trans %}Tagi{% endtrans %}</h6>
+        <h6 class="text-inverse">{% trans %}Tags{% endtrans %}</h6>
         {{ form_widget(form.tags) }}
     {% endif %}
 </div>
 
 <div class="admin-attachments-container" data-dynamic-height="1">
     <a href="javascript:void(0)" class="btn btn-default close"><i class="fui-cross"></i></a>
-    <h6>{% trans %}Załączniki{% endtrans %}</h6>
+    <h6>{% trans %}Attachments{% endtrans %}</h6>
     {{ form_widget(form.attachments) }}
 </div>
 
 <div class="admin-gallery-container" data-dynamic-height="1">
     <a href="javascript:void(0)" class="btn btn-default close"><i class="fui-cross"></i></a>
-    <h6>{% trans %}Galeria{% endtrans %}</h6>
+    <h6>{% trans %}Gallery{% endtrans %}</h6>
     {{ form_widget(form.gallery) }}
 </div>

@@ -43,7 +43,7 @@
         </section>
 
         {% block footer %}
-            {#&copy; The Codeine {{ ("now"|date('Y') > 2013) ? '2013 - ' ~ "now"|date('Y') : '2012' }}#}
+            {#&copy; The Codeine {{ "now"|date('Y') }}#}
         {% endblock footer %}
 
         {% include 'TheCodeineAdminBundle::_partials/_modal.html.twig' %}
