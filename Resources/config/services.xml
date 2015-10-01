@@ -20,6 +20,7 @@
 
         <service id="the_codeine_admin.menu_builder" class="%the_codeine_admin.menu_builder.class%">
             <argument type="service" id="knp_menu.factory" />
+            <argument type="service" id="translator" />
         </service>
         <service id="the_codeine_admin.menu.top.static" class="%the_codeine_admin.menu.item.class%"
                  factory-service="the_codeine_admin.menu_builder"

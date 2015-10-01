@@ -5,6 +5,7 @@ namespace TheCodeine\AdminBundle\Menu;
 use Knp\Menu\FactoryInterface;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Translation\LoggingTranslator;
 use Doctrine\Common\Persistence\ObjectManager;
 use TheCodeine\NewsBundle\Entity\Category;
 
@@ -15,13 +16,20 @@ class Builder
      */
     private $factory;
 
+    /**
+     * @var Translator
+     */
+    private $loggingTranslator;
+
 
     /**
      * @param FactoryInterface $factory
+     * @param LoggingTranslator $loggingTranslator
      */
-    public function __construct(FactoryInterface $factory)
+    public function __construct(FactoryInterface $factory, LoggingTranslator $loggingTranslator)
     {
         $this->factory = $factory;
+        $this->loggingTranslator = $loggingTranslator;
     }
 
     /**
@@ -34,14 +42,14 @@ class Builder
             'childrenAttributes' => array('class' => 'nav')
         ));
 
-        $menu->addChild('Pages', array(
+        $menu->addChild($this->loggingTranslator->trans('Pages'), array(
             'route' => 'thecodeine_page_list',
             'attributes' => array(
                 "class" => preg_match_all('/thecodeine_page/i', $request->get('_route')) ? "active" : ""
             )
         ));
 
-        $menu->addChild('News', array(
+        $menu->addChild($this->loggingTranslator->trans('News'), array(
             'route' => 'thecodeine_news_list',
             'attributes' => array(
                 "class" => preg_match_all('/thecodeine_news/i', $request->get('_route')) ? "active" : ""
@@ -74,13 +82,13 @@ class Builder
 
     private function buildPageSubmenu($menu, $request)
     {
-        $menu->addChild('List of pages', array(
+        $menu->addChild($this->loggingTranslator->trans('List of pages'), array(
             'route' => 'thecodeine_page_list',
             'attributes' => array(
                 "class" => $request->get('_route') === 'thecodeine_page_list' ? "active" : ""
             )
         ));
-        $menu->addChild('Create page', array(
+        $menu->addChild($this->loggingTranslator->trans('Create page'), array(
             'route' => 'thecodeine_page_create',
             'attributes' => array(
                 "class" => $request->get('_route') === 'thecodeine_page_create' ? "active" : ""
@@ -92,13 +100,13 @@ class Builder
 
     private function buildNewsSubmenu($menu, $request)
     {
-        $menu->addChild('List of news', array(
+        $menu->addChild($this->loggingTranslator->trans('List of news'), array(
             'route' => 'thecodeine_news_list',
             'attributes' => array(
                 "class" => $request->get('_route') === 'thecodeine_news_list' ? "active" : ""
             )
         ));
-        $menu->addChild('Create news', array(
+        $menu->addChild($this->loggingTranslator->trans('Create news'), array(
             'route' => 'thecodeine_news_create',
             'attributes' => array(
                 "class" => $request->get('_route') === 'thecodeine_news_create' ? "active" : ""

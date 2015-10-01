@@ -23,7 +23,7 @@
         </div>
         <div class="locale-en tab-pane ">
             {% if form.translations.translations.en.title is defined %}
-                {{ form_widget(form.translations.translations.en.title, {'label': 'English Title'|trans, 'required': false}) }}
+                {{ form_widget(form.translations.translations.en.title, {'label': 'English title'|trans, 'required': false}) }}
             {% endif %}
 
             {% if form.translations.translations.en.subTitle is defined %}
