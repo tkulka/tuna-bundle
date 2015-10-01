@@ -28,7 +28,7 @@ Feature: As a developer I want to test AdminBundle integration
   @logged-in
   Scenario: as admin i want to see news list
     When I go to "/admin/news/list"
-    Then I should see 8 ".admin-list>.table.table-striped.table-hover>tbody>tr" elements
+    Then I should see 1 ".admin-list>.table.table-striped.table-hover>tbody>tr" element
 
   @logged-in
   Scenario: as admin i want to create news
@@ -54,13 +54,12 @@ Feature: As a developer I want to test AdminBundle integration
       | thecodeine_newsbundle_news[translations][defaultLocale][pl][body]     | body_pl_edit  |
     And I press "thecodeine_newsbundle_news[save]"
     And I go to "/admin/news/list"
-    Then I should see 9 ".admin-list>.table.table-striped.table-hover>tbody>tr" elements
     And I should see "title_pl_edit"
 
   @logged-in
   Scenario: as admin i want to see page list
     When I go to "/admin/page/list"
-    Then I should see 10 ".admin-list>.table.table-striped.table-hover>tbody>tr" elements
+    Then I should see 2 ".admin-list>.table.table-striped.table-hover>tbody>tr" elements
 
   @logged-in
   Scenario: as admin i want to create new page
@@ -70,7 +69,6 @@ Feature: As a developer I want to test AdminBundle integration
       | thecodeine_pagebundle_page[translations][defaultLocale][pl][body]  | body_pl  |
     And I press "thecodeine_pagebundle_page[save]"
     And I go to "/admin/page/list?page=3"
-    Then I should see 6 ".admin-list>.table.table-striped.table-hover>tbody>tr" elements
     And I should see "title_pl"
 
   @logged-in
@@ -83,5 +81,4 @@ Feature: As a developer I want to test AdminBundle integration
       | thecodeine_pagebundle_page[translations][defaultLocale][pl][body]  | body_pl_edit  |
     And I press "thecodeine_pagebundle_page[save]"
     And I go to "/admin/page/list?page=3"
-    Then I should see 6 ".admin-list>.table.table-striped.table-hover>tbody>tr" elements
     And I should see "title_pl_edit"
