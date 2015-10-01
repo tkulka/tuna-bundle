@@ -351,8 +351,6 @@ tuna.view.GalleryView = Backbone.View.extend({
 
         var $type = $('#' + id + index + '_type');
 
-        console.log($type);
-
         // When sport gets selected ...
         $type.change(function() {
             $type.hide();
