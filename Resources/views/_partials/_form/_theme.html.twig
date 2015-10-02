@@ -209,13 +209,18 @@
             {% endif %}
 
             {% if form.video is defined %}
-                {{ form_widget(form.video, {'attr': {'style': 'position: absolute;'}}) }}
-                <span class="fui-plus"></span>
+                {{ form_widget(form.video, {'attr': {'class': 'form-control'}}) }}
+                <div class="video-player">
+                    {% set video = form.vars.value.video %}
+                    {% if(video is not null) %}
+                        <iframe width="255" height="135" src="{{ videoPlayer(video.type, video.videoId) }}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                    {% endif %}
+                </div>
             {% endif %}
 
             <div class="image-name">
                 {% if form.translations is defined %}
-                    {{ form_widget(form.translations.defaultLocale.pl.name, {'attr': {'placeholder': 'Polish description'|trans, 'class': 'form-control input-sm'}, 'required': true}) }}
+                    {{ form_widget(form.translations.defaultLocale.pl.name, {'attr': {'placeholder': 'Polish description'|trans, 'class': 'form-control input-sm'}, 'required': false}) }}
                     {{ form_widget(form.translations.translations.en.name, {'attr': {'placeholder': 'English description'|trans, 'class': 'form-control input-sm'}, 'required': false}) }}
                 {% endif %}
             </div>
@@ -252,8 +257,8 @@
         {% set attachment = form.vars.value %}
         <li class="item {% if(attachment is null) %}empty{% endif %}">
             {{ form_widget(form.position, {'attr': {'class': 'position'} }) }}
-            {{ form_widget(form.translations.defaultLocale.pl.title, {'attr': {'required': 'required', 'placeholder': 'Tytuł polski'}}) }}
-            {{ form_widget(form.translations.translations.en.title, {'attr': {'placeholder': 'Tytuł angielski'}, 'required': false }) }}
+            {{ form_widget(form.translations.defaultLocale.pl.title, {'attr': {'required': 'required', 'placeholder': 'Tytuł polski'|trans}, 'required': false }) }}
+            {{ form_widget(form.translations.translations.en.title, {'attr': {'placeholder': 'Tytuł angielski'|trans}, 'required': false }) }}
             <a href="javascript:void(0)" class="delete"><i class="fui-cross-inverted"></i></a>
             <div class="options-container">
 
