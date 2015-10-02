@@ -4,7 +4,7 @@
     <div class="admin-container container">
         {{ form_errors(form) }}
 
-        {{ form_start(form, { 'attr' : { 'class' : 'wysiwyg' } }) }}
+        {{ form_start(form, { 'attr' : { 'class' : 'wysiwyg', 'novalidate': 'novalidate' } }) }}
             {{ form_widget(form._token) }}
             {{ form_widget(form.category) }}
 

@@ -11,7 +11,9 @@
         {% block stylesheets %}
             {% stylesheets output='bundles/thecodeineadmin/css/thecodeine_admin.css'
                 '@TheCodeineAdminBundle/Resources/public/css/vendor/bootstrap.css'
+                '@TheCodeineAdminBundle/Resources/public/css/vendor/font-awesome.css'
                 '@TheCodeineAdminBundle/Resources/public/css/vendor/magic.css'
+                '@TheCodeineAdminBundle/Resources/public/css/vendor/summernote.css'
                 '@TheCodeineAdminBundle/Resources/public/less/admin.less' %}
                 <link rel="stylesheet" href="{{ asset_url }}" />
             {% endstylesheets %}
@@ -67,7 +69,7 @@
             '@TheCodeineAdminBundle/Resources/public/js/vendor/flatUI/flatui-radio.js'
             '@TheCodeineAdminBundle/Resources/public/js/vendor/flatUI/respond.min.js'
             '@TheCodeineAdminBundle/Resources/public/js/vendor/flatUI/application.js'
-            '@TheCodeineAdminBundle/Resources/public/js/vendor/bootstrap-wysiwyg.js'
+            '@TheCodeineAdminBundle/Resources/public/js/vendor/summernote.js'
             '@TheCodeineAdminBundle/Resources/public/js/common.js' %}
             <script src="{{ asset_url }}" type="text/javascript"></script>
         {% endjavascripts %}

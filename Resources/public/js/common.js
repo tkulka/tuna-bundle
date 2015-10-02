@@ -32,8 +32,10 @@ tuna.website = {
             });
         }
         //WYSIWYG EDITOR
-        $('.thecodeine_admin_editor').each(function() {
-            new tuna.view.EditorView({el: $(this)[0]});
+        $('.thecodeine_admin_editor').summernote({
+            codemirror: {
+                theme: 'readable'
+            }
         });
 
         //GALLERY
@@ -126,7 +128,7 @@ tuna.view.EditorView = Backbone.View.extend({
         this.$divEditor
             .html(this.$el.val())
             .show()
-            .wysiwyg();
+            .summernote();
 
         this.$el.hide();
         this.$editorToolbar.find('input[data-target="#pictureBtn"]').hide();

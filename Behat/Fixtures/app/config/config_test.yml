@@ -69,7 +69,7 @@ a2lix_translation_form:
     locales: %locales%
     default_required: true
     manager_registry: doctrine
-    templating: "A2lixTranslationFormBundle::default.html.twig"
+    templating: "TheCodeineAdminBundle::_partials/_form/_theme.html.twig"
 
 stof_doctrine_extensions:
     default_locale: %locale%
