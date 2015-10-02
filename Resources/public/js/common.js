@@ -32,8 +32,8 @@ tuna.website = {
             });
         }
         //WYSIWYG EDITOR
-        $('.thecodeine_admin_editor').each(function(){
-            new tuna.view.EditorView({el:  $(this)[0] });
+        $('.thecodeine_admin_editor').each(function() {
+            new tuna.view.EditorView({el: $(this)[0]});
         });
 
         //GALLERY
@@ -193,8 +193,8 @@ tuna.view.EditorView = Backbone.View.extend({
                 range = sel.getRangeAt(0);
                 range.deleteContents();
                 range.insertNode( htmlContainer );
-            } else {
-                $('.admin-wysiwyg-editor:eq(0)').append(html);
+            //} else {
+            //    $('.admin-wysiwyg-editor:eq(0)').append(html);
             }
         } else if (document.selection && document.selection.createRange) {
             document.selection.createRange().innerHTML = htmlContainer.innerHtml;
@@ -422,9 +422,9 @@ tuna.view.GalleryView = Backbone.View.extend({
                     $cnt.css({
                         'background-image': 'url('+event.target.result+')',
                         'background-size' : 'cover',
-                        height: '178px',
-                        width: '258px',
-                        position: 'absolute',
+                        height: '180px',
+                        width: '260px',
+                        position: 'relative',
                         top: 0,
                         left: 0,
                         'zIndex': 9

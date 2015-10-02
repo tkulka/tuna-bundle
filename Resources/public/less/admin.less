@@ -636,6 +636,11 @@ ul.gallery-items {
     border: 1px solid @inverse;
     float: left;
 
+    > div {
+      width: 260px;
+      float: left;
+    }
+
     .select {
       margin-bottom: 0;
     }
@@ -652,10 +657,10 @@ ul.gallery-items {
       }
     }
 
-    div:not(.image-name){
-      width: 260px;
-      position: absolute;
-    }
+    //div:not(.item-name){
+    //  width: 260px;
+    //  position: absolute;
+    //}
 
     input[type="file"] {
       height: @gallery-item-height - 8;
@@ -669,7 +674,7 @@ ul.gallery-items {
 
     input[type="url"] {
       position: absolute;
-      width: 255px;
+      width: 260px;
     }
 
     .fui-plus {
@@ -683,30 +688,74 @@ ul.gallery-items {
       pointer-events: none;
     }
 
-    .image-name {
+    .item-name {
       top: 180px;
       width: ~"calc(100% - 264px)";
+      height: 190px;
       float: left;
       margin-left: 4px;
 
+      .tabbable {
+        width: 100%;
+        height: 100%;
+        .tab-content {
+          padding: 0;
+          margin: 0;
+          height: 100%;
+          width: 100%;
+          border: 0;
+        }
+        .nav-tabs {
+          display: none;
+        }
+        .tab-pane {
+          display: block;
+          margin-bottom: 10px;
+          label {
+            display: none;
+          }
+        }
+      }
+
       textarea {
-        height: 88px;
+        display: block;
+        width: 100%;
+        line-height: 1.428571429;
+        vertical-align: middle;
+        border: 2px solid #bdc3c7;
+        color: #34495e;
+        font-family: 'Lato', Helvetica, Arial, sans-serif;
+        font-size: 15px;
+        padding: 8px 12px;
+        outline: 0;
+        height: 85px;
+        resize: none;
+        -webkit-appearance: none;
+        border-radius: 0;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+        -webkit-transition: border .25s linear, color .25s linear, background-color .25s linear;
+        -moz-transition: border .25s linear, color .25s linear, background-color .25s linear;
+        -o-transition: border .25s linear, color .25s linear, background-color .25s linear;
+        transition: border .25s linear, color .25s linear, background-color .25s linear;
+        -webkit-backface-visibility: hidden;
         &:nth-of-type(2) {
           margin-top: 4px;
         }
       }
     }
     .video-player {
-      position: absolute;
+      position: relative;
       top: 49px;
-      width: 255px;
-      height: 135px;
+      width: 260px;
+      height: 130px;
       overflow: hidden;
     }
-    .video-player+.image-name,
-    .fui-plus+.image-name {
-      margin-left: 260px;
-    }
+    //.video-player+.item-name,
+    //.fui-plus+.item-name {
+    //  margin-left: 260px;
+    //}
 
     &.empty {
       border: 1px dashed @inverse;
@@ -743,6 +792,31 @@ ul.attachments {
     transition: @default_transition_time;
     margin-bottom: @default_element_margin;
 
+    .tabbable {
+      width: 100%;
+      height: 100%;
+      .tab-content {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+        border: 0;
+      }
+      .nav-tabs {
+        display: none;
+      }
+      .tab-pane {
+        width: ~"calc(50% - 62px)";
+        display: inline-block;
+        float: left;
+        margin-right: 4px;
+        margin-bottom: 0;
+        label {
+          display: none;
+        }
+      }
+    }
+
     &:hover {
       border-color: rgba(255,255,255,1);
     }
@@ -755,6 +829,9 @@ ul.attachments {
 
 
     .options-container {
+      position: absolute;
+      top: 10px;
+      right: 15px;
       min-width: 100px !important;
       display: inline-block;
       float: left;
@@ -788,17 +865,12 @@ ul.attachments {
     }
 
     .form-group {
-      width: ~"calc(50% - 62px)";
-      display: inline-block;
-      float: left;
-      margin-right: 4px;
+      margin: 0;
     }
 
     input[type="text"] {
       width: 100%;
     }
-
-
 
     .delete {
       position: absolute;
@@ -813,6 +885,10 @@ ul.attachments {
     }
 
   }
+}
+
+.tab-pane div label {
+  display: none;
 }
 
 .pagination > .active > a,

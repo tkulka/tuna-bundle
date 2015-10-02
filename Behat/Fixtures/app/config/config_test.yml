@@ -66,13 +66,13 @@ swiftmailer:
     spool:     { type: memory }
 
 a2lix_translation_form:
-    locales: [pl, en]
+    locales: %locales%
     default_required: true
     manager_registry: doctrine
     templating: "A2lixTranslationFormBundle::default.html.twig"
 
 stof_doctrine_extensions:
-    default_locale: pl
+    default_locale: %locale%
     persist_default_translation: false
     translation_fallback: true
     orm:
