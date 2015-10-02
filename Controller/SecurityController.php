@@ -2,9 +2,9 @@
 
 namespace TheCodeine\AdminBundle\Controller;
 
-use FOS\UserBundle\Controller\SecurityController as Controller;
+use FOS\UserBundle\Controller\SecurityController as baseSecurityController;
 
-class SecurityController extends Controller
+class SecurityController extends baseSecurityController
 {
     /**
      * Renders the login template with the given parameters. Overwrite this function in
