@@ -28,7 +28,7 @@ Feature: As a developer I want to test AdminBundle integration
   @logged-in
   Scenario: as admin i want to see news list
     When I go to "/admin/news/list"
-    Then I should see 1 ".admin-list>.table.table-striped.table-hover>tbody>tr" element
+    Then I should see 3 ".admin-list>.table.table-striped.table-hover>tbody>tr" element
 
   @logged-in
   Scenario: as admin i want to create news
@@ -43,7 +43,7 @@ Feature: As a developer I want to test AdminBundle integration
 
   @logged-in
   Scenario: as admin i want to edit news
-    When I go to "/admin/news/2/edit"
+    When I go to "/admin/news/4/edit"
     Then the "thecodeine_newsbundle_news[translations][defaultLocale][pl][title]" field should contain "title_pl"
     And the "thecodeine_newsbundle_news[translations][defaultLocale][pl][subTitle]" field should contain "subTitle_pl"
     And the "thecodeine_newsbundle_news[translations][defaultLocale][pl][body]" field should contain "body_pl"

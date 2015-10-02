@@ -20,9 +20,21 @@ class LoadCategoryData extends AbstractFixture implements OrderedFixtureInterfac
         $category->setName('Default category');
         $category->setHasNews(true);
 
+        $gallery = new Category();
+        $gallery->setName('Gallery');
+        $gallery->setHasNews(true);
+
+        $attachment = new Category();
+        $attachment->setName('Attachment');
+        $attachment->setHasNews(true);
+
         $this->addReference('category', $category);
+        $this->addReference('gallery', $gallery);
+        $this->addReference('attachment', $attachment);
 
         $om->persist($category);
+        $om->persist($gallery);
+        $om->persist($attachment);
         $om->flush();
     }
 
