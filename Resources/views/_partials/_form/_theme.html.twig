@@ -127,8 +127,14 @@
 
 {% block thecodeine_gallerybundle_item_widget %}
     {% spaceless %}
-        {% if form.image is not defined and form.video is not defined %}{% set empty = 'empty' %}{% else %}{% set empty = '' %}{% endif %}
-        <li class="thumbnail {{ empty }} image" id="{{ form.vars.id }}">
+        {% if form.image is not defined and form.video is not defined %}
+            {% set empty = 'empty' %}
+        {% else %}
+            {% set empty = '' %}
+        {% endif %}
+
+        <li class="thumbnail {{ empty }}" id="{{ form.vars.id }}">
+            <a href="javascript:void(0)" class="delete"><i class="fui-cross-inverted"></i></a>
 
             {% if form.image is not defined and form.video is not defined %}
                 {{ form_widget(form.type, {'empty_value':'Choose gallery item type'|trans}) }}
@@ -136,20 +142,20 @@
                 <div class="hide">{{ form_widget(form.type) }}</div>
             {% endif %}
 
-            <a href="javascript:void(0)" class="delete"><i class="fui-cross-inverted"></i></a>
-
             {% if form.position is defined and form.position is not null %}
                 {{ form_widget(form.position, {'attr': {'class': 'position'} }) }}
             {% endif %}
 
             {% if form.image is defined %}
                 {% set image = form.vars.value.image %}
+
                 {% if(image is not null) %}
                     <img class="gallery-image" src="{{ ('uploads/' ~ image.path) | imagine_filter('admin_thumb') }}" />
                 {% else %}
                     {{ form_widget(form.image) }}
                     <span class="fui-plus"></span>
                 {% endif %}
+
                 <div class="item-name">
                     {% if form.translations is defined %}
                         {{ form_widget(form.translations, {'label': false}) }}
@@ -159,12 +165,14 @@
 
             {% if form.video is defined %}
                 {{ form_widget(form.video, {'attr': {'class': 'form-control'}}) }}
+
                 <div class="video-player">
                     {% set video = form.vars.value.video %}
                     {% if(video is not null) %}
                         <iframe width="260" height="130" src="{{ videoPlayer(video.type, video.videoId) }}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                     {% endif %}
                 </div>
+
                 <div class="item-name">
                     {% if form.translations is defined %}
                         {{ form_widget(form.translations, {'label': false}) }}

@@ -31,12 +31,10 @@ tuna.website = {
                 $('.admin-option-container').trigger('open');
             });
         }
+
         //WYSIWYG EDITOR
-        $('.thecodeine_admin_editor').summernote({
-            codemirror: {
-                theme: 'readable'
-            }
-        });
+        new tuna.view.EditorView();
+
 
         //GALLERY
         if($('.admin-gallery-container').size()) new tuna.view.GalleryView({el: $('.admin-gallery-container')[0]});
@@ -118,89 +116,35 @@ tuna.view.ListView = Backbone.View.extend({
  */
 tuna.view.EditorView = Backbone.View.extend({
 
+    summernoteOptions: {
+        dialogsInBody: true,
+        styleTags: ['h2', 'h3', 'h4', 'p'],
+        toolbar: [
+            ['style', ['style', 'bold', 'italic', 'underline', 'clear']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['insert', ['link', 'picture']]
+        ]
+    },
+
+    summernote: null,
+
     initialize: function() {
-        var root = this;
+        var oThis = this;
 
-        this.divEditorId    = this.$el.attr('id') + '-editor';
-        this.$divEditor      = $( '#' + this.divEditorId );
-        this.$editorToolbar  = $('div[data-target="#' + this.divEditorId + '"]');
+        oThis.summernote = $('.tab-pane.active .thecodeine_admin_editor').eq(0).summernote(oThis.summernoteOptions);
 
-        this.$divEditor
-            .html(this.$el.val())
-            .show()
-            .summernote();
-
-        this.$el.hide();
-        this.$editorToolbar.find('input[data-target="#pictureBtn"]').hide();
-
-        this.$divEditor.on('blur', _.bind(this.onEditorChange, this));
-        this.$editorToolbar.find('.dropdown-menu input').on('click', function(e){
-            e.stopPropagation();
-        });
-        this.$editorToolbar.find('#pictureBtn').click(function(e) {
-            e.preventDefault();
-            root.$editorToolbar.find('input[data-target="#pictureBtn"]').trigger('click');
-        });
-
-        $('div[data-role="editor-toolbar"] .insertHTML-insertBtn').click(function(e){
-            e.preventDefault();
-            root._insertHtmlAtCursor($(this).parent().parent().find('.insertHTML-value').val());
-            root.onEditorChange();
-        });
-        $('.insertHTML-value').click(function(e){
-            e.preventDefault();
-            e.stopPropagation();
-        })
-
-        $('input[data-edit="createLink"]').on('keydown', function(event){
-            if(event.keyCode == 13) {
-                event.preventDefault();
-                $(this).parent().find('button').click();
-                return false;
+        $('.tabbable [data-toggle="tab"]').click(function(e) {
+            if (!$(e.target).parent().hasClass('active')) {
+                oThis.summernote.destroy();
+                _.defer(function () {
+                    oThis.summernote = $('.tab-pane.active .thecodeine_admin_editor').eq(0).summernote(oThis.summernoteOptions);
+                });
             }
-        })
+        });
 
-        //remove bad html when pasting to editor
-        $(document).on('paste', '.admin-wysiwyg-editor', function(e) {
-            var html = (e.originalEvent || e).clipboardData.getData('text/html') || (e.originalEvent || e).clipboardData.getData('text/plain');
-
-            document.execCommand('insertHTML', false, $.htmlClean(html, {
-                format: false,
-                replace: [['h1','h3'],'h2'],
-                removeAttrs: ['class', 'style', "font"],
-                allowedAttributes: ["width", "height","src", "frameborder","allowfullscreen"],
-                allowedTags: ['p','i','b','u','strong', 'iframe', "ul", "li"],
-                removeTags: ["basefont", "center", "dir", "font", "frame", "frameset", "isindex", "menu", "noframes", "s", "strike","br", "canvas", "hr", "img"],
-                allowEmpty: ['iframe'],
-                tagAllowEmpty: ['iframe'],
-                allowComments: false,
-            }));
-
-            root.onEditorChange();
-            e.preventDefault();
-        })
-    },
-
-    onEditorChange: function() {
-        this.$el.html( this.$divEditor.html() );
-    },
-
-    _insertHtmlAtCursor: function(html) {
-        var sel, range;
-        var htmlContainer = document.createElement("span");
-        htmlContainer.innerHTML = html;
-        if (window.getSelection) {
-            sel = window.getSelection();
-            if (sel.getRangeAt && sel.rangeCount) {
-                range = sel.getRangeAt(0);
-                range.deleteContents();
-                range.insertNode( htmlContainer );
-            //} else {
-            //    $('.admin-wysiwyg-editor:eq(0)').append(html);
-            }
-        } else if (document.selection && document.selection.createRange) {
-            document.selection.createRange().innerHTML = htmlContainer.innerHtml;
-        }
+        $('form.wysiwyg').submit(function() {
+            oThis.summernote.destroy();
+        });
     }
 });
 
@@ -346,12 +290,12 @@ tuna.view.GalleryView = Backbone.View.extend({
         var oThis = this;
 
         if ($('#thecodeine_pagebundle_page_gallery_items_' + index + '_type').length > 0) {
-            var id = 'thecodeine_pagebundle_page_gallery_items_';
+            var id = '#thecodeine_pagebundle_page_gallery_items_';
         } else if ($('#thecodeine_newsbundle_news_gallery_items_' + index + '_type').length > 0) {
-            var id = 'thecodeine_newsbundle_news_gallery_items_';
+            var id = '#thecodeine_newsbundle_news_gallery_items_';
         }
 
-        var $type = $('#' + id + index + '_type');
+        var $type = $(id + index + '_type');
 
         // When sport gets selected ...
         $type.change(function() {
@@ -370,11 +314,10 @@ tuna.view.GalleryView = Backbone.View.extend({
                 },
                 success: function(html) {
                     // Replace current position field ...
-                    $('#' + id + index).replaceWith(
+                    $(id + index).replaceWith(
                         // ... with the returned one from the AJAX response.
-                        $(html).find('#' + id + index)
+                        $(html).find(id + index)
                     );
-                    oThis.recalculateImagePositions();
                     oThis._initSortable();
                 }
             });
@@ -382,6 +325,8 @@ tuna.view.GalleryView = Backbone.View.extend({
     },
 
     _onAddNewItem: function(e) {
+        this._destroySortable();
+
         var prototype = $(e.currentTarget).data('prototype');
         // get the new index
         var index = $(e.currentTarget).data('index');
