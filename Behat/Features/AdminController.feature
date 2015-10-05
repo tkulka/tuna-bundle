@@ -10,7 +10,7 @@ Feature: As a developer I want to test AdminBundle integration
       | _username | bad          |
       | _password | credentials  |
     And I press "_submit"
-    Then I should see "Woops! Bad credentials."
+    Then I should see "Ups! Bad credentials."
 
   Scenario: i try to log in to admin area
     When I go to "/admin"
