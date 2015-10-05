@@ -142,7 +142,7 @@
                 <div class="hide">{{ form_widget(form.type) }}</div>
             {% endif %}
 
-            {% if form.position is defined and form.position is not null %}
+            {% if form.position is defined %}
                 {{ form_widget(form.position, {'attr': {'class': 'position'} }) }}
             {% endif %}
 

@@ -318,7 +318,6 @@ tuna.view.GalleryView = Backbone.View.extend({
                         // ... with the returned one from the AJAX response.
                         $(html).find(id + index)
                     );
-                    oThis._initSortable();
                 }
             });
         });
