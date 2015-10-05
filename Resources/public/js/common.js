@@ -141,10 +141,6 @@ tuna.view.EditorView = Backbone.View.extend({
                 });
             }
         });
-
-        $('form.wysiwyg').submit(function() {
-            oThis.summernote.destroy();
-        });
     }
 });
 
