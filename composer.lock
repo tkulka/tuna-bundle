@@ -3161,7 +3161,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:thecodeine/tuna-editorbundle.git",
-                "reference": "f59e72928a4737d56b69dc089b90f4962c73d48d"
+                "reference": "93649a6a306678b9cfb482f4b54fafaa28909567"
             },
             "require": {
                 "doctrine/dbal": "<2.5",
@@ -3207,7 +3207,7 @@
             },
             "description": "Admin editor for CMS",
             "homepage": "http://thecodeine.com",
-            "time": "2015-10-05 14:03:53"
+            "time": "2015-10-05 14:13:25"
         },
         {
             "name": "thecodeine/tuna-gallerybundle",
