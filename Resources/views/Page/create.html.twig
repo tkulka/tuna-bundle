@@ -6,3 +6,7 @@
 {% block content %}
     {% include 'TheCodeineAdminBundle::_partials/_form/_main.html.twig' %}
 {% endblock %}
+
+{% block extra_javascript %}
+    {{ include_the_codeine_editor() }}
+{% endblock %}

@@ -141,6 +141,4 @@ liip_imagine:
                 relative_resize: { widen: 170 }
 
 the_codeine_tag: ~
-
-the_codeine_editor:
-    autoinclude: false
+the_codeine_editor: ~

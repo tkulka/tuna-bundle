@@ -35,18 +35,16 @@
             </nav>
         {% endif %}
 
-        <section class="main_container container {% block main_class %}{% endblock %}">
-            {% block content_title %}{% endblock content_title %}
+        <section class="main_container container {{ block('main_class') }}">
+            {{ block('content_title') }}
 
             <div class="main_container_wrapper">
-                {% block content %}{% endblock content %}
+                {{ block('content') }}
             </div>
 
         </section>
 
-        {% block footer %}
-            {#&copy; The Codeine {{ "now"|date('Y') }}#}
-        {% endblock footer %}
+        {{ block('footer') }}
 
         {% include 'TheCodeineAdminBundle::_partials/_modal.html.twig' %}
 
@@ -73,6 +71,8 @@
             '@TheCodeineAdminBundle/Resources/public/js/common.js' %}
             <script src="{{ asset_url }}" type="text/javascript"></script>
         {% endjavascripts %}
+
+        {{ block('extra_javascript') }}
 
         <script type="text/javascript">
             (function() {

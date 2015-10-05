@@ -33,8 +33,9 @@ tuna.website = {
         }
 
         //WYSIWYG EDITOR
-        new tuna.view.EditorView();
-
+        new tuna.view.EditorView({
+            selector: '.tab-pane.active .thecodeine_admin_editor'
+        });
 
         //GALLERY
         if($('.admin-gallery-container').size()) new tuna.view.GalleryView({el: $('.admin-gallery-container')[0]});
@@ -104,42 +105,6 @@ tuna.view.ListView = Backbone.View.extend({
                         alert('Error');
                     });
                 $('#modalConfirm').modal('hide');
-        });
-    }
-});
-
-
-/**
- * Wysiwyg editor
- *
- * @type {*|void}
- */
-tuna.view.EditorView = Backbone.View.extend({
-
-    summernoteOptions: {
-        dialogsInBody: true,
-        styleTags: ['h2', 'h3', 'h4', 'p'],
-        toolbar: [
-            ['style', ['style', 'bold', 'italic', 'underline', 'clear']],
-            ['para', ['ul', 'ol', 'paragraph']],
-            ['insert', ['link', 'picture']]
-        ]
-    },
-
-    summernote: null,
-
-    initialize: function() {
-        var oThis = this;
-
-        oThis.summernote = $('.tab-pane.active .thecodeine_admin_editor').eq(0).summernote(oThis.summernoteOptions);
-
-        $('.tabbable [data-toggle="tab"]').click(function(e) {
-            if (!$(e.target).parent().hasClass('active')) {
-                oThis.summernote.destroy();
-                _.defer(function () {
-                    oThis.summernote = $('.tab-pane.active .thecodeine_admin_editor').eq(0).summernote(oThis.summernoteOptions);
-                });
-            }
         });
     }
 });
