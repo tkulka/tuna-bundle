@@ -1,9 +1,10 @@
 imports:
     - { resource: parameters.yml }
+    - { resource: security.yml }
 
 framework:
     #esi:             ~
-    #translator:      { fallbacks: ["%locale%"] }
+    translator:      { fallbacks: ["%locale%"] }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/../../../Resources/config/routing.yml"
@@ -32,8 +33,11 @@ twig:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ 'TheCodeineEditorBundle', 'TheCodeineGalleryBundle' ]
+    bundles:        [ 'TheCodeineEditorBundle', 'TheCodeineGalleryBundle', 'TheCodeineAdminBundle' ]
     filters:
+        lessphp:
+            file: %kernel.root_dir%/../../../vendor/leafo/lessphp/lessc.inc.php
+            apply_to: "\.less$"
         cssrewrite: ~
 
 # Doctrine Configuration
@@ -48,6 +52,11 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
 
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: TheCodeine\AdminBundle\Entity\User
+
 # Swiftmailer Configuration
 swiftmailer:
     transport: "%mailer_transport%"
@@ -57,16 +66,13 @@ swiftmailer:
     spool:     { type: memory }
 
 a2lix_translation_form:
-    locales: [pl, en]
+    locales: %locales%
     default_required: true
     manager_registry: doctrine
-    templating: "A2lixTranslationFormBundle::default.html.twig"
-
-the_codeine_editor:
-    autoinclude: true
+    templating: "TheCodeineAdminBundle::_partials/_form/_theme.html.twig"
 
 stof_doctrine_extensions:
-    default_locale: pl
+    default_locale: %locale%
     persist_default_translation: false
     translation_fallback: true
     orm:
@@ -75,6 +81,11 @@ stof_doctrine_extensions:
             sluggable: true
             translatable: true
 
+knp_paginator:
+    page_range: 5
+    template:
+        pagination: TheCodeineAdminBundle::_partials/_pagination.html.twig
+
 knp_gaufrette:
     adapters:
         attachment_adapter:
@@ -82,9 +93,9 @@ knp_gaufrette:
                 directory: %kernel.root_dir%/../web/files
     filesystems:
         attachment_fs:
-            adapter:    attachment_adapter
+            adapter: attachment_adapter
     stream_wrapper:
-        protocol: data
+        protocol: http
 
 vich_uploader:
     db_driver: orm
@@ -94,8 +105,6 @@ vich_uploader:
             uri_prefix: /files
             upload_destination: attachment_fs
             namer: vich_uploader.namer_origname
-
-the_codeine_tag: ~
 
 liip_imagine:
     resolvers:
@@ -130,3 +139,6 @@ liip_imagine:
             quality: 90
             filters:
                 relative_resize: { widen: 170 }
+
+the_codeine_tag: ~
+the_codeine_editor: ~

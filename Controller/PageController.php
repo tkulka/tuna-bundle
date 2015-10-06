@@ -2,66 +2,35 @@
 
 namespace TheCodeine\AdminBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Component\HttpFoundation\Response;
 
-use TheCodeine\NewsBundle\Entity\Category,
-    TheCodeine\PageBundle\Entity\Page,
-    TheCodeine\PageBundle\Form\PageType;
+use TheCodeine\PageBundle\Controller\PageController as Controller;
 
 class PageController extends Controller
 {
-
     /**
-     * @Route("/admin/page/{id}/delete", requirements={"id" = "\d+"}, name="thecodeine_admin_page_delete")
+     *
      * @Template()
+     *
+     * @return array
      */
-    public function deleteAction(Page $page)
+    public function listAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $em->remove($page);
-        $em->flush();
-        return new Response();
-    }
+        $repository = $em->getRepository('TheCodeinePageBundle:Page');
 
-    /**
-     * @Route("/admin/page/{id}/edit", name="thecodeine_admin_page_edit")
-     * @Template()
-     */
-    public function editAction(Page $page = null)
-    {
+        $page = $this->get('request')->get('page', 1);
+        $limit = 10;
 
-        $em = $this->getDoctrine()->getManager();
-        $request = $this->get('request');
+        $pages = $repository->findAll();
 
-        if (null == $page) {
-            $page = new Page();
-            if($request->get('cid')) {
-                $category = $em->find('TheCodeine\NewsBundle\Entity\Category', $request->get('cid'));
-                $page->setCategory($category);
-            }
-        }
-
-        $form = $this->createForm(new PageType(), $page);
-        $form->handleRequest($request);
-        if ($form->isValid()) {
-            $em->persist($page);
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('thecodeine_admin_page_edit', array('id' => $page->getId())));
-        }
-
-        $request->query->add(array(
-            'cid' => $page->getCategory()->getId()
-        ));
+        $paginator =  $this->get('knp_paginator');
+        $pagination = $paginator->paginate($pages, $page, $limit);
 
         return array(
-            'page'      => $page,
-            'form'      => $form->createView(),
-            'category'  => $page->getCategory()
+            'pagination' => $pagination,
+            'lp' => $page * $limit - $limit,
+            'pagesList' => $pages
         );
     }
 }

@@ -6,4 +6,4 @@ parameters:
     mailer_password: null
     secret: 4edcfb9e94d14dedd43a83814399414f20557a78
     locale: pl
-    locales: '|pl|en'
+    locales: [pl, en]

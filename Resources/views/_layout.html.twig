@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}">
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}{% trans %}The Codeine - Admin Bundle{% endtrans %}{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--[if lt ie 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link href="https://fonts.googleapis.com/css?family=Titillium+Web:200,200italic,300,300italic,400,400italic,600,600italic,700,700italic,900&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,900,700italic,900italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+        {% block stylesheets %}
+            {% stylesheets output='bundles/thecodeineadmin/css/thecodeine_admin.css'
+                '@TheCodeineAdminBundle/Resources/public/css/vendor/bootstrap.css'
+                '@TheCodeineAdminBundle/Resources/public/css/vendor/font-awesome.css'
+                '@TheCodeineAdminBundle/Resources/public/css/vendor/magic.css'
+                '@TheCodeineAdminBundle/Resources/public/css/vendor/summernote.css'
+                '@TheCodeineAdminBundle/Resources/public/less/admin.less' %}
+                <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
+        {% endblock %}
+    </head>
+    <body class="{% block body_class %}{% endblock %}">
+        {% if is_granted('ROLE_ADMIN') %}
+            <nav>
+                {% block navigation %}
+                    <div class="navbar">
+                        <div class="navbar-inner">
+                            <div class="container">
+                                {% include 'TheCodeineAdminBundle::_partials/_menu.top.html.twig' %}
+                            </div>
+                        </div>
+                    </div>
+                    {% include 'TheCodeineAdminBundle::_partials/_menu.sub.html.twig' %}
+                {% endblock navigation %}
+            </nav>
+        {% endif %}
+
+        <section class="main_container container {{ block('main_class') }}">
+            {{ block('content_title') }}
+
+            <div class="main_container_wrapper">
+                {{ block('content') }}
+            </div>
+
+        </section>
+
+        {{ block('footer') }}
+
+        {% include 'TheCodeineAdminBundle::_partials/_modal.html.twig' %}
+
+        {% javascripts output='bundles/thecodeineadmin/js/thecodeine_admin.js'
+            '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery-2.0.3.min.js'
+            '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery-ui-1.10.3.custom.min.js'
+            '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.ui.touch-punch.min.js'
+            '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.ui.timepicker.js'
+            '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.tagsinput.js'
+            '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.hotkeys.js'
+            '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.placeholder.js'
+            '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.sortable.js'
+            '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.htmlClean.js'
+            '@TheCodeineAdminBundle/Resources/public/js/vendor/underscore-1.6.0.js'
+            '@TheCodeineAdminBundle/Resources/public/js/vendor/backbone-1.1.2.js'
+            '@TheCodeineAdminBundle/Resources/public/js/vendor/flatUI/bootstrap.min.js'
+            '@TheCodeineAdminBundle/Resources/public/js/vendor/flatUI/bootstrap-select.js'
+            '@TheCodeineAdminBundle/Resources/public/js/vendor/flatUI/bootstrap-switch.js'
+            '@TheCodeineAdminBundle/Resources/public/js/vendor/flatUI/flatui-checkbox.js'
+            '@TheCodeineAdminBundle/Resources/public/js/vendor/flatUI/flatui-radio.js'
+            '@TheCodeineAdminBundle/Resources/public/js/vendor/flatUI/respond.min.js'
+            '@TheCodeineAdminBundle/Resources/public/js/vendor/flatUI/application.js'
+            '@TheCodeineAdminBundle/Resources/public/js/vendor/summernote.js'
+            '@TheCodeineAdminBundle/Resources/public/js/common.js' %}
+            <script src="{{ asset_url }}" type="text/javascript"></script>
+        {% endjavascripts %}
+
+        {{ block('extra_javascript') }}
+
+        <script type="text/javascript">
+            (function() {
+                tuna.website.init();
+            })();
+        </script>
+    </body>
+</html>

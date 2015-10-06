@@ -1,4 +1,4 @@
-window.thecodeineAdmin || (window.thecodeineAdmin = {
+window.tuna || (window.tuna = {
     locale: 'pl',
     website: {},
     backbone: {},
@@ -16,35 +16,36 @@ window.thecodeineAdmin || (window.thecodeineAdmin = {
  * Main admin website object
  *
  */
-thecodeineAdmin.website = {
+tuna.website = {
     init: function() {
 
         //init main views
-        new thecodeineAdmin.view.NavigationView({el: $('nav')[0]});
-        new thecodeineAdmin.view.ListView({el: $('.admin-list')[0]});
+        new tuna.view.NavigationView({el: $('nav')[0]});
+        new tuna.view.ListView({el: $('.admin-list')[0]});
 
         //OPTIONS
         if( $('.admin-option-container').size()) {
-            new thecodeineAdmin.view.OptionsView({el: $('.admin-option-container')[0]});
+            new tuna.view.OptionsView({el: $('.admin-option-container')[0]});
             $('.btn-options').click(function(e){
                 e.stopPropagation();
                 $('.admin-option-container').trigger('open');
             });
         }
+
         //WYSIWYG EDITOR
-        $('.thecodeine_admin_editor').each(function(){
-            new thecodeineAdmin.view.EditorView({el:  $(this)[0] });
+        new tuna.view.EditorView({
+            selector: '.tab-pane.active .thecodeine_admin_editor'
         });
 
         //GALLERY
-        if($('.admin-gallery-container').size()) new thecodeineAdmin.view.GalleryView({el: $('.admin-gallery-container')[0]});
+        if($('.admin-gallery-container').size()) new tuna.view.GalleryView({el: $('.admin-gallery-container')[0]});
         //ATTACHMENTS
-        if($('.admin-attachments-container').size()) new thecodeineAdmin.view.AttachmentsView({el: $('.admin-attachments-container')[0]});
+        if($('.admin-attachments-container').size()) new tuna.view.AttachmentsView({el: $('.admin-attachments-container')[0]});
 
 
         //setup minimal height for main container
         this.resizeContainer();
-        $(window).resize(thecodeineAdmin.website.resizeContainer);
+        $(window).resize(tuna.website.resizeContainer);
     },
 
     resizeContainer: function() {
@@ -66,13 +67,13 @@ thecodeineAdmin.website = {
  *
  * @type {*|void}
  */
-thecodeineAdmin.view.NavigationView = Backbone.View.extend({
+tuna.view.NavigationView = Backbone.View.extend({
    events: {
        'change select': "onSelectChange"
    },
 
    onSelectChange: function(e)  {
-       thecodeineAdmin.website.goToUri($(e.target).val());
+       tuna.website.goToUri($(e.target).val());
    }
 });
 
@@ -81,7 +82,7 @@ thecodeineAdmin.view.NavigationView = Backbone.View.extend({
  *
  * @type {*|void}
  */
-thecodeineAdmin.view.ListView = Backbone.View.extend({
+tuna.view.ListView = Backbone.View.extend({
     events: {
         'click [data-action="delete"]': "onDeleteItem"
     },
@@ -108,95 +109,7 @@ thecodeineAdmin.view.ListView = Backbone.View.extend({
     }
 });
 
-
-/**
- * Wysiwyg editor
- *
- * @type {*|void}
- */
-thecodeineAdmin.view.EditorView = Backbone.View.extend({
-
-    initialize: function() {
-        this.divEditorId    = this.$el.attr('id') + '-editor';
-        this.divEditor      = $( '#' + this.divEditorId );
-        this.editorToolbar  = $('div[data-target="' + this.divEditorId + '"]');
-
-        $(this.divEditor)
-            .html(this.$el.val())
-            .show()
-            .wysiwyg();
-
-        this.$el.hide();
-
-        $(this.divEditor).on('blur', _.bind(this.onEditorChange, this));
-        $(this.editorToolbar).find('.dropdown-menu input').on('click', function(e){
-            e.stopPropagation();
-        });
-
-        var oThis = this;
-        $('div[data-role="editor-toolbar"] .insertHTML-insertBtn').click(function(e){
-            e.preventDefault();
-            oThis._insertHtmlAtCursor($(this).parent().parent().find('.insertHTML-value').val());
-            oThis.onEditorChange();
-        });
-        $('.insertHTML-value').click(function(e){
-            e.preventDefault();
-            e.stopPropagation();
-        })
-
-        $('input[data-edit="createLink"]').on('keydown', function(event){
-            if(event.keyCode == 13) {
-                event.preventDefault();
-                $(this).parent().find('button').click();
-                return false;
-            }
-        })
-
-        //remove bad html when pasting to editor
-        $(document).on('paste', '.admin-wysiwyg-editor', function(e) {
-            var html = (e.originalEvent || e).clipboardData.getData('text/html') || (e.originalEvent || e).clipboardData.getData('text/plain');
-
-            document.execCommand('insertHTML', false, $.htmlClean(html, {
-                format: false,
-                replace: [['h1','h3'],'h2'],
-                removeAttrs: ['class', 'style', "font"],
-                allowedAttributes: ["width", "height","src", "frameborder","allowfullscreen"],
-                allowedTags: ['p','i','b','u','strong', 'iframe', "ul", "li"],
-                removeTags: ["basefont", "center", "dir", "font", "frame", "frameset", "isindex", "menu", "noframes", "s", "strike","br", "canvas", "hr", "img"],
-                allowEmpty: ['iframe'],
-                tagAllowEmpty: ['iframe'],
-                allowComments: false,
-            }));
-
-            oThis.onEditorChange();
-            e.preventDefault();
-        })
-    },
-
-    onEditorChange: function() {
-        this.$el.html( $(this.divEditor).html() );
-    },
-
-    _insertHtmlAtCursor: function(html) {
-        var sel, range;
-        var htmlContainer = document.createElement("span");
-        htmlContainer.innerHTML = html;
-        if (window.getSelection) {
-            sel = window.getSelection();
-            if (sel.getRangeAt && sel.rangeCount) {
-                range = sel.getRangeAt(0);
-                range.deleteContents();
-                range.insertNode( htmlContainer );
-            } else {
-                $('.admin-wysiwyg-editor:eq(0)').append(html);
-            }
-        } else if (document.selection && document.selection.createRange) {
-            document.selection.createRange().innerHTML = htmlContainer.innerHtml;
-        }
-    }
-});
-
-thecodeineAdmin.view.OptionsView = Backbone.View.extend({
+tuna.view.OptionsView = Backbone.View.extend({
     events: {
         'click .close': "_onClose",
         'close': "_onClose",
@@ -265,10 +178,10 @@ thecodeineAdmin.view.OptionsView = Backbone.View.extend({
     }
 });
 
-thecodeineAdmin.view.GalleryView = Backbone.View.extend({
+tuna.view.GalleryView = Backbone.View.extend({
 
     events: {
-        "click .add_new_image": "_onAddNewImage",
+        "click .add_new_item": "_onAddNewItem",
         "click .delete": "_onClickDelete",
         "change input[type='file']": "_onInputFileChange",
         'click .close': "_onClose",
@@ -279,7 +192,7 @@ thecodeineAdmin.view.GalleryView = Backbone.View.extend({
 
     initialize: function() {
         this.$el.addClass('magictime');
-        this.$('.gallery-images li').hide();
+        this.$('.gallery-items li').hide();
         this._initSortable();
     },
 
@@ -289,7 +202,7 @@ thecodeineAdmin.view.GalleryView = Backbone.View.extend({
 
     _initSortable: function() {
         var oThis = this;
-        this.$('.gallery-images')
+        this.$('.gallery-items')
             .sortable()
             .bind('sortupdate', function() {
                 oThis.recalculateImagePositions();
@@ -297,12 +210,12 @@ thecodeineAdmin.view.GalleryView = Backbone.View.extend({
     },
 
     _destroySortable: function() {
-        this.$('.gallery-images').sortable('destroy');
+        this.$('.gallery-items').sortable('destroy');
     },
 
     _onClose: function() {
         this.$el.removeClass('slideLeftRetourn').addClass('holeOut');
-        this.$('.gallery-images li').each(function(){
+        this.$('.gallery-items li').each(function(){
            $(this).removeClass('jelly-in').hide();
            if(!$(this).find('img').size()) {
          //      $(this).remove();
@@ -315,7 +228,7 @@ thecodeineAdmin.view.GalleryView = Backbone.View.extend({
         this.$el.removeClass('holeOut').show().addClass('slideLeftRetourn');
 
         setTimeout(function(){
-            $('.gallery-images li:not(.jelly-in)').each(function(idx){
+            $('.gallery-items li:not(.jelly-in)').each(function(idx) {
                 $(this)
                     .show()
 //                    .css({
@@ -334,7 +247,44 @@ thecodeineAdmin.view.GalleryView = Backbone.View.extend({
         });
     },
 
-    _onAddNewImage: function(e) {
+    choiceEventListener: function(index) {
+        var oThis = this;
+
+        if ($('#thecodeine_pagebundle_page_gallery_items_' + index + '_type').length > 0) {
+            var id = '#thecodeine_pagebundle_page_gallery_items_';
+        } else if ($('#thecodeine_newsbundle_news_gallery_items_' + index + '_type').length > 0) {
+            var id = '#thecodeine_newsbundle_news_gallery_items_';
+        }
+
+        var $type = $(id + index + '_type');
+
+        // When sport gets selected ...
+        $type.change(function() {
+            $type.hide();
+            // ... retrieve the corresponding form.
+            var $form = $(this).closest('form');
+            // Simulate form data, but only include the selected sport value.
+            var data = $form.serialize();
+            // Submit data via AJAX to the form's action path.
+            $.ajax({
+                url : $form.attr('action'),
+                type: $form.attr('method'),
+                data : data,
+                beforeSend: function() {
+                    oThis._destroySortable();
+                },
+                success: function(html) {
+                    // Replace current position field ...
+                    $(id + index).replaceWith(
+                        // ... with the returned one from the AJAX response.
+                        $(html).find(id + index)
+                    );
+                }
+            });
+        });
+    },
+
+    _onAddNewItem: function(e) {
         this._destroySortable();
 
         var prototype = $(e.currentTarget).data('prototype');
@@ -347,9 +297,8 @@ thecodeineAdmin.view.GalleryView = Backbone.View.extend({
         // increase the index with one for the next item
         $(e.currentTarget).data('index', index + 1);
 
-        this.$('.gallery-images').prepend($(newForm).addClass('jelly-in'));
-        this.recalculateImagePositions();
-        this._initSortable();
+        this.$('.gallery-items').prepend($(newForm).addClass('jelly-in'));
+        this.choiceEventListener(index);
     },
 
     _onClickDelete: function(e) {
@@ -380,9 +329,9 @@ thecodeineAdmin.view.GalleryView = Backbone.View.extend({
                     $cnt.css({
                         'background-image': 'url('+event.target.result+')',
                         'background-size' : 'cover',
-                        height: '178px',
-                        width: '258px',
-                        position: 'absolute',
+                        height: '180px',
+                        width: '260px',
+                        position: 'relative',
                         top: 0,
                         left: 0,
                         'zIndex': 9
@@ -397,7 +346,7 @@ thecodeineAdmin.view.GalleryView = Backbone.View.extend({
     }
 });
 
-thecodeineAdmin.view.AttachmentsView = Backbone.View.extend({
+tuna.view.AttachmentsView = Backbone.View.extend({
 
     events: {
         "click .add_new_attachment": "_onAddNewAttachment",
