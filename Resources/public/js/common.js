@@ -33,7 +33,7 @@ tuna.website = {
         }
 
         //WYSIWYG EDITOR
-        new tuna.view.EditorView({
+        tuna.view.EditorView && new tuna.view.EditorView({
             selector: '.tab-pane.active .thecodeine_admin_editor'
         });
 

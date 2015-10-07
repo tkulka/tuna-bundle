@@ -3161,7 +3161,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:thecodeine/tuna-editorbundle.git",
-                "reference": "9228013a09d6e3fefd07111f7557d5e723a970c2"
+                "reference": "e67d98688d45de6d8a69851487c3fcdeda0fbcb4"
             },
             "require": {
                 "doctrine/dbal": "<2.5",
@@ -3207,7 +3207,7 @@
             },
             "description": "Admin editor for CMS",
             "homepage": "http://thecodeine.com",
-            "time": "2015-10-05 14:59:48"
+            "time": "2015-10-07 14:14:39"
         },
         {
             "name": "thecodeine/tuna-gallerybundle",
@@ -3215,7 +3215,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:thecodeine/tuna-gallerybundle.git",
-                "reference": "1bfb86713790a26e45bacbe7388a81bced2cae1e"
+                "reference": "9b823cf3102a02f80b22a6bbdf1d09af32ca4f24"
             },
             "require": {
                 "a2lix/translation-form-bundle": "1.*",
@@ -3263,7 +3263,7 @@
             },
             "description": "GalleryBundle",
             "homepage": "http://thecodeine.com",
-            "time": "2015-10-01 15:36:58"
+            "time": "2015-10-06 10:10:43"
         },
         {
             "name": "thecodeine/tuna-imagebundle",
@@ -4665,16 +4665,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "2.2.3",
+            "version": "2.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "ef1ca6835468857944d5c3b48fa503d5554cff2f"
+                "reference": "eabf68b476ac7d0f73793aada060f1c1a9bf8979"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/ef1ca6835468857944d5c3b48fa503d5554cff2f",
-                "reference": "ef1ca6835468857944d5c3b48fa503d5554cff2f",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/eabf68b476ac7d0f73793aada060f1c1a9bf8979",
+                "reference": "eabf68b476ac7d0f73793aada060f1c1a9bf8979",
                 "shasum": ""
             },
             "require": {
@@ -4723,7 +4723,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-09-14 06:51:16"
+            "time": "2015-10-06 15:47:00"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -4905,16 +4905,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.8.10",
+            "version": "4.8.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "463163747474815c5ccd4ae12b5b355ec12158e8"
+                "reference": "bdd199472410fd7e32751f9c814c7e06f2c21bd5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/463163747474815c5ccd4ae12b5b355ec12158e8",
-                "reference": "463163747474815c5ccd4ae12b5b355ec12158e8",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/bdd199472410fd7e32751f9c814c7e06f2c21bd5",
+                "reference": "bdd199472410fd7e32751f9c814c7e06f2c21bd5",
                 "shasum": ""
             },
             "require": {
@@ -4973,7 +4973,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-10-01 09:14:30"
+            "time": "2015-10-07 10:39:46"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
