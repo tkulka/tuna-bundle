@@ -3,7 +3,6 @@ nohup bash -c "php Behat/Fixtures/app/console --env=test --no-debug doctrine:sch
 nohup bash -c "php Behat/Fixtures/app/console --env=test --no-debug doctrine:schema:create 2>&1 &" && sleep 1;
 nohup bash -c "php Behat/Fixtures/app/console --env=test --no-debug doctrine:schema:update --force 2>&1 &" && sleep 1;
 nohup bash -c "php Behat/Fixtures/app/console --env=test --no-debug doctrine:fixtures:load -n 2>&1 &" && sleep 1;
-nohup bash -c "php Behat/Fixtures/app/console --env=test --no-debug cache:clear 2>&1 &" && sleep 1;
 nohup bash -c "php Behat/Fixtures/app/console --env=test --no-debug server:run 2>&1 &" && sleep 1;
 
 exit_code=0;
