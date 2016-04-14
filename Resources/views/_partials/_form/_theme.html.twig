@@ -1,0 +1,301 @@
+{% block form_errors %}
+    {% spaceless %}
+        {% if errors|length > 0 %}
+            <div class="dialog dialog-danger">
+                <strong class="text-danger">{% trans %}Woops!{% endtrans %} </strong>
+                {% for error in errors %}
+                   <span>{{ error.message|trans }}</span>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endspaceless %}
+{% endblock form_errors %}
+
+{% block text_widget %}
+    <div class="form-group">
+        {% set type = type|default('text') %}
+        <input type="{{ type }}" {% if value is not empty %}value="{{ value }}" {% endif %} {{ block('widget_attributes') }} placeholder="{{ label }}" class="form-control input-lg flat">
+    </div>
+{% endblock %}
+
+{% block editor_widget %}
+    <div class="form-group">
+        <textarea {{ block('widget_attributes') }} placeholder="{{ label }}" class="form-control thecodeine_admin_editor" rows="10">{% if value is not empty %}{{ value|raw }}{% endif %}</textarea>
+    </div>
+{% endblock %}
+
+{% block choice_widget %}
+    {% spaceless %}
+        {% if attr.original_widget is defined %}
+            <select {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %} class="form-control select select-primary">
+                {% if empty_value is not none %}
+                    <option value=""{% if required and value is empty %} selected="selected"{% endif %}>{{ empty_value|trans({}, translation_domain) }}</option>
+                {% endif %}
+                {% if preferred_choices|length > 0 %}
+                    {% set options = preferred_choices %}
+                    {{ block('choice_widget_options') }}
+                    {% if choices|length > 0 and separator is not none %}
+                        <option disabled="disabled">{{ separator }}</option>
+                    {% endif %}
+                {% endif %}
+                {% set options = choices %}
+                {{ block('choice_widget_options') }}
+            </select>
+        {% else %}
+            <label class="checkbox" for="{{ id }}">
+                <span class="icons"><span class="first-icon fui-checkbox-unchecked"></span><span class="second-icon fui-checkbox-checked"></span></span>
+                <input type="checkbox" {{ block('widget_attributes') }}  {% if value is not empty %}value="{{ value }}" {% endif %} data-toggle="checkbox">
+                {{ label }}
+            </label>
+        {% endif %}
+    {% endspaceless %}
+{% endblock %}
+
+{% block checkbox_widget %}
+    <label class="checkbox" for="{{ id }}">
+        <span class="icons"><span class="first-icon fui-checkbox-unchecked"></span><span class="second-icon fui-checkbox-checked"></span></span>
+        <input type="checkbox" {{ block('widget_attributes') }}  {% if value is not empty %}value="{{ value }}" {% endif %} {% if checked %} checked="checked"{% endif %} data-toggle="checkbox">
+        {{ label }}
+    </label>
+{% endblock %}
+
+{% block thecodeine_newsbundle_category_widget %}
+    <input type="hidden" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %} />
+{% endblock %}
+
+{% block imagefile_widget %}
+    {% spaceless %}
+        {% set image =  form.parent.vars.value %}
+        {% if image %}
+            <p>
+                <img src="{{  ('/uploads/' ~ image.path) | imagine_filter('admin_thumb') }}" />
+            </p>
+        {% endif %}
+        <input type="file" {{ block('widget_attributes') }} />
+    {% endspaceless %}
+{% endblock %}
+
+{% block _thecodeine_newsbundle_news_image_file_widget %}
+    {% set image =  form.parent.vars.value %}
+    <div class="form-group">
+        {% if image %}
+            <img src="{{  ('/uploads/' ~ image.path) | imagine_filter('admin_thumb') }}" />
+        {% endif %}
+        <div class="btn btn-mini btn-primary btn-block thecodeine_admin_main_image">
+            <input type="file" {{ block('widget_attributes') }} />
+            {% trans %}Choose main picture{% endtrans %}
+            <i class="fui-arrow-right pull-right"></i>
+        </div>
+    </div>
+{% endblock %}
+
+{% block _thecodeine_pagebundle_page_image_file_widget %}
+    {{ block('_thecodeine_newsbundle_news_image_file_widget') }}
+{% endblock %}
+
+{% block tag_collection_widget %}
+    <div class="form-group">
+        <input type="text" {% if value is not empty %}value="{{ value }}" {% endif %} {{ block('widget_attributes') }} placeholder="{{ label }}" class="form-control input-sm flat tagsinput tagsinput-primary">
+    </div>
+{% endblock %}
+
+{% block datetime_widget %}
+    <div class="form-group small control-group">
+        <div class="input-group">
+          	  <span class="input-group-btn">
+          	  	<button class="btn btn-default btn-sm" type="button" style="line-height: 16px;"><span class="fui-calendar"></span></button>
+          	  </span>
+            <input type="text" class="form-control datepicker input-sm" {{ block('widget_attributes') }}  value="{% if value is not empty %}{{ value }}{% else %}{{ "now"|date("Y-m-d H:i:s") }}{% endif %}">
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block thecodeine_gallerybundle_gallery_widget %}
+    <div class="form-group thecodeine_admin_gallery">
+        <a href="javascript:void(0)" class="btn btn-hg btn-default add_new_item" data-prototype="{{ form_widget(form.items.vars.prototype)|e }}">
+            <i class="fui-plus"></i>
+        </a>
+        <ul class="gallery-items">
+            {% for item in form.items %}
+                {{ form_widget(item) }}
+            {% endfor %}
+        </ul>
+        <div class="clear"></div>
+    </div>
+{% endblock %}
+
+{% block thecodeine_gallerybundle_item_widget %}
+    {% spaceless %}
+        {% if form.image is not defined and form.video is not defined %}
+            {% set empty = 'empty' %}
+        {% else %}
+            {% set empty = '' %}
+        {% endif %}
+
+        <li class="thumbnail {{ empty }}" id="{{ form.vars.id }}">
+            <a href="javascript:void(0)" class="delete"><i class="fui-cross-inverted"></i></a>
+
+            {% if form.image is not defined and form.video is not defined %}
+                {{ form_widget(form.type, {'empty_value':'Choose gallery item type'|trans}) }}
+            {% else %}
+                <div class="hide">{{ form_widget(form.type) }}</div>
+            {% endif %}
+
+            {% if form.position is defined %}
+                {{ form_widget(form.position, {'attr': {'class': 'position'} }) }}
+            {% endif %}
+
+            {% if form.image is defined %}
+                {% set image = form.vars.value.image %}
+
+                {% if(image is not null) %}
+                    <img class="gallery-image" src="{{ ('uploads/' ~ image.path) | imagine_filter('admin_thumb') }}" />
+                {% else %}
+                    {{ form_widget(form.image) }}
+                    <span class="fui-plus"></span>
+                {% endif %}
+
+                <div class="item-name">
+                    {% if form.translations is defined %}
+                        {{ form_widget(form.translations, {'label': false}) }}
+                    {% endif %}
+                </div>
+            {% endif %}
+
+            {% if form.video is defined %}
+                {{ form_widget(form.video, {'attr': {'class': 'form-control'}}) }}
+
+                <div class="video-player">
+                    {% set video = form.vars.value.video %}
+                    {% if(video is not null) %}
+                        <iframe width="260" height="130" src="{{ videoPlayer(video.type, video.videoId) }}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                    {% endif %}
+                </div>
+
+                <div class="item-name">
+                    {% if form.translations is defined %}
+                        {{ form_widget(form.translations, {'label': false}) }}
+                    {% endif %}
+                </div>
+            {% endif %}
+        </li>
+    {% endspaceless %}
+{% endblock %}
+
+{% block attachments_widget %}
+    <div class="form-group thecodeine_admin_attachments">
+        <a href="javascript:void(0)" class="btn btn-hg btn-default add_new_attachment " data-prototype="{{ form_widget(form.vars.prototype)|e }}">
+            <i class="fui-plus"></i>
+        </a>
+
+        <ul class="attachments">
+            {% for attachment in form %}
+                {{ form_widget(attachment, {'label': false}) }}
+            {% endfor %}
+        </ul>
+
+        <div class="clear"></div>
+    </div>
+{% endblock %}
+
+{% block _thecodeine_pagebundle_page_attachments_widget %}
+    {{ block('attachments_widget') }}
+{% endblock %}
+
+{% block _thecodeine_newsbundle_news_attachments_widget %}
+    {{ block('attachments_widget') }}
+{% endblock %}
+
+{% block thecodeine_newsbundle_attachment_widget %}
+    {% spaceless %}
+        {% set attachment = form.vars.value %}
+        <li class="item {% if(attachment is null) %}empty{% endif %}">
+            {{ form_widget(form.position, {'attr': {'class': 'position'} }) }}
+            {{ form_widget(form.translations, {'label': false}) }}
+            <a href="javascript:void(0)" class="delete"><i class="fui-cross-inverted"></i></a>
+            <div class="options-container">
+
+                <div class="upload-container">
+                    <a href="javascript:void(0)" class="btn btn-default">
+                        <span class="fui-upload"></span> {{ form_widget(form.file) }}
+                    </a>
+                </div>
+                <div class="clear inline-block"></div>
+                {% if(attachment is not null) %}
+                    <a href="{{ vich_uploader_asset(attachment,'file') }}" class="btn btn-default" target="_blank"><span class="fui-eye"></span></a>
+                    <div class="clear inline-block"></div>
+                {% endif %}
+            </div>
+        </li>
+    {% endspaceless %}
+{% endblock %}
+
+{% block a2lix_translations_widget %}
+    <div class="a2lix_translations tabbable">
+        <ul class="a2lix_translationsLocales nav nav-tabs">
+            {% for translationsFields in form %}
+                {% set locale = translationsFields.vars.name %}
+
+                <li {% if app.request.locale == locale %}class="active"{% endif %}>
+                    <a href="javascript:void(0)" data-toggle="tab" data-target=".a2lix_translationsFields-{{ locale }}">
+                        {{ locale|capitalize }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <div class="a2lix_translationsFields tab-content">
+            {% for translationsFields in form %}
+                {% set locale = translationsFields.vars.name %}
+
+                <div class="a2lix_translationsFields-{{ locale }} tab-pane {% if app.request.locale == locale %}active{% endif %}">
+                    {{ form_widget(translationsFields, {'required': false}) }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+
+
+{% block a2lix_translations_gedmo_widget %}
+    {% if form.vars.simple_way %}
+        {{ block('a2lix_translations_widget') }}
+    {% else %}
+        <div class="a2lix_translations tabbable">
+            <ul class="a2lix_translationsLocales nav nav-tabs">
+                {% for translationsLocales in form %}
+                    {% set isDefaultLocale = 'defaultLocale' == translationsLocales.vars.name %}
+
+                    {% for translationsFields in translationsLocales %}
+                        {% set locale = translationsFields.vars.name %}
+
+                        <li {% if app.request.locale == locale %}class="active"{% endif %}>
+                            <a href="javascript:void(0)" data-toggle="tab" data-target=".a2lix_translationsFields-{{ locale }}">
+                                {{ locale|capitalize }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+
+            <div class="a2lix_translationsFields tab-content">
+                {% for translationsLocales in form %}
+                    {% for translationsFields in translationsLocales %}
+                        {% set locale = translationsFields.vars.name %}
+
+                        <div class="a2lix_translationsFields-{{ locale }} tab-pane {% if app.request.locale == locale %}active{% endif %}">
+                            {{ form_widget(translationsFields) }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block a2lix_translationsForms_widget %}
+    {{ block('a2lix_translations_widget') }}
+{% endblock %}
+

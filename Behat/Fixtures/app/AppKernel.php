@@ -23,12 +23,10 @@ class AppKernel extends Kernel
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new A2lix\TranslationFormBundle\A2lixTranslationFormBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
-
-            # ImageBundle
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new FOS\UserBundle\FOSUserBundle(),
             new Knp\Bundle\GaufretteBundle\KnpGaufretteBundle(),
             new Liip\ImagineBundle\LiipImagineBundle(),
-
-            # NewsBundle
             new Vich\UploaderBundle\VichUploaderBundle(),
 
             new TheCodeine\EditorBundle\TheCodeineEditorBundle(),
@@ -36,6 +34,8 @@ class AppKernel extends Kernel
             new TheCodeine\GalleryBundle\TheCodeineGalleryBundle(),
             new TheCodeine\NewsBundle\TheCodeineNewsBundle(),
             new TheCodeine\TagBundle\TheCodeineTagBundle(),
+            new TheCodeine\PageBundle\TheCodeinePageBundle(),
+            new TheCodeine\VideoBundle\TheCodeineVideoBundle(),
 
             # Self bundle
             new TheCodeine\AdminBundle\TheCodeineAdminBundle()

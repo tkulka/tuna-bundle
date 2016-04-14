@@ -6,14 +6,14 @@ use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
 use Knp\Menu\FactoryInterface;
-use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class BuilderSpec extends ObjectBehavior
 {
 
-    function let(FactoryInterface $factoryInterface, ObjectManager $objectManager)
+    function let(FactoryInterface $factoryInterface, TranslatorInterface $translatorInterface)
     {
-        $this->beConstructedWith($factoryInterface, $objectManager);
+        $this->beConstructedWith($factoryInterface, $translatorInterface);
     }
 
     function it_is_initializable()

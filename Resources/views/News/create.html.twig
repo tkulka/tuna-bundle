@@ -1,0 +1,12 @@
+{% extends "TheCodeineAdminBundle::_layout.html.twig" %}
+{% block content_title %}
+    <h3>{% trans %}Create news{% endtrans %}</h3>
+{% endblock content_title %}
+
+{% block content %}
+    {% include 'TheCodeineAdminBundle::_partials/_form/_main.html.twig' %}
+{% endblock %}
+
+{% block extra_javascript %}
+    {{ include_the_codeine_editor() }}
+{% endblock %}
