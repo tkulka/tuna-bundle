@@ -14,7 +14,7 @@
 {% block text_widget %}
     <div class="form-group">
         {% set type = type|default('text') %}
-        <input type="{{ type }}" {% if value is not empty %}value="{{ value }}" {% endif %} {{ block('widget_attributes') }} placeholder="{{ label }}" class="form-control input-lg flat">
+        <input type="{{ type }}" {% if value is not empty %}value="{{ value }}" {% endif %} {{ block('widget_attributes') }} placeholder="{{ label }}" class="form-control input-lg">
     </div>
 {% endblock %}
 
@@ -95,7 +95,7 @@
 
 {% block tag_collection_widget %}
     <div class="form-group">
-        <input type="text" {% if value is not empty %}value="{{ value }}" {% endif %} {{ block('widget_attributes') }} placeholder="{{ label }}" class="form-control input-sm flat tagsinput tagsinput-primary">
+        <input type="text" {% if value is not empty %}value="{{ value }}" {% endif %} {{ block('widget_attributes') }} placeholder="{{ label }}" class="form-control input-sm tagsinput tagsinput-primary">
     </div>
 {% endblock %}
 

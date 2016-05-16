@@ -30,15 +30,19 @@
                             </div>
                         </div>
                     </div>
-                    {% include 'TheCodeineAdminBundle::_partials/_menu.sub.html.twig' %}
                 {% endblock navigation %}
             </nav>
         {% endif %}
 
         <section class="main_container container {{ block('main_class') }}">
-            {{ block('content_title') }}
+
+            <div class="sidebar">
+                {% include 'TheCodeineAdminBundle::_partials/_menu.sub.html.twig' %}
+                {{ knp_menu_render('menu.top.static') }}
+            </div>
 
             <div class="main_container_wrapper">
+                {{ block('content_title') }}
                 {{ block('content') }}
             </div>
 

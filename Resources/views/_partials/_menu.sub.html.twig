@@ -1,27 +1,18 @@
-<div class="navbar navbar-inverse navbar-sub clear">
-    <div class="navbar-inner">
-        <div class="container">
-            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target="#nav-collapse-01"></button>
-            <div class="nav-collapse collapse " id="nav-collapse-01">
-                {% for item in knp_menu_get('menu.sub') %}
-                    {% if item.attributes.template is defined and item.attributes.template == 'select' %}
-                        <div class="navbar-sub-select">
-                            <select name="huge" class="btn-group select select-block mbl" style="display: none;">
-                                {% for option in item %}
-                                    <option value="{{ option.uri }}" data-url="{{ option.uri }}" {{ option.attributes.selected }}>{{ option.label }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-
-                    {% else %}
-                        <ul class="nav">
-                            <li {% if item.attributes.class is defined %}class="{{ item.attributes.class }}"{% endif %}>
-                                <a href="{{ item.uri }}">{{ item.label }}</a>
-                            </li>
-                        </ul>
-                    {% endif %}
+{% for item in knp_menu_get('menu.sub') %}
+    {% if item.attributes.template is defined and item.attributes.template == 'select' %}
+        <div class="navbar-sub-select">
+            <select name="huge" class="btn-group select select-block mbl" style="display: none;">
+                {% for option in item %}
+                    <option value="{{ option.uri }}" data-url="{{ option.uri }}" {{ option.attributes.selected }}>{{ option.label }}</option>
                 {% endfor %}
-            </div>
+            </select>
         </div>
-    </div>
-</div>
+
+    {% else %}
+        <ul class="nav">
+            <li {% if item.attributes.class is defined %}class="{{ item.attributes.class }}"{% endif %}>
+                <a href="{{ item.uri }}">{{ item.label }}</a>
+            </li>
+        </ul>
+    {% endif %}
+{% endfor %}

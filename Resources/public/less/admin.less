@@ -4,6 +4,7 @@
 @import "vars";
 @import "functions";
 @import "bounce";
+@import "sidebar";
 
 @font-face {
   font-family: "Flat-UI-Icons";
@@ -56,6 +57,18 @@
 
 }
 
+.main_container {
+    padding: 0 45px 0 645px;
+
+    &.bg-lightgray {
+        padding: 0 45px 0 345px;
+    }
+}
+
+.navbar-inner {
+    background: #252324;
+}
+
 /* css for timepicker */
 .ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
 .ui-timepicker-div dl { text-align: left; }
@@ -79,7 +92,6 @@
 
 body, html {
   overflow: hidden;
-  background: @turquoise;
   -ms-overflow-style: none !important;
 }
 
@@ -251,11 +263,8 @@ section.main_container {
   }
 
   .navbar-top-select {
-    //width: 120px;
     float: left;
-    height: 72px;
-    padding-top: 14px;
-    //margin-right: 40px;
+    padding-top: 4px;
   }
 
   .navbar-top-right-select {
@@ -366,9 +375,6 @@ section.main_container {
 
 .admin-container {
   padding: @default_element_margin 0;
-  form.wysiwyg {
-    max-width: 720px;
-  }
 }
 
 .admin-list {
@@ -438,7 +444,7 @@ table {
   position: fixed;
   bottom: 0;
   left: 0;
-  z-index: 90;
+  z-index: 106;
   background-color: @wet-asphalt;
   height: 53px;
   width: 100%;
@@ -453,24 +459,17 @@ table {
   color: @inverse;
 }
 
-//
-//FIXED CONTAINERS
-//
-@fixed-containers-top-position: 122px;
-@fixed-containers-height: 100%;
-@option-container-width: 300px;
 //OPTIONS CONTAINER
 .admin-option-container {
   position: fixed;
-  width: @option-container-width;
-  padding: @default_element_margin/2 @default_element_margin - 3px @default_element_margin/2 @default_element_margin - 2px;
-  background: @midnight-blue;
-  height: @fixed-containers-height;
+  width: 300px;
+  padding: 20px;
+  background: #343233;
+  height: 100%;
   z-index: 100;
-  top: @fixed-containers-top-position;
-  left: 0;
+  top: 50px;
+  left: 300px;
   overflow-y: scroll;
-  display: none;
 
   h6 {
     margin-bottom: @default_element_margin;
@@ -515,14 +514,14 @@ table {
 
 //ATTACHMENTS CONTAINER
 .admin-attachments-container {
-  .calc-width("100% - @{option-container-width}");
+  .calc-width("100% - 600px");
   display: none;
-  padding: @default_element_margin/2 @default_element_margin;
   position: fixed;
   z-index: 99;
-  left: @option-container-width;
-  top: @fixed-containers-top-position;
-  height: @fixed-containers-height;
+  left: 600px;
+  padding: 20px;
+  top: 50px;
+  height: 100%;
   overflow-y: visible;
   background: @clouds;
   overflow-y: auto;
@@ -542,14 +541,14 @@ table {
 
 //GALLERY CONTAINER
 .admin-gallery-container {
-  .calc-width("100% - @{option-container-width}");
+  .calc-width("100% - 600px");
   display: none;
-  padding: @default_element_margin/2 @default_element_margin;
   position: fixed;
+  padding: 20px;
   z-index: 99;
-  left: @option-container-width;
-  top: @fixed-containers-top-position;
-  height: @fixed-containers-height;
+  left: 600px;
+  top: 50px;
+  height: 100%;
   overflow-y: auto;
   background: @clouds;
 
@@ -914,7 +913,7 @@ ul.attachments {
 }
 
 .note-editor.panel.panel-default {
-  border: 0;
+    border: 2px solid #bdc3c7;
 }
 .note-toolbar.panel-heading {
   background-color: #1ABC9C;

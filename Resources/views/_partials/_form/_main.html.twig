@@ -2,6 +2,8 @@
 
 {% block content %}
     <div class="admin-container container">
+
+        {{ block('content_title') }}
         {{ form_errors(form) }}
 
         {{ form_start(form, { 'attr' : { 'class' : 'wysiwyg', 'novalidate': 'novalidate' } }) }}
@@ -13,5 +15,6 @@
             {% include 'TheCodeineAdminBundle::_partials/_form/_footer.html.twig' %}
 
         {{ form_end(form, {'render_rest': false}) }}
+        {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary pull-right'}, 'label': 'Save'|trans}) }}
     </div>
 {% endblock content %}
