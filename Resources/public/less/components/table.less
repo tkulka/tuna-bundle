@@ -1,0 +1,40 @@
+.table {
+
+    th, td ,th a {
+        color: @colorGray!important;
+    }
+
+    th {
+        font-weight: 400;
+        font-size: 12px;
+        opacity: .6!important;
+    }
+
+    td, th {
+        border-top: 0!important;
+        border-bottom: 1px solid @colorLightGray!important;
+    }
+
+    .center {
+        text-align: center;
+    }
+
+    td.options {
+        text-align: right;
+        min-width: 120px;
+
+        a {
+            color: @colorWhite!important;
+            margin-left: @default_element_margin/2;
+
+            &:hover {
+                color: @colorExtra!important;
+            }
+        }
+    }
+
+    &.table-hover > tbody > tr:hover > td, &.table-hover > tbody > tr:hover > th {
+        background: @colorDark!important;;
+        color: @colorWhite!important;;
+    }
+}

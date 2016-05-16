@@ -1,20 +1,21 @@
 {% form_theme form 'TheCodeineAdminBundle::_partials/_form/_theme.html.twig' %}
 
 {% block content %}
-    <div class="admin-container container">
-
-        {{ block('content_title') }}
+    <div class="admin-container">
         {{ form_errors(form) }}
 
         {{ form_start(form, { 'attr' : { 'class' : 'wysiwyg', 'novalidate': 'novalidate' } }) }}
             {{ form_widget(form._token) }}
             {{ form_widget(form.category) }}
 
-            {% include 'TheCodeineAdminBundle::_partials/_form/_content.html.twig' %}
-            {% include 'TheCodeineAdminBundle::_partials/_form/_options.html.twig' %}
-            {% include 'TheCodeineAdminBundle::_partials/_form/_footer.html.twig' %}
+            <aside class="aside aside-2">
+                {% include 'TheCodeineAdminBundle::_partials/_form/_options.html.twig' %}
+            </aside>
 
+            <div class="inside">
+                {% include 'TheCodeineAdminBundle::_partials/_form/_content.html.twig' %}
+            </div>
         {{ form_end(form, {'render_rest': false}) }}
-        {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary pull-right'}, 'label': 'Save'|trans}) }}
+
     </div>
 {% endblock content %}

@@ -1,0 +1,81 @@
+.wysiwyg {
+    .tab-content {
+        padding: 20px 0;
+        border: 0;
+    }
+
+    .nav-tabs {
+        border-width: 1px;
+
+        li {
+            margin-bottom: -1px;
+            opacity: 0.5;
+
+            a {
+                color: @midnight-blue;
+                text-transform: uppercase;
+            }
+
+            &.active {
+                opacity: 1;
+
+                a {
+                    color: @midnight-blue;
+                }
+            }
+        }
+    }
+
+}
+
+.note-editor.panel.panel-default {
+    border: 2px solid #bdc3c7;
+}
+.note-toolbar.panel-heading {
+    background-color: #1ABC9C;
+}
+.panel-heading.note-toolbar .note-para .dropdown-menu {
+    min-width: 248px;
+}
+.note-style .dropdown-menu {
+    width: 150px;
+}
+
+.note-popover .popover .popover-content .note-style h2,
+.panel-heading.note-toolbar .note-style h2 {
+    font-size: 28px;
+}
+.note-popover .popover .popover-content .note-style h3,
+.panel-heading.note-toolbar .note-style h3 {
+    font-size: 24px;
+}
+.note-popover .popover .popover-content .note-style h4,
+.panel-heading.note-toolbar .note-style h4 {
+    font-size: 20px;
+}
+
+.note-editor .note-editing-area .note-editable {
+    min-height: 200px;
+}
+
+.note-editor.note-frame {
+    border-radius: 0;
+    border: 2px solid #bdc3c7;
+}
+
+.panel-default > .panel-heading {
+    color: #333333;
+    background-color: #fff;
+    border: 0;
+    text-align: right;
+}
+
+.btn.btn-default.note-btn {
+    background: transparent;
+    color: #000;
+
+    &:hover, .active {
+        background: #1ABC9C;
+        color: #fff;
+    }
+}

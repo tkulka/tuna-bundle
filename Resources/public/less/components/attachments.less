@@ -1,0 +1,24 @@
+.admin-attachments-container {
+    .calc-width("100% - 500px");
+    display: none;
+    position: fixed;
+    z-index: -1;
+    left: 500px;
+    padding: 20px;
+    top: 50px;
+    height: 100%;
+    overflow-y: visible;
+    background: @clouds;
+    overflow-y: auto;
+
+    h6 {
+        margin-bottom: @default_element_margin;
+    }
+    .close {
+        position: absolute;
+        right: @default_element_margin;
+        top: @default_element_margin;
+        background: @clouds;
+        opacity: 1;
+    }
+}

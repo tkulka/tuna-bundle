@@ -1,0 +1,52 @@
+.aside-1 {
+    padding: 20px;
+    background: @colorDark;
+    height: 100%;
+    display: none;
+
+    @media all and (min-width: 1024px) {
+        display: block;
+        max-width: 250px;
+    }
+
+    .options {
+        margin-bottom: 30px;
+
+        ul {
+            li {
+                display: inline-block;
+                list-style: none;
+
+                &:first-child {
+                    display: none;
+                }
+
+                a {
+                    background: @colorExtra;
+                    color: @colorWhite;
+                    border-radius: 30px;
+                    padding: 8px 20px;
+                    font-size: 12px;
+
+                    &:hover, &:focus {
+                        background: @colorWhite;
+                        color: @colorExtra;
+                    }
+                }
+            }
+        }
+    }
+
+    .nav {
+        a {
+            padding: 10px 0;
+            color: @colorGray;
+            font-size: 18px;
+
+            &:hover, &:focus {
+                background: transparent;
+                color: @colorWhite;
+            }
+        }
+    }
+}

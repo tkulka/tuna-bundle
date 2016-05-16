@@ -1,18 +1,9 @@
-{% for item in knp_menu_get('menu.sub') %}
-    {% if item.attributes.template is defined and item.attributes.template == 'select' %}
-        <div class="navbar-sub-select">
-            <select name="huge" class="btn-group select select-block mbl" style="display: none;">
-                {% for option in item %}
-                    <option value="{{ option.uri }}" data-url="{{ option.uri }}" {{ option.attributes.selected }}>{{ option.label }}</option>
-                {% endfor %}
-            </select>
-        </div>
-
-    {% else %}
-        <ul class="nav">
+<div class="options">
+    <ul class="nav">
+        {% for item in knp_menu_get('menu.sub') %}
             <li {% if item.attributes.class is defined %}class="{{ item.attributes.class }}"{% endif %}>
                 <a href="{{ item.uri }}">{{ item.label }}</a>
             </li>
-        </ul>
-    {% endif %}
-{% endfor %}
+        {% endfor %}
+    </ul>
+</div>

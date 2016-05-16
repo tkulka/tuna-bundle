@@ -1,0 +1,18 @@
+<div class="navbar-top-left">
+    {{ knp_menu_render('menu.top.static') }}
+</div>
+<div class="navbar-top-right">
+    <div class="btn-group">
+        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+            <span class="fui-gear"></span>
+        </button>
+        <span class="dropdown-arrow"></span>
+        <ul class="dropdown-menu  pull-right" role="menu">
+            <li>
+                <a href="{{ path('fos_user_security_logout') }}">
+                    <span>{% trans %}Logout{% endtrans %} <i class="glyphicon glyphicon-log-out pull-right"></i></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
