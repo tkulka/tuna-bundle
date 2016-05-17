@@ -14,7 +14,17 @@
 
             <div class="inside">
                 <div class="body">
-                    <h3>{{  title }}<br><span>{{ slug }}</span></h3>
+                    <h3>
+                        {% if title is defined %}
+                            {{  title }}
+                        {% endif %}
+                        <br>
+                        <span>
+                            {% if slug is defined %}
+                                {{  slug }}
+                            {% endif %}
+                        </span>
+                    </h3>
 
                     {% include 'TheCodeineAdminBundle::_partials/_form/_content.html.twig' %}
                 </div>
