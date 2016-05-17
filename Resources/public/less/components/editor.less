@@ -40,8 +40,8 @@
     width: 150px;
 }
 
-.note-popover .popover .popover-content .note-style h2,
-.panel-heading.note-toolbar .note-style h2 {
+    .note-popover .popover .popover-content .note-style h2,
+    .panel-heading.note-toolbar .note-style h2 {
     font-size: 28px;
 }
 .note-popover .popover .popover-content .note-style h3,
@@ -63,15 +63,22 @@
 }
 
 .panel-default > .panel-heading {
-    color: #333333;
     background-color: #fff;
     border: 0;
     text-align: right;
+
+    .dropdown-menu {
+        text-align: left;
+
+        p {
+            margin: 0;
+        }
+    }
 }
 
 .btn.btn-default.note-btn {
     background: transparent;
-    color: @colorGray;
+    color: @colorDark;
 
     &:hover, .active {
         background: @colorExtra;
