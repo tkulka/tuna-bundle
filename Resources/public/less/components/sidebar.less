@@ -1,5 +1,5 @@
 .aside-1 {
-    padding: 20px;
+    padding: 20px 0;
     background: @colorDark;
     height: 100%;
     display: none;
@@ -38,14 +38,28 @@
     }
 
     .nav {
-        a {
-            padding: 10px 0;
-            color: @colorGray;
-            font-size: 18px;
+        li {
+            padding: 0 20px;
 
-            &:hover, &:focus {
-                background: transparent;
-                color: @colorWhite;
+            &.active {
+                background: @colorLightDark;
+
+                a {
+                    color: @colorWhite;
+                }
+            }
+
+            a {
+                padding: 20px 0;
+                color: @colorGray;
+                font-size: 18px;
+                font-weight: 300;
+                cursor: pointer;
+
+                &:hover, &:focus {
+                    background: transparent;
+                    color: @colorWhite;
+                }
             }
         }
     }

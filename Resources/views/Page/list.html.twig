@@ -35,14 +35,18 @@
                                     <td>{{ item.slug }}</td>
                                     <td class="center">
                                         {% if item.published %}
-                                            <span class="fui-check-inverted"></span>
+                                            <i class="fa fa-check-circle" aria-hidden="true"></i>
                                         {% else %}
-                                            <span class="fui-cross-inverted"></span>
+                                            <i class="fa fa-times-circle" aria-hidden="true"></i>
                                         {% endif %}
                                     </td>
                                     <td class="options">
-                                        <a href="{{path('thecodeine_page_edit',{'id' : item.id})}}" class="fui-new"></a>
-                                        <a href="#" data-title="{{ item.title }}" data-url="{{ path('thecodeine_page_delete',{'id' : item.id})}}" data-target="#modal-confirm" data-action="delete" class="fui-cross-inverted"></a>
+                                        <a href="{{path('thecodeine_page_edit',{'id' : item.id})}}">
+                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                        </a>
+                                        <a href="#" data-title="{{ item.title }}" data-url="{{ path('thecodeine_page_delete',{'id' : item.id})}}" data-target="#modal-confirm" data-action="delete">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             {% endfor %}

@@ -4,7 +4,6 @@
         <meta charset="UTF-8" />
         <title>{% block title %}{% trans %}The Codeine - Admin Bundle{% endtrans %}{% endblock %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!--[if lt ie 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
         {% block stylesheets %}
@@ -27,16 +26,12 @@
                         {% include 'TheCodeineAdminBundle::_partials/_header.html.twig' %}
                     {% endblock navigation %}
                 </header>
-            {% endif %}
 
-            <aside class="aside aside-1">
-                {% if is_granted('ROLE_ADMIN') %}
+                <aside class="aside aside-1">
                     {% include 'TheCodeineAdminBundle::_partials/_menu.sub.html.twig' %}
                     {{ knp_menu_render('menu.top.static') }}
-                {% endif %}
-            </aside>
-
-            {{ block('options') }}
+                </aside>
+            {% endif %}
 
             <section class="content">
                 <div class="inside">

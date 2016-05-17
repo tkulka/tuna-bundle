@@ -2,7 +2,7 @@
     <ul class="nav">
         {% for item in knp_menu_get('menu.sub') %}
             <li {% if item.attributes.class is defined %}class="{{ item.attributes.class }}"{% endif %}>
-                <a href="{{ item.uri }}">{{ item.label }}</a>
+                <a href="{{ item.uri }}"><i class="fa fa-plus" aria-hidden="true"></i> {{ item.label }}</a>
             </li>
         {% endfor %}
     </ul>

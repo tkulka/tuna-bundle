@@ -1,14 +1,22 @@
-.btn.btn-default {
-    background-color: #1ABC9C;
+.btn {
+    background: @colorGray;
 }
+
+.btn.btn-default,
+.btn.btn-primary {
+    background-color: @colorExtra;
+}
+.btn.btn-primary:hover,
+.btn.btn-primary:focus,
+.btn-group:focus .btn.btn-primary.dropdown-toggle,
 .btn.btn-default:hover,
 .btn.btn-default:focus,
 .btn-group:focus .btn.btn-default.dropdown-toggle,
 .btn.btn-default:active,
 .btn-group.open .btn.btn-default.dropdown-toggle,
 .btn.btn-default.active {
-    background-color: #12846D;
-    color: #ffffff;
+    background-color: @colorWhite;
+    color: @colorExtra;
 }
 
 .btn-options {

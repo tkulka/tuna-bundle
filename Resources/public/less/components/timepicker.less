@@ -14,3 +14,34 @@
 .ui-datepicker-current, .ui-datepicker-close {
     .btn;
 }
+
+.ui-datepicker:before {
+    border-color: transparent transparent @colorExtra;;
+}
+
+.ui-datepicker .ui-datepicker-header,
+.ui-datepicker .ui-datepicker-prev:hover,
+.ui-datepicker .ui-datepicker-next:hover,
+.ui-datepicker .ui-state-active,
+.ui-slider-handle {
+    background: @colorExtra;
+}
+
+.ui-datepicker,
+.ui-datepicker .ui-datepicker-prev,
+.ui-datepicker .ui-datepicker-next {
+    border-color: @colorExtra;
+}
+
+.form-group.focus .input-group-btn .btn-default, .navbar-search.focus .input-group-btn .btn-default {
+    border-color: @colorExtra !important;
+    color: @colorExtra !important;
+}
+
+a:hover, a:focus {
+    color: @colorExtra;
+}
+
+.ui-slider-handle:hover, .ui-slider-handle:focus {
+    background-color:  @colorExtra;
+}

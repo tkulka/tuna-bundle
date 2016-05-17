@@ -52,10 +52,12 @@ body {
 .content {
     padding: 0;
     background: @colorWhite;
+    height: 100%;
 
     @media all and (min-width: 1024px) {
         height: 100%;
-        overflow: auto;
+        overflow-x: hidden;
+        overflow-y: auto;
 
         .inside {
             height: 100%;
@@ -82,9 +84,10 @@ body {
 
         .inside {
             height: 100vh;
-            overflow: auto;
+            overflow-x: hidden;
+            overflow-y: auto;
 
-            .tabbable {
+            .body {
                 padding: 60px;
                 height: 100%;
             }
