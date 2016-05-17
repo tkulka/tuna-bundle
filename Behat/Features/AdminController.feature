@@ -28,7 +28,7 @@ Feature: As a developer I want to test AdminBundle integration
   @logged-in
   Scenario: as admin i want to see news list
     When I go to "/admin/news/list"
-    Then I should see 3 ".admin-list>.table.table-striped.table-hover>tbody>tr" element
+    Then I should see 3 ".admin-list>.table.table-hover>tbody>tr" element
 
   @logged-in
   Scenario: as admin i want to create news
@@ -58,7 +58,7 @@ Feature: As a developer I want to test AdminBundle integration
   @logged-in
   Scenario: as admin i want to see page list
     When I go to "/admin/page/list"
-    Then I should see 2 ".admin-list>.table.table-striped.table-hover>tbody>tr" elements
+    Then I should see 2 ".admin-list>.table.table-hover>tbody>tr" elements
 
   @logged-in
   Scenario: as admin i want to create new page

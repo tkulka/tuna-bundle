@@ -1,5 +1,5 @@
 .aside-1 {
-    padding: 20px 0;
+    padding: @default_element_margin 0;
     background: @colorDark;
     height: 100%;
     display: none;
@@ -10,7 +10,7 @@
     }
 
     .options {
-        margin-bottom: 30px;
+        margin-bottom: @default_element_margin;
 
         ul {
             li {
@@ -25,7 +25,7 @@
                     background: @colorExtra;
                     color: @colorWhite;
                     border-radius: 30px;
-                    padding: 8px 20px;
+                    padding: 8px @default_element_margin;
                     font-size: 12px;
 
                     &:hover, &:focus {
@@ -39,7 +39,7 @@
 
     .nav {
         li {
-            padding: 0 20px;
+            padding: 0 @default_element_margin;
 
             &.active {
                 background: @colorLightDark;
@@ -50,7 +50,7 @@
             }
 
             a {
-                padding: 20px 0;
+                padding: @default_element_margin 0;
                 color: @colorGray;
                 font-size: 18px;
                 font-weight: 300;
