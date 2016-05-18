@@ -22,45 +22,20 @@ tuna.website = {
         //init main views
         new tuna.view.NavigationView({el: $('nav')[0]});
         new tuna.view.ListView({el: $('.admin-list')[0]});
-
-        //OPTIONS
-        if( $('.admin-option-container').size()) {
-            new tuna.view.OptionsView({el: $('.admin-option-container')[0]});
-            $('.btn-options').click(function(e){
-                e.stopPropagation();
-                $('.admin-option-container').trigger('open');
-            });
-        }
+        new tuna.view.OptionsView({el: $('.admin-option-container')[0]});
+        new tuna.view.GalleryView({el: $('.admin-gallery-container')[0]});
+        new tuna.view.AttachmentsView({el: $('.admin-attachments-container')[0]});
 
         //WYSIWYG EDITOR
         tuna.view.EditorView && new tuna.view.EditorView({
             selector: '.tab-pane.active .thecodeine_admin_editor'
         });
-
-        //GALLERY
-        if($('.admin-gallery-container').size()) new tuna.view.GalleryView({el: $('.admin-gallery-container')[0]});
-        //ATTACHMENTS
-        if($('.admin-attachments-container').size()) new tuna.view.AttachmentsView({el: $('.admin-attachments-container')[0]});
-
-
-        //setup minimal height for main container
-        this.resizeContainer();
-        $(window).resize(tuna.website.resizeContainer);
-    },
-
-    resizeContainer: function() {
-        var height = $(window).height() - $('nav').height() - $('.admin-edit-footer').height();
-        $('section.main_container').css({
-            'min-height': height,
-            'height'    : height
-        });
-        $('div[data-dynamic-height="1"]').height(height + 3);
     },
 
     goToUri: function(uri) {
         top.location.href = uri;
     }
-}
+};
 
 /**
  * Main admin menu view
@@ -90,7 +65,7 @@ tuna.view.ListView = Backbone.View.extend({
     onDeleteItem: function(e)  {
         $('#modalConfirm .modal-body p').html(
             'Czy na pewno chcesz usunąć <br/> <b>' + $(e.target).data('title') + '</b>?'
-        )
+        );
         $('#modalConfirm').modal({
             keyboard: true
         });
@@ -111,54 +86,12 @@ tuna.view.ListView = Backbone.View.extend({
 
 tuna.view.OptionsView = Backbone.View.extend({
     events: {
-        'click .close': "_onClose",
-        'close': "_onClose",
-        'open': "_onOpen",
         'click .btn-gallery': '_onGalleryOpen',
         'click .btn-attachments': '_onAttachmentsOpen'
     },
 
     initialize: function() {
         this.$el.addClass('magictime');
-       // this.$elementsToAnimate = this.$('.form-group, h6, .btn-gallery, .btn-attachments, label');
-    },
-
-    _onClose: function(e) {
-        this._closeGallery();
-        this._closeAttachments();
-
-        $('.thumbnail.empty div div:not(.new-image) input').closest('li').remove();
-
-        this.$el
-            .removeClass('perspectiveLeftRetourn')
-            .addClass('perspectiveLeft');
-
-        $('body').off('click.options-watcher');
-    },
-
-    _onOpen: function(e) {
-        this.$el
-            .removeClass('perspectiveLeft')
-            .show()
-            .addClass('perspectiveLeftRetourn');
-
-        var oThis = this;
-        setTimeout(function(){
-
-            $(document).on('mouseup.temporary',function (event) {
-                if (!oThis.$el.is(event.target) && !$('.admin-gallery-container').is(event.target) && !$('.admin-attachments-container').is(event.target)
-                    && oThis.$el.has(event.target).length === 0 && $('.admin-gallery-container').has(event.target).length === 0
-                    && $('.admin-attachments-container').has(event.target).length === 0)
-                {
-                    oThis._onClose(e);
-                    $(document).unbind('mouseup.temporary');
-                } else {
-                    event.preventDefault();
-                    event.stopPropagation();
-                }
-            });
-
-        },100);
     },
 
     _onGalleryOpen: function() {
@@ -231,10 +164,6 @@ tuna.view.GalleryView = Backbone.View.extend({
             $('.gallery-items li:not(.jelly-in)').each(function(idx) {
                 $(this)
                     .show()
-//                    .css({
-//                      //  '-webkit-transition-delay': idx * 100 + 's',
-//                        'transition-delay': (idx * 100) + 's'
-//                    })
                     .addClass('jelly-in');
             });
         }, 800);
@@ -335,7 +264,7 @@ tuna.view.GalleryView = Backbone.View.extend({
                         top: 0,
                         left: 0,
                         'zIndex': 9
-                    })
+                    });
                     $cnt.addClass('jelly-in new-image');
                 }
             })(f);

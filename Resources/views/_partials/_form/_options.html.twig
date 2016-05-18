@@ -1,4 +1,4 @@
-<div class="admin-option-container" data-dynamic-height="1">
+<div class="admin-option-container">
     <h6 class="text-inverse">{% trans %}Options{% endtrans %}</h6>
 
     {% if form.important is defined %}
@@ -36,14 +36,14 @@
 
 </div>
 
-<div class="admin-attachments-container" data-dynamic-height="1">
+<div class="admin-attachments-container">
     <a href="javascript:void(0)" class="btn btn-default close"><i class="fui-cross"></i></a>
-    <h6>{% trans %}Attachments{% endtrans %}</h6>
+    <h3>{% trans %}Attachments{% endtrans %}</h3>
     {{ form_widget(form.attachments) }}
 </div>
 
-<div class="admin-gallery-container" data-dynamic-height="1">
+<div class="admin-gallery-container">
     <a href="javascript:void(0)" class="btn btn-default close"><i class="fui-cross"></i></a>
-    <h6>{% trans %}Gallery{% endtrans %}</h6>
+    <h3>{% trans %}Gallery{% endtrans %}</h3>
     {{ form_widget(form.gallery) }}
 </div>

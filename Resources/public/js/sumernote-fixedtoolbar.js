@@ -15,7 +15,7 @@
 
             var repositionToolbar = function() {
                 var windowTop = $(window).scrollTop(),
-                    editorTop = $editor.offset().top,
+                    editorTop = $editor.offset().top - 50,
                     editorBottom = editorTop + $editor.height();
 
                 if (windowTop > editorTop && windowTop < editorBottom) {

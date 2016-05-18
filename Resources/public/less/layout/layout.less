@@ -14,8 +14,10 @@ body {
     background: @colorDark;
     margin: 0;
     padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 
-    @media all and (min-width: 1024px) {
+    @media all and (min-width: @mobileLargeScreen) {
         overflow: hidden;
     }
 }
@@ -38,7 +40,7 @@ body {
             padding: @default_element_margin;
             background: @colorLightDark;
 
-            @media all and (min-width: 1024px) {
+            @media all and (min-width: @desktopSmallScreen) {
                 padding: 60px;
             }
         }
@@ -54,7 +56,7 @@ body {
     background: @colorWhite;
     height: 100%;
 
-    @media all and (min-width: 1024px) {
+    @media all and (min-width: @desktopSmallScreen) {
         height: 100%;
         overflow-x: hidden;
         overflow-y: auto;
@@ -67,6 +69,12 @@ body {
 
 .admin-container {
     overflow: hidden;
+
+    @media all and (min-width: @desktopSmallScreen) {
+        .actions {
+            display: none;
+        }
+    }
 
     & > form {
         display: -webkit-box;
@@ -89,13 +97,12 @@ body {
 
             .body {
                 padding: 60px;
-                height: 100%;
             }
         }
     }
 }
 
-@media all and (min-width: 1024px) {
+@media all and (min-width: @desktopSmallScreen) {
     .aside {
         flex: 1;
         order: 1;

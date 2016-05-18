@@ -1,40 +1,56 @@
-.table {
+.table > tbody, .table > thead  {
 
-    th, td ,th a {
-        color: @colorGray!important;
-    }
+    > tr {
 
-    th {
-        font-weight: 400;
-        font-size: 12px;
-        opacity: .6!important;
-    }
+        &.unpublished {
+            opacity: .5;
+        }
 
-    td, th {
-        border-top: 0!important;
-        border-bottom: 1px solid @colorLightGray!important;
+        &:hover {
+            opacity: 1;
+
+            > td {
+                background: @colorDark;
+                color: @colorWhite;
+            }
+        }
+
+        td, th {
+            color: @colorGray;
+            border-top: 0;
+            border-bottom: 1px solid @colorLightGray;
+
+            a {
+                color: @colorWhite;
+
+                &:hover {
+                    color: @colorExtra;
+                }
+            }
+        }
+
+        th {
+            font-weight: 400;
+            font-size: 12px;
+            opacity: .6;
+
+            a {
+                color: @colorGray;
+            }
+        }
+
+        td.options {
+            text-align: right;
+            min-width: 120px;
+
+            a {
+                margin-left: @default_element_margin/2;
+            }
+        }
     }
 
     .center {
         text-align: center;
     }
-
-    td.options {
-        text-align: right;
-        min-width: 120px;
-
-        a {
-            color: @colorWhite!important;
-            margin-left: @default_element_margin/2;
-
-            &:hover {
-                color: @colorExtra!important;
-            }
-        }
-    }
-
-    &.table-hover > tbody > tr:hover > td, &.table-hover > tbody > tr:hover > th {
-        background: @colorDark!important;;
-        color: @colorWhite!important;;
-    }
 }
+

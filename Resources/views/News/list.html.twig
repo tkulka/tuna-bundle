@@ -13,6 +13,9 @@
         <div class="row admin-container">
             <div class="col-sm-12">
                 <div class="admin-list">
+
+                    {% include 'TheCodeineAdminBundle::_partials/_menu.sub.html.twig' %}
+
                     <table class="table table-hover">
                         <thead>
                             <tr>
@@ -26,7 +29,7 @@
                         </thead>
                         <tbody>
                             {% for item in pagination %}
-                                <tr data-enabled="{{ item.published|round }}">
+                                <tr data-enabled="{{ item.published|round }}" class="{% if not item.published %}unpublished{% endif %}">
                                     <td>{{ loop.index + lp}}</td>
                                     <td>{{ item.title }}</td>
                                     <td>{{ item.createdAt|date('d/m/Y H:m:s') }}</td>
@@ -45,8 +48,8 @@
                                         {% endif %}
                                     </td>
                                     <td class="options">
-                                        <a href="{{path('thecodeine_news_edit',{'id' : item.id})}}" class="fui-new"></a>
-                                        <a href="#" data-title="{{ item.title }}" data-url="{{ path('thecodeine_news_delete',{'id' : item.id})}}" data-target="#modal-confirm" data-action="delete" class="fui-cross-inverted"></a>
+                                        <a href="{{path('thecodeine_news_edit',{'id' : item.id})}}" class="fa fa-pencil-square-o"></a>
+                                        <a href="#" data-title="{{ item.title }}" data-url="{{ path('thecodeine_news_delete',{'id' : item.id})}}" data-target="#modal-confirm" data-action="delete" class="fa fa-trash"></a>
                                     </td>
                                 </tr>
                             {% endfor %}

@@ -113,15 +113,14 @@
 
 {% block thecodeine_gallerybundle_gallery_widget %}
     <div class="form-group thecodeine_admin_gallery">
-        <a href="javascript:void(0)" class="btn btn-hg btn-default add_new_item" data-prototype="{{ form_widget(form.items.vars.prototype)|e }}">
-            <i class="fui-plus"></i>
-        </a>
         <ul class="gallery-items">
             {% for item in form.items %}
                 {{ form_widget(item) }}
             {% endfor %}
         </ul>
-        <div class="clear"></div>
+        <a href="javascript:void(0)" class="btn btn-border add_new_item" data-prototype="{{ form_widget(form.items.vars.prototype)|e }}">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+        </a>
     </div>
 {% endblock %}
 
@@ -185,17 +184,15 @@
 
 {% block attachments_widget %}
     <div class="form-group thecodeine_admin_attachments">
-        <a href="javascript:void(0)" class="btn btn-hg btn-default add_new_attachment " data-prototype="{{ form_widget(form.vars.prototype)|e }}">
-            <i class="fui-plus"></i>
-        </a>
-
         <ul class="attachments">
             {% for attachment in form %}
                 {{ form_widget(attachment, {'label': false}) }}
             {% endfor %}
         </ul>
 
-        <div class="clear"></div>
+        <a href="javascript:void(0)" class="btn btn-border add_new_attachment " data-prototype="{{ form_widget(form.vars.prototype)|e }}">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+        </a>
     </div>
 {% endblock %}
 

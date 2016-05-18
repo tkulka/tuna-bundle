@@ -30,3 +30,21 @@
     padding-top: 39px !important;
     margin: @default_element_margin;
 }
+
+.btn:active, .btn-group.open .btn.dropdown-toggle, .btn.active {
+    background: transparent;
+    color: @colorWhite;
+}
+
+.btn-border {
+    border: 2px solid @colorGray;
+    background: transparent;
+    padding: 10px 30px;
+    color: @colorGray;
+    font-size: 28px;
+
+    &:hover {
+        background: @colorExtra;
+        color: @colorWhite;
+    }
+}
