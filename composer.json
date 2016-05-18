@@ -29,15 +29,15 @@
         "a2lix/translation-form-bundle": "1.*",
         "gedmo/doctrine-extensions": "^2.4",
         "doctrine/doctrine-fixtures-bundle": "^2.2",
-        "thecodeine/tuna-newsbundle": "dev-devel",
-        "thecodeine/tuna-editorbundle": "dev-devel",
-        "thecodeine/tuna-gallerybundle": "dev-devel",
-        "thecodeine/tuna-imagebundle": "dev-devel",
-        "thecodeine/tuna-tagbundle": "dev-devel",
-        "thecodeine/tuna-pagebundle": "dev-devel",
-        "thecodeine/tuna-videobundle": "dev-devel",
         "friendsofsymfony/user-bundle": "^1.3",
-        "leafo/lessphp": "^0.5.0"
+        "leafo/lessphp": "^0.5.0",
+        "thecodeine/tuna-newsbundle": "1.0.0",
+        "thecodeine/tuna-editorbundle": "1.0.0",
+        "thecodeine/tuna-gallerybundle": "1.0.0",
+        "thecodeine/tuna-imagebundle": "1.0.0",
+        "thecodeine/tuna-tagbundle": "1.0.0",
+        "thecodeine/tuna-pagebundle": "1.0.0",
+        "thecodeine/tuna-videobundle": "1.0.0"
     },
     "require-dev": {
         "behat/behat": "~3.0",

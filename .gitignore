@@ -9,3 +9,6 @@ Behat/Fixtures/web/media/
 
 Behat/Fixtures/app/test.db
 nohup.out
+
+.idea
+.DS_Store
