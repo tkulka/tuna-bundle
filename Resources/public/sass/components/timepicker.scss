@@ -1,0 +1,50 @@
+/* css for timepicker */
+.ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
+.ui-timepicker-div dl { text-align: left; }
+.ui-timepicker-div dl dt { float: left; clear:left; padding: 0 0 0 5px; }
+.ui-timepicker-div dl dd { margin: 0 10px 10px 45%; }
+.ui-timepicker-div td { font-size: 90%; }
+.ui-tpicker-grid-label { background: none; border: none; margin: 0; padding: 0; }
+
+.ui-timepicker-rtl{ direction: rtl; }
+.ui-timepicker-rtl dl { text-align: right; padding: 0 5px 0 0; }
+.ui-timepicker-rtl dl dt{ float: right; clear: right; }
+.ui-timepicker-rtl dl dd { margin: 0 45% 10px 10px; }
+
+.ui-datepicker:before {
+    border-color: transparent transparent $colorExtra;
+}
+
+.ui-datepicker .ui-datepicker-header,
+.ui-datepicker .ui-datepicker-prev:hover,
+.ui-datepicker .ui-datepicker-next:hover,
+.ui-datepicker .ui-state-active,
+.ui-slider-handle {
+    background: $colorExtra;
+}
+
+.ui-datepicker,
+.ui-datepicker .ui-datepicker-prev,
+.ui-datepicker .ui-datepicker-next {
+    border-color: $colorExtra;
+}
+
+.form-control.datepicker {
+    height: 40px;
+    font-size: 14px;
+}
+
+.form-group.focus .input-group-btn .btn-default, .navbar-search.focus .input-group-btn .btn-default {
+    border-color: $colorExtra !important;
+    color: $colorExtra !important;
+}
+.ui-datepicker {
+    a:hover, a:focus {
+        color: $colorExtra;
+    }
+}
+
+
+.ui-slider-handle:hover, .ui-slider-handle:focus {
+    background-color:  $colorExtra;
+}

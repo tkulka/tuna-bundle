@@ -1,0 +1,196 @@
+.admin-attachments-container, .admin-gallery-container {
+    width: 100%;
+    display: none;
+    position: fixed;
+    z-index: 90;
+    left: 0px;
+    padding: 60px;
+    top: 50px;
+    height: 100%;
+    background: $colorWhite;
+    overflow-y: auto;
+
+    @media all and (min-width: $mobileLargeScreen) {
+        width: -moz-calc(100% - 250px);
+        width: -webkit-calc(100% - 250px);
+        width: calc(100% - 250px);
+        left: 250px;
+    }
+
+    @media all and (min-width: $desktopSmallScreen) {
+        width: -moz-calc(100% - 550px);
+        width: -webkit-calc(100% - 550px);
+        width: calc(100% - 550px);
+        left: 550px;
+        z-index: -1;
+    }
+
+    .close {
+        position: absolute;
+        right: $default_element_margin;
+        top: $default_element_margin;
+        opacity: 1;
+    }
+
+    .thecodeine_admin_gallery,
+    .thecodeine_admin_attachments {
+        border: 2px solid $colorGray;
+        padding: 10px;
+
+        .gallery-items, .attachments {
+            width: 100%;
+            padding: 0;
+            margin-bottom: 20px;
+
+            .sortable-placeholder {
+                height: 145px;
+                width: 100%;
+                list-style: none;
+                border: 2px solid $colorExtra;
+            }
+
+            .item {
+                list-style: none;
+                display: table;
+                width: 100%;
+                height: 145px;
+                background: $colorWhite;
+
+                > div {
+                    height: 145px;
+                    border-bottom: 1px solid $colorGray;
+                    position: relative;
+                    padding: 10px;
+                    display: table-cell;
+                    vertical-align: middle;
+
+                    &.option {
+                        width: 50px;
+                        text-align: center;
+                    }
+
+                    &.item-name {
+                        .tabbable {
+                            width: 100%;
+                            height: 100%;
+
+                            .tab-content {
+                                padding: 0;
+                                margin: 0;
+                                height: 100%;
+                                width: 100%;
+                                border: 0;
+                            }
+                            .nav-tabs {
+                                margin-bottom: 0;
+                            }
+                            .tab-pane {
+                                label {
+                                    display: none;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+.thecodeine_admin_gallery .gallery-items .item > div {
+    &:first-child {
+        width: 200px;
+    }
+
+    input[type="file"] {
+        width: 200px;
+        height: 100px;
+        opacity: 0;
+        top: 0px;
+        left: 0px;
+        z-index: 10;
+        cursor: pointer;
+    }
+
+    input[type="url"] {
+        width: 200px;
+    }
+
+    .fui-plus {
+        font-size: 44px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    &.image, &.video {
+        width: 200px;
+    }
+
+    &.item-name {
+        textarea {
+            display: block;
+            width: 100%;
+            padding: 8px 12px;
+            outline: 0;
+            height: 85px;
+            resize: none;
+            border: 0;
+            border-left: 1px solid $colorLighten;
+            border-right: 1px solid $colorLighten;
+            border-bottom: 1px solid $colorLighten;
+        }
+    }
+}
+
+.thecodeine_admin_attachments .attachments .item > div {
+    &.options-container {
+        width: 150px;
+
+        .upload-container {
+            position: relative;
+            overflow: hidden;
+            height: 44px;
+            width: 44px;
+            margin-left: $default_element_margin/2;
+            display: inline-block;
+            cursor: pointer;
+            float: left;
+
+            .btn {
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 1;
+                margin-left: 0;
+            }
+            input[type="file"] {
+                width: 100%;
+                position: absolute;
+                z-index: 9;
+                top: 0;
+                left: 0;
+                height: 44px;
+                opacity: 0;
+            }
+        }
+    }
+
+    &.item-name {
+        input {
+            display: block;
+            width: 100%;
+            padding: 8px 12px;
+            outline: 0;
+            resize: none;
+            border: 0;
+            border-left: 1px solid $colorLighten;
+            border-right: 1px solid $colorLighten;
+            border-bottom: 1px solid $colorLighten;
+        }
+    }
+}

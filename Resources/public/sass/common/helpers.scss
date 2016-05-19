@@ -1,0 +1,45 @@
+.bg-transparent {
+    background: transparent;
+}
+
+.clear {
+    clear: both;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.width-default {
+    width: 300px;
+}
+
+.dropdown-menu {
+    border-radius: 0;
+}
+
+.clear-transform {
+    opacity: 1 !important;
+    transform: none !important;
+    -webkit-transform: none !important;
+}
+
+.admin-alert {
+    max-width: 600px;
+    margin: $default_element_margin auto;
+}
+
+.form-group.focus .form-control, .form-control:focus {
+    border-color: $colorExtra;
+}
+
+.clearfix::before, .clearfix::after {
+    content:"";
+    display:table;
+}
+.clearfix::after {
+    clear:both;
+}
+.clearfix {
+    zoom:1; /* For IE 6/7 (trigger hasLayout) */
+}
