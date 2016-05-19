@@ -126,15 +126,7 @@
 
 {% block thecodeine_gallerybundle_item_widget %}
     {% spaceless %}
-        {% if form.image is not defined and form.video is not defined %}
-            {% set empty = 'empty' %}
-        {% else %}
-            {% set empty = '' %}
-        {% endif %}
-
-        <li class="thumbnail {{ empty }}" id="{{ form.vars.id }}">
-            <a href="javascript:void(0)" class="delete"><i class="fui-cross-inverted"></i></a>
-
+        <li class="item clearfix" id="{{ form.vars.id }}">
             {% if form.image is not defined and form.video is not defined %}
                 {{ form_widget(form.type, {'empty_value':'Choose gallery item type'|trans}) }}
             {% else %}
@@ -147,35 +139,39 @@
 
             {% if form.image is defined %}
                 {% set image = form.vars.value.image %}
-
-                {% if(image is not null) %}
-                    <img class="gallery-image" src="{{ ('uploads/' ~ image.path) | imagine_filter('admin_thumb') }}" />
-                {% else %}
-                    {{ form_widget(form.image) }}
-                    <span class="fui-plus"></span>
-                {% endif %}
-
-                <div class="item-name">
-                    {% if form.translations is defined %}
-                        {{ form_widget(form.translations, {'label': false}) }}
+                <div class="image">
+                    {% if(image is not null) %}
+                        <img class="gallery-image" src="{{ ('uploads/' ~ image.path) | imagine_filter('admin_thumb') }}" />
+                    {% else %}
+                        {{ form_widget(form.image) }}
+                        <span class="fui-plus"></span>
                     {% endif %}
                 </div>
             {% endif %}
 
             {% if form.video is defined %}
-                {{ form_widget(form.video, {'attr': {'class': 'form-control'}}) }}
-
-                <div class="video-player">
+                <div class="video">
+                    {{ form_widget(form.video, {'attr': {'class': 'form-control'}}) }}
                     {% set video = form.vars.value.video %}
                     {% if(video is not null) %}
-                        <iframe width="260" height="130" src="{{ videoPlayer(video.type, video.videoId) }}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                        <iframe width="200" height="100" src="{{ videoPlayer(video.type, video.videoId) }}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                     {% endif %}
                 </div>
+            {% endif %}
 
+            {% if form.video is defined or form.image is defined  %}
                 <div class="item-name">
                     {% if form.translations is defined %}
                         {{ form_widget(form.translations, {'label': false}) }}
                     {% endif %}
+                </div>
+
+                <div class="option handle">
+                    <i class="fa fa-bars" aria-hidden="true"></i>
+                </div>
+
+                <div class="option delete">
+                    <i class="fa fa-trash-o" aria-hidden="true"></i>
                 </div>
             {% endif %}
         </li>
@@ -184,7 +180,7 @@
 
 {% block attachments_widget %}
     <div class="form-group thecodeine_admin_attachments">
-        <ul class="attachments">
+        <ul class="attachments clearfix">
             {% for attachment in form %}
                 {{ form_widget(attachment, {'label': false}) }}
             {% endfor %}

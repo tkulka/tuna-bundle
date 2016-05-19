@@ -32,164 +32,111 @@
     .thecodeine_admin_attachments {
         border: 2px solid @colorGray;
         padding: 10px;
-
-        .delete {
-            position: absolute;
-            z-index: 10;
-            top: -9px;
-            right: -8px;
-            color: @wet-asphalt;
-            opacity: 0.8;
-            &:hover {
-                opacity: 1;
-            }
-        }
     }
 
 }
 
-//GALLERY
-@gallery-item-height: 190px;
-@gallery-item-width: 100%;
+.admin-gallery-container {
+    .gallery-items {
+        width: 100%;
+        padding: 0;
+        margin-bottom: 20px;
 
-
-
-ul.gallery-items {
-    padding-left: 0;
-    margin-top: @default_element_margin;
-
-    li.sortable-placeholder {
-        display: inline-block;
-        margin-bottom: @default_element_margin;
-    }
-
-    li {
-        display: inline-block;
-        margin-right: 18px;
-        position: relative;
-        width: @gallery-item-width;
-        min-height: 50px;
-        max-height: @gallery-item-height;
-        border: 0;
-        border-bottom: 1px solid @colorGray;
-        border-radius: 0;
-        float: left;
-
-        > div {
-            width: 260px;
-            float: left;
+        .sortable-placeholder {
+            height: 145px;
+            width: 100%;
+            list-style: none;
+            border: 2px solid @colorExtra;
         }
 
-        .select {
-            margin-bottom: 0;
-        }
+        .item {
+            list-style: none;
+            display: table;
+            width: 100%;
+            height: 145px;
 
-        img {
-            .filter("grayscale(100%)");
-            top: 0px;
-            left: 0px;
-            margin-left: 0;
-            float: left;
-            transition: @default_transition_time;
-            &:hover {
-                .filter("none");
-            }
-        }
+            > div {
+                height: 145px;
+                border-bottom: 1px solid @colorGray;
+                position: relative;
+                padding: 10px;
+                display: table-cell;
+                vertical-align: middle;
 
-        input[type="file"] {
-            height: @gallery-item-height - 8;
-            width: @gallery-item-width - 8;
-            opacity: 0;
-            top: 0px;
-            left: 0px;
-            z-index: 10;
-            cursor: pointer;
-        }
-
-        input[type="url"] {
-            position: absolute;
-            width: 260px;
-        }
-
-        .fui-plus {
-            font-size: 44px;
-            position: absolute;
-            top: 50%;
-            left: 130px;
-            margin-top: -34px;
-            margin-left: -20px;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .item-name {
-            top: 180px;
-            width: ~"calc(100% - 264px)";
-            height: 190px;
-            float: left;
-            margin-left: 4px;
-
-            .tabbable {
-                width: 100%;
-                height: 100%;
-                .tab-content {
-                    padding: 0;
-                    margin: 0;
-                    height: 100%;
-                    width: 100%;
-                    border: 0;
+                &:first-child {
+                    width: 200px;
                 }
-                .nav-tabs {
-                    display: none;
+
+                input[type="file"] {
+                    width: 200px;
+                    height: 100px;
+                    opacity: 0;
+                    top: 0px;
+                    left: 0px;
+                    z-index: 10;
+                    cursor: pointer;
                 }
-                .tab-pane {
-                    display: block;
-                    margin-bottom: 10px;
-                    label {
-                        display: none;
+
+                input[type="url"] {
+                    width: 200px;
+                }
+
+                .fui-plus {
+                    font-size: 44px;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    z-index: 1;
+                    pointer-events: none;
+                }
+
+                &.image, &.video {
+                    width: 200px;
+                }
+
+                &.option {
+                    width: 50px;
+                    text-align: center;
+                }
+
+                &.item-name {
+
+                    .tabbable {
+                        width: 100%;
+                        height: 100%;
+
+                        .tab-content {
+                            padding: 0;
+                            margin: 0;
+                            height: 100%;
+                            width: 100%;
+                            border: 0;
+                        }
+                        .nav-tabs {
+                            margin-bottom: 0;
+                        }
+                        .tab-pane {
+                            label {
+                                display: none;
+                            }
+                        }
+                    }
+
+                    textarea {
+                        display: block;
+                        width: 100%;
+                        padding: 8px 12px;
+                        outline: 0;
+                        height: 85px;
+                        resize: none;
+                        border: 0;
+                        border-left: 1px solid #e1e4e7;
+                        border-right: 1px solid #e1e4e7;
+                        border-bottom: 1px solid #e1e4e7;
                     }
                 }
             }
-
-            textarea {
-                display: block;
-                width: 100%;
-                line-height: 1.428571429;
-                vertical-align: middle;
-                border: 2px solid #bdc3c7;
-                color: #34495e;
-                font-family: 'Lato', Helvetica, Arial, sans-serif;
-                font-size: 15px;
-                padding: 8px 12px;
-                outline: 0;
-                height: 85px;
-                resize: none;
-                -webkit-appearance: none;
-                border-radius: 0;
-                -webkit-box-shadow: none;
-                -moz-box-shadow: none;
-                box-shadow: none;
-                -webkit-transition: border .25s linear, color .25s linear, background-color .25s linear;
-                -moz-transition: border .25s linear, color .25s linear, background-color .25s linear;
-                -o-transition: border .25s linear, color .25s linear, background-color .25s linear;
-                transition: border .25s linear, color .25s linear, background-color .25s linear;
-                -webkit-backface-visibility: hidden;
-                &:nth-of-type(2) {
-                    margin-top: 4px;
-                }
-            }
-        }
-        .video-player {
-            position: relative;
-            top: 49px;
-            width: 260px;
-            height: 130px;
-            overflow: hidden;
-        }
-
-        &.empty {
-            border: 1px dashed @inverse;
-            background: transparent;
         }
     }
 }
@@ -213,9 +160,15 @@ ul.attachments {
         border-bottom: 1px solid @colorGray;
         border-radius: 0;
 
+        &.sortable-placeholder {
+            height: @attachment-item-height;
+            border: 1px dotted @colorExtra;
+        }
+
         .tabbable {
             width: 100%;
             height: 100%;
+
             .tab-content {
                 padding: 0;
                 margin: 0;
@@ -223,9 +176,11 @@ ul.attachments {
                 width: 100%;
                 border: 0;
             }
+
             .nav-tabs {
                 display: none;
             }
+
             .tab-pane {
                 width: ~"calc(50% - 62px)";
                 display: inline-block;
@@ -243,7 +198,6 @@ ul.attachments {
             float: left;
             margin-left: @default_element_margin/2;
         }
-
 
         .options-container {
             position: absolute;
@@ -288,10 +242,5 @@ ul.attachments {
         input[type="text"] {
             width: 100%;
         }
-
-        .delete {
-
-        }
-
     }
 }

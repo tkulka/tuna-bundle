@@ -125,7 +125,6 @@ tuna.view.GalleryView = Backbone.View.extend({
 
     initialize: function() {
         this.$el.addClass('magictime');
-        this.$('.gallery-items li').hide();
         this._initSortable();
     },
 
@@ -136,7 +135,9 @@ tuna.view.GalleryView = Backbone.View.extend({
     _initSortable: function() {
         var oThis = this;
         this.$('.gallery-items')
-            .sortable()
+            .sortable({
+                handle: '.handle'
+            })
             .bind('sortupdate', function() {
                 oThis.recalculateImagePositions();
             });
@@ -148,26 +149,11 @@ tuna.view.GalleryView = Backbone.View.extend({
 
     _onClose: function() {
         this.$el.removeClass('slideLeftRetourn').addClass('holeOut');
-        this.$('.gallery-items li').each(function(){
-           $(this).removeClass('jelly-in').hide();
-           if(!$(this).find('img').size()) {
-         //      $(this).remove();
-           }
-        });
     },
 
     _onOpen: function() {
         $('.admin-attachments-container').trigger('close');
         this.$el.removeClass('holeOut').show().addClass('slideLeftRetourn');
-
-        setTimeout(function(){
-            $('.gallery-items li:not(.jelly-in)').each(function(idx) {
-                $(this)
-                    .show()
-                    .addClass('jelly-in');
-            });
-        }, 800);
-
     },
 
     recalculateImagePositions: function(){
@@ -219,21 +205,19 @@ tuna.view.GalleryView = Backbone.View.extend({
         var prototype = $(e.currentTarget).data('prototype');
         // get the new index
         var index = $(e.currentTarget).data('index');
-        index = index ? index : $('li.thumbnail').size();
+        index = index ? index : $('li.item').size();
         // Replace '__name__' in the prototype's HTML to
         // instead be a number based on how many items we have
         var newForm = prototype.replace(/__name__/g, index);
         // increase the index with one for the next item
         $(e.currentTarget).data('index', index + 1);
 
-        this.$('.gallery-items').prepend($(newForm).addClass('jelly-in'));
+        this.$('.gallery-items').prepend($(newForm));
         this.choiceEventListener(index);
     },
 
     _onClickDelete: function(e) {
-        var $element = $(e.currentTarget).parent();
-        $element.removeClass('jelly-in').addClass('magictime holeOut');
-        setTimeout(function(){$element.remove()}, 800);
+        $(e.currentTarget).parent().remove()
     },
 
     _onInputFileChange: function(e) {
@@ -258,14 +242,13 @@ tuna.view.GalleryView = Backbone.View.extend({
                     $cnt.css({
                         'background-image': 'url('+event.target.result+')',
                         'background-size' : 'cover',
-                        height: '180px',
-                        width: '260px',
+                        height: '100px',
+                        width: '200px',
                         position: 'relative',
                         top: 0,
                         left: 0,
                         'zIndex': 9
                     });
-                    $cnt.addClass('jelly-in new-image');
                 }
             })(f);
 
@@ -288,31 +271,16 @@ tuna.view.AttachmentsView = Backbone.View.extend({
 
     initialize: function() {
         this.$el.addClass('magictime');
-        this.$('.attachments li').hide();
         this._initSortable();
     },
 
     _onClose: function() {
         this.$el.removeClass('slideLeftRetourn').addClass('holeOut');
-
-        this.$('.attachments li').each(function(){
-            $(this).removeClass('jelly-in').hide();
-            if(!$(this).find('input[type="text"]').val()) {
-                $(this).remove();
-            }
-        });
     },
 
     _onOpen: function() {
         $('.admin-gallery-container').trigger('close');
         this.$el.removeClass('holeOut').show().addClass('slideLeftRetourn');
-        setTimeout(function(){
-            $('.attachments li:not(.jelly-in)').each(function(idx){
-                $(this)
-                    .show()
-                    .addClass('jelly-in');
-            });
-        }, 800);
     },
 
     recalculateImagePositions: function(){
@@ -357,9 +325,7 @@ tuna.view.AttachmentsView = Backbone.View.extend({
     },
 
     _onClickDelete: function(e) {
-        var $element = $(e.currentTarget).parent();
-        $element.removeClass('jelly-in').addClass('magictime holeOut');
-        setTimeout(function(){$element.remove()}, 800);
+        $(e.currentTarget).parent().remove()
     }
 
 });
