@@ -138,13 +138,10 @@ tuna.view.GalleryView = Backbone.View.extend({
             .sortable({
                 handle: '.handle'
             })
+            .disableSelection()
             .bind('sortupdate', function() {
                 oThis.recalculateImagePositions();
             });
-    },
-
-    _destroySortable: function() {
-        this.$('.gallery-items').sortable('destroy');
     },
 
     _onClose: function() {
@@ -185,9 +182,6 @@ tuna.view.GalleryView = Backbone.View.extend({
                 url : $form.attr('action'),
                 type: $form.attr('method'),
                 data : data,
-                beforeSend: function() {
-                    oThis._destroySortable();
-                },
                 success: function(html) {
                     // Replace current position field ...
                     $(id + index).replaceWith(
@@ -200,8 +194,6 @@ tuna.view.GalleryView = Backbone.View.extend({
     },
 
     _onAddNewItem: function(e) {
-        this._destroySortable();
-
         var prototype = $(e.currentTarget).data('prototype');
         // get the new index
         var index = $(e.currentTarget).data('index');
@@ -292,7 +284,10 @@ tuna.view.AttachmentsView = Backbone.View.extend({
     _initSortable: function() {
         var oThis = this;
         this.$('.attachments')
-            .sortable()
+            .sortable({
+                handle: '.handle'
+            })
+            .disableSelection()
             .bind('sortupdate', function() {
                 oThis.recalculateImagePositions();
             });

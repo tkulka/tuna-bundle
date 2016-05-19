@@ -35,16 +35,16 @@
                                     <td>{{ item.createdAt|date('d/m/Y H:m:s') }}</td>
                                     <td class="center">
                                         {% if item.published %}
-                                            <span class="fui-check-inverted"></span>
+                                            <i class="fa fa-check-circle" aria-hidden="true"></i>
                                         {% else %}
-                                            <span class="fui-cross-inverted"></span>
+                                            <i class="fa fa-times-circle" aria-hidden="true"></i>
                                         {% endif %}
                                     </td>
                                     <td class="center">
                                         {% if item.important %}
-                                            <span class="fui-check-inverted"></span>
+                                            <i class="fa fa-check-circle" aria-hidden="true"></i>
                                         {% else %}
-                                            <span class="fui-cross-inverted"></span>
+                                            <i class="fa fa-times-circle" aria-hidden="true"></i>
                                         {% endif %}
                                     </td>
                                     <td class="options">

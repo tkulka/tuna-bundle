@@ -1,0 +1,54 @@
+.btn {
+    background: $colorGray;
+}
+
+a.btn {
+    color: $colorWhite;
+}
+
+.btn.btn-default,
+.btn.btn-primary {
+    background-color: $colorExtra;
+}
+.btn.btn-primary:hover,
+.btn.btn-primary:focus,
+.btn-group:focus .btn.btn-primary.dropdown-toggle,
+.btn.btn-default:hover,
+.btn.btn-default:focus,
+.btn-group:focus .btn.btn-default.dropdown-toggle,
+.btn.btn-default:active,
+.btn-group.open .btn.btn-default.dropdown-toggle,
+.btn.btn-default.active {
+    background-color: $colorWhite;
+    color: $colorExtra;
+}
+
+.btn-options {
+    z-index: 90;
+    color: $colorWhite;
+}
+
+.btn-square {
+    width: 200px;
+    height: 100px;
+    padding-top: 39px !important;
+    margin: $default_element_margin;
+}
+
+.btn:active, .btn-group.open .btn.dropdown-toggle, .btn.active {
+    background: transparent;
+    color: $colorWhite;
+}
+
+.btn-border {
+    border: 2px solid $colorGray;
+    background: transparent;
+    padding: 10px 30px;
+    color: $colorGray!important;
+    font-size: 28px;
+
+    &:hover {
+        background: $colorExtra;
+        color: $colorWhite;
+    }
+}

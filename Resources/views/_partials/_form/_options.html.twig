@@ -37,13 +37,17 @@
 </div>
 
 <div class="admin-attachments-container">
-    <a href="javascript:void(0)" class="btn btn-default close"><i class="fui-cross"></i></a>
+    <a href="javascript:void(0)" class="btn btn-default close">
+        <i class="fa fa-times" aria-hidden="true"></i>
+    </a>
     <h3>{% trans %}Attachments{% endtrans %}</h3>
     {{ form_widget(form.attachments) }}
 </div>
 
 <div class="admin-gallery-container">
-    <a href="javascript:void(0)" class="btn btn-default close"><i class="fui-cross"></i></a>
+    <a href="javascript:void(0)" class="btn btn-default close">
+        <i class="fa fa-times" aria-hidden="true"></i>
+    </a>
     <h3>{% trans %}Gallery{% endtrans %}</h3>
     {{ form_widget(form.gallery) }}
 </div>
