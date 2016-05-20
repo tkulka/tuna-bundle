@@ -1,54 +1,41 @@
-.btn {
-    background: $colorGray;
+.btn-primary {
+    background-color: $brand-primary;
+    color: $link-hover-color;
+
+    &:hover, &:focus {
+        background: $link-hover-color;
+        color: $brand-primary;
+    }
 }
 
-a.btn {
-    color: $colorWhite;
+.btn-secondary {
+    background-color: lighten($brand-tertiary, 25%);
+    color: $link-hover-color;
+
+    &:hover, &:focus {
+        background-color: $brand-secondary;
+        color: $link-hover-color;
+    }
 }
 
-.btn.btn-default,
-.btn.btn-primary {
-    background-color: $colorExtra;
-}
-.btn.btn-primary:hover,
-.btn.btn-primary:focus,
-.btn-group:focus .btn.btn-primary.dropdown-toggle,
-.btn.btn-default:hover,
-.btn.btn-default:focus,
-.btn-group:focus .btn.btn-default.dropdown-toggle,
-.btn.btn-default:active,
-.btn-group.open .btn.btn-default.dropdown-toggle,
-.btn.btn-default.active {
-    background-color: $colorWhite;
-    color: $colorExtra;
-}
-
-.btn-options {
-    z-index: 90;
-    color: $colorWhite;
-}
-
-.btn-square {
-    width: 200px;
-    height: 100px;
-    padding-top: 39px !important;
-    margin: $default_element_margin;
-}
-
-.btn:active, .btn-group.open .btn.dropdown-toggle, .btn.active {
-    background: transparent;
-    color: $colorWhite;
+.btn-sm {
+    padding: 10px 15px;
+    font-size: 12px;
+    line-height: 1;
 }
 
 .btn-border {
-    border: 2px solid $colorGray;
-    background: transparent;
+    background-color: transparent;
+    border: 2px solid lighten($brand-tertiary, 25%);
+    color: lighten($brand-tertiary, 25%);
     padding: 10px 30px;
-    color: $colorGray!important;
-    font-size: 28px;
 
-    &:hover {
-        background: $colorExtra;
-        color: $colorWhite;
+    &:hover, &:focus {
+        border-color: $brand-primary;
+        color: $brand-primary;
     }
+}
+
+.btn-round {
+    border-radius: 30px;
 }

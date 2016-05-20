@@ -10,44 +10,40 @@
             opacity: 1;
 
             > td {
-                background: $colorDark;
-                color: $colorWhite;
+                background: $brand-secondary;
+                color: $link-hover-color;
             }
         }
 
         td, th {
-            color: $colorGray;
+            color: lighten($brand-tertiary, 40%);
             border-top: 0;
-            border-bottom: 1px solid $colorLightGray;
+            border-bottom: 1px solid lighten($brand-tertiary, 25%);
 
             a {
-                color: $colorWhite;
+                color: $link-hover-color;
 
                 &:hover {
-                    color: $colorExtra;
+                    color: $brand-primary;
                 }
             }
         }
 
-        th {
+        th, th a {
             font-weight: 400;
             font-size: 12px;
             opacity: .6;
-
-            a {
-                color: $colorGray;
-            }
         }
 
         td {
-            font-size: 16px;
+            font-size: 15px;
 
             &.options {
                 text-align: right;
                 min-width: 120px;
 
                 a {
-                    margin-left: $default_element_margin/2;
+                    margin-left: 10px;
                 }
             }
         }

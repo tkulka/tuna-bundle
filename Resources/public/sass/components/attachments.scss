@@ -7,34 +7,30 @@
     padding: 60px;
     top: 50px;
     height: 100%;
-    background: $colorWhite;
+    background: $brand-content;
     overflow-y: auto;
 
     @media all and (min-width: $mobileLargeScreen) {
-        width: -moz-calc(100% - 250px);
-        width: -webkit-calc(100% - 250px);
-        width: calc(100% - 250px);
+        @include calc(width, "100% - 250px");
         left: 250px;
     }
 
     @media all and (min-width: $desktopSmallScreen) {
-        width: -moz-calc(100% - 550px);
-        width: -webkit-calc(100% - 550px);
-        width: calc(100% - 550px);
+        @include calc(width, "100% - 550px");
         left: 550px;
         z-index: -1;
     }
 
     .close {
         position: absolute;
-        right: $default_element_margin;
-        top: $default_element_margin;
+        right: 20px;
+        top: 20px;
         opacity: 1;
     }
 
     .thecodeine_admin_gallery,
     .thecodeine_admin_attachments {
-        border: 2px solid $colorGray;
+        border: 2px solid lighten($brand-tertiary, 25%);
         padding: 10px;
 
         .gallery-items, .attachments {
@@ -43,22 +39,22 @@
             margin-bottom: 20px;
 
             .sortable-placeholder {
-                height: 145px;
                 width: 100%;
+                height: 106px;
                 list-style: none;
-                border: 2px solid $colorExtra;
+                border: 2px solid $brand-primary;
             }
 
             .item {
                 list-style: none;
                 display: table;
                 width: 100%;
-                height: 145px;
-                background: $colorWhite;
+                height: 85px;
+                background: $brand-content;
 
                 > div {
-                    height: 145px;
-                    border-bottom: 1px solid $colorGray;
+                    height: 85px;
+                    border-bottom: 1px solid $brand-tertiary;
                     position: relative;
                     padding: 10px;
                     display: table-cell;
@@ -67,6 +63,12 @@
                     &.option {
                         width: 50px;
                         text-align: center;
+
+                        &:hover {
+                            .fa {
+                                color: $brand-primary;
+                            }
+                        }
                     }
 
                     &.item-name {
@@ -81,14 +83,30 @@
                                 width: 100%;
                                 border: 0;
                             }
-                            .nav-tabs {
-                                margin-bottom: 0;
+                            .nav-tabs, .tab-pane label {
+                                display: none;
                             }
-                            .tab-pane {
-                                label {
-                                    display: none;
-                                }
-                            }
+                        }
+
+                        .form-group {
+                            margin: 0;
+                        }
+
+                        input {
+                            height: 41px;
+                        }
+
+                        textarea {
+                            height: 85px;
+                        }
+
+                        textarea, input {
+                            display: block;
+                            width: 100%;
+                            padding: 8px 12px;
+                            outline: 0;
+                            resize: none;
+                            border: 2px solid lighten($brand-tertiary, 25%);
                         }
                     }
                 }
@@ -98,56 +116,60 @@
 
 }
 
-.thecodeine_admin_gallery .gallery-items .item > div {
-    &:first-child {
-        width: 200px;
-    }
+.thecodeine_admin_gallery .gallery-items .item {
+    > div {
 
-    input[type="file"] {
-        width: 200px;
-        height: 100px;
-        opacity: 0;
-        top: 0px;
-        left: 0px;
-        z-index: 10;
-        cursor: pointer;
-    }
+        &:first-child {
+            width: 200px;
+        }
 
-    input[type="url"] {
-        width: 200px;
-    }
+        &.item-name {
+            padding-top: 10px;
+        }
 
-    .fui-plus {
-        font-size: 44px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 1;
-        pointer-events: none;
-    }
-
-    &.image, &.video {
-        width: 200px;
-    }
-
-    &.item-name {
-        textarea {
-            display: block;
-            width: 100%;
-            padding: 8px 12px;
-            outline: 0;
+        input[type="file"] {
+            width: 180px;
             height: 85px;
-            resize: none;
-            border: 0;
-            border-left: 1px solid $colorLighten;
-            border-right: 1px solid $colorLighten;
-            border-bottom: 1px solid $colorLighten;
+            opacity: 0;
+            top: 0px;
+            left: 0px;
+            z-index: 10;
+            cursor: pointer;
+        }
+
+        input[type="url"] {
+            width: 200px;
+        }
+
+        .fui-plus {
+            font-size: 44px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            pointer-events: none;
+            color: lighten($brand-tertiary, 25%);
+        }
+
+        &.image, &.video {
+            width: 200px;
+
+            &:hover {
+                .fui-plus {
+                    color: $brand-primary;
+                }
+            }
         }
     }
 }
 
 .thecodeine_admin_attachments .attachments .item > div {
+
+    &.item-name {
+        padding-top: 20px;
+    }
+
     &.options-container {
         width: 150px;
 
@@ -156,7 +178,7 @@
             overflow: hidden;
             height: 44px;
             width: 44px;
-            margin-left: $default_element_margin/2;
+            margin-left: 10px;
             display: inline-block;
             cursor: pointer;
             float: left;
@@ -177,20 +199,6 @@
                 height: 44px;
                 opacity: 0;
             }
-        }
-    }
-
-    &.item-name {
-        input {
-            display: block;
-            width: 100%;
-            padding: 8px 12px;
-            outline: 0;
-            resize: none;
-            border: 0;
-            border-left: 1px solid $colorLighten;
-            border-right: 1px solid $colorLighten;
-            border-bottom: 1px solid $colorLighten;
         }
     }
 }

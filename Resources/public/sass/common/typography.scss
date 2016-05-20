@@ -1,20 +1,12 @@
-h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 400;
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
 }
 
 h3 {
-    margin-bottom: 40px;
-    line-height: 1.25;
+    margin-bottom: 60px;
 
     span {
-        color: $colorGray;
         font-size: 20px;
-        font-weight: 300;
+        color: lighten($brand-tertiary, 50%);
     }
-}
-
-a {
-    color: $colorExtra;
-    text-decoration: none;
 }

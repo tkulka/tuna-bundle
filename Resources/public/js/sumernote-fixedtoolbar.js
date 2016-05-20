@@ -23,7 +23,7 @@
                         'position': 'fixed',
                         'top': '50px',
                         'width': $editor.width() + 'px',
-                        'z-index': '99999'
+                        'z-index': '2'
                     });
                     $editor.css('padding-top', '42px');
                 } else {

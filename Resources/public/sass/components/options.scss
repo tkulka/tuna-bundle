@@ -12,14 +12,14 @@
 
     .admin-option-container {
         padding: 20px;
-        background: #343233;
+        background: $brand-tertiary;
         overflow-y: scroll;
         height: 100vh;
         z-index: 100;
         position: relative;
 
         h6 {
-            margin-bottom: $default_element_margin;
+            margin-bottom: 20px;
         }
 
         .thecodeine_admin_main_image {
@@ -35,16 +35,12 @@
             }
         }
 
-        label {
-            color: $colorWhite;
-        }
-
         .btn-gallery {
-            margin-top: $default_element_margin;
+            margin-top: 20px;
         }
 
         .btn-attachments {
-            margin-bottom: $default_element_margin;
+            margin-bottom: 20px;
         }
     }
 }

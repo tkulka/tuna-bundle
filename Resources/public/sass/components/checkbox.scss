@@ -1,6 +1,10 @@
 .checkbox .icons .first-icon, .checkbox .icons .second-icon, .radio .icons .first-icon, .radio .icons .second-icon {
     background-color: transparent;
-    color: $colorLightGray;
+    color: lighten($brand-tertiary, 25%);
+}
+
+.checkbox {
+    color: lighten($brand-tertiary, 25%);
 }
 
 .checkbox.checked .second-icon, .radio.checked .second-icon {
@@ -9,5 +13,5 @@
 }
 
 .fui-checkbox-checked:before {
-    color: $colorExtra;
+    color: $brand-primary;
 }

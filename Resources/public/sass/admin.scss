@@ -1,11 +1,13 @@
 @import "vendor/flat-ui/flat-ui";
 @import "vendor/icons";
 
-@import "common/variables";
-@import "common/functions";
+@import "variables/brakepoints";
+@import "variables/colors";
+@import "variables/typography";
+
+@import "common/mixins";
 @import "common/helpers";
 @import "common/btns";
-@import "components/pagination";
 @import "common/typography";
 
 @import "layout/layout";

@@ -234,8 +234,8 @@ tuna.view.GalleryView = Backbone.View.extend({
                     $cnt.css({
                         'background-image': 'url('+event.target.result+')',
                         'background-size' : 'cover',
-                        height: '100px',
-                        width: '200px',
+                        height: '85px',
+                        width: '180px',
                         position: 'relative',
                         top: 0,
                         left: 0,

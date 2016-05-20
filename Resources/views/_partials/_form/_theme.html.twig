@@ -215,14 +215,14 @@
 
             <div class="options-container">
                 <div class="upload-container">
-                    <a href="javascript:void(0)" class="btn btn-default">
+                    <a href="javascript:void(0)" class="btn btn-secondary">
                         <span class="fa fa-upload" aria-hidden="true"></span>
                         {{ form_widget(form.file) }}
                     </a>
                 </div>
 
                 {% if(attachment is not null) %}
-                    <a href="{{ vich_uploader_asset(attachment,'file') }}" class="btn btn-default" target="_blank"><span class="fui-eye"></span></a>
+                    <a href="{{ vich_uploader_asset(attachment,'file') }}" class="btn btn-secondary" target="_blank"><span class="fui-eye"></span></a>
                 {% endif %}
             </div>
 

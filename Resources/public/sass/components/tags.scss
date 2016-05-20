@@ -1,22 +1,22 @@
 .tagsinput {
     border-radius: 0;
-    border-color: $colorGray;
+    border-color: $brand-primary;
 
     &:focus {
-        border-color: $colorExtra;
+        border-color: $brand-primary;
     }
 
     .tag, .tag:hover {
         border-radius: 0;
-        background: $colorExtra;
+        background: $brand-primary;
     }
 
     .tagsinput-add {
         border-radius: 0;
-        background: $colorGray;
+        background: $brand-primary;
 
         &:hover {
-            background: $colorExtra;
+            background: $brand-primary;
         }
     }
 }

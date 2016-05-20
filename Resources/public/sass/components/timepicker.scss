@@ -12,7 +12,7 @@
 .ui-timepicker-rtl dl dd { margin: 0 45% 10px 10px; }
 
 .ui-datepicker:before {
-    border-color: transparent transparent $colorExtra;
+    border-color: transparent transparent $brand-primary;
 }
 
 .ui-datepicker .ui-datepicker-header,
@@ -20,13 +20,13 @@
 .ui-datepicker .ui-datepicker-next:hover,
 .ui-datepicker .ui-state-active,
 .ui-slider-handle {
-    background: $colorExtra;
+    background: $brand-primary;
 }
 
 .ui-datepicker,
 .ui-datepicker .ui-datepicker-prev,
 .ui-datepicker .ui-datepicker-next {
-    border-color: $colorExtra;
+    border-color: $brand-primary;
 }
 
 .form-control.datepicker {
@@ -35,16 +35,20 @@
 }
 
 .form-group.focus .input-group-btn .btn-default, .navbar-search.focus .input-group-btn .btn-default {
-    border-color: $colorExtra !important;
-    color: $colorExtra !important;
+    border-color: $brand-primary !important;
+    color: $brand-primary !important;
 }
 .ui-datepicker {
     a:hover, a:focus {
-        color: $colorExtra;
+        color: $brand-primary;
     }
 }
 
+.input-group-btn .btn {
+    border-color: lighten($brand-tertiary, 25%);
+    line-height: 16px;
+}
 
 .ui-slider-handle:hover, .ui-slider-handle:focus {
-    background-color:  $colorExtra;
+    background-color:  $brand-primary;
 }

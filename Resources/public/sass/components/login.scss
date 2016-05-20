@@ -15,18 +15,18 @@
     margin-bottom: 0;
 
     h2, label.checkbox  {
-        color: $colorDark;
+        color: $brand-secondary;
     }
 
     .checkbox .icons .first-icon {
-        color: $colorWhite;
+        color: $link-hover-color;
     }
 }
 
 .login-form .login-field:focus + .login-field-icon, .checkbox.checked, .radio.checked  {
-    color: $colorExtra;
+    color: $brand-primary;
 }
 
 .login-form .login-field:focus {
-    border-color: $colorExtra;
+    border-color: $brand-primary;
 }

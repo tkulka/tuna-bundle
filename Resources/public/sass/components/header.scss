@@ -1,29 +1,33 @@
 .header {
-    background: $colorDark;
+    background: $brand-secondary;
     padding: 0 20px;
     height: 50px;
     max-height: 50px;
 
     .navbar-top-left {
         float: left;
-        display: block;
 
-        @media all and (min-width: $desktopSmallScreen) {
-            display: none;
-        }
 
-        ul li {
-            display: inline-block;
-            margin-left: 20px;
+        .menu {
+            display: block;
 
-            a {
-                padding: 10px 0;
-                color: $colorGray;
-                font-size: 18px;
+            @media all and (min-width: $desktopSmallScreen) {
+                display: none;
+            }
 
-                &:hover, &:focus {
-                    background: transparent;
-                    color: $colorWhite;
+            ul li {
+                display: inline-block;
+                margin-left: 20px;
+
+                a {
+                    padding: 10px 0;
+                    color: $brand-secondary;
+                    font-size: 18px;
+
+                    &:hover, &:focus {
+                        background: transparent;
+                        color: $link-hover-color;
+                    }
                 }
             }
         }
@@ -32,18 +36,33 @@
     .navbar-top-right {
         float: right;
 
+        .dropdown-arrow {
+            border-color: transparent transparent $brand-primary transparent;
+        }
+
         .dropdown-menu {
             z-index: 100000;
+            background: $brand-primary;
+            border-radius: 0;
+
+            li > a {
+                color: $link-hover-color;
+
+                &:hover, &:active, &:focus {
+                    background: $brand-primary;
+                    color: $brand-tertiary;
+                }
+            }
         }
 
         button {
             background-color: transparent;
-            color: $colorGray;
+            color: lighten($brand-tertiary, 25%);
             padding-top: 14px;
 
-            &.active {
+            &.active, &:hover {
                 background: transparent!important;
-                color: $colorWhite;
+                color: $link-hover-color;
             }
         }
     }
