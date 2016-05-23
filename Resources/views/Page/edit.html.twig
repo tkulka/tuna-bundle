@@ -1,10 +1,7 @@
-{% extends "TheCodeineAdminBundle::_layout.html.twig" %}
-{% block content_title %}
-    <h3>{% trans %}Edit page:{% endtrans %} {{ page.title }}</h3>
-{% endblock content_title %}
+{% extends app.request.isXmlHttpRequest ? 'TheCodeineAdminBundle::_embed.html.twig' : "TheCodeineAdminBundle::_layout.html.twig" %}
 
 {% block content %}
-    {% include 'TheCodeineAdminBundle::_partials/_form/_main.html.twig' %}
+    {% include 'TheCodeineAdminBundle::_partials/_form/_main.html.twig' with {'title': page.title, 'slug': page.slug } %}
 {% endblock %}
 
 {% block extra_javascript %}

@@ -1,0 +1,109 @@
+* {
+    outline: none;
+}
+
+body, html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    font-family: $brand-font-family;
+    font-weight: 400;
+    color: $brand-tertiary;
+    background: $brand-secondary;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    @media all and (min-width: $mobileLargeScreen) {
+        overflow: hidden;
+    }
+}
+
+.container {
+    @include flex-box();
+    @include flex-flow(row wrap);
+
+    max-width: 100%!important;
+    width: 100%!important;
+    height: 100%;
+    padding: 0;
+
+    &.bg-lightgray {
+        .content {
+            padding: 20px;
+            background: $brand-tertiary;
+
+            @media all and (min-width: $desktopSmallScreen) {
+                padding: 60px;
+            }
+        }
+    }
+}
+
+.container > * {
+    flex: 1 100%;
+}
+
+.content {
+    padding: 0;
+    background: $brand-content;
+    height: 100%;
+
+    @media all and (min-width: $desktopSmallScreen) {
+        height: 100%;
+        overflow-x: hidden;
+        overflow-y: auto;
+
+        .inside {
+            height: 100%;
+        }
+    }
+}
+
+.admin-container {
+    overflow: hidden;
+
+    @media all and (min-width: $desktopSmallScreen) {
+        .actions {
+            display: none;
+        }
+    }
+
+    & > form {
+        @include flex-box();
+        @include flex-flow(row wrap);
+        height: 100vh;
+
+        & > * {
+            flex: 1;
+        }
+
+        .inside {
+            height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+
+            .body {
+                padding: 40px 60px 60px 60px;
+            }
+        }
+    }
+}
+
+@media all and (min-width: $desktopSmallScreen) {
+    .aside {
+        flex: 1;
+        order: 1;
+        position: relative;
+        z-index: 100;
+        height: 100%;
+    }
+
+    .content, .inside {
+        flex: 1;
+        order: 3;
+    }
+}

@@ -1,0 +1,22 @@
+.tagsinput {
+    border-radius: 0;
+    border-color: $brand-primary;
+
+    &:focus {
+        border-color: $brand-primary;
+    }
+
+    .tag, .tag:hover {
+        border-radius: 0;
+        background: $brand-primary;
+    }
+
+    .tagsinput-add {
+        border-radius: 0;
+        background: $brand-primary;
+
+        &:hover {
+            background: $brand-primary;
+        }
+    }
+}

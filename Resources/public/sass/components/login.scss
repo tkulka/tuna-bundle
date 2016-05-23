@@ -1,0 +1,32 @@
+.login-form {
+
+    .login-field-icon {
+        top: 3px;
+    }
+
+    &:before {
+        content: none;
+    }
+}
+
+.login {
+    background: transparent;
+    padding: 40px 0;
+    margin-bottom: 0;
+
+    h2, label.checkbox  {
+        color: $brand-secondary;
+    }
+
+    .checkbox .icons .first-icon {
+        color: $link-hover-color;
+    }
+}
+
+.login-form .login-field:focus + .login-field-icon, .checkbox.checked, .radio.checked  {
+    color: $brand-primary;
+}
+
+.login-form .login-field:focus {
+    border-color: $brand-primary;
+}

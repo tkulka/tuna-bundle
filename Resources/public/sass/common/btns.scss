@@ -1,0 +1,41 @@
+.btn-primary {
+    background-color: $brand-primary;
+    color: $link-hover-color;
+
+    &:hover, &:focus {
+        background: $link-hover-color;
+        color: $brand-primary;
+    }
+}
+
+.btn-secondary {
+    background-color: lighten($brand-tertiary, 25%);
+    color: $link-hover-color;
+
+    &:hover, &:focus {
+        background-color: $brand-secondary;
+        color: $link-hover-color;
+    }
+}
+
+.btn-sm {
+    padding: 10px 15px;
+    font-size: 12px;
+    line-height: 1;
+}
+
+.btn-border {
+    background-color: transparent;
+    border: 2px solid lighten($brand-tertiary, 25%);
+    color: lighten($brand-tertiary, 25%);
+    padding: 10px 30px;
+
+    &:hover, &:focus {
+        border-color: $brand-primary;
+        color: $brand-primary;
+    }
+}
+
+.btn-round {
+    border-radius: 30px;
+}

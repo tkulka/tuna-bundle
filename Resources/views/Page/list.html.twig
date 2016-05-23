@@ -1,13 +1,9 @@
 {% extends "TheCodeineAdminBundle::_layout.html.twig" %}
 {% block main_class %}bg-lightgray{% endblock %}
 
-{% block content_title %}
-    <h3>{% trans %}List of pages{% endtrans %}</h3>
-{% endblock content_title %}
-
 {% block content %}
     {% if pagination|length == 0 %}
-        <div class="admin-alert alert alert-success text-center">
+        <div class="admin-alert alert text-center">
             <h3>{% trans %}Oops there is nothing here!{% endtrans %}</h3>
             <a href="{{ path('thecodeine_page_create') }}" class="btn btn-primary btn-wide">
                 <i class="fui-plus-inverted"></i> {% trans %}Add first page item{% endtrans %}
@@ -16,8 +12,11 @@
     {% else %}
         <div class="row admin-container">
             <div class="col-sm-12">
-                <div class="table-responsive admin-list">
-                    <table class="table table-striped table-hover">
+                <div class="admin-list">
+
+                    {% include 'TheCodeineAdminBundle::_partials/_menu.sub.html.twig' %}
+
+                    <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th>Lp</th>
@@ -29,20 +28,20 @@
                         </thead>
                         <tbody>
                             {% for item in pagination %}
-                                <tr data-enabled="{{ item.published|round }}">
+                                <tr data-enabled="{{ item.published|round }}" class="{% if not item.published %}unpublished{% endif %}">
                                     <td>{{ loop.index + lp}}</td>
                                     <td>{{ item.title }}</td>
                                     <td>{{ item.slug }}</td>
                                     <td class="center">
                                         {% if item.published %}
-                                            <span class="fui-check-inverted"></span>
+                                            <i class="fa fa-check-circle" aria-hidden="true"></i>
                                         {% else %}
-                                            <span class="fui-cross-inverted"></span>
+                                            <i class="fa fa-times-circle" aria-hidden="true"></i>
                                         {% endif %}
                                     </td>
                                     <td class="options">
-                                        <a href="{{path('thecodeine_page_edit',{'id' : item.id})}}" class="fui-new"></a>
-                                        <a href="#" data-title="{{ item.title }}" data-url="{{ path('thecodeine_page_delete',{'id' : item.id})}}" data-target="#modal-confirm" data-action="delete" class="fui-cross-inverted"></a>
+                                        <a href="{{path('thecodeine_page_edit',{'id' : item.id})}}" class="fa fa-pencil-square-o" aria-hidden="true"></a>
+                                        <a href="#" data-title="{{ item.title }}" data-url="{{ path('thecodeine_page_delete',{'id' : item.id})}}" data-target="#modal-confirm" data-action="delete" class="fa fa-trash" aria-hidden="true"></a>
                                     </td>
                                 </tr>
                             {% endfor %}

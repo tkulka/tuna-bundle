@@ -1,0 +1,214 @@
+.admin-attachments-container, .admin-gallery-container {
+    width: 100%;
+    display: none;
+    position: fixed;
+    z-index: 90;
+    left: 0px;
+    padding: 40px 60px 60px 60px;
+    top: 50px;
+    height: 100%;
+    background: $brand-content;
+    overflow-y: auto;
+
+    @media all and (min-width: $mobileLargeScreen) {
+        @include calc(width, "100% - 250px");
+        left: 250px;
+    }
+
+    @media all and (min-width: $desktopSmallScreen) {
+        @include calc(width, "100% - 550px");
+        left: 550px;
+        z-index: -1;
+    }
+
+    .close {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        opacity: 1;
+    }
+
+    .thecodeine_admin_gallery,
+    .thecodeine_admin_attachments {
+        border: 2px solid lighten($brand-tertiary, 25%);
+        padding: 10px;
+
+        .gallery-items, .attachments {
+            width: 100%;
+            padding: 0;
+            margin-bottom: 20px;
+
+            .sortable-placeholder {
+                width: 100%;
+                height: 106px;
+                list-style: none;
+                border: 2px solid $brand-primary;
+            }
+
+            .item {
+                list-style: none;
+                display: table;
+                width: 100%;
+                height: 85px;
+                background: $brand-content;
+
+                > div {
+                    height: 85px;
+                    border-bottom: 1px solid $brand-tertiary;
+                    position: relative;
+                    padding: 10px;
+                    display: table-cell;
+                    vertical-align: middle;
+
+                    &.option {
+                        width: 50px;
+                        text-align: center;
+
+                        &:hover {
+                            .fa {
+                                color: $brand-primary;
+                            }
+                        }
+                    }
+
+                    &.item-name {
+                        .tabbable {
+                            width: 100%;
+                            height: 100%;
+
+                            .tab-content {
+                                padding: 0;
+                                margin: 0;
+                                height: 100%;
+                                width: 100%;
+                                border: 0;
+                            }
+                            .nav-tabs, .tab-pane label {
+                                display: none;
+                            }
+                        }
+
+                        .form-group {
+                            margin: 0;
+                        }
+
+                        input {
+                            height: 41px;
+                        }
+
+                        textarea {
+                            height: 85px;
+                        }
+
+                        textarea, input {
+                            display: block;
+                            width: 100%;
+                            padding: 8px 12px;
+                            outline: 0;
+                            resize: none;
+                            border: 2px solid lighten($brand-tertiary, 25%);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+.thecodeine_admin_gallery .gallery-items .item {
+    > div {
+
+        &.image {
+            width: 200px;
+
+            .form-group {
+                margin-bottom: 0;
+            }
+
+            .gallery-image {
+                height: 85px;
+                width: 180px;
+                background-position: center center;
+            }
+        }
+
+        &.item-name {
+            padding-top: 10px;
+        }
+
+        input[type="file"] {
+            width: 180px;
+            height: 85px;
+            opacity: 0;
+            top: 0px;
+            left: 0px;
+            z-index: 10;
+            cursor: pointer;
+        }
+
+        input[type="url"] {
+            width: 200px;
+        }
+
+        .fui-plus {
+            font-size: 44px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            pointer-events: none;
+            color: lighten($brand-tertiary, 25%);
+        }
+
+        &.image, &.video {
+            width: 200px;
+
+            &:hover {
+                .fui-plus {
+                    color: $brand-primary;
+                }
+            }
+        }
+    }
+}
+
+.thecodeine_admin_attachments .attachments .item > div {
+
+    &.item-name {
+        padding-top: 20px;
+    }
+
+    &.options-container {
+        width: 150px;
+
+        .upload-container {
+            position: relative;
+            overflow: hidden;
+            height: 44px;
+            width: 44px;
+            margin-left: 10px;
+            display: inline-block;
+            cursor: pointer;
+            float: left;
+
+            .btn {
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 1;
+                margin-left: 0;
+            }
+            input[type="file"] {
+                width: 100%;
+                position: absolute;
+                z-index: 9;
+                top: 0;
+                left: 0;
+                height: 44px;
+                opacity: 0;
+            }
+        }
+    }
+}

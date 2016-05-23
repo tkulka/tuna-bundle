@@ -1,0 +1,56 @@
+.aside-1 {
+    padding: 20px 0;
+    background: $brand-secondary;
+    height: 100%;
+    display: none;
+
+    @media all and (min-width: $desktopSmallScreen) {
+        display: block;
+        max-width: 250px;
+    }
+
+    .actions {
+        padding: 0 0 0 20px;
+        margin: 0 0 20px 0;
+
+        li {
+            display: inline-block;
+            list-style: none;
+
+            &:first-child {
+                display: none;
+            }
+
+            &.active {
+                background: transparent;
+            }
+        }
+    }
+
+    .nav {
+        li {
+            padding: 0 20px;
+
+            &.active {
+                background: $brand-tertiary;
+
+                a {
+                    color: $link-hover-color;
+                }
+            }
+
+            a {
+                padding: 20px 0;
+                color: lighten($brand-tertiary, 25%);
+                font-size: 18px;
+                font-weight: 400;
+                cursor: pointer;
+
+                &:hover, &:focus {
+                    background: transparent;
+                    color: $link-hover-color;
+                }
+            }
+        }
+    }
+}

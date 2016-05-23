@@ -1,0 +1,47 @@
+.note-toolbar.panel-heading {
+    background-color: $brand-primary;
+}
+.panel-heading.note-toolbar .note-para .dropdown-menu {
+    min-width: 248px;
+}
+.note-style .dropdown-menu {
+    width: 150px;
+}
+
+.note-editor .note-editing-area .note-editable {
+    min-height: 200px;
+}
+
+.note-editor.note-frame, .form-control, textarea {
+    color: $brand-secondary;
+    border-radius: 0;
+    border: 2px solid lighten($brand-tertiary, 25%);
+
+    &:focus {
+        border-color: $brand-primary!important;
+    }
+}
+
+.panel-default > .panel-heading {
+    background-color: $brand-content;
+    border: 0;
+    text-align: right;
+
+    .dropdown-menu {
+        text-align: left;
+
+        p {
+            margin: 0;
+        }
+    }
+}
+
+.btn.btn-default.note-btn {
+    background: transparent;
+    color: $brand-tertiary;
+
+    &:hover, .active {
+        background: $brand-primary;
+        color: $link-hover-color;
+    }
+}

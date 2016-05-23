@@ -1,0 +1,33 @@
+.aside-2 {
+    display: none;
+
+    @media all and (min-width: $mobileLargeScreen) {
+        display: block;
+        max-width: 250px;
+    }
+
+    @media all and (min-width: $desktopSmallScreen) {
+        max-width: 300px;
+    }
+
+    .admin-option-container {
+        padding: 20px;
+        background: $brand-tertiary;
+        overflow-y: scroll;
+        height: 100vh;
+        z-index: 100;
+        position: relative;
+
+        h6 {
+            margin-bottom: 20px;
+        }
+
+        .btn-gallery {
+            margin-top: 20px;
+        }
+
+        .btn-attachments {
+            margin-bottom: 20px;
+        }
+    }
+}

@@ -6817,6 +6817,71 @@ a.list-group-item.active > .badge,
     transform: matrix3d(0.1,0,0,0,0,0.1,0,0,0,0,1,0,0,0,0,1);
   }
 }
+.tab-content {
+  z-index: 1005;
+}
+.note-toolbar .dropdown-menu p,
+.note-toolbar .dropdown-menu blockquote {
+  padding: 0;
+}
+.note-toolbar .dropdown-menu h5 {
+  font-size: 18px;
+}
+.note-toolbar .dropdown-menu blockquote:before {
+  display: none;
+}
+.note-editing-area {
+  font: 18px/1 "Source Sans Pro";
+}
+.note-editing-area h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 25px 0 20px 0;
+}
+.note-editing-area h4 {
+  font-size: 18px;
+  font-weight: 600;
+}
+.note-editing-area h5 {
+  margin: 5px 0;
+  font-size: 14px;
+}
+.note-editing-area hr {
+  width: 25px;
+  float: left;
+  height: 3px;
+  border: 0;
+  background: #000;
+  margin: 20px 0;
+}
+.note-editing-area blockquote {
+  font-size: 18px;
+  margin: 30px 0;
+  padding: 0 50px;
+  width: 83.33333%;
+  line-height: 1.71109;
+}
+.note-editing-area blockquote:before {
+  display: none;
+}
+.note-editing-area p {
+  font-size: 18px;
+  font-weight: 400;
+}
+.note-editing-area p strong,
+.note-editing-area p b {
+  font-weight: 600;
+}
+.note-editing-area p a {
+  text-decoration: none;
+  color: #65a17b;
+}
+.note-editing-area p a:hover {
+  text-decoration: line-through;
+}
+.note-editing-area p:first-child {
+  margin-top: 0;
+}
 @font-face {
   font-family: "Flat-UI-Icons";
   src: url("../fonts/Flat-UI-Icons.eot");
@@ -7488,8 +7553,8 @@ table td.options a {
   padding: 10px 17px 10px 18px;
   background: #2c3e50;
   height: 100%;
-  z-index: 100;
-  top: 53px;
+  z-index: 1006;
+  top: 122px;
   left: 0;
   overflow-y: scroll;
   display: none;
@@ -7537,7 +7602,7 @@ table td.options a {
   position: fixed;
   z-index: 99;
   left: 300px;
-  top: 53px;
+  top: 122px;
   height: 100%;
   overflow-y: visible;
   background: #ecf0f1;
@@ -7563,7 +7628,7 @@ table td.options a {
   position: fixed;
   z-index: 99;
   left: 300px;
-  top: 53px;
+  top: 122px;
   height: 100%;
   overflow-y: auto;
   background: #ecf0f1;
@@ -7624,23 +7689,24 @@ ul.gallery-items li.sortable-placeholder {
   display: inline-block;
   margin-bottom: 20px;
 }
-ul.gallery-items > li {
+ul.gallery-items li {
   display: inline-block;
   margin-right: 18px;
   position: relative;
+  width: 100%;
   min-height: 50px;
   max-height: 190px;
   border: 1px solid white;
   float: left;
 }
-ul.gallery-items > li > div {
+ul.gallery-items li > div {
   width: 260px;
   float: left;
 }
-ul.gallery-items > li .select {
+ul.gallery-items li .select {
   margin-bottom: 0;
 }
-ul.gallery-items > li img {
+ul.gallery-items li img {
   -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
   -moz-filter: grayscale(100%);
@@ -7650,12 +7716,12 @@ ul.gallery-items > li img {
   float: left;
   transition: 400ms;
 }
-ul.gallery-items > li img:hover {
+ul.gallery-items li img:hover {
   -webkit-filter: none;
   filter: none;
   -moz-filter: none;
 }
-ul.gallery-items > li input[type="file"] {
+ul.gallery-items li input[type="file"] {
   height: 182px;
   width: 92%;
   opacity: 0;
@@ -7664,11 +7730,11 @@ ul.gallery-items > li input[type="file"] {
   z-index: 10;
   cursor: pointer;
 }
-ul.gallery-items > li input[type="url"] {
+ul.gallery-items li input[type="url"] {
   position: absolute;
   width: 260px;
 }
-ul.gallery-items > li .fui-plus {
+ul.gallery-items li .fui-plus {
   font-size: 44px;
   position: absolute;
   top: 50%;
@@ -7678,29 +7744,35 @@ ul.gallery-items > li .fui-plus {
   z-index: 1;
   pointer-events: none;
 }
-ul.gallery-items > li .item-name {
+ul.gallery-items li .item-name {
   top: 180px;
-  width: 430px;
+  width: calc(100% - 264px);
   height: 190px;
   float: left;
-  margin-left: 20px;
+  margin-left: 4px;
 }
-ul.gallery-items > li .item-name .tab-content {
-  border: 0;
+ul.gallery-items li .item-name .tabbable {
+  width: 100%;
+  height: 100%;
+}
+ul.gallery-items li .item-name .tabbable .tab-content {
   padding: 0;
   margin: 0;
+  height: 100%;
+  width: 100%;
+  border: 0;
 }
-ul.gallery-items > li .item-name .tab-pane {
-  display: block;
-  margin: .2em 0;
-}
-ul.gallery-items > li .item-name .nav-tabs {
+ul.gallery-items li .item-name .tabbable .nav-tabs {
   display: none;
 }
-ul.gallery-items > li .item-name label {
-  width: 100px;
+ul.gallery-items li .item-name .tabbable .tab-pane {
+  display: block;
+  margin-bottom: 10px;
 }
-ul.gallery-items > li .item-name textarea {
+ul.gallery-items li .item-name .tabbable .tab-pane label {
+  display: none;
+}
+ul.gallery-items li .item-name textarea {
   display: block;
   width: 100%;
   line-height: 1.428571429;
@@ -7709,9 +7781,9 @@ ul.gallery-items > li .item-name textarea {
   color: #34495e;
   font-family: 'Lato', Helvetica, Arial, sans-serif;
   font-size: 15px;
-  padding: 3px 5px;
+  padding: 8px 12px;
   outline: 0;
-  height: 2em;
+  height: 85px;
   resize: none;
   -webkit-appearance: none;
   border-radius: 0;
@@ -7724,21 +7796,21 @@ ul.gallery-items > li .item-name textarea {
   transition: border .25s linear, color .25s linear, background-color .25s linear;
   -webkit-backface-visibility: hidden;
 }
-ul.gallery-items > li .item-name textarea:nth-of-type(2) {
+ul.gallery-items li .item-name textarea:nth-of-type(2) {
   margin-top: 4px;
 }
-ul.gallery-items > li .video-player {
+ul.gallery-items li .video-player {
   position: relative;
   top: 49px;
   width: 260px;
   height: 130px;
   overflow: hidden;
 }
-ul.gallery-items > li.empty {
+ul.gallery-items li.empty {
   border: 1px dashed white;
   background: transparent;
 }
-ul.gallery-items > li .delete {
+ul.gallery-items li .delete {
   position: absolute;
   z-index: 10;
   top: -9px;
@@ -7746,7 +7818,7 @@ ul.gallery-items > li .delete {
   color: #34495e;
   opacity: 0.8;
 }
-ul.gallery-items > li .delete:hover {
+ul.gallery-items li .delete:hover {
   opacity: 1;
 }
 ul.attachments {
@@ -7754,24 +7826,38 @@ ul.attachments {
   padding-left: 0;
   margin-top: 20px;
 }
-ul.attachments .tabbable .nav-tabs {
-  display: none;
-}
-ul.attachments .tabbable .tab-content {
-  margin-bottom: 0;
-}
-ul.attachments .tabbable .tab-content > .tab-pane {
-  display: inline-block;
-  margin-right: 20px;
-  width: 300px;
-}
 ul.attachments li {
+  height: 67px;
   border: 1px solid rgba(255,255,255,0.2);
   display: block;
   position: relative;
   padding: 10px;
   transition: 400ms;
   margin-bottom: 20px;
+}
+ul.attachments li .tabbable {
+  width: 100%;
+  height: 100%;
+}
+ul.attachments li .tabbable .tab-content {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  border: 0;
+}
+ul.attachments li .tabbable .nav-tabs {
+  display: none;
+}
+ul.attachments li .tabbable .tab-pane {
+  width: calc(50% - 62px);
+  display: inline-block;
+  float: left;
+  margin-right: 4px;
+  margin-bottom: 0;
+}
+ul.attachments li .tabbable .tab-pane label {
+  display: none;
 }
 ul.attachments li:hover {
   border-color: #ffffff;
@@ -7783,13 +7869,12 @@ ul.attachments li .btn {
 }
 ul.attachments li .options-container {
   position: absolute;
-  top: 58px;
-  right: 36px;
+  top: 10px;
+  right: 15px;
   min-width: 100px !important;
   display: inline-block;
   float: left;
   margin-left: 10px;
-  z-index: 3;
 }
 ul.attachments li .options-container .upload-container {
   position: relative;
@@ -7833,6 +7918,9 @@ ul.attachments li .delete {
 }
 ul.attachments li .delete:hover {
   opacity: 1;
+}
+.tab-pane div label {
+  display: none;
 }
 .pagination > .active > a,
 .pagination > .active > span,
@@ -7881,40 +7969,4 @@ ul.attachments li .delete:hover {
 }
 .note-editor .note-editing-area .note-editable {
   min-height: 200px;
-}
-* {
-  font-weight: 300 !important;
-}
-.admin-tree > ul > li {
-  width: 340px;
-  min-height: 216px;
-  padding: 1em;
-  border: 1px solid #1abc9c;
-  margin: 1em;
-  float: left;
-  list-style: none;
-  position: relative;
-}
-.admin-tree > ul > li li {
-  margin: .5em 0;
-}
-.admin-tree > ul > li .news-actions {
-  position: absolute;
-  right: 1em;
-  bottom: 1em;
-}
-.admin-tree > ul > li header {
-  background: #1abc9c;
-  font-size: 1.5em;
-  padding: 0.4em;
-  margin: -0.7em -0.7em 0;
-  text-align: center;
-  color: #fff;
-}
-.admin-tree > ul > li header a {
-  color: #fff;
-}
-.admin-tree .glyphicon {
-  font-size: .8em;
-  margin-top: -0.1em;
 }
