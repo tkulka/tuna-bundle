@@ -25,6 +25,7 @@ tuna.website = {
         new tuna.view.OptionsView({el: $('.admin-option-container')[0]});
         new tuna.view.GalleryView({el: $('.admin-gallery-container')[0]});
         new tuna.view.AttachmentsView({el: $('.admin-attachments-container')[0]});
+        new tuna.view.EditView({el: $('.admin-container')[0]});
 
         //WYSIWYG EDITOR
         tuna.view.EditorView && new tuna.view.EditorView({
@@ -68,6 +69,31 @@ tuna.view.ListView = Backbone.View.extend({
         tunaConfirm('Czy na pewno chcesz usunąć <b>' + $(e.target).data('title') + '</b>?').done(function () {
             window.location.href = $a.data('url');
         });
+    }
+});
+
+/**
+ * Edit Lists
+ *
+ * @type {*|void}
+ */
+tuna.view.EditView = Backbone.View.extend({
+    events: {
+        'click .a2lix_translationsLocales li a': "_onLanguageChange"
+    },
+
+    initialize : function(){
+        Backbone.on('LanguageChange', this._onLanguageChange, this);
+    },
+
+    _onLanguageChange: function(e) {
+
+        var $tabContent = $('.tab-content');
+        var target = $(e.target).data('target');
+
+        $(".a2lix_translationsLocales li").removeClass('active').find("a[data-target='" + target + "']").parent().addClass('active');
+        $tabContent.children().removeClass('active');
+        $tabContent.find(target).addClass('active');
     }
 });
 
@@ -143,7 +169,8 @@ tuna.view.GalleryView = Backbone.View.extend({
         'click .close': "_onClose",
         'close': "_onClose",
         'open': "_onOpen",
-        'click': '_onClick'
+        'click': '_onClick',
+        'click .a2lix_translationsLocales li a': "_onLanguageChange"
     },
 
     initialize: function () {
@@ -271,6 +298,10 @@ tuna.view.GalleryView = Backbone.View.extend({
             // Read in the image file as a data URL.
             reader.readAsDataURL(f);
         }
+    },
+
+    _onLanguageChange : function(e){
+        Backbone.trigger('LanguageChange', e);
     }
 });
 
@@ -282,7 +313,8 @@ tuna.view.AttachmentsView = Backbone.View.extend({
         'click .close': "_onClose",
         'close': "_onClose",
         'open': "_onOpen",
-        'click': "_onClick"
+        'click': "_onClick",
+        'click .a2lix_translationsLocales li a': "_onLanguageChange"
     },
 
     initialize: function () {
@@ -345,8 +377,11 @@ tuna.view.AttachmentsView = Backbone.View.extend({
 
     _onClickDelete: function (e) {
         $(e.currentTarget).parent().remove()
-    }
+    },
 
+    _onLanguageChange : function(e){
+        Backbone.trigger('LanguageChange' , e);
+    }
 });
 
 function tunaConfirm(msg) {

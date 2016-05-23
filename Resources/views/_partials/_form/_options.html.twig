@@ -40,6 +40,9 @@
     <a href="javascript:void(0)" class="btn btn-secondary close">
         <i class="fa fa-times" aria-hidden="true"></i>
     </a>
+
+    {% include 'TheCodeineAdminBundle::_partials/_form/_translations.menu.html.twig' %}
+
     <h3>{% trans %}Attachments{% endtrans %}</h3>
     {{ form_widget(form.attachments) }}
 </div>
@@ -48,6 +51,9 @@
     <a href="javascript:void(0)" class="btn btn-secondary close">
         <i class="fa fa-times" aria-hidden="true"></i>
     </a>
+
+    {% include 'TheCodeineAdminBundle::_partials/_form/_translations.menu.html.twig' %}
+
     <h3>{% trans %}Gallery{% endtrans %}</h3>
     {{ form_widget(form.gallery) }}
 </div>
