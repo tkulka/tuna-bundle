@@ -1,24 +1,3 @@
-.wysiwyg {
-    .tab-content {
-        padding: 20px 0;
-        border: 0;
-    }
-
-    .nav-tabs {
-        border-width: 1px;
-
-        li {
-            margin-bottom: -1px;
-            opacity: 0.5;
-
-            a {
-                color: $brand-secondary;
-                text-transform: uppercase;
-            }
-        }
-    }
-}
-
 .note-toolbar.panel-heading {
     background-color: $brand-primary;
 }
