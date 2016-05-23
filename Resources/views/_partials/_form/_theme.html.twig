@@ -190,8 +190,7 @@
                 {% set image = form.vars.value.image %}
                 <div class="image">
                     {% if(image is not null) %}
-                        <img class="gallery-image"
-                             src="{{ ('uploads/' ~ image.path) | imagine_filter('admin_thumb') }}"/>
+                        <div class="gallery-image" style="background-image: url({{ ('uploads/' ~ image.path) | imagine_filter('admin_thumb') }})"></div>
                     {% else %}
                         {{ form_widget(form.image) }}
                         <span class="fui-plus"></span>

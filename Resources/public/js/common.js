@@ -255,6 +255,7 @@ tuna.view.GalleryView = Backbone.View.extend({
                     // Render thumbnail.
                     var $cnt = $element.parent();
                     $cnt.css({
+                        'background-position': 'center center',
                         'background-image': 'url(' + event.target.result + ')',
                         'background-size': 'cover',
                         height: '85px',
