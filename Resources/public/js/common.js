@@ -22,6 +22,7 @@ tuna.website = {
         //init main views
         new tuna.view.NavigationView({el: $('nav')[0]});
         new tuna.view.ListView({el: $('.admin-list')[0]});
+        new tuna.view.EditView({el: $('.admin-container')[0]});
         new tuna.view.OptionsView({el: $('.admin-option-container')[0]});
         new tuna.view.GalleryView({el: $('.admin-gallery-container')[0]});
         new tuna.view.AttachmentsView({el: $('.admin-attachments-container')[0]});
@@ -84,6 +85,24 @@ tuna.view.ListView = Backbone.View.extend({
     }
 });
 
+/**
+ * Edit Lists
+ *
+ * @type {*|void}
+ */
+tuna.view.EditView = Backbone.View.extend({
+    events: {
+        'click .a2lix_translationsLocales li a': "onLanguageChange"
+    },
+
+    onLanguageChange: function(e)  {
+        var target = $(e.target).data('target');
+        $(".a2lix_translationsLocales li").removeClass('active').find("a[data-target='" +  target + "']").parent().addClass('active');
+        $('.tab-content > div').removeClass('active');
+        $('.tab-content').find(target).addClass('active');
+    }
+});
+
 tuna.view.OptionsView = Backbone.View.extend({
     events: {
         'click .btn-gallery': '_onGalleryOpen',
@@ -120,7 +139,8 @@ tuna.view.GalleryView = Backbone.View.extend({
         'click .close': "_onClose",
         'close': "_onClose",
         'open': "_onOpen",
-        'click': '_onClick'
+        'click': '_onClick',
+        'click .a2lix_translationsLocales li a': "onLanguageChange"
     },
 
     initialize: function() {
@@ -247,6 +267,13 @@ tuna.view.GalleryView = Backbone.View.extend({
             // Read in the image file as a data URL.
             reader.readAsDataURL(f);
         }
+    },
+
+    onLanguageChange: function(e)  {
+        var target = $(e.target).data('target');
+        $(".a2lix_translationsLocales li").removeClass('active').find("a[data-target='" +  target + "']").parent().addClass('active');
+        $('.tab-content > div').removeClass('active');
+        $('.tab-content').find(target).addClass('active');
     }
 });
 
@@ -258,7 +285,8 @@ tuna.view.AttachmentsView = Backbone.View.extend({
         'click .close': "_onClose",
         'close': "_onClose",
         'open': "_onOpen",
-        'click': "_onClick"
+        'click': "_onClick",
+        'click .a2lix_translationsLocales li a': "onLanguageChange"
     },
 
     initialize: function() {
@@ -321,6 +349,13 @@ tuna.view.AttachmentsView = Backbone.View.extend({
 
     _onClickDelete: function(e) {
         $(e.currentTarget).parent().remove()
+    },
+
+    onLanguageChange: function(e)  {
+        var target = $(e.target).data('target');
+        $(".a2lix_translationsLocales li").removeClass('active').find("a[data-target='" +  target + "']").parent().addClass('active');
+        $('.tab-content > div').removeClass('active');
+        $('.tab-content').find(target).addClass('active');
     }
 
 });
