@@ -4,32 +4,46 @@
             <div class="dialog dialog-danger">
                 <strong class="text-danger">{% trans %}Woops!{% endtrans %} </strong>
                 {% for error in errors %}
-                   <span>{{ error.message|trans }}</span>
+                    <span>{{ error.message|trans }}</span>
                 {% endfor %}
             </div>
         {% endif %}
     {% endspaceless %}
 {% endblock form_errors %}
 
+{% block form_row %}
+    <div class="form-group {% if form.vars.errors | length > 0 %}has-errors{% endif %}">
+        {{ form_label(form) }}
+        {{ form_errors(form) }}
+        {{ form_widget(form) }}
+    </div>
+{% endblock form_row %}
+
 {% block text_widget %}
     <div class="form-group">
         {% set type = type|default('text') %}
-        <input type="{{ type }}" {% if value is not empty %}value="{{ value }}" {% endif %} {{ block('widget_attributes') }} placeholder="{{ label }}" class="form-control input-lg">
+        <input type="{{ type }}"
+               {% if value is not empty %}value="{{ value }}" {% endif %} {{ block('widget_attributes') }}
+               placeholder="{{ label }}" class="form-control input-lg">
     </div>
 {% endblock %}
 
 {% block editor_widget %}
     <div class="form-group">
-        <textarea {{ block('widget_attributes') }} placeholder="{{ label }}" class="form-control thecodeine_admin_editor" rows="10">{% if value is not empty %}{{ value|raw }}{% endif %}</textarea>
+        <textarea {{ block('widget_attributes') }} placeholder="{{ label }}"
+                                                   class="form-control thecodeine_admin_editor"
+                                                   rows="10">{% if value is not empty %}{{ value|raw }}{% endif %}</textarea>
     </div>
 {% endblock %}
 
 {% block choice_widget %}
     {% spaceless %}
         {% if attr.original_widget is defined %}
-            <select {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %} class="form-control select select-primary">
+            <select {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %}
+                class="form-control select select-primary">
                 {% if empty_value is not none %}
-                    <option value=""{% if required and value is empty %} selected="selected"{% endif %}>{{ empty_value|trans({}, translation_domain) }}</option>
+                    <option
+                        value=""{% if required and value is empty %} selected="selected"{% endif %}>{{ empty_value|trans({}, translation_domain) }}</option>
                 {% endif %}
                 {% if preferred_choices|length > 0 %}
                     {% set options = preferred_choices %}
@@ -43,8 +57,11 @@
             </select>
         {% else %}
             <label class="checkbox" for="{{ id }}">
-                <span class="icons"><span class="first-icon fui-checkbox-unchecked"></span><span class="second-icon fui-checkbox-checked"></span></span>
-                <input type="checkbox" {{ block('widget_attributes') }}  {% if value is not empty %}value="{{ value }}" {% endif %} data-toggle="checkbox">
+                <span class="icons"><span class="first-icon fui-checkbox-unchecked"></span><span
+                        class="second-icon fui-checkbox-checked"></span></span>
+                <input
+                    type="checkbox" {{ block('widget_attributes') }}  {% if value is not empty %}value="{{ value }}" {% endif %}
+                    data-toggle="checkbox">
                 {{ label }}
             </label>
         {% endif %}
@@ -53,10 +70,17 @@
 
 {% block checkbox_widget %}
     <label class="checkbox" for="{{ id }}">
-        <span class="icons"><span class="first-icon fui-checkbox-unchecked"></span><span class="second-icon fui-checkbox-checked"></span></span>
-        <input type="checkbox" {{ block('widget_attributes') }}  {% if value is not empty %}value="{{ value }}" {% endif %} {% if checked %} checked="checked"{% endif %} data-toggle="checkbox">
+        <span class="icons"><span class="first-icon fui-checkbox-unchecked"></span><span
+                class="second-icon fui-checkbox-checked"></span></span>
+        <input
+            type="checkbox" {{ block('widget_attributes') }}  {% if value is not empty %}value="{{ value }}" {% endif %} {% if checked %} checked="checked"{% endif %}
+            data-toggle="checkbox">
         {{ label }}
     </label>
+{% endblock %}
+
+{% block checkbox_row %}
+    {{ form_widget(form) }}
 {% endblock %}
 
 {% block thecodeine_newsbundle_category_widget %}
@@ -68,34 +92,55 @@
         {% set image =  form.parent.vars.value %}
         {% if image %}
             <p>
-                <img src="{{  ('/uploads/' ~ image.path) | imagine_filter('admin_thumb') }}" />
+                <img src="{{ ('/uploads/' ~ image.path) | imagine_filter('admin_thumb') }}"/>
             </p>
         {% endif %}
         <input type="file" {{ block('widget_attributes') }} />
     {% endspaceless %}
 {% endblock %}
 
-{% block _thecodeine_newsbundle_news_image_file_widget %}
-    {% set image =  form.parent.vars.value %}
-    <div class="form-group">
-        {% if image %}
-            <img src="{{  ('/uploads/' ~ image.path) | imagine_filter('admin_thumb') }}" />
-        {% endif %}
-        <div class="btn btn-mini btn-primary btn-block thecodeine_admin_main_image">
-            <input type="file" {{ block('widget_attributes') }} />
-            {% trans %}Choose main picture{% endtrans %}
-            <i class="fui-arrow-right pull-right"></i>
-        </div>
+{% block _thecodeine_pagebundle_page_image_widget %}
+    {% set attr = attr | merge({class: (attr.class is defined ? attr.class ~ ' ') ~ 'thecodeine_admin_main_image'}) %}
+    <div {{ block('widget_container_attributes') }}>
+        {%- if form.parent is empty -%}
+            {{ form_errors(form) }}
+        {%- endif -%}
+        {{- block('form_rows') -}}
+        {{- form_rest(form) -}}
     </div>
 {% endblock %}
 
 {% block _thecodeine_pagebundle_page_image_file_widget %}
-    {{ block('_thecodeine_newsbundle_news_image_file_widget') }}
+    {% spaceless %}
+        {% set image =  form.parent.vars.value %}
+        <div class="form-group main-image">
+            <div class="image" data-action="remove">
+                {% if image and image.path %}
+                    <img src="{{ ('/uploads/' ~ image.path) | imagine_filter('admin_thumb') }}"/>
+                    <span class="remove">{% trans %}Usuń{% endtrans %}</span>
+                {% endif %}
+            </div>
+            <div class="btn btn-mini btn-primary btn-block input-wrapper">
+                <input type="file" {{ block('widget_attributes') }} />
+                {% trans %}Choose main picture{% endtrans %}
+                <i class="fui-arrow-right pull-right"></i>
+            </div>
+        </div>
+    {% endspaceless %}
+{% endblock %}
+
+{% block _thecodeine_newsbundle_news_image_widget %}
+    {{ block('_thecodeine_pagebundle_page_image_widget') }}
+{% endblock %}
+
+{% block _thecodeine_newsbundle_news_image_file_widget %}
+    {{ block('_thecodeine_pagebundle_page_image_file_widget') }}
 {% endblock %}
 
 {% block tag_collection_widget %}
     <div class="form-group">
-        <input type="text" {% if value is not empty %}value="{{ value }}" {% endif %} {{ block('widget_attributes') }} placeholder="{{ label }}" class="form-control input-sm tagsinput tagsinput-primary">
+        <input type="text" {% if value is not empty %}value="{{ value }}" {% endif %} {{ block('widget_attributes') }}
+               placeholder="{{ label }}" class="form-control input-sm tagsinput tagsinput-primary">
     </div>
 {% endblock %}
 
@@ -107,7 +152,8 @@
                     <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
                 </button>
           	  </span>
-            <input type="text" class="form-control datepicker input-sm" {{ block('widget_attributes') }}  value="{% if value is not empty %}{{ value }}{% else %}{{ "now"|date("Y-m-d H:i:s") }}{% endif %}">
+            <input type="text" class="form-control datepicker input-sm" {{ block('widget_attributes') }}
+                   value="{{ value }}">
         </div>
     </div>
 {% endblock %}
@@ -120,7 +166,8 @@
                 {{ form_widget(item) }}
             {% endfor %}
         </ul>
-        <a href="javascript:void(0)" class="btn btn-border add_new_item" data-prototype="{{ form_widget(form.items.vars.prototype)|e }}">
+        <a href="javascript:void(0)" class="btn btn-border add_new_item"
+           data-prototype="{{ form_widget(form.items.vars.prototype)|e }}">
             <i class="fa fa-plus" aria-hidden="true"></i>
         </a>
     </div>
@@ -143,7 +190,7 @@
                 {% set image = form.vars.value.image %}
                 <div class="image">
                     {% if(image is not null) %}
-                        <img class="gallery-image" src="{{ ('uploads/' ~ image.path) | imagine_filter('admin_thumb') }}" />
+                        <div class="gallery-image" style="background-image: url({{ ('uploads/' ~ image.path) | imagine_filter('admin_thumb') }})"></div>
                     {% else %}
                         {{ form_widget(form.image) }}
                         <span class="fui-plus"></span>
@@ -156,12 +203,13 @@
                     {{ form_widget(form.video, {'attr': {'class': 'form-control'}}) }}
                     {% set video = form.vars.value.video %}
                     {% if(video is not null) %}
-                        <iframe width="200" height="100" src="{{ videoPlayer(video.type, video.videoId) }}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                        <iframe width="200" height="100" src="{{ videoPlayer(video.type, video.videoId) }}"
+                                frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                     {% endif %}
                 </div>
             {% endif %}
 
-            {% if form.video is defined or form.image is defined  %}
+            {% if form.video is defined or form.image is defined %}
                 <div class="item-name">
                     {% if form.translations is defined %}
                         {{ form_widget(form.translations, {'label': false}) }}
@@ -188,7 +236,8 @@
             {% endfor %}
         </ul>
 
-        <a href="javascript:void(0)" class="btn btn-border add_new_attachment " data-prototype="{{ form_widget(form.vars.prototype)|e }}">
+        <a href="javascript:void(0)" class="btn btn-border add_new_attachment "
+           data-prototype="{{ form_widget(form.vars.prototype)|e }}">
             <i class="fa fa-plus" aria-hidden="true"></i>
         </a>
     </div>
@@ -222,7 +271,8 @@
                 </div>
 
                 {% if(attachment is not null) %}
-                    <a href="{{ vich_uploader_asset(attachment,'file') }}" class="btn btn-secondary" target="_blank"><span class="fui-eye"></span></a>
+                    <a href="{{ vich_uploader_asset(attachment,'file') }}" class="btn btn-secondary"
+                       target="_blank"><span class="fui-eye"></span></a>
                 {% endif %}
             </div>
 
@@ -242,7 +292,8 @@
         <div class="a2lix_translationsFields tab-content">
             {% for translationsFields in form %}
                 {% set locale = translationsFields.vars.name %}
-                <div class="a2lix_translationsFields-{{ locale }} tab-pane {% if app.request.locale == locale %}active{% endif %}">
+                <div
+                    class="a2lix_translationsFields-{{ locale }} tab-pane {% if app.request.locale == locale %}active{% endif %}">
                     {{ form_widget(translationsFields, {'required': false}) }}
                 </div>
             {% endfor %}
@@ -259,7 +310,10 @@
                 {% for translationsLocales in form %}
                     {% for translationsFields in translationsLocales %}
                         {% set locale = translationsFields.vars.name %}
-                        <div class="a2lix_translationsFields-{{ locale }} tab-pane {% if app.request.locale == locale %}active{% endif %}">
+
+                        <div
+                            class="a2lix_translationsFields-{{ locale }} tab-pane {% if app.request.locale == locale %}active{% endif %}"
+                            data-lang="{{ locale }}">
                             {{ form_widget(translationsFields) }}
                         </div>
                     {% endfor %}

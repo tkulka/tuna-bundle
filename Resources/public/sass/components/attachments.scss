@@ -119,8 +119,18 @@
 .thecodeine_admin_gallery .gallery-items .item {
     > div {
 
-        &:first-child {
+        &.image {
             width: 200px;
+
+            .form-group {
+                margin-bottom: 0;
+            }
+
+            .gallery-image {
+                height: 85px;
+                width: 180px;
+                background-position: center center;
+            }
         }
 
         &.item-name {

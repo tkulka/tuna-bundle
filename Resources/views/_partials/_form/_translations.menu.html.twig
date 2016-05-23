@@ -7,7 +7,7 @@
 
             <li {% if app.request.locale == locale %}class="active"{% endif %}>
                 <a href="javascript:void(0)" data-toggle="tab" data-target=".a2lix_translationsFields-{{ locale }}">
-                    {{ locale|capitalize }}
+                    {{ country_name(locale) }}
                 </a>
             </li>
         {% endfor %}
