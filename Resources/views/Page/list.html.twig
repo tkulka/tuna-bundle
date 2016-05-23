@@ -3,7 +3,7 @@
 
 {% block content %}
     {% if pagination|length == 0 %}
-        <div class="admin-alert alert alert-success text-center">
+        <div class="admin-alert alert text-center">
             <h3>{% trans %}Oops there is nothing here!{% endtrans %}</h3>
             <a href="{{ path('thecodeine_page_create') }}" class="btn btn-primary btn-wide">
                 <i class="fui-plus-inverted"></i> {% trans %}Add first page item{% endtrans %}
