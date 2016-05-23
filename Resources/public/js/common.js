@@ -22,10 +22,10 @@ tuna.website = {
         //init main views
         new tuna.view.NavigationView({el: $('nav')[0]});
         new tuna.view.ListView({el: $('.admin-list')[0]});
-        new tuna.view.EditView({el: $('.admin-container')[0]});
         new tuna.view.OptionsView({el: $('.admin-option-container')[0]});
         new tuna.view.GalleryView({el: $('.admin-gallery-container')[0]});
         new tuna.view.AttachmentsView({el: $('.admin-attachments-container')[0]});
+        new tuna.view.EditView({el: $('.admin-container')[0]});
 
         //WYSIWYG EDITOR
         tuna.view.EditorView && new tuna.view.EditorView({
@@ -92,14 +92,21 @@ tuna.view.ListView = Backbone.View.extend({
  */
 tuna.view.EditView = Backbone.View.extend({
     events: {
-        'click .a2lix_translationsLocales li a': "onLanguageChange"
+        'click .a2lix_translationsLocales li a': "_onLanguageChange"
     },
 
-    onLanguageChange: function(e)  {
+    initialize : function(){
+        Backbone.on('LanguageChange', this._onLanguageChange, this);
+    },
+
+    _onLanguageChange: function(e)  {
+
+        var $tabContent = $('.tab-content');
         var target = $(e.target).data('target');
+
         $(".a2lix_translationsLocales li").removeClass('active').find("a[data-target='" +  target + "']").parent().addClass('active');
-        $('.tab-content > div').removeClass('active');
-        $('.tab-content').find(target).addClass('active');
+        $tabContent.children().removeClass('active');
+        $tabContent.find(target).addClass('active');
     }
 });
 
@@ -140,7 +147,7 @@ tuna.view.GalleryView = Backbone.View.extend({
         'close': "_onClose",
         'open': "_onOpen",
         'click': '_onClick',
-        'click .a2lix_translationsLocales li a': "onLanguageChange"
+        'click .a2lix_translationsLocales li a': "_onLanguageChange"
     },
 
     initialize: function() {
@@ -269,11 +276,8 @@ tuna.view.GalleryView = Backbone.View.extend({
         }
     },
 
-    onLanguageChange: function(e)  {
-        var target = $(e.target).data('target');
-        $(".a2lix_translationsLocales li").removeClass('active').find("a[data-target='" +  target + "']").parent().addClass('active');
-        $('.tab-content > div').removeClass('active');
-        $('.tab-content').find(target).addClass('active');
+    _onLanguageChange : function(e){
+        Backbone.trigger('LanguageChange', e);
     }
 });
 
@@ -286,7 +290,7 @@ tuna.view.AttachmentsView = Backbone.View.extend({
         'close': "_onClose",
         'open': "_onOpen",
         'click': "_onClick",
-        'click .a2lix_translationsLocales li a': "onLanguageChange"
+        'click .a2lix_translationsLocales li a': "_onLanguageChange"
     },
 
     initialize: function() {
@@ -351,11 +355,7 @@ tuna.view.AttachmentsView = Backbone.View.extend({
         $(e.currentTarget).parent().remove()
     },
 
-    onLanguageChange: function(e)  {
-        var target = $(e.target).data('target');
-        $(".a2lix_translationsLocales li").removeClass('active').find("a[data-target='" +  target + "']").parent().addClass('active');
-        $('.tab-content > div').removeClass('active');
-        $('.tab-content').find(target).addClass('active');
+    _onLanguageChange : function(e){
+        Backbone.trigger('LanguageChange' , e);
     }
-
 });
