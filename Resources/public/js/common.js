@@ -17,7 +17,7 @@ window.tuna || (window.tuna = {
  *
  */
 tuna.website = {
-    init: function() {
+    init: function () {
 
         //init main views
         new tuna.view.NavigationView({el: $('nav')[0]});
@@ -32,7 +32,7 @@ tuna.website = {
         });
     },
 
-    goToUri: function(uri) {
+    goToUri: function (uri) {
         top.location.href = uri;
     }
 };
@@ -43,13 +43,13 @@ tuna.website = {
  * @type {*|void}
  */
 tuna.view.NavigationView = Backbone.View.extend({
-   events: {
-       'change select': "onSelectChange"
-   },
+    events: {
+        'change select': "onSelectChange"
+    },
 
-   onSelectChange: function(e)  {
-       tuna.website.goToUri($(e.target).val());
-   }
+    onSelectChange: function (e) {
+        tuna.website.goToUri($(e.target).val());
+    }
 });
 
 /**
@@ -62,25 +62,45 @@ tuna.view.ListView = Backbone.View.extend({
         'click [data-action="delete"]': "onDeleteItem"
     },
 
-    onDeleteItem: function(e)  {
-        $('#modalConfirm .modal-body p').html(
-            'Czy na pewno chcesz usunąć <br/> <b>' + $(e.target).data('title') + '</b>?'
-        );
-        $('#modalConfirm').modal({
-            keyboard: true
+    onDeleteItem: function (e) {
+        var $a = $(event.currentTarget);
+
+        tunaConfirm('Czy na pewno chcesz usunąć <b>' + $(e.target).data('title') + '</b>?').done(function () {
+            window.location.href = $a.data('url');
         });
-        $('#modalConfirm [data-action="accept"]')
-            .data('url', $(this).data('url'))
-            .off('click').on('click', function(){
-                $.get($(e.target).data('url')).
-                    done(function(){
-                        location.reload();
-                    })
-                    .fail(function(){
-                        alert('Error');
-                    });
-                $('#modalConfirm').modal('hide');
-        });
+    }
+});
+
+tuna.view.MainImageView = Backbone.View.extend({
+    events: {
+        'change input[type="file"]': 'onChange',
+        'click [data-action="remove"]': 'onRemove'
+    },
+    onChange: function (event) {
+        this.previewImage(event.currentTarget);
+    },
+    onRemove: function (event) {
+        this.$('.image').empty();
+        this.$('input').val('');
+        this.$('.remove-image').val('1');
+    },
+    previewImage: function (input) {
+        if (!this.$('.image img').length) {
+            this.$('.image').prepend($('<img><span class="remove">Usuń</span>'));
+        }
+
+        var $img = this.$('.image img');
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = _.bind(function (e) {
+                $img.attr('src', e.target.result);
+                this.$('.remove-image').val('0');
+            }, this);
+
+            reader.readAsDataURL(input.files[0]);
+        }
     }
 });
 
@@ -90,23 +110,26 @@ tuna.view.OptionsView = Backbone.View.extend({
         'click .btn-attachments': '_onAttachmentsOpen'
     },
 
-    initialize: function() {
+    initialize: function () {
         this.$el.addClass('magictime');
+        new tuna.view.MainImageView({
+            el: this.$('.thecodeine_admin_main_image')
+        });
     },
 
-    _onGalleryOpen: function() {
+    _onGalleryOpen: function () {
         $('.admin-gallery-container').trigger('open');
     },
 
-    _closeGallery: function() {
+    _closeGallery: function () {
         $('.admin-gallery-container').trigger('close');
     },
 
-    _onAttachmentsOpen: function() {
+    _onAttachmentsOpen: function () {
         $('.admin-attachments-container').trigger('open');
     },
 
-    _closeAttachments: function() {
+    _closeAttachments: function () {
         $('.admin-attachments-container').trigger('close');
     }
 });
@@ -123,43 +146,43 @@ tuna.view.GalleryView = Backbone.View.extend({
         'click': '_onClick'
     },
 
-    initialize: function() {
+    initialize: function () {
         this.$el.addClass('magictime');
         this._initSortable();
     },
 
-    _onClick: function(e) {
+    _onClick: function (e) {
         e.stopPropagation();
     },
 
-    _initSortable: function() {
+    _initSortable: function () {
         var oThis = this;
         this.$('.gallery-items')
             .sortable({
                 handle: '.handle'
             })
             .disableSelection()
-            .bind('sortupdate', function() {
+            .bind('sortupdate', function () {
                 oThis.recalculateImagePositions();
             });
     },
 
-    _onClose: function() {
+    _onClose: function () {
         this.$el.removeClass('slideLeftRetourn').addClass('holeOut');
     },
 
-    _onOpen: function() {
+    _onOpen: function () {
         $('.admin-attachments-container').trigger('close');
         this.$el.removeClass('holeOut').show().addClass('slideLeftRetourn');
     },
 
-    recalculateImagePositions: function(){
-        this.$('input.position').each(function(idx){
+    recalculateImagePositions: function () {
+        this.$('input.position').each(function (idx) {
             $(this).val(idx);
         });
     },
 
-    choiceEventListener: function(index) {
+    choiceEventListener: function (index) {
         var oThis = this;
 
         if ($('#thecodeine_pagebundle_page_gallery_items_' + index + '_type').length > 0) {
@@ -171,7 +194,7 @@ tuna.view.GalleryView = Backbone.View.extend({
         var $type = $(id + index + '_type');
 
         // When sport gets selected ...
-        $type.change(function() {
+        $type.change(function () {
             $type.hide();
             // ... retrieve the corresponding form.
             var $form = $(this).closest('form');
@@ -179,10 +202,10 @@ tuna.view.GalleryView = Backbone.View.extend({
             var data = $form.serialize();
             // Submit data via AJAX to the form's action path.
             $.ajax({
-                url : $form.attr('action'),
+                url: $form.attr('action'),
                 type: $form.attr('method'),
-                data : data,
-                success: function(html) {
+                data: data,
+                success: function (html) {
                     // Replace current position field ...
                     $(id + index).replaceWith(
                         // ... with the returned one from the AJAX response.
@@ -193,7 +216,7 @@ tuna.view.GalleryView = Backbone.View.extend({
         });
     },
 
-    _onAddNewItem: function(e) {
+    _onAddNewItem: function (e) {
         var prototype = $(e.currentTarget).data('prototype');
         // get the new index
         var index = $(e.currentTarget).data('index');
@@ -208,11 +231,11 @@ tuna.view.GalleryView = Backbone.View.extend({
         this.choiceEventListener(index);
     },
 
-    _onClickDelete: function(e) {
+    _onClickDelete: function (e) {
         $(e.currentTarget).parent().remove()
     },
 
-    _onInputFileChange: function(e) {
+    _onInputFileChange: function (e) {
         var $element = $(e.currentTarget);
         var files = e.target.files; // FileList object
         $element.parent().removeClass('jelly-in');
@@ -227,13 +250,13 @@ tuna.view.GalleryView = Backbone.View.extend({
             var reader = new FileReader();
 
             // Closure to capture the file information.
-            reader.onload = (function(theFile) {
-                return function(event) {
+            reader.onload = (function (theFile) {
+                return function (event) {
                     // Render thumbnail.
                     var $cnt = $element.parent();
                     $cnt.css({
-                        'background-image': 'url('+event.target.result+')',
-                        'background-size' : 'cover',
+                        'background-image': 'url(' + event.target.result + ')',
+                        'background-size': 'cover',
                         height: '85px',
                         width: '180px',
                         position: 'relative',
@@ -261,47 +284,47 @@ tuna.view.AttachmentsView = Backbone.View.extend({
         'click': "_onClick"
     },
 
-    initialize: function() {
+    initialize: function () {
         this.$el.addClass('magictime');
         this._initSortable();
     },
 
-    _onClose: function() {
+    _onClose: function () {
         this.$el.removeClass('slideLeftRetourn').addClass('holeOut');
     },
 
-    _onOpen: function() {
+    _onOpen: function () {
         $('.admin-gallery-container').trigger('close');
         this.$el.removeClass('holeOut').show().addClass('slideLeftRetourn');
     },
 
-    recalculateImagePositions: function(){
-        this.$('input.position').each(function(idx){
+    recalculateImagePositions: function () {
+        this.$('input.position').each(function (idx) {
             $(this).val(idx);
         });
     },
 
-    _initSortable: function() {
+    _initSortable: function () {
         var oThis = this;
         this.$('.attachments')
             .sortable({
                 handle: '.handle'
             })
             .disableSelection()
-            .bind('sortupdate', function() {
+            .bind('sortupdate', function () {
                 oThis.recalculateImagePositions();
             });
     },
 
-    _destroySortable: function() {
+    _destroySortable: function () {
         this.$('.attachments').sortable('destroy');
     },
 
-    _onClick: function(e) {
+    _onClick: function (e) {
         e.stopPropagation();
     },
 
-    _onAddNewAttachment: function(e) {
+    _onAddNewAttachment: function (e) {
         this._destroySortable();
 
         var prototype = $(e.currentTarget).data('prototype');
@@ -319,8 +342,32 @@ tuna.view.AttachmentsView = Backbone.View.extend({
         this._initSortable();
     },
 
-    _onClickDelete: function(e) {
+    _onClickDelete: function (e) {
         $(e.currentTarget).parent().remove()
     }
 
 });
+
+function tunaConfirm(msg) {
+    var dfd = $.Deferred();
+    console.log('tunaConfirm()', msg);
+    $('#modalConfirm').modal('hide'); // don't allow multiple modals
+    $('#modalConfirm .modal-body p').html(msg);
+    $('#modalConfirm').modal({
+        keyboard: true
+    });
+    $('#modalConfirm [data-action="accept"]').on('click', function () {
+        $('#modalConfirm').off('hide.bs.modal').modal('hide');
+        dfd.resolve();
+    });
+    $('#modalConfirm').on('hide.bs.modal', function (event) {
+        console.log('hide.bs.modal');
+        dfd.reject();
+    });
+
+    return dfd.promise();
+}
+
+function tunaAlert(msg) {
+    alert(msg);
+}
