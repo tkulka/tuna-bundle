@@ -7,7 +7,7 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
         {% block stylesheets %}
-            {% stylesheets output='bundles/thecodeineadmin/css/thecodeine_admin.css'
+            {% stylesheets filter="scssphp" output='bundles/thecodeineadmin/css/thecodeine_admin.css'
                 '@TheCodeineAdminBundle/Resources/public/css/vendor/bootstrap.css'
                 '@TheCodeineAdminBundle/Resources/public/css/vendor/font-awesome.css'
                 '@TheCodeineAdminBundle/Resources/public/css/vendor/magic.css'
@@ -50,7 +50,7 @@
             '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.tagsinput.js'
             '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.hotkeys.js'
             '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.placeholder.js'
-             '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.htmlClean.js'
+            '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.htmlClean.js'
             '@TheCodeineAdminBundle/Resources/public/js/vendor/underscore-1.6.0.js'
             '@TheCodeineAdminBundle/Resources/public/js/vendor/backbone-1.1.2.js'
             '@TheCodeineAdminBundle/Resources/public/js/vendor/flatUI/bootstrap.min.js'

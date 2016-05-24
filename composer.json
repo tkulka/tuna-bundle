@@ -37,7 +37,7 @@
         "thecodeine/tuna-pagebundle": "1.0.1",
         "thecodeine/tuna-videobundle": "1.0.1",
         "friendsofsymfony/user-bundle": "^1.3",
-        "leafo/lessphp": "^0.4.0"
+        "leafo/scssphp": "^0.6.3"
     },
     "require-dev": {
         "behat/behat": "~3.0",
