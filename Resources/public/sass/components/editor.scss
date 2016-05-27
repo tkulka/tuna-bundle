@@ -36,11 +36,16 @@
     }
 }
 
+.note-editor.note-frame .note-editing-area .note-codable {
+    background-color: $link-color-inverse;
+    color: $brand-secondary;
+}
+
 .btn.btn-default.note-btn {
     background: transparent;
     color: $brand-tertiary;
 
-    &:hover, .active {
+    &:hover, &.active {
         background: $brand-primary;
         color: $link-hover-color;
     }
