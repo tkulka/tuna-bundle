@@ -84,6 +84,17 @@ tuna.view.EditView = Backbone.View.extend({
 
     initialize : function(){
         Backbone.on('LanguageChange', this._onLanguageChange, this);
+
+        $( ".datepicker" ).datetimepicker({
+            dateFormat: "yy-mm-dd",
+            timeFormat: "HH:mm:ss",
+            showAnim: 'slideDown',
+            beforeShow: function (input, inst) {
+                var $parent = $(this).parent().parent();
+                $parent.append(inst.dpDiv);
+                $parent.find('#ui-datepicker-div').hide();
+            }
+        });
     },
 
     _onLanguageChange: function(e) {

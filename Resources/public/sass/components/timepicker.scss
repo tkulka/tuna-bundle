@@ -1,5 +1,5 @@
 /* css for timepicker */
-.ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
+.ui-timepicker-div .ui-widget-header { margin-bottom: 8px;}
 .ui-timepicker-div dl { text-align: left; }
 .ui-timepicker-div dl dt { float: left; clear:left; padding: 0 0 0 5px; }
 .ui-timepicker-div dl dd { margin: 0 10px 10px 45%; }
@@ -13,6 +13,10 @@
 
 .ui-datepicker:before {
     border-color: transparent transparent $brand-primary;
+}
+
+.ui-timepicker-div, .ui-datepicker table {
+    font-size: 14px;
 }
 
 .ui-datepicker .ui-datepicker-header,
@@ -39,6 +43,7 @@
     color: $brand-primary !important;
 }
 .ui-datepicker {
+    width: 260px!important;
     a:hover, a:focus {
         color: $brand-primary;
     }
@@ -49,6 +54,34 @@
     line-height: 16px;
 }
 
-.ui-slider-handle:hover, .ui-slider-handle:focus {
+.ui-datepicker td span, .ui-datepicker td a {
+    min-width: 33px;
+}
+
+.ui-slider-handle:hover, .ui-slider-handle:focus, .ui-datepicker-buttonpane button {
     background-color:  $brand-primary;
+}
+
+.ui-datepicker-buttonpane {
+    overflow: hidden;
+
+    button  {
+        border: 0;
+        font-size: 14px;
+        background-color: lighten($brand-tertiary, 25%);
+        color: $link-hover-color;
+
+        &:hover, &:focus {
+            background-color: $brand-secondary;
+            color: $link-hover-color;
+        }
+    }
+}
+
+#ui-datepicker-div {
+    margin-left: 0px!important;
+    margin-top: 0px!important;
+    top: 0!important;
+    left: 0!important;
+    position: relative!important;
 }
