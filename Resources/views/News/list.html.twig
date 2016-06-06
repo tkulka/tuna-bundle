@@ -5,7 +5,7 @@
     {% if pagination|length == 0 %}
         <div class="admin-alert alert text-center">
             <h3>{% trans %}Oops there is nothing here!{% endtrans %}</h3>
-            <a href="{{ path('thecodeine_news_create', {'cid': app.request.query.get('cid')}) }}" class="btn btn-primary btn-wide">
+            <a href="{{ path('thecodeine_news_create', {'category': app.request.query.get('category')}) }}" class="btn btn-primary btn-wide">
                 <i class="fui-plus-inverted"></i> {% trans %}Add first news item{% endtrans %}
             </a>
         </div>

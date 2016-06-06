@@ -21,7 +21,7 @@ class NewsController extends \TheCodeine\NewsBundle\Controller\NewsController
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('TheCodeineNewsBundle:News');
 
-        $categoryId = $request->get('cid');
+        $categoryId = $request->get('category');
         $page = $request->get('page', 1);
         $limit = 10;
 

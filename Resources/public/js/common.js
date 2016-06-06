@@ -64,9 +64,9 @@ tuna.view.ListView = Backbone.View.extend({
     },
 
     onDeleteItem: function (e) {
-        var $a = $(event.currentTarget);
+        var $a = $(e.currentTarget);
 
-        tunaConfirm('Czy na pewno chcesz usunąć <b>' + $(e.target).data('title') + '</b>?').done(function () {
+        tunaConfirm('Czy na pewno chcesz usunąć <b>' + $a.data('title') + '</b>?').done(function () {
             window.location.href = $a.data('url');
         });
     }
