@@ -90,7 +90,17 @@ tuna.view.EditView = Backbone.View.extend({
             timeFormat: "HH:mm:ss",
             showAnim: 'slideDown',
             beforeShow: function(input, inst) {
-                $(this).parent().parent().append(inst.dpDiv);
+                var $dp = $(inst.dpDiv);
+                setTimeout(function () {
+                    $dp.css({
+                        marginLeft: 0,
+                        marginTop: 0,
+                        top: 0,
+                        left: 0,
+                        position: 'relative'
+                    });
+                }, 0);
+                $(this).closest('.form-group').append($dp);
             }
         });
     },

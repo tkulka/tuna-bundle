@@ -3,18 +3,14 @@
 
     @media all and (min-width: $mobileLargeScreen) {
         display: block;
-        max-width: 250px;
-    }
-
-    @media all and (min-width: $desktopSmallScreen) {
-        max-width: 300px;
+        max-width: $sidebarOptionsWidth;
     }
 
     .admin-option-container {
         padding: 20px;
         background: $brand-tertiary;
         overflow-y: scroll;
-        @include calc(height, '100% - 50px');
+        @include calc(height, '100vh - ' $headerHeight);
         z-index: 100;
         position: relative;
 
@@ -36,6 +32,8 @@
                     position: absolute;
                     top: 5px;
                     left: 2px;
+                    background: $link-color-inverse;
+                    color: $brand-secondary;
                 }
             }
         }
