@@ -3,23 +3,39 @@
 
     @media all and (min-width: $mobileLargeScreen) {
         display: block;
-        max-width: 250px;
-    }
-
-    @media all and (min-width: $desktopSmallScreen) {
-        max-width: 300px;
+        max-width: $sidebarOptionsWidth;
     }
 
     .admin-option-container {
         padding: 20px;
         background: $brand-tertiary;
         overflow-y: scroll;
-        height: 100vh;
+        @include calc(height, '100vh - ' $headerHeight);
         z-index: 100;
         position: relative;
 
         h6 {
             margin-bottom: 20px;
+        }
+
+        .datepicker-group {
+            position: relative;
+
+            .input-group {
+                width: 100%;
+
+                input {
+                    padding-left: 45px;
+                }
+
+                button {
+                    position: absolute;
+                    top: 5px;
+                    left: 2px;
+                    background: $link-color-inverse;
+                    color: $brand-secondary;
+                }
+            }
         }
 
         .btn-gallery {

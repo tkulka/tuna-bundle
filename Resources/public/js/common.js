@@ -84,6 +84,25 @@ tuna.view.EditView = Backbone.View.extend({
 
     initialize : function(){
         Backbone.on('LanguageChange', this._onLanguageChange, this);
+
+        $(".datepicker").datetimepicker({
+            dateFormat: "yy-mm-dd",
+            timeFormat: "HH:mm:ss",
+            showAnim: 'slideDown',
+            beforeShow: function(input, inst) {
+                var $dp = $(inst.dpDiv);
+                setTimeout(function () {
+                    $dp.css({
+                        marginLeft: 0,
+                        marginTop: 0,
+                        top: 0,
+                        left: 0,
+                        position: 'relative'
+                    });
+                }, 0);
+                $(this).closest('.form-group').append($dp);
+            }
+        });
     },
 
     _onLanguageChange: function(e) {

@@ -145,13 +145,11 @@
 {% endblock %}
 
 {% block datetime_widget %}
-    <div class="form-group control-group">
+    <div class="form-group control-group datepicker-group">
         <div class="input-group">
-          	  <span class="input-group-btn">
-          	  	<button class="btn btn-default btn-sm" type="button" style="background: #fff; color: #000;">
-                    <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
-                </button>
-          	  </span>
+            <button class="btn btn-default btn-sm">
+                <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+            </button>
             <input type="text" class="form-control datepicker input-sm" {{ block('widget_attributes') }}
                    value="{{ value }}">
         </div>
