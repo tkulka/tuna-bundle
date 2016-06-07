@@ -1,7 +1,7 @@
 .header {
     background: $brand-secondary;
     padding: 0 20px;
-    height: 50px;
+    height: $headerHeight;
     max-height: 50px;
 
     .navbar-top-left {

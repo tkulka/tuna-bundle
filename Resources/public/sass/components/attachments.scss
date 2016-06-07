@@ -11,13 +11,13 @@
     overflow-y: auto;
 
     @media all and (min-width: $mobileLargeScreen) {
-        @include calc(width, "100% - 250px");
-        left: 250px;
+        @include calc(width, "100% - " $sidebarOptionsWidth);
+        left: $sidebarOptionsWidth;
     }
 
     @media all and (min-width: $desktopSmallScreen) {
-        @include calc(width, "100% - 550px");
-        left: 550px;
+        @include calc(width, "100% - " $sidebarOptionsWidth + $sidebarNavWidth);
+        left: $sidebarOptionsWidth + $sidebarNavWidth;
         z-index: -1;
     }
 
