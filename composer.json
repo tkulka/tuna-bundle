@@ -32,6 +32,15 @@
         "friendsofsymfony/user-bundle": "^1.3",
         "leafo/scssphp": "^0.6.3"
     },
+    "replace": {
+        "thecodeine/tuna-editorbundle": "self.version",
+        "thecodeine/tuna-gallerybundle": "self.version",
+        "thecodeine/tuna-imagebundle": "self.version",
+        "thecodeine/tuna-newsbundle": "self.version",
+        "thecodeine/tuna-pagebundle": "self.version",
+        "thecodeine/tuna-tagbundle": "self.version",
+        "thecodeine/tuna-videobundle": "self.version"
+    },
     "require-dev": {
         "behat/behat": "~3.0",
         "behat/symfony2-extension": "~2.0",
