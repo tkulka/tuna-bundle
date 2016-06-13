@@ -65,12 +65,8 @@ body {
 
 .admin-container {
     overflow: hidden;
-
-    @media all and (min-width: $desktopSmallScreen) {
-        .actions {
-            display: none;
-        }
-    }
+    width: 100%;
+    display: block;
 
     & > form {
         @include flex-box();

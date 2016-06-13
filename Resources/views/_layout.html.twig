@@ -28,13 +28,13 @@
                 </header>
 
                 <aside class="aside aside-1">
-                    {% include 'TheCodeineAdminBundle::_partials/_menu.sub.html.twig' %}
                     {{ knp_menu_render('menu.top.static') }}
                 </aside>
             {% endif %}
 
             <section class="content">
                 <div class="inside">
+                    {% include 'TheCodeineAdminBundle::_partials/_menu.sub.html.twig' %}
                     {{ block('content') }}
                 </div>
             </section>

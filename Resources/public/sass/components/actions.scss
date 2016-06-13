@@ -1,0 +1,14 @@
+.actions {
+    margin: 0 30px 20px 0;
+    float: right;
+    @extend .clearfix;
+
+    li {
+        display: inline-block;
+        list-style: none;
+
+        &.active {
+            background: transparent;
+        }
+    }
+}
