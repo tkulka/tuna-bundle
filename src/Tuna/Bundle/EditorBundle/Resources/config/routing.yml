@@ -1,0 +1,3 @@
+test_editor:
+    path: /admin/editor/test
+    defaults: { _controller: TheCodeineEditorBundle:Test:test }

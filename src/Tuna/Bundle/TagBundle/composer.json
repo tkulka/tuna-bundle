@@ -1,7 +1,7 @@
 {
-    "name": "thecodeine/tuna-adminbundle",
+    "name": "thecodeine/tuna-tagbundle",
     "type": "symfony-bundle",
-    "description": "Admin pages for CMS",
+    "description": "Admin tags for CMS",
     "homepage": "http://thecodeine.com",
     "require": {
         "php": ">=5.3.9",
@@ -19,18 +19,13 @@
         "jms/translation-bundle": "^1.1",
         "jms/di-extra-bundle": "^1.5",
         "jms/serializer-bundle": "^1.0",
-        "knplabs/knp-menu-bundle": "^2.0",
-        "knplabs/knp-menu": "^2.1",
         "knplabs/gaufrette": "^0.1.9",
         "knplabs/knp-gaufrette-bundle": "^0.1.7",
         "liip/imagine-bundle": "^1.3",
-        "knplabs/knp-paginator-bundle": "2.5.3",
         "stof/doctrine-extensions-bundle": "^1.2",
         "a2lix/translation-form-bundle": "1.*",
         "gedmo/doctrine-extensions": "^2.4",
-        "doctrine/doctrine-fixtures-bundle": "^2.2",
-        "friendsofsymfony/user-bundle": "^1.3",
-        "leafo/scssphp": "^0.6.3"
+        "doctrine/doctrine-fixtures-bundle": "^2.2"
     },
     "require-dev": {
         "behat/behat": "~3.0",
@@ -41,27 +36,11 @@
         "behat/mink": "~1.6",
         "phpspec/phpspec": "~2.1",
         "symfony/monolog-bundle": "^2.7",
-        "behat/mink-goutte-driver": "^1.1",
-        "phpunit/phpunit": "4.8.*"
+        "behat/mink-goutte-driver": "^1.1"
     },
     "autoload": {
         "psr-4": {
-            "TheCodeine\\AdminBundle\\": "",
-            "TheCodeine\\EditorBundle\\": "src/Tuna/Bundle/EditorBundle",
-            "TheCodeine\\Gallery\\": "src/Tuna/Bundle/GalleryBundle",
-            "TheCodeine\\Image\\": "src/Tuna/Bundle/ImageBundle",
-            "TheCodeine\\NewsBundle\\": "src/Tuna/Bundle/NewsBundle",
-            "TheCodeine\\PageBundle\\": "src/Tuna/Bundle/PageBundle",
-            "TheCodeine\\Tag\\": "src/Tuna/Bundle/TagBundle",
-            "TheCodeine\\VideoBundle\\": "src/Tuna/Bundle/VideoBundle"
-        }
-    },
-    "extra": {
-        "symfony-app-dir": "Behat/Fixtures/app",
-        "symfony-web-dir": "Behat/Fixtures/web",
-        "symfony-assets-install": "relative",
-        "incenteev-parameters": {
-            "file": "Behat/Fixtures/app/config/parameters.yml"
+            "TheCodeine\\TagBundle\\": ""
         }
     }
 }
