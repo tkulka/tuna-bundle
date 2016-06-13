@@ -57,11 +57,11 @@
         "psr-4": {
             "TheCodeine\\AdminBundle\\": "",
             "TheCodeine\\EditorBundle\\": "src/Tuna/Bundle/EditorBundle",
-            "TheCodeine\\Gallery\\": "src/Tuna/Bundle/GalleryBundle",
-            "TheCodeine\\Image\\": "src/Tuna/Bundle/ImageBundle",
+            "TheCodeine\\GalleryBundle\\": "src/Tuna/Bundle/GalleryBundle",
+            "TheCodeine\\ImageBundle\\": "src/Tuna/Bundle/ImageBundle",
             "TheCodeine\\NewsBundle\\": "src/Tuna/Bundle/NewsBundle",
             "TheCodeine\\PageBundle\\": "src/Tuna/Bundle/PageBundle",
-            "TheCodeine\\Tag\\": "src/Tuna/Bundle/TagBundle",
+            "TheCodeine\\TagBundle\\": "src/Tuna/Bundle/TagBundle",
             "TheCodeine\\VideoBundle\\": "src/Tuna/Bundle/VideoBundle"
         }
     },
