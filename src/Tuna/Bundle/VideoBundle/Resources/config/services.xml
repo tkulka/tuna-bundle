@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="thecodeine.video_bundle.video_manager.class">TheCodeine\VideoBundle\Doctrine\VideoManager</parameter>
+        <parameter key="thecodeine.video_bundle.type.thecodeine_videobundle_url.class">TheCodeine\VideoBundle\Form\VideoUrlType</parameter>
+        <parameter key="thecodeine.video_bundle.twig.video_extension.class">TheCodeine\VideoBundle\Twig\Extension\VideoPlayerExtension</parameter>
+    </parameters>
+
+    <services>
+        <service id="thecodeine.video_bundle.entity_manager" factory-service="doctrine" factory-method="getManager" class="Doctrine\ORM\EntityManager" public="false">
+            <argument>default</argument>
+        </service>
+
+        <service id="thecodeine.video_bundle.video_manager" class="%thecodeine.video_bundle.video_manager.class%">
+            <argument type="service" id="thecodeine.video_bundle.entity_manager"/>
+        </service>
+
+        <service id="thecodeine.video_bundle.type.thecodeine_videobundle_url" class="%thecodeine.video_bundle.type.thecodeine_videobundle_url.class%">
+            <argument type="service" id="thecodeine.video_bundle.video_manager"/>
+            <tag name="form.type" alias="thecodeine_videobundle_url"/>
+        </service>
+
+        <service id="thecodeine.video_bundle.twig.video_extension" class="%thecodeine.video_bundle.twig.video_extension.class%" public="false">
+            <tag name="twig.extension"/>
+        </service>
+    </services>
+</container>

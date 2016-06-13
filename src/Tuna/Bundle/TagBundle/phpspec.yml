@@ -1,0 +1,11 @@
+suites:
+    DependencyInjection:
+        { namespace: TheCodeine\TagBundle\DependencyInjection, psr4_prefix: TheCodeine\TagBundle\DependencyInjection, spec_prefix: DependencyInjection, spec_path: Spec, src_path: DependencyInjection }
+    Entity:
+        { namespace: TheCodeine\TagBundle\Entity, psr4_prefix: TheCodeine\TagBundle\Entity, spec_prefix: Entity, spec_path: Spec, src_path: Entity }
+    EventListener:
+        { namespace: TheCodeine\TagBundle\EventListener, psr4_prefix: TheCodeine\TagBundle\EventListener, spec_prefix: EventListener, spec_path: Spec, src_path: EventListener }
+    Form:
+        { namespace: TheCodeine\TagBundle\Form, psr4_prefix: TheCodeine\TagBundle\Form, spec_prefix: Form, spec_path: Spec, src_path: Form }
+    Repository:
+        { namespace: TheCodeine\TagBundle\Repository, psr4_prefix: TheCodeine\TagBundle\Repository, spec_prefix: Repository, spec_path: Spec, src_path: Repository }

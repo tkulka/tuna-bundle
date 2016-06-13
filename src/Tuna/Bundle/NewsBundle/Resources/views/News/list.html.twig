@@ -1,0 +1,21 @@
+<h1>list</h1>
+
+<ul>
+    {% for news in newsList %}
+        <li>
+            <div>
+                <h2>{{ news.title }}
+                    <small>({{ news.createdAt|date("Y-m-d") }})</small>
+                </h2>
+                {% if news.category %}
+                    <p>{{ news.category.name }}</p>
+                {% endif %}
+                <p>{{ news.body|striptags[:150] ~ '...' }}</p>
+                <p>
+                    <a href="{{ path('thecodeine_news_edit', {'id': news.id}) }}" class="btn btn-default " title="edytuj">Edytuj</a>
+                    <a href="{{ path('thecodeine_news_delete', {'id': news.id}) }}" class="btn btn-danger">Usuń</a>
+                </p>
+            </div>
+        </li>
+    {% endfor %}
+</ul>

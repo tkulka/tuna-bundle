@@ -1,0 +1,9 @@
+suites:
+    Controller:
+        { namespace: TheCodeine\GalleryBundle\Controller, psr4_prefix: TheCodeine\GalleryBundle\Controller, spec_prefix: Controller, spec_path: Spec, src_path: Controller }
+    DependencyInjection:
+        { namespace: TheCodeine\GalleryBundle\DependencyInjection, psr4_prefix: TheCodeine\GalleryBundle\DependencyInjection, spec_prefix: DependencyInjection, spec_path: Spec, src_path: DependencyInjection }
+    Entity:
+        { namespace: TheCodeine\GalleryBundle\Entity, psr4_prefix: TheCodeine\GalleryBundle\Entity, spec_prefix: Entity, spec_path: Spec, src_path: Entity }
+    Form:
+        { namespace: TheCodeine\GalleryBundle\Form, psr4_prefix: TheCodeine\GalleryBundle\Form, spec_prefix: Form, spec_path: Spec, src_path: Form }

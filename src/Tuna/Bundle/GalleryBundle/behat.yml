@@ -1,0 +1,22 @@
+default:
+    extensions:
+        Behat\Symfony2Extension:
+            kernel:
+                env: test
+                debug: false
+                path: Behat/Fixtures/app/AppKernel.php
+                bootstrap: Behat/Fixtures/app/bootstrap.php
+
+        Behat\MinkExtension:
+            files_path: %paths.base%/Behat/Fixtures/files
+            base_url: http://127.0.0.1:8000
+            sessions:
+                symfony:
+                    goutte: ~
+
+    suites:
+        default:
+            paths: [%paths.base%/Behat/Features]
+            contexts:
+                - Behat\MinkExtension\Context\MinkContext
+                - TheCodeine\GalleryBundle\Behat\Context\GalleryContext
