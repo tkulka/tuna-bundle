@@ -11,7 +11,7 @@
             </li>
         {% else %}
             <li {% if item.attributes.class is defined %}class="{{ item.attributes.class }}"{% endif %}>
-                <a href="{{ item.uri }}" class="btn btn-primary btn-sm btn-round"><i class="fa fa-plus" aria-hidden="true"></i> {{ item.label }}</a>
+                <a href="{{ item.uri }}" class="btn btn-primary btn-sm"><i class="fa fa-plus" aria-hidden="true"></i> {{ item.label }}</a>
             </li>
         {% endif %}
     {% endfor %}

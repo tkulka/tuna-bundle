@@ -30,7 +30,7 @@
                         <tbody>
                             {% for item in pagination %}
                                 <tr data-enabled="{{ item.published|round }}" class="{% if not item.published %}unpublished{% endif %}">
-                                    <td>{{ loop.index + lp}}</td>
+                                    <td>{{ loop.index + limit}}</td>
                                     <td>{{ item.title }}</td>
                                     <td>{{ item.createdAt|date('d/m/Y H:m:s') }}</td>
                                     <td class="center">
