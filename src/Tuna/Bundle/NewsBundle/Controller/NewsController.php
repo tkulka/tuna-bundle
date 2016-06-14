@@ -85,10 +85,10 @@ class NewsController extends Controller
         }
 
         $form = $this->createForm(new NewsType(), $news);
-
         $form->handleRequest($request);
+
         if ($form->isValid()) {
-            if ($news->getImage()->getPath() == null) {
+            if ($news->getImage()->getFile() == null) {
                 $news->setImage(null);
             }
             if (!$request->isXmlHttpRequest()) {

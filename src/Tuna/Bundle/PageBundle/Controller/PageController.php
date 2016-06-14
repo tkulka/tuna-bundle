@@ -68,7 +68,7 @@ class PageController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            if ($page->getImage()->getPath() == null) {
+            if ($page->getImage()->getFile() == null) {
                 $page->setImage(null);
             }
             if (!$request->isXmlHttpRequest()) {
