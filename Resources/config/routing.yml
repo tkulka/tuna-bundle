@@ -1,11 +1,6 @@
 _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"
 
-tuna_user:
-    resource: "@TheCodeineUserBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
 # SECURITY
 fos_user_security_login:
     path: /login
