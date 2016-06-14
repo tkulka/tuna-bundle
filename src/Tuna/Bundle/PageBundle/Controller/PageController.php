@@ -75,7 +75,7 @@ class PageController extends Controller
                 $em->persist($page);
                 $em->flush();
 
-                return $this->redirect($this->generateUrl('thecodeine_page_edit', array('id' => $page->getId())));
+                return $this->redirect($this->generateUrl('tuna_page_edit', array('id' => $page->getId())));
             }
         }
 
@@ -143,7 +143,7 @@ class PageController extends Controller
                 $em->persist($page);
                 $em->flush();
 
-                return $this->redirect($this->generateUrl('thecodeine_page_edit', array('id' => $page->getId())));
+                return $this->redirect($this->generateUrl('tuna_page_edit', array('id' => $page->getId())));
             }
         }
 
@@ -166,6 +166,6 @@ class PageController extends Controller
         $em = $this->getDoctrine()->getManager();
         $em->remove($page);
         $em->flush();
-        return $this->redirect($this->generateUrl('thecodeine_page_list'));
+        return $this->redirect($this->generateUrl('tuna_page_list'));
     }
 }
