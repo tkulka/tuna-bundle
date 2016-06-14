@@ -6,6 +6,8 @@ Gallery: Galeria
 Attachments: Załączniki
 Tags: Tagi
 Title: Tytuł
+Teaser: Opis
+Body: Treść
 Slug: Slug
 "Edit page:": "Edytuj stronę:"
 "Edit news:": "Edytuj newsa:"
@@ -17,7 +19,7 @@ Featured: "Przypięty"
 Logout: "Wyloguj się"
 Pages: Strony
 News: Aktualności
-Events: Wydarzenia
+Event: Wydarzenia
 "List of pages": "Lista stron"
 "Create page": "Stwórz stronę"
 "Create News": Stwórz aktualność
@@ -38,8 +40,11 @@ Events: Wydarzenia
 "Remove": "Usuń"
 "Panel": "Panel"
 "Add first news item": "Dodaj pierwszego newsa"
+"Add first event item": "Dodaj pierwsze wydarzenie"
 "Add first page item": "Dodaj pierwszą stronę"
 "Enter your name": "Podaj swoje imię"
 "Password": "Hasło"
 "Remember me": "Zapamiętaj mnie"
 "Log in": "Zaloguj się"
+"Start date": "Data początku"
+"End date": "Data zakończenia"

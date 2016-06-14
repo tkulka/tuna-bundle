@@ -44,7 +44,7 @@ thecodeine_news_create:
 
 thecodeine_news_edit:
     path: /admin/news/{newsType}/{id}/edit
-    defaults: { _controller: TheCodeineAdminBundle:News:create }
+    defaults: { _controller: TheCodeineAdminBundle:News:edit }
     requirements:
         id: \d+
 
