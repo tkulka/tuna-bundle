@@ -1,3 +1,64 @@
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: TheCodeine\UserBundle\Entity\User
+
+a2lix_translation_form:
+    locales: [pl, en]
+    default_required: true
+    manager_registry: doctrine
+    templating: "TheCodeineAdminBundle::_partials/_form/_theme.html.twig"
+
+the_codeine_editor:
+    autoinclude: true
+
+stof_doctrine_extensions:
+    default_locale: pl
+    persist_default_translation: false
+    translation_fallback: true
+    orm:
+        default:
+            timestampable: true
+            sluggable: true
+            translatable: true
+
+fos_js_routing:
+    routes_to_expose: [ 'tuna_image_internal_upload_request' ]
+
+knp_paginator:
+    page_range: 5
+    template:
+        pagination: "TheCodeineAdminBundle:_partials/_pagination.html.twig"
+
+knp_gaufrette:
+    adapters:
+        attachment_adapter:
+            local:
+                directory: "%kernel.root_dir%/../web/files"
+
+    filesystems:
+        attachment_fs:
+            adapter:    attachment_adapter
+    stream_wrapper:
+        protocol: http
+
+vich_uploader:
+    db_driver: orm
+    storage: gaufrette
+    mappings:
+        news_attachments:
+            uri_prefix: /files
+            upload_destination: attachment_fs
+            namer: vich_uploader.namer_origname
+
+jms_translation:
+    configs:
+        app:
+            dirs: ["%kernel.root_dir%", "%kernel.root_dir%/../src"]
+            output_dir: "%kernel.root_dir%/Resources/translations"
+            ignored_domains: [routes]
+            excluded_dirs: [cache, data, logs]
+
 liip_imagine:
     driver: gd
     resolvers:
