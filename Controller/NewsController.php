@@ -19,13 +19,13 @@ class NewsController extends \TheCodeine\NewsBundle\Controller\NewsController
     public function listAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $repository = $em->getRepository('TheCodeineNewsBundle:News');
+        $dql   = "SELECT n FROM TheCodeineNewsBundle:News n";
+        $query = $em->createQuery($dql);
+        $defaultSort = array('defaultSortFieldName' => 'n.createdAt', 'defaultSortDirection' => 'desc');
 
         $categoryId = $request->get('cid');
-        $page = $request->get('page', 1);
+        $page = $request->query->get('page', 1);
         $limit = 10;
-
-        $query = $repository->createQueryBuilder('n');
 
         if ($categoryId) {
             $query
@@ -33,16 +33,12 @@ class NewsController extends \TheCodeine\NewsBundle\Controller\NewsController
                 ->setParameter('categoryId', $categoryId);
         }
 
-        $query = $query->getQuery();
-        $news = $query->getResult();
-
         $paginator =  $this->get('knp_paginator');
-        $pagination = $paginator->paginate($news, $page, $limit);
+        $pagination = $paginator->paginate($query, $page, $limit, $defaultSort);
 
         return array(
             'pagination' => $pagination,
             'lp' => $page * $limit - $limit,
-            'newsList' => $news
         );
     }
 }
