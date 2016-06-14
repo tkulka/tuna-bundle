@@ -4,49 +4,15 @@
   * `composer require "thecodeine/tuna-adminbundle": "dev-master"`
   * add `TheCodeine\AdminBundle\BundleDependencyRegisterer::register($bundles);` to `AppKernel::registerBundles()`
   * migrate db: via doctrine migrations or `doctrine:schema:update`
-  * add some config and routing - still working on this - wait for update ;)
-    for now it's something like this:
+  * add some config and routing - still working on config - wait for update ;)
     
         # app/config/routing.yml
         
-        the_codeine_news:
-            resource: "@TheCodeineNewsBundle/Resources/config/routing.yml"
-        
-        the_codeine_page:
-            resource: "@TheCodeinePageBundle/Resources/config/routing.yml"
-        
-        the_codeine_admin:
+        the_codeine_tuna_admin:
             resource: "@TheCodeineAdminBundle/Resources/config/routing.yml"
-        
-        thecodeine_image:
-            resource: "@TheCodeineImageBundle/Resources/config/routing.yml"
-        
-        the_codeine_user:
-            resource: "@TheCodeineUserBundle/Controller/"
-            type:     annotation
-            prefix:   /
-        
-        _liip_imagine:
-            resource: "@LiipImagineBundle/Resources/config/routing.xml"
-        
-        # SECURITY
-        fos_user_security_login:
-            path: /login
-            defaults: { _controller: TheCodeineAdminBundle:Security:login }
-        
-        fos_user_security_check:
-            path: /login_check
-            defaults: { _controller: TheCodeineAdminBundle:Security:check }
-            methods:  [POST]
-        
-        fos_user_security_logout:
-            path: /logout
-            defaults: { _controller: TheCodeineAdminBundle:Security:logout }
     and:
         
         # app/config/config.yml
-        the_codeine_tag: ~
-        
         liip_imagine:
             driver: gd
             resolvers:

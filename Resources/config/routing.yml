@@ -1,11 +1,33 @@
 _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"
 
+the_codeine_user:
+    resource: "@TheCodeineUserBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+# SECURITY
+fos_user_security_login:
+    path: /login
+    defaults: { _controller: TheCodeineAdminBundle:Security:login }
+
+fos_user_security_check:
+    path: /login_check
+    defaults: { _controller: TheCodeineAdminBundle:Security:check }
+    methods:  [POST]
+
+fos_user_security_logout:
+    path: /logout
+    defaults: { _controller: TheCodeineAdminBundle:Security:logout }
+
 # IMAGE Route
 thecodeine_image:
     resource: "@TheCodeineImageBundle/Resources/config/routing.yml"
 
 # NEWS Route
+the_codeine_news:
+    resource: "@TheCodeineNewsBundle/Resources/config/routing.yml"
+
 thecodeine_news_list:
     pattern:  /admin/news/list
     defaults: { _controller: TheCodeineAdminBundle:News:list }
@@ -39,6 +61,9 @@ thecodeine_news_delete:
         id: \d+
 
 # PAGE Route
+the_codeine_page:
+    resource: "@TheCodeinePageBundle/Resources/config/routing.yml"
+
 thecodeine_page_show:
     path: /{_locale}/page/{id}
     defaults:  { _controller: TheCodeineAdminBundle:Page:show }
@@ -69,17 +94,3 @@ thecodeine_page_delete:
 thecodeine_admin_homepage:
     path: /admin/
     defaults: { _controller: TheCodeineAdminBundle:Admin:index }
-
-# SECURITY
-fos_user_security_login:
-    path: /login
-    defaults: { _controller: TheCodeineAdminBundle:Security:login }
-
-fos_user_security_check:
-    path: /login_check
-    defaults: { _controller: TheCodeineAdminBundle:Security:check }
-    methods:  [POST]
-
-fos_user_security_logout:
-    path: /logout
-    defaults: { _controller: TheCodeineAdminBundle:Security:logout }
