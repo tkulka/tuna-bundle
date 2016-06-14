@@ -28,31 +28,29 @@ thecodeine_image:
 the_codeine_news:
     resource: "@TheCodeineNewsBundle/Resources/config/routing.yml"
 
+thecodeine_news_list:
+    path:  /admin/news/{newsType}/list
+    defaults: { _controller: TheCodeineAdminBundle:News:list }
+
 thecodeine_news_show:
     path: /{_locale}/news/{newsType}/{id}
     defaults: { _controller: TheCodeineAdminBundle:News:show, id: 0 }
     requirements:
         id: \d+
 
-thecodeine_news_list:
-    path:  /admin/news/{newsType}/list
-    defaults: { _controller: TheCodeineAdminBundle:News:list }
-
 thecodeine_news_create:
     path: /admin/news/{newsType}/create
-    defaults: { _controller: TheCodeineAdminBundle:News:create }
     defaults: { _controller: TheCodeineAdminBundle:News:create }
 
 thecodeine_news_edit:
     path: /admin/news/{newsType}/{id}/edit
-    defaults: { _controller: TheCodeineAdminBundle:News:edit, id: 0 }
+    defaults: { _controller: TheCodeineAdminBundle:News:create }
     requirements:
         id: \d+
 
 thecodeine_news_attachment_add:
     path: /admin/news/{newsType}/{id}/attachment/add
-
-    defaults: { _controller: TheCodeineAdminBundle:News:addAttachment, id: 0 }
+    defaults: { _controller: TheCodeineAdminBundle:News:addAttachment }
     requirements:
         id: \d+
 
