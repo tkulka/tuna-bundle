@@ -1,0 +1,47 @@
+{
+    "name": "thecodeine/tuna-editorbundle",
+    "type": "symfony-bundle",
+    "description": "Admin editor for CMS",
+    "homepage": "http://thecodeine.com",
+    "require": {
+        "php": ">=5.3.9",
+        "symfony/symfony": "2.7.*",
+        "doctrine/orm": "~2.2,>=2.2.3,<2.5",
+        "doctrine/dbal": "<2.5",
+        "doctrine/doctrine-bundle": "~1.4",
+        "symfony/assetic-bundle": "~2.3",
+        "symfony/swiftmailer-bundle": "~2.3",
+        "symfony/monolog-bundle": "~2.4",
+        "sensio/distribution-bundle": "~4.0",
+        "sensio/framework-extra-bundle": "~3.0,>=3.0.2",
+        "incenteev/composer-parameter-handler": "~2.0",
+        "stof/doctrine-extensions-bundle": "^1.2"
+    },
+    "require-dev": {
+        "behat/behat": "~3.0",
+        "behat/symfony2-extension": "~2.0",
+        "behat/mink-extension": "~2.0",
+        "behat/mink-browserkit-driver": "~1.2",
+        "behat/mink-selenium2-driver": "~1.2",
+        "behat/mink": "~1.6",
+        "phpspec/phpspec": "~2.1",
+        "symfony/monolog-bundle": "^2.7",
+        "behat/mink-goutte-driver": "^1.1",
+        "phpunit/phpunit": "4.8.*"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "npm install bower --save",
+            "bower install"
+        ],
+        "post-update-cmd": [
+            "npm update",
+            "bower update"
+        ]
+    },
+    "autoload": {
+        "psr-4": {
+            "TheCodeine\\EditorBundle\\": ""
+        }
+    }
+}

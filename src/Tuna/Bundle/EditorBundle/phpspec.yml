@@ -1,0 +1,7 @@
+suites:
+    DependencyInjection:
+        { namespace: TheCodeine\EditorBundle\DependencyInjection, psr4_prefix: TheCodeine\EditorBundle\DependencyInjection, spec_prefix: DependencyInjection, spec_path: Spec, src_path: DependencyInjection }
+    Form:
+        { namespace: TheCodeine\EditorBundle\Form, psr4_prefix: TheCodeine\EditorBundle\Form, spec_prefix: Form, spec_path: Spec, src_path: Form }
+    Twig:
+        { namespace: TheCodeine\EditorBundle\Twig, psr4_prefix: TheCodeine\EditorBundle\Twig, spec_prefix: Twig, spec_path: Spec, src_path: Twig }

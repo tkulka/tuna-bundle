@@ -1,0 +1,14 @@
+{% form_theme form 'TheCodeineEditorBundle::_form_theme.html.twig' %}
+
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+{{ form_end(form) }}
+
+{{ include_the_codeine_editor() }}
+<script type="text/javascript">
+    (function () {
+        new tuna.view.EditorView({
+            selector: '#form_the_codeine_editor_test'
+        });
+    }());
+</script>

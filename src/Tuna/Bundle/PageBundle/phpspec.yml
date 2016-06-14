@@ -1,0 +1,13 @@
+suites:
+    Controller:
+        { namespace: TheCodeine\PageBundle\Controller, psr4_prefix: TheCodeine\PageBundle\Controller, spec_prefix: Controller, spec_path: Spec, src_path: Controller }
+    DependencyInjection:
+        { namespace: TheCodeine\PageBundle\DependencyInjection, psr4_prefix: TheCodeine\PageBundle\DependencyInjection, spec_prefix: DependencyInjection, spec_path: Spec, src_path: DependencyInjection }
+    Entity:
+        { namespace: TheCodeine\PageBundle\Entity, psr4_prefix: TheCodeine\PageBundle\Entity, spec_prefix: Entity, spec_path: Spec, src_path: Entity }
+    EventListener:
+        { namespace: TheCodeine\PageBundle\EventListener, psr4_prefix: TheCodeine\PageBundle\EventListener, spec_prefix: EventListener, spec_path: Spec, src_path: EventListener }
+    Form:
+        { namespace: TheCodeine\PageBundle\Form, psr4_prefix: TheCodeine\PageBundle\Form, spec_prefix: Form, spec_path: Spec, src_path: Form }
+    Repository:
+        { namespace: TheCodeine\PageBundle\Repository, psr4_prefix: TheCodeine\PageBundle\Repository, spec_prefix: Repository, spec_path: Spec, src_path: Repository }
