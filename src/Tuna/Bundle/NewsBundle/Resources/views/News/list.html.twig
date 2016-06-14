@@ -12,8 +12,8 @@
                 {% endif %}
                 <p>{{ news.body|striptags[:150] ~ '...' }}</p>
                 <p>
-                    <a href="{{ path('thecodeine_news_edit', {'id': news.id}) }}" class="btn btn-default " title="edytuj">Edytuj</a>
-                    <a href="{{ path('thecodeine_news_delete', {'id': news.id}) }}" class="btn btn-danger">Usuń</a>
+                    <a href="{{ path('tuna_news_edit', {'id': news.id}) }}" class="btn btn-default " title="edytuj">Edytuj</a>
+                    <a href="{{ path('tuna_news_delete', {'id': news.id}) }}" class="btn btn-danger">Usuń</a>
                 </p>
             </div>
         </li>

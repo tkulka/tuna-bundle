@@ -4,6 +4,10 @@ Behat/Fixtures/app/logs/
 Behat/Fixtures/web/files/
 Behat/Fixtures/web/uploads/
 Behat/Fixtures/web/media/
+
+Resources/public/css/tuna_admin*
+Resources/public/js/tuna_admin*
+
 !Resources/public/css/vendor/
 !Resources/public/js/vendor/
 !Resources/public/sass/vendor/

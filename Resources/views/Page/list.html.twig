@@ -5,7 +5,7 @@
     {% if pagination|length == 0 %}
         <div class="admin-alert alert text-center">
             <h3>{% trans %}Oops there is nothing here!{% endtrans %}</h3>
-            <a href="{{ path('thecodeine_page_create') }}" class="btn btn-primary btn-wide">
+            <a href="{{ path('tuna_page_create') }}" class="btn btn-primary btn-wide">
                 <i class="fui-plus-inverted"></i> {% trans %}Add first page item{% endtrans %}
             </a>
         </div>
@@ -40,8 +40,8 @@
                                         {% endif %}
                                     </td>
                                     <td class="options">
-                                        <a href="{{path('thecodeine_page_edit',{'id' : item.id})}}" class="fa fa-pencil-square-o" aria-hidden="true"></a>
-                                        <a href="#" data-title="{{ item.title }}" data-url="{{ path('thecodeine_page_delete',{'id' : item.id})}}" data-target="#modal-confirm" data-action="delete" class="fa fa-trash" aria-hidden="true"></a>
+                                        <a href="{{path('tuna_page_edit',{'id' : item.id})}}" class="fa fa-pencil-square-o" aria-hidden="true"></a>
+                                        <a href="#" data-title="{{ item.title }}" data-url="{{ path('tuna_page_delete',{'id' : item.id})}}" data-target="#modal-confirm" data-action="delete" class="fa fa-trash" aria-hidden="true"></a>
                                     </td>
                                 </tr>
                             {% endfor %}

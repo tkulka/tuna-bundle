@@ -45,7 +45,7 @@ class UploadController extends Controller
     {
         $form = $this->createForm(new ImageRemoteType(), null, array(
             'method' => 'POST',
-            'action' => $this->generateUrl('_image_upload_remote')
+            'action' => $this->generateUrl('tuna_image_internal_upload_remote')
         ));
 
         return array(
@@ -61,7 +61,7 @@ class UploadController extends Controller
     {
         $form = $this->createForm(new ImageRequestType(), null, array(
             'method' => 'POST',
-            'action' => $this->generateUrl('_image_upload_request')
+            'action' => $this->generateUrl('tuna_image_internal_upload_request')
         ));
 
         return array(

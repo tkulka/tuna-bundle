@@ -1,7 +1,7 @@
 _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"
 
-the_codeine_user:
+tuna_user:
     resource: "@TheCodeineUserBundle/Controller/"
     type:     annotation
     prefix:   /
@@ -21,76 +21,76 @@ fos_user_security_logout:
     defaults: { _controller: TheCodeineAdminBundle:Security:logout }
 
 # IMAGE Route
-thecodeine_image:
+tuna_image:
     resource: "@TheCodeineImageBundle/Resources/config/routing.yml"
 
 # NEWS Route
-the_codeine_news:
+tuna_news:
     resource: "@TheCodeineNewsBundle/Resources/config/routing.yml"
 
-thecodeine_news_list:
+tuna_news_list:
     pattern:  /admin/news/list
     defaults: { _controller: TheCodeineAdminBundle:News:list }
 
-thecodeine_news_show:
+tuna_news_show:
     pattern: /{_locale}/news/{id}
     defaults: { _controller: TheCodeineAdminBundle:News:show, id: 0 }
     requirements:
         id: \d+
 
-thecodeine_news_create:
+tuna_news_create:
     pattern: /admin/news/create
     defaults: { _controller: TheCodeineAdminBundle:News:create }
 
-thecodeine_news_edit:
+tuna_news_edit:
     pattern: /admin/news/{id}/edit
     defaults: { _controller: TheCodeineAdminBundle:News:edit, id: 0 }
     requirements:
         id: \d+
 
-thecodeine_news_attachment_add:
+tuna_news_attachment_add:
     pattern: /admin/news/{id}/attachment/add
     defaults: { _controller: TheCodeineAdminBundle:News:addAttachment, id: 0 }
     requirements:
         id: \d+
 
-thecodeine_news_delete:
+tuna_news_delete:
     pattern: /admin/news/{id}/delete
     defaults: { _controller: TheCodeineAdminBundle:News:delete }
     requirements:
         id: \d+
 
 # PAGE Route
-the_codeine_page:
+tuna_page:
     resource: "@TheCodeinePageBundle/Resources/config/routing.yml"
 
-thecodeine_page_show:
+tuna_page_show:
     path: /{_locale}/page/{id}
     defaults:  { _controller: TheCodeineAdminBundle:Page:show }
     requirements:
         id:  \d+
 
-thecodeine_page_create:
+tuna_page_create:
     path: /admin/page/create
     defaults:  { _controller: TheCodeineAdminBundle:Page:create }
 
-thecodeine_page_list:
+tuna_page_list:
     path: /admin/page/list
     defaults:  { _controller: TheCodeineAdminBundle:Page:list }
 
-thecodeine_page_edit:
+tuna_page_edit:
     path: /admin/page/{id}/edit
     defaults:  { _controller: TheCodeineAdminBundle:Page:edit, id: 0 }
     requirements:
         id:  \d+
 
-thecodeine_page_delete:
+tuna_page_delete:
     path: /admin/page/{id}/delete
     defaults:  { _controller: TheCodeineAdminBundle:Page:delete, id: 0 }
     requirements:
         id:  \d+
 
 # ADMIN Route
-thecodeine_admin_homepage:
+tuna_admin_homepage:
     path: /admin/
     defaults: { _controller: TheCodeineAdminBundle:Admin:index }
