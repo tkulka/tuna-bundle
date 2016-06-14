@@ -20,10 +20,10 @@
                         <thead>
                             <tr>
                                 <th>Lp</th>
-                                <th>{{ knp_pagination_sortable(pagination, 'Title'|trans, 'p.title') }}</th>
-                                <th>{{ knp_pagination_sortable(pagination, 'Create date'|trans, 'p.createdAt') }}</th>
-                                <th class="center">{{ knp_pagination_sortable(pagination, 'Published'|trans, 'p.published') }}</th>
-                                <th class="center">{{ knp_pagination_sortable(pagination, 'Featured'|trans, 'p.important') }}</th>
+                                <th>{{ knp_pagination_sortable(pagination, 'Title'|trans, 'n.title') }}</th>
+                                <th>{{ knp_pagination_sortable(pagination, 'Create date'|trans, 'n.createdAt') }}</th>
+                                <th class="center">{{ knp_pagination_sortable(pagination, 'Published'|trans, 'n.published') }}</th>
+                                <th class="center">{{ knp_pagination_sortable(pagination, 'Featured'|trans, 'n.important') }}</th>
                                 <th class="text-right">{% trans %}Options{% endtrans %}</th>
                             </tr>
                         </thead>
