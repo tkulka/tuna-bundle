@@ -39,6 +39,7 @@
         "thecodeine/tuna-newsbundle": "self.version",
         "thecodeine/tuna-pagebundle": "self.version",
         "thecodeine/tuna-tagbundle": "self.version",
+        "thecodeine/tuna-userbundle": "self.version",
         "thecodeine/tuna-videobundle": "self.version"
     },
     "require-dev": {
@@ -62,6 +63,7 @@
             "TheCodeine\\NewsBundle\\": "src/Tuna/Bundle/NewsBundle",
             "TheCodeine\\PageBundle\\": "src/Tuna/Bundle/PageBundle",
             "TheCodeine\\TagBundle\\": "src/Tuna/Bundle/TagBundle",
+            "TheCodeine\\UserBundle\\": "src/Tuna/Bundle/UserBundle",
             "TheCodeine\\VideoBundle\\": "src/Tuna/Bundle/VideoBundle"
         }
     },
