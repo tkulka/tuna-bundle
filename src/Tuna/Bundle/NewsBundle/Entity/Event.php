@@ -10,10 +10,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Event
  *
- * @ORM\Entity(repositoryClass="TheCodeine\NewsBundle\Repository\NewsRepository")
+ * @ORM\Entity
  *
  */
-class Event extends News
+class Event extends BaseNews
 {
     /**
      * @var \DateTime
