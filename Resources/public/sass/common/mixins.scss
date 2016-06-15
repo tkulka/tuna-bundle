@@ -1,17 +1,11 @@
-@mixin flex-box() {
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-}
-
-@mixin flex-flow($flow) {
-    -webkit-flex-flow: $flow;
-    flex-flow: $flow;
-}
-
 @mixin calc($property, $expression) {
     #{$property}: -webkit-calc(#{$expression});
     #{$property}: calc(#{$expression});
+}
+
+@mixin placeholder() {
+    &::-webkit-input-placeholder {@content}
+    &:-moz-placeholder           {@content}
+    &::-moz-placeholder          {@content}
+    &:-ms-input-placeholder      {@content}
 }

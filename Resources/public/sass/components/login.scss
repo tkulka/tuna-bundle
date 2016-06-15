@@ -21,6 +21,12 @@
     .checkbox .icons .first-icon {
         color: $link-hover-color;
     }
+
+    input {
+        @include placeholder {
+            color: lighten($brand-tertiary, 25%);
+        }
+    }
 }
 
 .login-form .login-field:focus + .login-field-icon, .checkbox.checked, .radio.checked  {

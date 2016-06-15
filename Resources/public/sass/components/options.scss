@@ -3,7 +3,7 @@
 
     @media all and (min-width: $mobileLargeScreen) {
         display: block;
-        max-width: $sidebarOptionsWidth;
+        width: $sidebarOptionsWidth;
     }
 
     .admin-option-container {

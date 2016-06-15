@@ -19,14 +19,16 @@
     </head>
     <body class="{% block body_class %}{% endblock %}">
 
+        {% if is_granted('ROLE_ADMIN') %}
+            <header class="header">
+                {% block navigation %}
+                    {% include 'TheCodeineAdminBundle::_partials/_header.html.twig' %}
+                {% endblock navigation %}
+            </header>
+        {% endif %}
+
         <div class="container {{ block('main_class') }}">
             {% if is_granted('ROLE_ADMIN') %}
-                <header class="header">
-                    {% block navigation %}
-                        {% include 'TheCodeineAdminBundle::_partials/_header.html.twig' %}
-                    {% endblock navigation %}
-                </header>
-
                 <aside class="aside aside-1">
                     {{ knp_menu_render('menu.top.static') }}
                 </aside>
