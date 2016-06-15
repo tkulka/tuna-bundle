@@ -7,19 +7,18 @@ use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Translation\TranslatorInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use TheCodeine\NewsBundle\Entity\Category;
 
-class Builder
+class Builder extends ContainerAware
 {
     /**
      * @var \Knp\Menu\FactoryInterface
      */
-    private $factory;
+    public $factory;
 
     /**
      * @var Translator
      */
-    private $translatorInterface;
+    public $translatorInterface;
 
 
     /**
@@ -42,17 +41,12 @@ class Builder
             'childrenAttributes' => array('class' => 'nav')
         ));
 
+        $this->addNewsChild($menu, $request, "News");
+
         $menu->addChild($this->translatorInterface->trans('Pages'), array(
             'route' => 'tuna_page_list',
             'attributes' => array(
-                "class" => preg_match_all('/thecodeine_page/i', $request->get('_route')) ? "active" : ""
-            )
-        ));
-
-        $menu->addChild($this->translatorInterface->trans('News'), array(
-            'route' => 'tuna_news_list',
-            'attributes' => array(
-                "class" => preg_match_all('/thecodeine_news/i', $request->get('_route')) ? "active" : ""
+                "class" => preg_match_all('/tuna_page/i', $request->get('_route')) ? "active" : ""
             )
         ));
 
@@ -69,25 +63,19 @@ class Builder
             'childrenAttributes' => array('class' => 'nav')
         ));
 
-        if (preg_match_all('/thecodeine_page/i', $request->get('_route'))) {
-            $menu = $this->buildPageSubmenu($menu, $request);
+        if (preg_match_all('/tuna_news/i', $request->get('_route'))) {
+            $menu = $this->buildNewsSubmenu($menu, $request);
         }
 
-        if (preg_match_all('/thecodeine_news/i', $request->get('_route'))) {
-            $menu = $this->buildNewsSubmenu($menu, $request);
+        if (preg_match_all('/tuna_page/i', $request->get('_route'))) {
+            $menu = $this->buildPageSubmenu($menu, $request);
         }
 
         return $menu;
     }
 
-    private function buildPageSubmenu($menu, $request)
+    public function buildPageSubmenu($menu, $request)
     {
-        $menu->addChild($this->translatorInterface->trans('List of pages'), array(
-            'route' => 'tuna_page_list',
-            'attributes' => array(
-                "class" => $request->get('_route') === 'tuna_page_list' ? "active" : ""
-            )
-        ));
         $menu->addChild($this->translatorInterface->trans('Create page'), array(
             'route' => 'tuna_page_create',
             'attributes' => array(
@@ -98,21 +86,27 @@ class Builder
         return $menu;
     }
 
-    private function buildNewsSubmenu($menu, $request)
+    public function buildNewsSubmenu($menu, $request)
     {
-        $menu->addChild($this->translatorInterface->trans('List of news'), array(
-            'route' => 'tuna_news_list',
-            'attributes' => array(
-                "class" => $request->get('_route') === 'tuna_news_list' ? "active" : ""
-            )
-        ));
-        $menu->addChild($this->translatorInterface->trans('Create news'), array(
+        $menu->addChild($this->translatorInterface->trans('Create ' . $request->get('_route_params')['newsType']), array(
             'route' => 'tuna_news_create',
-            'attributes' => array(
-                "class" => $request->get('_route') === 'tuna_news_create' ? "active" : ""
-            )
+            'routeParameters' => array('newsType' => $request->get('_route_params')['newsType'])
         ));
 
         return $menu;
+    }
+
+    public function addNewsChild($menu, $request, $type)
+    {
+        $menu->addChild($this->translatorInterface->trans($type), array(
+            'route' => 'tuna_news_list',
+            'routeParameters' => array('newsType' => $type),
+            'attributes' => array(
+                'class' => (
+                    isset($request->get('_route_params')['newsType']) &&
+                    $request->get('_route_params')['newsType'] == $type
+                ) ? 'active' : '',
+            )
+        ));
     }
 }

@@ -14,7 +14,7 @@ use TheCodeine\PageBundle\Entity\BasePage;
  * @ORM\Entity(repositoryClass="TheCodeine\NewsBundle\Repository\NewsRepository")
  * @Gedmo\TranslationEntity(class="TheCodeine\NewsBundle\Entity\NewsTranslation")
  * @ORM\InheritanceType("SINGLE_TABLE")
- * @ORM\DiscriminatorColumn(name="newsType", type="string")
+ * @ORM\DiscriminatorColumn(name="news_type", type="string")
  *
  * @ORM\HasLifecycleCallbacks
  */
