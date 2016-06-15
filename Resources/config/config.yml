@@ -1,3 +1,7 @@
+twig:
+    globals:
+        admin_logo_url: %admin_logo_url%
+
 imports:
     - { resource: security.yml }
 
