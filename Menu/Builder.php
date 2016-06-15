@@ -43,14 +43,14 @@ class Builder
         ));
 
         $menu->addChild($this->translatorInterface->trans('Pages'), array(
-            'route' => 'thecodeine_page_list',
+            'route' => 'tuna_page_list',
             'attributes' => array(
                 "class" => preg_match_all('/thecodeine_page/i', $request->get('_route')) ? "active" : ""
             )
         ));
 
         $menu->addChild($this->translatorInterface->trans('News'), array(
-            'route' => 'thecodeine_news_list',
+            'route' => 'tuna_news_list',
             'attributes' => array(
                 "class" => preg_match_all('/thecodeine_news/i', $request->get('_route')) ? "active" : ""
             )
@@ -83,15 +83,15 @@ class Builder
     private function buildPageSubmenu($menu, $request)
     {
         $menu->addChild($this->translatorInterface->trans('List of pages'), array(
-            'route' => 'thecodeine_page_list',
+            'route' => 'tuna_page_list',
             'attributes' => array(
-                "class" => $request->get('_route') === 'thecodeine_page_list' ? "active" : ""
+                "class" => $request->get('_route') === 'tuna_page_list' ? "active" : ""
             )
         ));
         $menu->addChild($this->translatorInterface->trans('Create page'), array(
-            'route' => 'thecodeine_page_create',
+            'route' => 'tuna_page_create',
             'attributes' => array(
-                "class" => $request->get('_route') === 'thecodeine_page_create' ? "active" : ""
+                "class" => $request->get('_route') === 'tuna_page_create' ? "active" : ""
             )
         ));
 
@@ -101,15 +101,15 @@ class Builder
     private function buildNewsSubmenu($menu, $request)
     {
         $menu->addChild($this->translatorInterface->trans('List of news'), array(
-            'route' => 'thecodeine_news_list',
+            'route' => 'tuna_news_list',
             'attributes' => array(
-                "class" => $request->get('_route') === 'thecodeine_news_list' ? "active" : ""
+                "class" => $request->get('_route') === 'tuna_news_list' ? "active" : ""
             )
         ));
         $menu->addChild($this->translatorInterface->trans('Create news'), array(
-            'route' => 'thecodeine_news_create',
+            'route' => 'tuna_news_create',
             'attributes' => array(
-                "class" => $request->get('_route') === 'thecodeine_news_create' ? "active" : ""
+                "class" => $request->get('_route') === 'tuna_news_create' ? "active" : ""
             )
         ));
 

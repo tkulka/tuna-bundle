@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * User
  *
+ * @ORM\Table(name="users")
  * @ORM\Entity
  *
  */
@@ -25,7 +26,6 @@ class User extends BaseUser
         parent::__construct();
     }
 
-
     /**
      * Get id
      *
@@ -35,6 +35,4 @@ class User extends BaseUser
     {
         return $this->id;
     }
-
-
 }

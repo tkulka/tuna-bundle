@@ -1,49 +1,26 @@
 #TheCodeine AdminBundle
 
 ##Installation:
-  * `composer require "thecodeine/tuna-adminbundle": "dev-master"`
-  * add `TheCodeine\AdminBundle\BundleDependencyRegisterer::register($bundles);` to `AppKernel::registerBundles()`
-  * migrate db: via doctrine migrations or `doctrine:schema:update`
-  * add some config and routing - still working on config - wait for update ;)
+  1. Require module:
+  
+        composer require "thecodeine/tuna-adminbundle": "dev-master"
+  2. Register bundles:
+  
+    Add following line to `AppKernel::registerBundles()`
+    
+        `TheCodeine\AdminBundle\BundleDependencyRegisterer::register($bundles);`
+  3. Migrate db:
+   
+    Via `doctrine:migrations:diff && doctrine:migrations:migrate` or `doctrine:schema:update`
+    
+  4. Add routing
     
         # app/config/routing.yml
         
         the_codeine_tuna_admin:
             resource: "@TheCodeineAdminBundle/Resources/config/routing.yml"
-    and:
-        
-        # app/config/config.yml
-        liip_imagine:
-            driver: gd
-            resolvers:
-               default:
-                  web_path: ~
-            filter_sets:
-               admin_thumb:
-                      quality: 90
-                      filters:
-                          thumbnail: { size: [260, 180], mode: outbound }
-               gallery_thumb:
-                      quality: 90
-                      filters:
-                          thumbnail: { size: [120, 90], mode: outbound }
-               article_thumb:
-                      quality: 90
-                      filters:
-                          thumbnail: { size: [200, 100], mode: outbound }
-               article_full:
-                      quality: 90
-                      filters:
-                          thumbnail: { size: [500, 800], mode: inset }
-               gallery_thumb:
-                      quality: 90
-                      filters:
-                          thumbnail: { size: [160, 120], mode: outbound }
-               gallery_full:
-                      quality: 90
-                      filters:
-                          thumbnail: { size: [1900, 1200], mode: inset }
-               newsThumb:
-                    quality: 90
-                    filters:
-                        relative_resize: { widen: 170 }
+  5. Override config
+  
+    Tuna injects some basic configs, but feel free to override them (be aware that you can broke some of functionalities by this).  
+    For newest config defaults check [Resources/config/config.yml](Resources/config/config.yml). This file also includes
+    [Resources/config/security.yml](Resources/config/security.yml), so be sure to clear your security.yml file, or override some parts.
