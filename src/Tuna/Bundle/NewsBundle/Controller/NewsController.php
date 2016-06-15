@@ -5,11 +5,13 @@ namespace TheCodeine\NewsBundle\Controller;
 use Doctrine\ORM\EntityManager;
 use TheCodeine\NewsBundle\Entity\Attachment;
 use TheCodeine\NewsBundle\Entity\News;
+use TheCodeine\NewsBundle\Entity\Event;
 use TheCodeine\NewsBundle\Entity\Category;
 use TheCodeine\NewsBundle\Entity\NewsTranslation;
 use TheCodeine\NewsBundle\Form\AttachmentType;
 use TheCodeine\NewsBundle\Form\CategoryType;
 use TheCodeine\NewsBundle\Form\NewsType;
+use TheCodeine\NewsBundle\Form\EventType;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,6 +28,12 @@ use Gedmo\Translatable\TranslatableListener;
 
 class NewsController extends Controller
 {
+
+    private static $NEWS_TYPES = array(
+        'News' => 'aktualnosci',
+        'Event' => 'wydarzenia',
+    );
+
     /**
      *
      * @Template()
@@ -34,73 +42,78 @@ class NewsController extends Controller
      *
      * @return array
      */
-    public function listAction(Request $request)
+    public function listAction(Request $request, $newsType)
     {
         $categoryId = $request->get('cid');
         $em = $this->getDoctrine()->getManager();
         if ($categoryId) {
             $query = $em
-                ->createQuery('SELECT n FROM TheCodeineNewsBundle:News n WHERE n.category = :category ORDER BY n.createdAt DESC')
+                ->createQuery('SELECT n FROM TheCodeineNewsBundle:$newsType n WHERE n.category = :category ORDER BY n.createdAt DESC')
                 ->setParameter('category', $categoryId);
         } else {
             $query = $em
-                ->createQuery('SELECT n FROM TheCodeineNewsBundle:News n ORDER BY n.createdAt DESC');
+                ->createQuery('SELECT n FROM TheCodeineNewsBundle:$newsType n ORDER BY n.createdAt DESC');
         }
         $pages = $query->getResult();
 
         return array(
             'newsList' => $pages,
+            'newsType' => $newsType,
         );
     }
 
     /**
      *
-     * @param News $news
+     * @param Request $request
+     * @param string $newsType
+     * @param integer $id
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function deleteAction(News $news)
+    public function deleteAction(Request $request, $newsType, $id)
     {
         $em = $this->getDoctrine()->getManager();
+        $news = $em->find('TheCodeineNewsBundle:' . $newsType, $id);
         $em->remove($news);
         $em->flush();
-        return $this->redirect($this->generateUrl('tuna_news_list'));
+
+        return $this->redirect($this->generateUrl('tuna_news_list', array('newsType' => $newsType)));
     }
 
     /**
      * @Template()
      *
      * @param Request $request
+     * @param string $newsType
      *
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, $newsType)
     {
         $em = $this->getDoctrine()->getManager();
-        $news = new News();
+        $news = $this->getNewsIntanceByType($newsType);
 
-        if ($request->get('cid')) {
-            $category = $em->find('TheCodeine\NewsBundle\Entity\Category', $request->get('cid'));
-            $news->setCategory($category);
-        }
+        $news->setCategory($this->getCategoryByNewsType($newsType));
 
-        $form = $this->createForm(new NewsType(), $news);
+        $form = $this->createForm($this->getNewsTypeInstanceByType($newsType), $news);
+
         $form->handleRequest($request);
-
         if ($form->isValid()) {
             if ($news->getImage()->getFile() == null) {
                 $news->setImage(null);
             }
+            $em->persist($news);
+
             if (!$request->isXmlHttpRequest()) {
-                $em->persist($news);
                 $em->flush();
 
-                return $this->redirect($this->generateUrl('tuna_news_edit', array('id' => $news->getId())));
+                return $this->redirect($this->generateUrl('tuna_news_list', array('newsType' => $newsType)));
             }
         }
 
         return array(
             'news' => $news,
+            'newsType' => $newsType,
             'form' => $form->createView(),
         );
     }
@@ -109,21 +122,17 @@ class NewsController extends Controller
      * @Template()
      *
      * @param Request $request
-     * @param News $news
+     * @param string $newsType
+     * @param integer $id
      *
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function editAction(Request $request, News $news)
+    public function editAction(Request $request, $newsType, $id)
     {
-        /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
-        if (null == $news) {
-            $news = new News();
-            $category = $em->find('TheCodeine\NewsBundle\Entity\Category', $request->get('cid'));
-            $news->setCategory($category);
-        }
+        $news = $em->find('TheCodeineNewsBundle:'.$newsType, $id);
 
-        $form = $this->createForm(new NewsType(), $news);
+        $form = $this->createForm($this->getNewsTypeInstanceByType($newsType), $news);
 
         $originalAttachments = new ArrayCollection();
         foreach ($news->getAttachments() as $attachment) {
@@ -141,9 +150,11 @@ class NewsController extends Controller
 
         if ($form->isValid()) {
             if ($form->get('image')->get('remove')->getData() == '1') {
+                // remove image
                 $em->remove($news->getImage());
                 $news->setImage(null);
             }
+
             //remove attachments
             foreach ($originalAttachments as $attachment) {
                 if (false === $news->getAttachments()->contains($attachment)) {
@@ -157,16 +168,18 @@ class NewsController extends Controller
                 }
             }
 
+            $em->persist($news);
+
             if (!$request->isXmlHttpRequest()) {
-                $em->persist($news);
                 $em->flush();
 
-                return $this->redirect($this->generateUrl('tuna_news_edit', array('id' => $news->getId())));
+                return $this->redirect($this->generateUrl('tuna_news_list', array('newsType' => $newsType)));
             }
         }
 
         return array(
             'news' => $news,
+            'newsType' => $newsType,
             'form' => $form->createView(),
         );
     }
@@ -214,6 +227,31 @@ class NewsController extends Controller
         return array(
             'form' => $form->createView(),
         );
+    }
+
+    private function getNewsIntanceByType($type)
+    {
+        switch ($type) {
+            case 'News':
+                return new News();
+            case 'Event':
+                return new Event();
+        }
+    }
+
+    private function getNewsTypeInstanceByType($type)
+    {
+        switch ($type) {
+            case 'News':
+                return new NewsType();
+            case 'Event':
+                return new EventType();
+        }
+    }
+
+    private function getCategoryByNewsType($type)
+    {
+        return $this->getDoctrine()->getRepository('TheCodeineNewsBundle:Category')->findOneBySlug(self::$NEWS_TYPES[$type]);
     }
 
 }

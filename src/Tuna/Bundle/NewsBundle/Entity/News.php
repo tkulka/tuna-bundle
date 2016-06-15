@@ -13,6 +13,8 @@ use TheCodeine\PageBundle\Entity\BasePage;
  * @ORM\Table(name="news")
  * @ORM\Entity(repositoryClass="TheCodeine\NewsBundle\Repository\NewsRepository")
  * @Gedmo\TranslationEntity(class="TheCodeine\NewsBundle\Entity\NewsTranslation")
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="newsType", type="string")
  *
  * @ORM\HasLifecycleCallbacks
  */
