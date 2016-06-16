@@ -64,7 +64,7 @@ class NewsController extends Controller
         $em = $this->getDoctrine()->getManager();
         $em->remove($news);
         $em->flush();
-        return $this->redirect($this->generateUrl('thecodeine_news_list'));
+        return $this->redirect($this->generateUrl('tuna_news_list'));
     }
 
     /**
@@ -85,17 +85,17 @@ class NewsController extends Controller
         }
 
         $form = $this->createForm(new NewsType(), $news);
-
         $form->handleRequest($request);
+
         if ($form->isValid()) {
-            if ($news->getImage()->getPath() == null) {
+            if ($news->getImage()->getFile() == null) {
                 $news->setImage(null);
             }
             if (!$request->isXmlHttpRequest()) {
                 $em->persist($news);
                 $em->flush();
 
-                return $this->redirect($this->generateUrl('thecodeine_news_edit', array('id' => $news->getId())));
+                return $this->redirect($this->generateUrl('tuna_news_edit', array('id' => $news->getId())));
             }
         }
 
@@ -161,7 +161,7 @@ class NewsController extends Controller
                 $em->persist($news);
                 $em->flush();
 
-                return $this->redirect($this->generateUrl('thecodeine_news_edit', array('id' => $news->getId())));
+                return $this->redirect($this->generateUrl('tuna_news_edit', array('id' => $news->getId())));
             }
         }
 
@@ -208,7 +208,7 @@ class NewsController extends Controller
             $em->persist($news);
             $em->persist($attachment);
             $em->flush();
-            return $this->redirect($this->generateUrl('thecodeine_news_show', array('id' => $news->getId())));
+            return $this->redirect($this->generateUrl('tuna_news_show', array('id' => $news->getId())));
         }
 
         return array(

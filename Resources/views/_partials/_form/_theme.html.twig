@@ -92,7 +92,7 @@
         {% set image =  form.parent.vars.value %}
         {% if image %}
             <p>
-                <img src="{{ ('/uploads/' ~ image.path) | imagine_filter('admin_thumb') }}"/>
+                <img src="{{ ('/uploads/' ~ image.path) | imagine_filter('tuna_admin_thumb') }}"/>
             </p>
         {% endif %}
         <input type="file" {{ block('widget_attributes') }} />
@@ -116,7 +116,7 @@
         <div class="form-group main-image">
             <div class="image" data-action="remove">
                 {% if image and image.path %}
-                    <img src="{{ ('/uploads/' ~ image.path) | imagine_filter('admin_thumb') }}"/>
+                    <img src="{{ ('/uploads/' ~ image.path) | imagine_filter('tuna_admin_thumb') }}"/>
                     <span class="remove">{% trans %}Usuń{% endtrans %}</span>
                 {% endif %}
             </div>
@@ -188,7 +188,7 @@
                 {% set image = form.vars.value.image %}
                 <div class="image">
                     {% if(image is not null) %}
-                        <div class="gallery-image" style="background-image: url({{ ('uploads/' ~ image.path) | imagine_filter('admin_thumb') }})"></div>
+                        <div class="gallery-image" style="background-image: url({{ ('uploads/' ~ image.path) | imagine_filter('tuna_admin_thumb') }})"></div>
                     {% else %}
                         {{ form_widget(form.image) }}
                         <span class="fui-plus"></span>

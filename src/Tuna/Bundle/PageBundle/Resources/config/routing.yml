@@ -1,24 +1,24 @@
-thecodeine_page_show:
+tuna_page_show:
     path: /{_locale}/page/{id}
     defaults:  { _controller: TheCodeinePageBundle:Page:show }
     requirements:
         id:  \d+
 
-thecodeine_page_create:
+tuna_page_create:
     path: /admin/page/create
     defaults:  { _controller: TheCodeinePageBundle:Page:create }
 
-thecodeine_page_list:
+tuna_page_list:
     path: /admin/page/list
     defaults:  { _controller: TheCodeinePageBundle:Page:list }
 
-thecodeine_page_edit:
+tuna_page_edit:
     path: /admin/page/{id}/edit
     defaults:  { _controller: TheCodeinePageBundle:Page:edit, id: 0 }
     requirements:
         id:  \d+
 
-thecodeine_page_delete:
+tuna_page_delete:
     path: /admin/page/{id}/delete
     defaults:  { _controller: TheCodeinePageBundle:Page:delete, id: 0 }
     requirements:
