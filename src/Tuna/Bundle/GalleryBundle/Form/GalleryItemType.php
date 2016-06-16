@@ -52,7 +52,7 @@ class GalleryItemType extends AbstractType
                         'fields' => array(
                             'name' => array(
                                 'attr' => array(
-                                    'placeholder' => 'Video name',
+                                    'placeholder' => 'Video title',
                                     'class' => 'form-control'
                                 )
                             ),
@@ -69,7 +69,7 @@ class GalleryItemType extends AbstractType
                         'fields' => array(
                             'name' => array(
                                 'attr' => array(
-                                    'placeholder' => 'Image name',
+                                    'placeholder' => 'Image title',
                                     'class' => 'form-control'
                                 )
                             )
