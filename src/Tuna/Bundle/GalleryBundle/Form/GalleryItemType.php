@@ -42,9 +42,21 @@ class GalleryItemType extends AbstractType
             if ($type === 0) {
                 $form
                     ->add('position', 'hidden')
-                    ->add('video', 'thecodeine_videobundle_url')
+                    ->add('video', 'thecodeine_videobundle_url', array(
+                        'attr' => array(
+                            'placeholder' => 'Video URL'
+                        )
+                    ))
                     ->add('translations', 'a2lix_translations_gedmo', array(
-                        'translatable_class' => 'TheCodeine\GalleryBundle\Entity\GalleryItem'
+                        'translatable_class' => 'TheCodeine\GalleryBundle\Entity\GalleryItem',
+                        'fields' => array(
+                            'name' => array(
+                                'attr' => array(
+                                    'placeholder' => 'Video name',
+                                    'class' => 'form-control'
+                                )
+                            ),
+                        )
                     ));
             } else if ($type === 1) {
                 $form
@@ -53,7 +65,15 @@ class GalleryItemType extends AbstractType
                         'data_class' => 'TheCodeine\ImageBundle\Entity\Image'
                     ))
                     ->add('translations', 'a2lix_translations_gedmo', array(
-                        'translatable_class' => 'TheCodeine\GalleryBundle\Entity\GalleryItem'
+                        'translatable_class' => 'TheCodeine\GalleryBundle\Entity\GalleryItem',
+                        'fields' => array(
+                            'name' => array(
+                                'attr' => array(
+                                    'placeholder' => 'Image name',
+                                    'class' => 'form-control'
+                                )
+                            )
+                        )
                     ));
             }
         };

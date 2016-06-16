@@ -25,6 +25,9 @@ class AttachmentType extends AbstractType
                 'fields' => array(
                     'title' => array(
                         'required' => true,
+                        'attr' => array(
+                            'placeholder' => 'Attachment name'
+                        )
                     )
                 )
             ))
