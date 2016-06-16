@@ -17,7 +17,8 @@ window.tuna || (window.tuna = {
  *
  */
 tuna.website = {
-    init: function () {
+    init: function (options) {
+        this.options = options;
 
         //init main views
         new tuna.view.NavigationView({el: $('nav')[0]});
@@ -25,11 +26,12 @@ tuna.website = {
         new tuna.view.OptionsView({el: $('.admin-option-container')[0]});
         new tuna.view.GalleryView({el: $('.admin-gallery-container')[0]});
         new tuna.view.AttachmentsView({el: $('.admin-attachments-container')[0]});
-        new tuna.view.EditView({el: $('.admin-container')[0]});
+        new tuna.view.EditView({el: $('.admin-container')[0], lang: options.lang});
 
         //WYSIWYG EDITOR
         tuna.view.EditorView && new tuna.view.EditorView({
-            selector: '.tab-pane.active .thecodeine_admin_editor'
+            selector: '.tab-pane.active .thecodeine_admin_editor',
+            lang: options.lang
         });
     },
 
@@ -82,8 +84,13 @@ tuna.view.EditView = Backbone.View.extend({
         'click .a2lix_translationsLocales li a': "_onLanguageChange"
     },
 
-    initialize : function(){
+    initialize : function(options){
+        this.options = options;
+        console.log(options);
         Backbone.on('LanguageChange', this._onLanguageChange, this);
+
+        // $(".datepicker").datetimepicker($.datepicker.regional[""]);
+        // $(".datepicker").timepicker($.timepicker.regional["pl"]);
 
         $(".datepicker").datetimepicker({
             dateFormat: "yy-mm-dd",
