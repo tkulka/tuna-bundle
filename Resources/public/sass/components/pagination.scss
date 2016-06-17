@@ -1,10 +1,14 @@
 .pagination {
     li {
-        &.active > a, &.active > a:hover, &.active > a:focus {
-            background-color: $brand-primary;
-            border: 0;
-            color: $link-hover-color;
-            border-radius: 0;
+        &.active {
+            > a,
+            > a:focus,
+            > a:hover {
+                background-color: $brand-primary;
+                border: 0;
+                color: $link-hover-color;
+                border-radius: 0;
+            }
         }
 
         a, span {

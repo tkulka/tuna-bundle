@@ -91,11 +91,11 @@ class NewsController extends Controller
     public function createAction(Request $request, $newsType)
     {
         $em = $this->getDoctrine()->getManager();
-        $news = $this->getNewsIntanceByType($newsType);
+        $news = $this->get('tuna.news.factory')->getNewsInstance($newsType);
 
-        $news->setCategory($this->getCategoryByNewsType($newsType));
+        $news->setCategory($this->get('tuna.news.factory')->getCategoryByNewsType($newsType));
 
-        $form = $this->createForm($this->getNewsTypeInstanceByType($newsType), $news);
+        $form = $this->createForm($this->get('tuna.news.factory')->getNewsTypeInstance($newsType), $news);
 
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -132,7 +132,7 @@ class NewsController extends Controller
         $em = $this->getDoctrine()->getManager();
         $news = $em->find('TheCodeineNewsBundle:'.$newsType, $id);
 
-        $form = $this->createForm($this->getNewsTypeInstanceByType($newsType), $news);
+        $form = $this->createForm($this->get('tuna.news.factory')->getNewsTypeInstance($newsType), $news);
 
         $originalAttachments = new ArrayCollection();
         foreach ($news->getAttachments() as $attachment) {
@@ -228,30 +228,4 @@ class NewsController extends Controller
             'form' => $form->createView(),
         );
     }
-
-    private function getNewsIntanceByType($type)
-    {
-        switch ($type) {
-            case 'News':
-                return new News();
-            case 'Event':
-                return new Event();
-        }
-    }
-
-    private function getNewsTypeInstanceByType($type)
-    {
-        switch ($type) {
-            case 'News':
-                return new NewsType();
-            case 'Event':
-                return new EventType();
-        }
-    }
-
-    private function getCategoryByNewsType($type)
-    {
-        return $this->getDoctrine()->getRepository('TheCodeineNewsBundle:Category')->findOneBySlug(self::$NEWS_TYPES[$type]);
-    }
-
 }
