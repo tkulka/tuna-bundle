@@ -15,7 +15,7 @@ Featured: "Przypięty"
 "Choose main picture": "Wybierz zdjęcie główne"
 Logout: "Wyloguj się"
 Pages: Strony
-News: Aktualności
+News: Newsy
 "List of pages": "Lista stron"
 "Create page": "Stwórz stronę"
 "List of news": "Lista newsów"
@@ -45,3 +45,7 @@ Body: Treść
 Video: Film
 Image: Obraz
 No.: Lp.
+"Video URL": "URL do filmu"
+"Video title": "Tytuł filmu"
+"Image title": "Tytuł obrazka"
+"Attachment title": "Tytuł załącznika"
