@@ -23,9 +23,7 @@
     }
 
     input {
-        @include placeholder {
-            color: lighten($brand-tertiary, 25%);
-        }
+        @include placeholder(lighten($brand-tertiary, 30%));
     }
 }
 
