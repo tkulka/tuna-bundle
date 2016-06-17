@@ -28,12 +28,6 @@ use Gedmo\Translatable\TranslatableListener;
 
 class NewsController extends Controller
 {
-
-    private static $NEWS_TYPES = array(
-        'News' => 'aktualnosci',
-        'Event' => 'wydarzenia',
-    );
-
     /**
      *
      * @Template()
