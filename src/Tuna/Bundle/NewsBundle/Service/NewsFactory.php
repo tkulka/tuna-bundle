@@ -26,27 +26,27 @@ class NewsFactory
         $this->em = $em;
     }
 
-    public function getNewsInstance($type)
+    public function getInstance($type)
     {
         switch ($type) {
-            case 'News':
-                return new News();
             case 'Event':
                 return new Event();
+            default:
+                return new News();
         }
     }
 
-    public function getNewsTypeInstance($type)
+    public function getFormInstance($type)
     {
-        switch ($type) {
-            case 'News':
-                return new NewsType();
+        switch ($type instanceof Event) {
             case 'Event':
                 return new EventType();
+            default:
+                return new NewsType();
         }
     }
 
-    PUBLIC function getCategoryByNewsType($type)
+    public function getCategoryByType($type)
     {
         return $this->em->getRepository('TheCodeineNewsBundle:Category')->findOneBySlug(self::$NEWS_TYPES[$type]);
     }

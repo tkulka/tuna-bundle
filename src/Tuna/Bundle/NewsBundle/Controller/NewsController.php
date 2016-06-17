@@ -85,11 +85,11 @@ class NewsController extends Controller
     public function createAction(Request $request, $newsType)
     {
         $em = $this->getDoctrine()->getManager();
-        $news = $this->get('tuna.news.factory')->getNewsInstance($newsType);
+        $news = $this->get('tuna.news.factory')->getInstance($newsType);
 
-        $news->setCategory($this->get('tuna.news.factory')->getCategoryByNewsType($newsType));
+        $news->setCategory($this->get('tuna.news.factory')->getCategoryByType($newsType));
 
-        $form = $this->createForm($this->get('tuna.news.factory')->getNewsTypeInstance($newsType), $news);
+        $form = $this->createForm($this->get('tuna.news.factory')->getFormInstance($news), $news);
 
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -126,7 +126,7 @@ class NewsController extends Controller
         $em = $this->getDoctrine()->getManager();
         $news = $em->find('TheCodeineNewsBundle:'.$newsType, $id);
 
-        $form = $this->createForm($this->get('tuna.news.factory')->getNewsTypeInstance($newsType), $news);
+        $form = $this->createForm($this->get('tuna.news.factory')->getFormInstance($news), $news);
 
         $originalAttachments = new ArrayCollection();
         foreach ($news->getAttachments() as $attachment) {
