@@ -86,30 +86,36 @@ tuna.view.EditView = Backbone.View.extend({
 
     initialize : function(options){
         this.options = options;
-        console.log(options);
+        var langMatches = {
+            'en': '',
+            'pl': 'pl'
+        };
+
         Backbone.on('LanguageChange', this._onLanguageChange, this);
 
-        // $(".datepicker").datetimepicker($.datepicker.regional[""]);
-        // $(".datepicker").timepicker($.timepicker.regional["pl"]);
+        $(".datepicker")
+            .datetimepicker({
+                dateFormat: "yy-mm-dd",
+                timeFormat: "HH:mm:ss",
+                showAnim: 'slideDown',
+                beforeShow: function(input, inst) {
+                    var $dp = $(inst.dpDiv);
+                    setTimeout(function () {
+                        $dp.css({
+                            marginLeft: 0,
+                            marginTop: 0,
+                            top: 0,
+                            left: 0,
+                            position: 'relative'
+                        });
+                    }, 0);
+                    $(this).closest('.form-group').append($dp);
+                }
+            })
+            .datetimepicker('option', $.datepicker.regional[langMatches[options.lang]])
+            .datetimepicker('option', 'dateFormat', 'yy-mm-dd')
+            .datetimepicker('option', $.timepicker.regional[langMatches[options.lang]]);
 
-        $(".datepicker").datetimepicker({
-            dateFormat: "yy-mm-dd",
-            timeFormat: "HH:mm:ss",
-            showAnim: 'slideDown',
-            beforeShow: function(input, inst) {
-                var $dp = $(inst.dpDiv);
-                setTimeout(function () {
-                    $dp.css({
-                        marginLeft: 0,
-                        marginTop: 0,
-                        top: 0,
-                        left: 0,
-                        position: 'relative'
-                    });
-                }, 0);
-                $(this).closest('.form-group').append($dp);
-            }
-        });
     },
 
     _onLanguageChange: function(e) {
