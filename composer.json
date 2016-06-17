@@ -64,7 +64,8 @@
             "TheCodeine\\PageBundle\\": "src/Tuna/Bundle/PageBundle",
             "TheCodeine\\TagBundle\\": "src/Tuna/Bundle/TagBundle",
             "TheCodeine\\UserBundle\\": "src/Tuna/Bundle/UserBundle",
-            "TheCodeine\\VideoBundle\\": "src/Tuna/Bundle/VideoBundle"
+            "TheCodeine\\VideoBundle\\": "src/Tuna/Bundle/VideoBundle",
+            "TheCodeine\\TranslationBundle\\": "src/Tuna/Bundle/TranslationBundle"
         }
     },
     "extra": {

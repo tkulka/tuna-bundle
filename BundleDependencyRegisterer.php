@@ -16,6 +16,7 @@ class BundleDependencyRegisterer
             new \TheCodeine\TagBundle\TheCodeineTagBundle(),
             new \TheCodeine\NewsBundle\TheCodeineNewsBundle(),
             new \TheCodeine\UserBundle\TheCodeineUserBundle(),
+            new \TheCodeine\TranslationBundle\TheCodeineTranslationBundle(),
         );
 
         foreach ($bundles as $bundle) {

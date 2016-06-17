@@ -1,6 +1,9 @@
 imports:
     - { resource: security.yml }
 
+parameters:
+    enable_translations: 0
+
 fos_user:
     db_driver: orm
     firewall_name: main
