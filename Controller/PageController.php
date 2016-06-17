@@ -4,9 +4,7 @@ namespace TheCodeine\AdminBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-use TheCodeine\PageBundle\Controller\PageController as Controller;
-
-class PageController extends Controller
+class PageController extends \TheCodeine\PageBundle\Controller\PageController
 {
     /**
      *

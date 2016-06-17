@@ -14,12 +14,12 @@ class Builder
     /**
      * @var \Knp\Menu\FactoryInterface
      */
-    private $factory;
+    protected $factory;
 
     /**
      * @var Translator
      */
-    private $translatorInterface;
+    protected $translatorInterface;
 
 
     /**
@@ -45,14 +45,14 @@ class Builder
         $menu->addChild($this->translatorInterface->trans('Pages'), array(
             'route' => 'tuna_page_list',
             'attributes' => array(
-                "class" => preg_match_all('/thecodeine_page/i', $request->get('_route')) ? "active" : ""
+                "class" => preg_match_all('/tuna_page/i', $request->get('_route')) ? "active" : ""
             )
         ));
 
         $menu->addChild($this->translatorInterface->trans('News'), array(
             'route' => 'tuna_news_list',
             'attributes' => array(
-                "class" => preg_match_all('/thecodeine_news/i', $request->get('_route')) ? "active" : ""
+                "class" => preg_match_all('/tuna_news/i', $request->get('_route')) ? "active" : ""
             )
         ));
 
@@ -69,11 +69,11 @@ class Builder
             'childrenAttributes' => array('class' => 'nav')
         ));
 
-        if (preg_match_all('/thecodeine_page/i', $request->get('_route'))) {
+        if (preg_match_all('/tuna_page/i', $request->get('_route'))) {
             $menu = $this->buildPageSubmenu($menu, $request);
         }
 
-        if (preg_match_all('/thecodeine_news/i', $request->get('_route'))) {
+        if (preg_match_all('/tuna_news/i', $request->get('_route'))) {
             $menu = $this->buildNewsSubmenu($menu, $request);
         }
 

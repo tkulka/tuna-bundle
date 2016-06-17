@@ -27,6 +27,8 @@ tuna.website = {
         new tuna.view.AttachmentsView({el: $('.admin-attachments-container')[0]});
         new tuna.view.EditView({el: $('.admin-container')[0]});
 
+        bindPlugins();
+
         //WYSIWYG EDITOR
         tuna.view.EditorView && new tuna.view.EditorView({
             selector: '.tab-pane.active .thecodeine_admin_editor'
@@ -82,14 +84,14 @@ tuna.view.EditView = Backbone.View.extend({
         'click .a2lix_translationsLocales li a': "_onLanguageChange"
     },
 
-    initialize : function(){
+    initialize: function () {
         Backbone.on('LanguageChange', this._onLanguageChange, this);
 
         $(".datepicker").datetimepicker({
             dateFormat: "yy-mm-dd",
             timeFormat: "HH:mm:ss",
             showAnim: 'slideDown',
-            beforeShow: function(input, inst) {
+            beforeShow: function (input, inst) {
                 var $dp = $(inst.dpDiv);
                 setTimeout(function () {
                     $dp.css({
@@ -105,7 +107,7 @@ tuna.view.EditView = Backbone.View.extend({
         });
     },
 
-    _onLanguageChange: function(e) {
+    _onLanguageChange: function (e) {
 
         var $tabContent = $('.tab-content');
         var target = $(e.target).data('target');
@@ -319,7 +321,7 @@ tuna.view.GalleryView = Backbone.View.extend({
         }
     },
 
-    _onLanguageChange : function(e){
+    _onLanguageChange: function (e) {
         Backbone.trigger('LanguageChange', e);
     }
 });
@@ -398,8 +400,8 @@ tuna.view.AttachmentsView = Backbone.View.extend({
         $(e.currentTarget).parent().remove()
     },
 
-    _onLanguageChange : function(e){
-        Backbone.trigger('LanguageChange' , e);
+    _onLanguageChange: function (e) {
+        Backbone.trigger('LanguageChange', e);
     }
 });
 
@@ -425,4 +427,62 @@ function tunaConfirm(msg) {
 
 function tunaAlert(msg) {
     alert(msg);
+}
+
+function bindExtendableSelect() {
+    $('[data-extendable-select]').change(function (event) {
+        var $select = $(event.currentTarget);
+        var $textInput = $select.closest('.form-group').find('.form--new_value');
+
+        if ($select.val() == 'new') {
+            $textInput.slideDown(100);
+        } else {
+            $textInput.slideUp(100);
+        }
+    }).trigger('change');
+}
+
+function bindSortable() {
+    function lockWidths($table) {
+        $table.find('td, th').each(function (i, item) {
+            $(item).width($(item).width());
+        });
+    }
+
+    function unlockWidths($table) {
+        $table.find('td, th').each(function (i, item) {
+            $(item).width('');
+        });
+    }
+
+    $('[data-sortable-url]').each(function (i, sortableWrapper) {
+        var $sortableWrapper = $(sortableWrapper);
+        $sortableWrapper.find('tbody').sortable({
+            handle: '.handle',
+            stop: function (event, ui) {
+                unlockWidths($(ui.item).closest('table'));
+            },
+            change: function (event, ui) {
+                $(ui.item).closest('[data-sortable-url]').find('[data-action="save-order"]').fadeIn();
+            }
+        }).find('.handle').on('mousedown', function () {
+            lockWidths($(this).closest('table'));
+        });
+
+        $sortableWrapper.find('[data-action="save-order"]').on('click', function (event) {
+            $.ajax({
+                type: 'POST',
+                data: $sortableWrapper.find('tbody').sortable('toArray', {key: 'data-id'}),
+                url: $sortableWrapper.data('sortable-url'),
+                success: function (data) {
+                    $(event.currentTarget).fadeOut();
+                }
+            })
+        });
+    });
+}
+
+function bindPlugins() {
+    bindExtendableSelect();
+    bindSortable();
 }

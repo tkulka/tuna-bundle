@@ -20,19 +20,18 @@
 {% endblock form_row %}
 
 {% block text_widget %}
-    <div class="form-group">
-        {% set type = type|default('text') %}
-        <input type="{{ type }}"
-               {% if value is not empty %}value="{{ value }}" {% endif %} {{ block('widget_attributes') }}
-               placeholder="{{ label }}" class="form-control input-lg">
+    {% set attr = attr | merge({class: (attr.class | default('') ~ ' form-control input-lg') | trim}) %}
+    {% if value is not empty %}
+        {% set attr = attr | merge({value: value}) %}
+    {% endif %}
+    <div class="form-group form--{{ name }}">
+        <input type='{{ type|default('text') }}' {{ block('widget_attributes') }} placeholder="{{ label }}">
     </div>
 {% endblock %}
 
 {% block editor_widget %}
     <div class="form-group">
-        <textarea {{ block('widget_attributes') }} placeholder="{{ label }}"
-                                                   class="form-control thecodeine_admin_editor"
-                                                   rows="10">{% if value is not empty %}{{ value|raw }}{% endif %}</textarea>
+        <textarea {{ block('widget_attributes') }} placeholder="{{ label }}" class="form-control thecodeine_admin_editor" rows="10">{% if value is not empty %}{{ value|raw }}{% endif %}</textarea>
     </div>
 {% endblock %}
 
@@ -325,3 +324,7 @@
     {{ block('a2lix_translations_widget') }}
 {% endblock %}
 
+{% block tuna_extendable_select_widget %}
+    {{ form_widget(form.choice, { attr: { 'data-extendable-select': null }}) }}
+    {{ form_row(form.new_value, { label: false }) }}
+{% endblock %}
