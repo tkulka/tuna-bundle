@@ -4,6 +4,7 @@ namespace TheCodeine\NewsBundle\Service;
 
 use Doctrine\ORM\EntityManager;
 use TheCodeine\NewsBundle\Entity\News;
+use TheCodeine\NewsBundle\Entity\BaseNews;
 use TheCodeine\NewsBundle\Entity\Event;
 use TheCodeine\NewsBundle\Form\NewsType;
 use TheCodeine\NewsBundle\Form\EventType;
@@ -36,9 +37,9 @@ class NewsFactory
         }
     }
 
-    public function getFormInstance($type)
+    public function getFormInstance(BaseNews $news)
     {
-        switch ($type instanceof Event) {
+        switch ($news instanceof Event) {
             case 'Event':
                 return new EventType();
             default:

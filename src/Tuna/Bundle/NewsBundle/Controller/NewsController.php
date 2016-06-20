@@ -4,6 +4,7 @@ namespace TheCodeine\NewsBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
 use TheCodeine\NewsBundle\Entity\Attachment;
+use TheCodeine\NewsBundle\Entity\BaseNews;
 use TheCodeine\NewsBundle\Entity\News;
 use TheCodeine\NewsBundle\Entity\Event;
 use TheCodeine\NewsBundle\Entity\Category;
@@ -64,10 +65,9 @@ class NewsController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function deleteAction(Request $request, $newsType, $id)
+    public function deleteAction(BaseNews $news)
     {
         $em = $this->getDoctrine()->getManager();
-        $news = $em->find('TheCodeineNewsBundle:' . $newsType, $id);
         $em->remove($news);
         $em->flush();
 
@@ -116,15 +116,12 @@ class NewsController extends Controller
      * @Template()
      *
      * @param Request $request
-     * @param string $newsType
-     * @param integer $id
      *
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function editAction(Request $request, $newsType, $id)
+    public function editAction(BaseNews $news, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $news = $em->find('TheCodeineNewsBundle:'.$newsType, $id);
 
         $form = $this->createForm($this->get('tuna.news.factory')->getFormInstance($news), $news);
 
@@ -173,7 +170,7 @@ class NewsController extends Controller
 
         return array(
             'news' => $news,
-            'newsType' => $newsType,
+            'newsType' => $request->attributes->get('newsType'),
             'form' => $form->createView(),
         );
     }
