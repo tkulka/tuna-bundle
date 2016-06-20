@@ -39,6 +39,6 @@ class NewsTypeParamConverter implements ParamConverterInterface
 
     public function supports(ParamConverter $configuration)
     {
-        return "TheCodeine\NewsBundle\Entity\News" === $configuration->getClass();
+        return "TheCodeine\NewsBundle\Entity\BaseNews" === $configuration->getClass();
     }
 }
