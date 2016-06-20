@@ -24,9 +24,6 @@ class ExtendableSelectType extends AbstractType
         $builder
             ->add('choice', 'choice', array(
                 'choices' => $choices + array(self::NEW_VALUE => self::NEW_LABEL),
-                'attr' => array(
-                    'original_widget' => true
-                )
             ))
             ->add('new_value', 'text', array(
                 'attr' => array(

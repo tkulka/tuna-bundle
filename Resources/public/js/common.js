@@ -66,9 +66,10 @@ tuna.view.ListView = Backbone.View.extend({
     },
 
     onDeleteItem: function (e) {
-        var $a = $(event.currentTarget);
+        event.preventDefault();
+        var $a = $(event.target);
 
-        tunaConfirm('Czy na pewno chcesz usunąć <b>' + $(e.target).data('title') + '</b>?').done(function () {
+        tunaConfirm('Czy na pewno chcesz usunąć <b>' + $a.data('title') + '</b>?').done(function () {
             window.location.href = $a.data('url');
         });
     }
@@ -472,7 +473,9 @@ function bindSortable() {
         $sortableWrapper.find('[data-action="save-order"]').on('click', function (event) {
             $.ajax({
                 type: 'POST',
-                data: $sortableWrapper.find('tbody').sortable('toArray', {key: 'data-id'}),
+                data: {
+                    order: $sortableWrapper.find('tbody').sortable('toArray', {attribute: 'data-id'})
+                },
                 url: $sortableWrapper.data('sortable-url'),
                 success: function (data) {
                     $(event.currentTarget).fadeOut();
