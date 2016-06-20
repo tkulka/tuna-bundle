@@ -26,8 +26,9 @@
     [Resources/config/security.yml](Resources/config/security.yml), so be sure to clear your security.yml file, or override some parts.
 
 ##Translations:
-  Dump translation files:
-  
+Translations are enabled by default. You can turn them off by changing `parameters.enable_translations` to `"false"` in `config.yml`.
+
+Dump translation files:
+
     php app/console translation:extract de --dir=./src/ --output-dir=./app/Resources/translations
-      
-  Replace `de` with any language you want to generate translations for.
+Replace `de` with any language you want to generate translations for.
