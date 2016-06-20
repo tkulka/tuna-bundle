@@ -38,7 +38,7 @@ tuna_news_create:
     defaults: { _controller: TheCodeineAdminBundle:News:create }
 
 tuna_news_edit:
-    path: /admin/news/{id}/edit
+    path: /admin/news/{newsType}/{id}/edit
     defaults: { _controller: TheCodeineAdminBundle:News:edit, id: 0 }
     requirements:
         id: \d+
