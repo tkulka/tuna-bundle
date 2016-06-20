@@ -95,3 +95,7 @@ JMSTranslationBundle_ui:
     resource: @TheCodeineTranslationBundle/Controller/
     type: annotation
     prefix: /admin/translations
+    condition: "%enable_translations%"
+
+tuna_translations:
+    path: /admin/translations

@@ -56,6 +56,13 @@ class Builder
             )
         ));
 
+        $menu->addChild($this->translatorInterface->trans('Translations'), array(
+            'route' => 'tuna_translations',
+            'attributes' => array(
+                "class" => preg_match_all('/thecodeine_translations/i', $request->get('_route')) ? "active" : ""
+            )
+        ));
+
         return $menu;
     }
 
