@@ -38,19 +38,19 @@ tuna_news_create:
     defaults: { _controller: TheCodeineAdminBundle:News:create }
 
 tuna_news_edit:
-    path: /admin/news/{newsType}/{id}/edit
+    path: /admin/news/{id}/edit
     defaults: { _controller: TheCodeineAdminBundle:News:edit, id: 0 }
     requirements:
         id: \d+
 
 tuna_news_attachment_add:
-    path: /admin/news/{newsType}/{id}/attachment/add
+    path: /admin/news/{id}/attachment/add
     defaults: { _controller: TheCodeineAdminBundle:News:addAttachment, id: 0 }
     requirements:
         id: \d+
 
 tuna_news_delete:
-    path: /admin/news/{newsType}/{id}/delete
+    path: /admin/news/{id}/delete
     defaults: { _controller: TheCodeineAdminBundle:News:delete }
     requirements:
         id: \d+

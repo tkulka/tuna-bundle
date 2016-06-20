@@ -167,4 +167,11 @@ class BaseNews extends BasePage
     {
         return $this->important;
     }
+
+    public function getType()
+    {
+        $reflect = new \ReflectionClass($this);
+
+        return $reflect->getShortName();
+    }
 }

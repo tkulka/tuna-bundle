@@ -71,7 +71,7 @@ class NewsController extends Controller
         $em->remove($news);
         $em->flush();
 
-        return $this->redirect($this->generateUrl('tuna_news_list', array('newsType' => $newsType)));
+        return $this->redirect($this->generateUrl('tuna_news_list', array('newsType' => $news->getType())));
     }
 
     /**
@@ -164,13 +164,12 @@ class NewsController extends Controller
             if (!$request->isXmlHttpRequest()) {
                 $em->flush();
 
-                return $this->redirect($this->generateUrl('tuna_news_list', array('newsType' => $request->attributes->get('newsType'))));
+                return $this->redirect($this->generateUrl('tuna_news_list', array('newsType' => $news->getType())));
             }
         }
 
         return array(
             'news' => $news,
-            'newsType' => $request->attributes->get('newsType'),
             'form' => $form->createView(),
         );
     }

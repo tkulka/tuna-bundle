@@ -48,8 +48,8 @@
                                         {% endif %}
                                     </td>
                                     <td class="options">
-                                        <a href="{{path('tuna_news_edit',{ 'newsType': newsType, 'id' : item.id})}}" class="fa fa-pencil-square-o"></a>
-                                        <a href="#" data-title="{{ item.title }}" data-url="{{ path('tuna_news_delete',{ 'newsType': newsType, 'id' : item.id})}}" data-target="#modal-confirm" data-action="delete" class="fa fa-trash"></a>
+                                        <a href="{{path('tuna_news_edit',{'id' : item.id})}}" class="fa fa-pencil-square-o"></a>
+                                        <a href="#" data-title="{{ item.title }}" data-url="{{ path('tuna_news_delete',{'id' : item.id})}}" data-target="#modal-confirm" data-action="delete" class="fa fa-trash"></a>
                                     </td>
                                 </tr>
                             {% endfor %}
