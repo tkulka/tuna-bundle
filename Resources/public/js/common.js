@@ -9,7 +9,13 @@ window.tuna || (window.tuna = {
     model: {},
     collection: {},
     router: {},
-    features: {}
+    features: {},
+    config: {
+        localeMap: {
+            'en': 'en-US',
+            'pl': 'pl-PL'
+        }
+    }
 });
 
 /**

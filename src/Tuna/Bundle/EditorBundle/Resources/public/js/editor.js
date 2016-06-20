@@ -50,17 +50,13 @@ tuna.view.EditorView = Backbone.View.extend({
     initialize: function (options) {
         this.options = options;
         var oThis = this;
-        var langMatches = {
-            'en': 'en-US',
-            'pl': 'pl-PL'
-        };
 
         $('.nav-tabs [data-toggle="tab"]').click(function (e) {
             var $tabbable = $('.tabbable');
             $tabbable.find('.tab-pane:not(.active)' + oThis.options.selector).summernote('destroy');
 
             _.defer(function () {
-                oThis.initEditor($tabbable.find('.tab-pane.active' + oThis.options.selector), langMatches[options.lang]);
+                oThis.initEditor($tabbable.find('.tab-pane.active' + oThis.options.selector), tuna.config.localeMap[options.lang]);
             });
         })
             .filter(':first').trigger('click');
