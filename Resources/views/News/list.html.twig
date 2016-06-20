@@ -19,7 +19,7 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>Lp</th>
+                                <th>{% trans %}No.{% endtrans %}</th>
                                 <th>{{ knp_pagination_sortable(pagination, 'Title'|trans, 'n.title') }}</th>
                                 <th>{{ knp_pagination_sortable(pagination, 'Create date'|trans, 'n.createdAt') }}</th>
                                 <th class="center">{{ knp_pagination_sortable(pagination, 'Published'|trans, 'n.published') }}</th>
