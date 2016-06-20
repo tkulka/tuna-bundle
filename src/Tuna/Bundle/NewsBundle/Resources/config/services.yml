@@ -7,4 +7,4 @@ services:
             class: TheCodeine\NewsBundle\Request\NewsTypeParamConverter
             arguments: ['@doctrine.orm.default_entity_manager']
             tags:
-                - { name: request.param_converter }
+                - { name: request.param_converter, converter: news, priority: 10 }
