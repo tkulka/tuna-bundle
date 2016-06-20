@@ -8,7 +8,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use TheCodeine\NewsBundle\Entity\Page;
 use TheCodeine\ImageBundle\Form\ImageRequestThumbnailType;
-use TheCodeine\NewsBundle\Form\CategoryType;
 use TheCodeine\NewsBundle\Form\AttachmentType;
 use TheCodeine\GalleryBundle\Form\GalleryType;
 
@@ -26,12 +25,6 @@ class PageType extends AbstractType
             ->add('image', new ImageRequestThumbnailType($options['data']->getImage() !== null), array(
                 'required' => false
             ))
-            ->add('category', new CategoryType(), array(
-                    'read_only' => true,
-                    'required' => true,
-                    'disabled' => true
-                )
-            )
             ->add('published', 'checkbox', array(
                 'required' => false
             ))

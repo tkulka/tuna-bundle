@@ -71,10 +71,6 @@
     {{ form_widget(form) }}
 {% endblock %}
 
-{% block thecodeine_newsbundle_category_widget %}
-    <input type="hidden" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %} />
-{% endblock %}
-
 {% block imagefile_widget %}
     {% spaceless %}
         {% set image =  form.parent.vars.value %}

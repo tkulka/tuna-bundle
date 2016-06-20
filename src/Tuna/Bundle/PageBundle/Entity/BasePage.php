@@ -2,8 +2,8 @@
 
 namespace TheCodeine\PageBundle\Entity;
 
+use Gedmo\Sluggable\Util\Urlizer;
 use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;
-use TheCodeine\NewsBundle\Entity\Category;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -28,17 +28,10 @@ abstract class BasePage
     protected $id;
 
     /**
-     * @var
-     * @ORM\ManyToOne(targetEntity="TheCodeine\NewsBundle\Entity\Category")
-     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
-     */
-    protected $category;
-
-    /**
      * @var string
      *
      * @Gedmo\Translatable
-     * @ORM\Column(name="title", type="string", length=255, nullable=true)
+     * @ORM\Column(name="title", type="string", length=255)
      * @Assert\NotBlank()
      */
     protected $title;
@@ -52,10 +45,14 @@ abstract class BasePage
     protected $teaser;
 
     /**
-     * @Gedmo\Slug(fields={"title"})
-     * @ORM\Column(length=64, type="string", unique=true)
+     * @ORM\Column(type="string", unique=true)
      */
     protected $slug;
+
+    /**
+     * @ORM\Column(name="slug_prefix", type="simple_array", nullable=true)
+     */
+    protected $slugPrefix;
 
     /**
      * @var string
@@ -98,6 +95,21 @@ abstract class BasePage
         $this->attachments = new ArrayCollection();
         $this->translations = new ArrayCollection();
         $this->setPublished(false);
+    }
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function updateSlug()
+    {
+        $fragments = $this->getSlugPrefix();
+        $fragments[] = $this->getTitle();
+        $fragments = array_map(function ($element) {
+            return Urlizer::urlize($element);
+        }, $fragments);
+
+        $this->setSlug(implode('/', $fragments));
     }
 
     /**
@@ -236,25 +248,6 @@ abstract class BasePage
     }
 
     /**
-     * @param mixed $category
-     * @return Page
-     */
-    public function setCategory($category)
-    {
-        $this->category = $category;
-
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCategory()
-    {
-        return $this->category;
-    }
-
-    /**
      * Set published flag
      *
      * @param boolean $published
@@ -336,6 +329,25 @@ abstract class BasePage
     public function setTeaser($teaser)
     {
         $this->teaser = $teaser;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSlugPrefix()
+    {
+        return $this->slugPrefix;
+    }
+
+    /**
+     * @return $this
+     * @param mixed $slugPrefix
+     */
+    public function setSlugPrefix($slugPrefix)
+    {
+        $this->slugPrefix = $slugPrefix;
 
         return $this;
     }
