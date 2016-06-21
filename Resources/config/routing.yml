@@ -91,8 +91,14 @@ tuna_admin_homepage:
     defaults: { _controller: TheCodeineAdminBundle:Admin:index }
 
 # TRANSLATIONS Route
-JMSTranslationBundle_ui:
-    resource: @TheCodeineTranslationBundle/Controller/
+JMSTranslationBundle_translate:
+    resource: "@JMSTranslationBundle/Controller/ApiController.php"
+    type: annotation
+    prefix: /admin/translations
+    condition: "%enable_translations%"
+
+JMSTranslationBundle_api:
+    resource: "@JMSTranslationBundle/Controller/TranslateController.php"
     type: annotation
     prefix: /admin/translations
     condition: "%enable_translations%"
