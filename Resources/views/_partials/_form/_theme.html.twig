@@ -1,3 +1,6 @@
+{% use 'TheCodeineEditorBundle::_form_theme.html.twig' %}
+{% use 'TheCodeineCategoryBundle::_form_theme.html.twig' %}
+
 {% block form_errors %}
     {% spaceless %}
         {% if errors|length > 0 %}
@@ -26,12 +29,6 @@
     {% endif %}
     <div class="form-group form--{{ name }}">
         <input type='{{ type|default('text') }}' {{ block('widget_attributes') }} placeholder="{{ name | capitalize | trans }}">
-    </div>
-{% endblock %}
-
-{% block editor_widget %}
-    <div class="form-group">
-        <textarea {{ block('widget_attributes') }} placeholder="{{ name | capitalize | trans }}" class="form-control thecodeine_admin_editor" rows="10">{% if value is not empty %}{{ value|raw }}{% endif %}</textarea>
     </div>
 {% endblock %}
 
@@ -307,18 +304,4 @@
 
 {% block a2lix_translationsForms_widget %}
     {{ block('a2lix_translations_widget') }}
-{% endblock %}
-
-{% block tuna_extendable_select_widget %}
-    <div class="extendable-select">
-        {{ form_widget(form.choice, { attr: { 'data-extendable-select': null }}) }}
-        <div class="new-value">
-            {{ form_errors(form.new_value) }}
-            {{ form_widget(form.new_value.translations) }}
-        </div>
-    </div>
-{% endblock %}
-
-{% block tuna_addable_category_widget %}
-    {{ block('tuna_extendable_select_widget') }}
 {% endblock %}
