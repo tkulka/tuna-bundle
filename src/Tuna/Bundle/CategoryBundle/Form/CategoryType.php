@@ -12,15 +12,24 @@ use TheCodeine\AdminBundle\Form\DataTransformer\ValueToChoiceOrTextTransformer;
 
 class CategoryType extends AbstractType
 {
+    public function __construct($dataClass = 'TheCodeine\CategoryBundle\Entity\Category')
+    {
+        $this->dataClass = $dataClass;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name');
+        $builder
+            ->add('translations', 'a2lix_translations_gedmo', array(
+                'translatable_class' => $this->dataClass,
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'TheCodeine\CategoryBundle\Entity\Category',
+            'data_class' => $this->dataClass,
+            'error_bubbling' => false
         ));
     }
 

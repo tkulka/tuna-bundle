@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * User
@@ -14,6 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="string")
  * @Gedmo\TranslationEntity(class="TheCodeine\CategoryBundle\Entity\CategoryTranslation")
+ * @UniqueEntity("name")
  * @ORM\Entity
  *
  */
@@ -30,7 +32,7 @@ class Category
      * @var string
      *
      * @Gedmo\Translatable
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=255, unique=true)
      * @Assert\NotBlank()
      */
     protected $name;
@@ -47,9 +49,17 @@ class Category
      */
     protected $locale;
 
+    /**
+     * Category constructor.
+     */
+    public function __construct()
+    {
+        $this->translations = new ArrayCollection();
+    }
+
     public function __toString()
     {
-        return $this->getName();
+        return $this->getName() ? $this->getName() : '';
     }
 
     /**
@@ -75,13 +85,19 @@ class Category
         return $this->translations;
     }
 
-    /**
-     * @return $this
-     * @param ArrayCollection $translations
-     */
-    public function setTranslations($translations)
+    public function addTranslation(CategoryTranslation $translation)
     {
-        $this->translations = $translations;
+        if (!$this->translations->contains($translation) && $translation->getContent()) {
+            $this->translations[] = $translation;
+            $translation->setObject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTranslation(CategoryTranslation $translation)
+    {
+        $this->translations->remove($translation);
 
         return $this;
     }

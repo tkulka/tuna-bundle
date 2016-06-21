@@ -4,6 +4,7 @@ namespace TheCodeine\CategoryBundle\Form\DataTransformer;
 
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\DataTransformerInterface;
+use TheCodeine\CategoryBundle\Form\Type\AddableCategoryType;
 
 class IdToCategoryTransformer implements DataTransformerInterface
 {
@@ -22,20 +23,30 @@ class IdToCategoryTransformer implements DataTransformerInterface
 
     public function transform($data)
     {
-        dump('transform');
-        dump($data);
+        $result = array(
+            AddableCategoryType::CHOICE_FIELD => null,
+            AddableCategoryType::NEW_VALUE_FIELD => null
+        );
+
         if ($data === null || $data === '') {
-            return '';
+            return $result;
         }
 
-        return array('choice' => $data, 'new_value' => 'dupa');
+        if ($data->getId()) {
+            $result[AddableCategoryType::CHOICE_FIELD] = $data->getId();
+        } else {
+            $result[AddableCategoryType::NEW_VALUE_FIELD] = $data;
+        }
+
+        return $result;
     }
 
     public function reverseTransform($data)
     {
-        dump('reverse');
-        dump($data);
-
-        return $data['choice'];
+        if ($data[AddableCategoryType::CHOICE_FIELD] == AddableCategoryType::NEW_VALUE_OPTION) {
+            return $data[AddableCategoryType::NEW_VALUE_FIELD];
+        } else {
+            return $this->repo->find($data[AddableCategoryType::CHOICE_FIELD]);
+        }
     }
 }

@@ -3,13 +3,19 @@
 namespace TheCodeine\CategoryBundle\Form\Type;
 
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use TheCodeine\CategoryBundle\Form\CategoryType;
 use TheCodeine\CategoryBundle\Form\DataTransformer\IdToCategoryTransformer;
 
 class AddableCategoryType extends AbstractType
 {
+    const NEW_VALUE_OPTION = 'new';
+    const NEW_VALUE_FIELD = 'new_value';
+    const CHOICE_FIELD = 'choice';
+
     /**
      * @var EntityManager
      */
@@ -23,14 +29,12 @@ class AddableCategoryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $repo = $this->em->getRepository($options['class']);
+
         $builder
-            ->add('choice', 'choice', array(//                'class' => $options['class']
+            ->add(self::CHOICE_FIELD, 'choice', array(
+                'choices' => $this->getChoices($repo)
             ))
-            ->add('new_value', 'text', array(
-                'attr' => array(
-                    'placeholder' => 'Add new value'
-                )
-            ))
+            ->add(self::NEW_VALUE_FIELD, new CategoryType($options['class']), array())
             ->addModelTransformer(new IdToCategoryTransformer($repo));
     }
 
@@ -38,7 +42,11 @@ class AddableCategoryType extends AbstractType
     {
         $resolver->setDefaults(array(
             'compound' => true,
-            'data_class' => 'TheCodeine\CategoryBundle\Entity\Category',
+            'class' => '',
+            'error_bubbling' => false,
+            'error_mapping' => array(
+                '.' => self::NEW_VALUE_FIELD
+            )
         ));
     }
 
@@ -47,8 +55,16 @@ class AddableCategoryType extends AbstractType
         return 'tuna_addable_category';
     }
 
-    public function getParent()
+    private function getChoices(EntityRepository $repo)
     {
-        return 'entity';
+        $choices = array();
+        $entities = $repo->findAll();
+
+        foreach ($entities as $entity) {
+            $choices[$entity->getId()] = $entity->getName();
+        }
+        $choices[self::NEW_VALUE_OPTION] = 'New';
+
+        return $choices;
     }
 }
