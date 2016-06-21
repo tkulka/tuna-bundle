@@ -33,11 +33,11 @@
                     <h2>{% trans %}Translations{% endtrans %}</h2>
 
                     {% if newMessages is not empty %}
-                        {% include "TheCodeineAdminBundle:Translation:messages.html.twig" with {"messages": newMessages} %}
+                        {% include "TheCodeineTranslationBundle:Translate:messages.html.twig" with {"messages": newMessages} %}
                     {% endif %}
 
                     {% if existingMessages is not empty %}
-                        {% include "TheCodeineAdminBundle:Translation:messages.html.twig" with {"messages": existingMessages} %}
+                        {% include "TheCodeineTranslationBundle:Translate:messages.html.twig" with {"messages": existingMessages} %}
                     {% endif %}
                 </div>
             </div>
