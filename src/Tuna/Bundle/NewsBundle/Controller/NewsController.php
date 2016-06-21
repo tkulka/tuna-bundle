@@ -5,10 +5,8 @@ namespace TheCodeine\NewsBundle\Controller;
 use Doctrine\ORM\EntityManager;
 use TheCodeine\NewsBundle\Entity\Attachment;
 use TheCodeine\NewsBundle\Entity\News;
-use TheCodeine\NewsBundle\Entity\Category;
 use TheCodeine\NewsBundle\Entity\NewsTranslation;
 use TheCodeine\NewsBundle\Form\AttachmentType;
-use TheCodeine\NewsBundle\Form\CategoryType;
 use TheCodeine\NewsBundle\Form\NewsType;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -36,17 +34,8 @@ class NewsController extends Controller
      */
     public function listAction(Request $request)
     {
-        $categoryId = $request->get('cid');
         $em = $this->getDoctrine()->getManager();
-        if ($categoryId) {
-            $query = $em
-                ->createQuery('SELECT n FROM TheCodeineNewsBundle:News n WHERE n.category = :category ORDER BY n.createdAt DESC')
-                ->setParameter('category', $categoryId);
-        } else {
-            $query = $em
-                ->createQuery('SELECT n FROM TheCodeineNewsBundle:News n ORDER BY n.createdAt DESC');
-        }
-        $pages = $query->getResult();
+        $pages = $em->createQuery('SELECT n FROM TheCodeineNewsBundle:News n ORDER BY n.createdAt DESC')->getResult();
 
         return array(
             'newsList' => $pages,
@@ -78,11 +67,6 @@ class NewsController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $news = new News();
-
-        if ($request->get('cid')) {
-            $category = $em->find('TheCodeine\NewsBundle\Entity\Category', $request->get('cid'));
-            $news->setCategory($category);
-        }
 
         $form = $this->createForm(new NewsType(), $news);
         $form->handleRequest($request);
@@ -119,8 +103,6 @@ class NewsController extends Controller
         $em = $this->getDoctrine()->getManager();
         if (null == $news) {
             $news = new News();
-            $category = $em->find('TheCodeine\NewsBundle\Entity\Category', $request->get('cid'));
-            $news->setCategory($category);
         }
 
         $form = $this->createForm(new NewsType(), $news);

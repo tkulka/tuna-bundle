@@ -3,7 +3,6 @@
 namespace TheCodeine\PageBundle\Entity;
 
 use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;
-use TheCodeine\NewsBundle\Entity\Category;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;

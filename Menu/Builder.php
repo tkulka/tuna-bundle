@@ -7,7 +7,6 @@ use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Translation\TranslatorInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use TheCodeine\NewsBundle\Entity\Category;
 
 class Builder
 {

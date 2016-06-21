@@ -13,45 +13,15 @@ use TheCodeine\NewsBundle\Entity\News;
  */
 class NewsRepository extends EntityRepository
 {
-    public function getListQuery($published = null, $category)
+    public function getListQuery($published = null)
     {
-        $query = $this->createQueryBuilder('p')
-            ->leftJoin('p.category', 'cat')
-            ->where('1=1')
-            ->orderBy('p.createdAt', 'DESC');
+        $query = $this->createQueryBuilder('p')->orderBy('p.createdAt', 'DESC');
 
         if ($published !== null) {
             $query->andWhere('p.published = 1');
         }
 
-        if ($category) {
-            $query->andWhere('cat = :category')
-                ->setParameter('category', $category);
-        }
-
         return $query->getQuery();
-    }
-
-    public function getLastItemsForCategoryWithChildrenQuery($category, $featured = false)
-    {
-        $query = $this->createQueryBuilder('p')
-            ->leftJoin('p.category', 'cat')
-            ->where('p.published=1')
-            ->orderBy('p.createdAt', 'DESC');
-
-        //get all child category id's to get news list
-        if ($category and $catIds = $this->getAllChildrenCategory($category)) {
-            $query->andWhere('cat.id IN(' . implode(',', $catIds) . ')');
-        }
-
-        $query->andWhere('p.important = :important');
-        $query->setParameter('important', $featured);
-
-        return $query
-            ->getQuery()
-            ->setHint(\Doctrine\ORM\Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker')
-            ->setHint(\Gedmo\Translatable\TranslatableListener::HINT_INNER_JOIN, true)
-            ->getResult();
     }
 
     public function getItemsForTag($tag)
@@ -97,11 +67,6 @@ class NewsRepository extends EntityRepository
             $query->andWhere($query->expr()->in('tag.name', $tagNames));
         }
 
-        // search only in parent category
-        $query->andWhere('p.category = :category');
-        $query->setParameter('category', $news->getCategory()->getId());
-
-
         return $query
             ->getQuery()
             ->setHint(\Doctrine\ORM\Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker')
@@ -109,23 +74,12 @@ class NewsRepository extends EntityRepository
             ->getResult();
     }
 
-    public function getLatestItems($category = null, $limit = 3)
+    public function getLatestItems($limit = 3)
     {
-        //get all child category id's to get news list
-
         $query = $this->createQueryBuilder('t')
-            ->leftJoin('t.category', 'cat')
             ->where('t.published=1')
             ->orderBy('t.createdAt', 'DESC')
             ->setMaxResults($limit);
-
-        if ($category) {
-            if ($catIds = $this->getAllChildrenCategory($category)) {
-                $query
-                    ->andWhere('cat.id IN (:ids)')
-                    ->setParameter('ids', $catIds);
-            }
-        }
 
         return $query->getQuery()
             ->setHint(\Doctrine\ORM\Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker')
@@ -133,35 +87,17 @@ class NewsRepository extends EntityRepository
             ->getResult();
     }
 
-    public function getSingleNews($category = null, $slug)
+    public function getSingleNews($slug)
     {
         $qb = $this->createQueryBuilder('n')
             ->andWhere('n.slug = :slug')
             ->setParameter('slug', $slug)
             ->setMaxResults(1);
 
-        if ($category) {
-            $qb
-                ->where('n.category = :category')
-                ->setParameter('category', $category);
-        }
-
         return $qb
             ->getQuery()
             ->setHint(\Doctrine\ORM\Query::HINT_CUSTOM_OUTPUT_WALKER, 'Gedmo\\Translatable\\Query\\TreeWalker\\TranslationWalker')
             ->setHint(\Gedmo\Translatable\TranslatableListener::HINT_INNER_JOIN, true)
             ->getResult();
-    }
-
-    private function getAllChildrenCategory($category, $catIds = array())
-    {
-        $catIds[] = $category->getId();
-
-        foreach ($category->getChildren() as $child) {
-            $catIds[] = $child->getId();
-            $this->getAllChildrenCategory($child, $catIds);
-        }
-
-        return $catIds;
     }
 }

@@ -26,6 +26,7 @@ tuna.website = {
         new tuna.view.GalleryView({el: $('.admin-gallery-container')[0]});
         new tuna.view.AttachmentsView({el: $('.admin-attachments-container')[0]});
         new tuna.view.EditView({el: $('.admin-container')[0]});
+        new tuna.view.ExtendableSelectView({el: $('.extendable-select')});
 
         bindPlugins();
 
@@ -328,7 +329,6 @@ tuna.view.GalleryView = Backbone.View.extend({
 });
 
 tuna.view.AttachmentsView = Backbone.View.extend({
-
     events: {
         "click .add_new_attachment": "_onAddNewAttachment",
         "click .delete": "_onClickDelete",
@@ -406,9 +406,30 @@ tuna.view.AttachmentsView = Backbone.View.extend({
     }
 });
 
+tuna.view.ExtendableSelectView = Backbone.View.extend({
+    events: {
+        'change [data-extendable-select]': 'onSelectChange'
+    },
+    initialize: function () {
+        this.updateNewForm($('[data-extendable-select]'));
+
+    },
+    onSelectChange: function (event) {
+        this.updateNewForm($(event.currentTarget));
+    },
+    updateNewForm: function ($select) {
+        var $newForm = this.$('.new-value');
+
+        if ($select.val() == 'new') {
+            $newForm.slideDown(100);
+        } else {
+            $newForm.slideUp(100);
+        }
+    }
+});
+
 function tunaConfirm(msg) {
     var dfd = $.Deferred();
-    console.log('tunaConfirm()', msg);
     $('#modalConfirm').modal('hide'); // don't allow multiple modals
     $('#modalConfirm .modal-body p').html(msg);
     $('#modalConfirm').modal({
@@ -419,7 +440,6 @@ function tunaConfirm(msg) {
         dfd.resolve();
     });
     $('#modalConfirm').on('hide.bs.modal', function (event) {
-        console.log('hide.bs.modal');
         dfd.reject();
     });
 
@@ -428,19 +448,6 @@ function tunaConfirm(msg) {
 
 function tunaAlert(msg) {
     alert(msg);
-}
-
-function bindExtendableSelect() {
-    $('[data-extendable-select]').change(function (event) {
-        var $select = $(event.currentTarget);
-        var $textInput = $select.closest('.form-group').find('.form--new_value');
-
-        if ($select.val() == 'new') {
-            $textInput.slideDown(100);
-        } else {
-            $textInput.slideUp(100);
-        }
-    }).trigger('change');
 }
 
 function bindSortable() {
@@ -486,6 +493,5 @@ function bindSortable() {
 }
 
 function bindPlugins() {
-    bindExtendableSelect();
     bindSortable();
 }

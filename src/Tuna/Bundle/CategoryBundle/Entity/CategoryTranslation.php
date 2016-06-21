@@ -1,6 +1,6 @@
 <?php
 
-namespace TheCodeine\NewsBundle\Entity;
+namespace TheCodeine\CategoryBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;
@@ -15,8 +15,6 @@ use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;
  */
 class CategoryTranslation extends AbstractPersonalTranslation
 {
-
-
     /**
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="translations")
      * @ORM\JoinColumn(name="object_id", referencedColumnName="id", onDelete="CASCADE")

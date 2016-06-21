@@ -1,3 +1,6 @@
+{% use 'TheCodeineEditorBundle::_form_theme.html.twig' %}
+{% use 'TheCodeineCategoryBundle::_form_theme.html.twig' %}
+
 {% block form_errors %}
     {% spaceless %}
         {% if errors|length > 0 %}
@@ -25,13 +28,7 @@
         {% set attr = attr | merge({value: value}) %}
     {% endif %}
     <div class="form-group form--{{ name }}">
-        <input type='{{ type|default('text') }}' {{ block('widget_attributes') }} placeholder="{{ label }}">
-    </div>
-{% endblock %}
-
-{% block editor_widget %}
-    <div class="form-group">
-        <textarea {{ block('widget_attributes') }} placeholder="{{ label }}" class="form-control thecodeine_admin_editor" rows="10">{% if value is not empty %}{{ value|raw }}{% endif %}</textarea>
+        <input type='{{ type|default('text') }}' {{ block('widget_attributes') }} placeholder="{{ name | capitalize | trans }}">
     </div>
 {% endblock %}
 
@@ -69,10 +66,6 @@
 
 {% block checkbox_row %}
     {{ form_widget(form) }}
-{% endblock %}
-
-{% block thecodeine_newsbundle_category_widget %}
-    <input type="hidden" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %} />
 {% endblock %}
 
 {% block imagefile_widget %}
@@ -311,9 +304,4 @@
 
 {% block a2lix_translationsForms_widget %}
     {{ block('a2lix_translations_widget') }}
-{% endblock %}
-
-{% block tuna_extendable_select_widget %}
-    {{ form_widget(form.choice, { attr: { 'data-extendable-select': null }}) }}
-    {{ form_row(form.new_value, { label: false }) }}
 {% endblock %}

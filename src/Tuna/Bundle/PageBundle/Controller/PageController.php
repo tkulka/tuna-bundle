@@ -59,11 +59,6 @@ class PageController extends Controller
         $page = new Page();
         $em = $this->getDoctrine()->getManager();
 
-        if ($request->get('cid')) {
-            $category = $em->find('TheCodeine\NewsBundle\Entity\Category', $request->get('cid'));
-            $page->setCategory($category);
-        }
-
         $form = $this->createForm(new PageType(), $page);
         $form->handleRequest($request);
 
@@ -99,10 +94,6 @@ class PageController extends Controller
         $em = $this->getDoctrine()->getManager();
         if (null == $page) {
             $page = new Page();
-            if ($request->get('cid')) {
-                $category = $em->find('TheCodeine\NewsBundle\Entity\Category', $request->get('cid'));
-                $page->setCategory($category);
-            }
         }
 
         $form = $this->createForm(new PageType(), $page);
