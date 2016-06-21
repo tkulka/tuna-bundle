@@ -1,5 +1,5 @@
 parameters:
-    enable_translations: "true"
+    enable_translations: 'true'
 
 imports:
     - { resource: security.yml }

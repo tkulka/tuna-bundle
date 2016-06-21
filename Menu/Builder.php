@@ -21,15 +21,21 @@ class Builder
      */
     private $translatorInterface;
 
+    /**
+     * @var String
+     */
+    private $enableTranslations;
 
     /**
      * @param FactoryInterface $factory
      * @param TranslatorInterface $translatorInterface
+     * @param String $enableTranslations
      */
-    public function __construct(FactoryInterface $factory, TranslatorInterface $translatorInterface)
+    public function __construct(FactoryInterface $factory, TranslatorInterface $translatorInterface, $enableTranslations)
     {
         $this->factory = $factory;
         $this->translatorInterface = $translatorInterface;
+        $this->enableTranslations = $enableTranslations;
     }
 
     /**
@@ -55,13 +61,15 @@ class Builder
                 "class" => preg_match_all('/thecodeine_news/i', $request->get('_route')) ? "active" : ""
             )
         ));
-
-        $menu->addChild($this->translatorInterface->trans('Translations'), array(
-            'route' => 'tuna_translations',
-            'attributes' => array(
-                "class" => preg_match_all('/thecodeine_translations/i', $request->get('_route')) ? "active" : ""
-            )
-        ));
+        
+        if($this->enableTranslations == 'true') {
+            $menu->addChild($this->translatorInterface->trans('Translations'), array(
+                'route' => 'tuna_translations',
+                'attributes' => array(
+                    "class" => preg_match_all('/thecodeine_translations/i', $request->get('_route')) ? "active" : ""
+                )
+            ));
+        }
 
         return $menu;
     }

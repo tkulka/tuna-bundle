@@ -47,8 +47,9 @@
 
 {% block extra_javascript %}
     {% javascripts
-        '@TheCodeineAdminBundle/Resources/public/js/vendor/trunk8.js'
-        '@TheCodeineAdminBundle/Resources/public/js/vendor/jms.js'%}
+        '@JMSTranslationBundle/Resources/public/js/jms.js'
+        '@JMSTranslationBundle/Resources/public/js/trunk8.js'
+        '@TheCodeineAdminBundle/Resources/public/js/vendor/jms.js' %}
         <script src="{{ asset_url }}" type="text/javascript"></script>
     {% endjavascripts %}
 
