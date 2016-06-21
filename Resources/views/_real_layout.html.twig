@@ -42,37 +42,40 @@
 
 {% include 'TheCodeineAdminBundle::_partials/_modal.html.twig' %}
 
-{% block javascripts %}
-    {% javascripts output='bundles/thecodeineadmin/js/tuna_admin.js'
-    '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery-2.0.3.min.js'
-    '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery-ui-1.11.4.js'
-    '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.ui.touch-punch.min.js'
-    '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.ui.timepicker.js'
-    '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.tagsinput.js'
-    '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.hotkeys.js'
-    '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.placeholder.js'
-    '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.htmlClean.js'
-    '@TheCodeineAdminBundle/Resources/public/js/vendor/underscore-1.6.0.js'
-    '@TheCodeineAdminBundle/Resources/public/js/vendor/backbone-1.1.2.js'
-    '@TheCodeineAdminBundle/Resources/public/js/vendor/flatUI/bootstrap.min.js'
-    '@TheCodeineAdminBundle/Resources/public/js/vendor/flatUI/bootstrap-select.js'
-    '@TheCodeineAdminBundle/Resources/public/js/vendor/flatUI/bootstrap-switch.js'
-    '@TheCodeineAdminBundle/Resources/public/js/vendor/flatUI/flatui-checkbox.js'
-    '@TheCodeineAdminBundle/Resources/public/js/vendor/flatUI/flatui-radio.js'
-    '@TheCodeineAdminBundle/Resources/public/js/vendor/flatUI/respond.min.js'
-    '@TheCodeineAdminBundle/Resources/public/js/vendor/flatUI/application.js'
-    '@TheCodeineAdminBundle/Resources/public/js/vendor/summernote.js'
-    '@TheCodeineAdminBundle/Resources/public/js/sumernote-fixedtoolbar.js'
-    '@TheCodeineAdminBundle/Resources/public/js/common.js' %}
-    <script src="{{ asset_url }}" type="text/javascript"></script>
-    {% endjavascripts %}
-{% endblock %}
+{% javascripts output='bundles/thecodeineadmin/js/tuna_admin.js'
+'@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery-2.0.3.min.js'
+'@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery-ui-1.11.4.js'
+'@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.ui.touch-punch.min.js'
+'@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.ui.timepicker.js'
+'@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.ui.datepicker-pl.js'
+'@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.ui.timepicker-pl.js'
+'@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.tagsinput.js'
+'@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.hotkeys.js'
+'@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.placeholder.js'
+'@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.htmlClean.js'
+'@TheCodeineAdminBundle/Resources/public/js/vendor/underscore-1.6.0.js'
+'@TheCodeineAdminBundle/Resources/public/js/vendor/backbone-1.1.2.js'
+'@TheCodeineAdminBundle/Resources/public/js/vendor/flatUI/bootstrap.min.js'
+'@TheCodeineAdminBundle/Resources/public/js/vendor/flatUI/bootstrap-select.js'
+'@TheCodeineAdminBundle/Resources/public/js/vendor/flatUI/bootstrap-switch.js'
+'@TheCodeineAdminBundle/Resources/public/js/vendor/flatUI/flatui-checkbox.js'
+'@TheCodeineAdminBundle/Resources/public/js/vendor/flatUI/flatui-radio.js'
+'@TheCodeineAdminBundle/Resources/public/js/vendor/flatUI/respond.min.js'
+'@TheCodeineAdminBundle/Resources/public/js/vendor/flatUI/application.js'
+'@TheCodeineAdminBundle/Resources/public/js/vendor/summernote.js'
+'@TheCodeineAdminBundle/Resources/public/js/vendor/summernote-pl-PL.js'
+'@TheCodeineAdminBundle/Resources/public/js/sumernote-fixedtoolbar.js'
+'@TheCodeineAdminBundle/Resources/public/js/common.js' %}
+<script src="{{ asset_url }}" type="text/javascript"></script>
+{% endjavascripts %}
 
 {{ block('extra_javascript') }}
 
 <script type="text/javascript">
     (function () {
-        tuna.website.init();
+        tuna.website.init({
+            lang: '{{ app.request.locale }}'
+        });
     })();
 </script>
 </body>

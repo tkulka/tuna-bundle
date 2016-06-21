@@ -94,7 +94,7 @@ tuna.view.EditView = Backbone.View.extend({
         'click .a2lix_translationsLocales li a': "_onLanguageChange"
     },
 
-    initialize : function(options){
+    initialize: function (options) {
         this.options = options;
         var langMatches = {
             'en': '',
@@ -108,7 +108,7 @@ tuna.view.EditView = Backbone.View.extend({
                 dateFormat: "yy-mm-dd",
                 timeFormat: "HH:mm:ss",
                 showAnim: 'slideDown',
-                beforeShow: function(input, inst) {
+                beforeShow: function (input, inst) {
                     var $dp = $(inst.dpDiv);
                     setTimeout(function () {
                         $dp.css({
