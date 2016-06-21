@@ -1,6 +1,6 @@
 {% block tuna_addable_category_widget %}
-    <div class="extendable-select">
-        {{ form_widget(form.choice, { attr: { 'data-extendable-select': null }}) }}
+    <div class="addable-entity-select">
+        {{ form_widget(form.choice, { attr: { 'data-addable-entity-select': null }}) }}
         <div class="new-value">
             {{ form_errors(form.new_value) }}
             {{ form_widget(form.new_value.translations) }}

@@ -42,7 +42,7 @@
 
 {% include 'TheCodeineAdminBundle::_partials/_modal.html.twig' %}
 
-{% javascripts output='bundles/thecodeineadmin/js/tuna_admin.js'
+{% javascripts
 '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery-2.0.3.min.js'
 '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery-ui-1.11.4.js'
 '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.ui.touch-punch.min.js'
@@ -65,7 +65,8 @@
 '@TheCodeineAdminBundle/Resources/public/js/vendor/summernote.js'
 '@TheCodeineAdminBundle/Resources/public/js/vendor/summernote-pl-PL.js'
 '@TheCodeineAdminBundle/Resources/public/js/sumernote-fixedtoolbar.js'
-'@TheCodeineAdminBundle/Resources/public/js/common.js' %}
+'@TheCodeineAdminBundle/Resources/public/js/common.js'
+'@TheCodeineAdminBundle/Resources/public/js/views/*.js' %}
 <script src="{{ asset_url }}" type="text/javascript"></script>
 {% endjavascripts %}
 
