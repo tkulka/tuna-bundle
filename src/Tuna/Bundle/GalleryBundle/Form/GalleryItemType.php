@@ -25,8 +25,8 @@ class GalleryItemType extends AbstractType
             ->setAttribute('enctype', 'multipart/form-data')
             ->add('type', 'choice', array(
                 'choices' => array(
-                    0 => 'video',
-                    1 => 'image'
+                    0 => 'Video',
+                    1 => 'Image'
                 ),
                 'required' => true,
             ));

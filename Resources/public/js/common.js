@@ -9,7 +9,13 @@ window.tuna || (window.tuna = {
     model: {},
     collection: {},
     router: {},
-    features: {}
+    features: {},
+    config: {
+        localeMap: {
+            'en': 'en-US',
+            'pl': 'pl-PL'
+        }
+    }
 });
 
 /**
@@ -17,7 +23,8 @@ window.tuna || (window.tuna = {
  *
  */
 tuna.website = {
-    init: function () {
+    init: function (options) {
+        this.options = options;
 
         //init main views
         new tuna.view.NavigationView({el: $('nav')[0]});
@@ -25,14 +32,15 @@ tuna.website = {
         new tuna.view.OptionsView({el: $('.admin-option-container')[0]});
         new tuna.view.GalleryView({el: $('.admin-gallery-container')[0]});
         new tuna.view.AttachmentsView({el: $('.admin-attachments-container')[0]});
-        new tuna.view.EditView({el: $('.admin-container')[0]});
+        new tuna.view.EditView({el: $('.admin-container')[0], lang: options.lang});
         new tuna.view.ExtendableSelectView({el: $('.extendable-select')});
 
         bindPlugins();
 
         //WYSIWYG EDITOR
         tuna.view.EditorView && new tuna.view.EditorView({
-            selector: '.tab-pane.active .thecodeine_admin_editor'
+            selector: '.tab-pane.active .thecodeine_admin_editor',
+            lang: options.lang
         });
     },
 
@@ -67,8 +75,8 @@ tuna.view.ListView = Backbone.View.extend({
     },
 
     onDeleteItem: function (e) {
-        event.preventDefault();
-        var $a = $(event.target);
+        e.preventDefault();
+        var $a = $(e.currentTarget);
 
         tunaConfirm('Czy na pewno chcesz usunąć <b>' + $a.data('title') + '</b>?').done(function () {
             window.location.href = $a.data('url');
@@ -86,27 +94,38 @@ tuna.view.EditView = Backbone.View.extend({
         'click .a2lix_translationsLocales li a': "_onLanguageChange"
     },
 
-    initialize: function () {
+    initialize : function(options){
+        this.options = options;
+        var langMatches = {
+            'en': '',
+            'pl': 'pl'
+        };
+
         Backbone.on('LanguageChange', this._onLanguageChange, this);
 
-        $(".datepicker").datetimepicker({
-            dateFormat: "yy-mm-dd",
-            timeFormat: "HH:mm:ss",
-            showAnim: 'slideDown',
-            beforeShow: function (input, inst) {
-                var $dp = $(inst.dpDiv);
-                setTimeout(function () {
-                    $dp.css({
-                        marginLeft: 0,
-                        marginTop: 0,
-                        top: 0,
-                        left: 0,
-                        position: 'relative'
-                    });
-                }, 0);
-                $(this).closest('.form-group').append($dp);
-            }
-        });
+        $(".datepicker")
+            .datetimepicker({
+                dateFormat: "yy-mm-dd",
+                timeFormat: "HH:mm:ss",
+                showAnim: 'slideDown',
+                beforeShow: function(input, inst) {
+                    var $dp = $(inst.dpDiv);
+                    setTimeout(function () {
+                        $dp.css({
+                            marginLeft: 0,
+                            marginTop: 0,
+                            top: 0,
+                            left: 0,
+                            position: 'relative'
+                        });
+                    }, 0);
+                    $(this).closest('.form-group').append($dp);
+                }
+            })
+            .datetimepicker('option', $.datepicker.regional[langMatches[options.lang]])
+            .datetimepicker('option', 'dateFormat', 'yy-mm-dd')
+            .datetimepicker('option', $.timepicker.regional[langMatches[options.lang]]);
+
     },
 
     _onLanguageChange: function (e) {
