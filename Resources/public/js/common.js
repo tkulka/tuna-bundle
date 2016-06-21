@@ -34,8 +34,7 @@ tuna.website = {
         new tuna.view.AttachmentsView({el: $('.admin-attachments-container')[0]});
         new tuna.view.EditView({el: $('.admin-container')[0], lang: options.lang});
         new tuna.view.AddableEntitySelectView({el: $('.addable-entity-select')});
-
-        bindPlugins();
+        new tuna.view.SortableView({el: $('[data-sortable-url]')});
 
         //WYSIWYG EDITOR
         tuna.view.EditorView && new tuna.view.EditorView({
@@ -69,50 +68,4 @@ function tunaConfirm(msg) {
 
 function tunaAlert(msg) {
     alert(msg);
-}
-
-function bindSortable() {
-    function lockWidths($table) {
-        $table.find('td, th').each(function (i, item) {
-            $(item).width($(item).width());
-        });
-    }
-
-    function unlockWidths($table) {
-        $table.find('td, th').each(function (i, item) {
-            $(item).width('');
-        });
-    }
-
-    $('[data-sortable-url]').each(function (i, sortableWrapper) {
-        var $sortableWrapper = $(sortableWrapper);
-        $sortableWrapper.find('tbody').sortable({
-            handle: '.handle',
-            stop: function (event, ui) {
-                unlockWidths($(ui.item).closest('table'));
-            },
-            change: function (event, ui) {
-                $(ui.item).closest('[data-sortable-url]').find('[data-action="save-order"]').fadeIn();
-            }
-        }).find('.handle').on('mousedown', function () {
-            lockWidths($(this).closest('table'));
-        });
-
-        $sortableWrapper.find('[data-action="save-order"]').on('click', function (event) {
-            $.ajax({
-                type: 'POST',
-                data: {
-                    order: $sortableWrapper.find('tbody').sortable('toArray', {attribute: 'data-id'})
-                },
-                url: $sortableWrapper.data('sortable-url'),
-                success: function (data) {
-                    $(event.currentTarget).fadeOut();
-                }
-            })
-        });
-    });
-}
-
-function bindPlugins() {
-    bindSortable();
 }
