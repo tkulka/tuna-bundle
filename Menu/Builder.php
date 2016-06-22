@@ -89,7 +89,7 @@ class Builder
         $this->addChild($menu, $request, 'Pages', 'tuna_page_list', 100, function ($request, $route) {
             return preg_match_all('/tuna_page/i', $request->get('_route'));
         });
-        $this->addChild($menu, $request, 'News', 'tuna_news_list', 101, function ($request, $route) {
+        $this->addChild($menu, $request, 'News', 'tuna_news_list', 110, function ($request, $route) {
             return preg_match_all('/tuna_news/i', $request->get('_route'));
         });
 

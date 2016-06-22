@@ -2,7 +2,6 @@
 
 namespace TheCodeine\PageBundle\Entity;
 
-use Gedmo\Sluggable\Util\Urlizer;
 use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -45,14 +44,10 @@ abstract class BasePage
     protected $teaser;
 
     /**
+     * @Gedmo\Slug(fields={"title"})
      * @ORM\Column(type="string", unique=true)
      */
     protected $slug;
-
-    /**
-     * @ORM\Column(name="slug_prefix", type="simple_array", nullable=true)
-     */
-    protected $slugPrefix;
 
     /**
      * @var string
@@ -95,21 +90,6 @@ abstract class BasePage
         $this->attachments = new ArrayCollection();
         $this->translations = new ArrayCollection();
         $this->setPublished(false);
-    }
-
-    /**
-     * @ORM\PrePersist()
-     * @ORM\PreUpdate()
-     */
-    public function updateSlug()
-    {
-        $fragments = $this->getSlugPrefix();
-        $fragments[] = $this->getTitle();
-        $fragments = array_map(function ($element) {
-            return Urlizer::urlize($element);
-        }, $fragments);
-
-        $this->setSlug(implode('/', $fragments));
     }
 
     /**
@@ -329,25 +309,6 @@ abstract class BasePage
     public function setTeaser($teaser)
     {
         $this->teaser = $teaser;
-
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSlugPrefix()
-    {
-        return $this->slugPrefix;
-    }
-
-    /**
-     * @return $this
-     * @param mixed $slugPrefix
-     */
-    public function setSlugPrefix($slugPrefix)
-    {
-        $this->slugPrefix = $slugPrefix;
 
         return $this;
     }
