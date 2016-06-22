@@ -3,6 +3,7 @@
 namespace TheCodeine\AdminBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
+use Knp\Menu\ItemInterface;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -11,7 +12,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 class Builder
 {
     /**
-     * @var \Knp\Menu\FactoryInterface
+     * @var FactoryInterface
      */
     protected $factory;
 
@@ -39,35 +40,65 @@ class Builder
 
     /**
      * @param Request $request
-     * @return \Knp\Menu\ItemInterface
+     * @return ItemInterface
      */
-    public function buildTopMenuStatic(Request $request)
+    public function getTopMenu(Request $request)
+    {
+        $menu = $this->buildTopMenu($request);
+        $this->reorderMenu($menu);
+
+        return $menu;
+    }
+
+    /**
+     * @param Request $request
+     * @return ItemInterface
+     */
+    public function getSubmenu(Request $request)
+    {
+        $menu = $this->buildSubMenu($request);
+        $this->reorderMenu($menu);
+
+        return $menu;
+    }
+
+    /**
+     * @param ItemInterface
+     * @return ItemInterface
+     */
+    protected function reorderMenu(ItemInterface $menu)
+    {
+        $order = array();
+        foreach ($menu->getChildren() as $label => $item) {
+            $order[$label] = $item->getExtra('position');
+        }
+        asort($order);
+        $menu->reorderChildren(array_keys($order));
+
+        return $menu;
+    }
+
+    /**
+     * @param Request $request
+     * @return ItemInterface
+     */
+    protected function buildTopMenu(Request $request)
     {
         $menu = $this->factory->createItem('root', array(
             'childrenAttributes' => array('class' => 'nav')
         ));
 
-        $menu->addChild($this->translatorInterface->trans('Pages'), array(
-            'route' => 'tuna_page_list',
-            'attributes' => array(
-                "class" => preg_match_all('/tuna_page/i', $request->get('_route')) ? "active" : ""
-            )
-        ));
+        $this->addChild($menu, $request, 'Pages', 'tuna_page_list', 101, function ($request, $route) {
+            return preg_match_all('/tuna_page/i', $request->get('_route'));
+        });
+        $this->addChild($menu, $request, 'News', 'tuna_news_list', 100, function ($request, $route) {
+            return preg_match_all('/tuna_news/i', $request->get('_route'));
+        });
 
-        $menu->addChild($this->translatorInterface->trans('News'), array(
-            'route' => 'tuna_news_list',
-            'attributes' => array(
-                "class" => preg_match_all('/tuna_news/i', $request->get('_route')) ? "active" : ""
-            )
-        ));
-        
-        if($this->enableTranslations == 'true') {
-            $menu->addChild($this->translatorInterface->trans('Translations'), array(
-                'route' => 'tuna_translations',
-                'attributes' => array(
-                    "class" => preg_match_all('/thecodeine_translations/i', $request->get('_route')) ? "active" : ""
-                )
-            ));
+        if ($this->enableTranslations == 'true') {
+            $this->addChild($menu, $request, 'Translations', 'tuna_translations', 200, function ($request, $route) {
+                return preg_match_all('/thecodeine_translations/i', $request->get('_route'));
+            });
         }
 
         return $menu;
@@ -75,45 +106,42 @@ class Builder
 
     /**
      * @param Request $request
-     * @return \Knp\Menu\ItemInterface
+     * @return ItemInterface
      */
-    public function buildMenu(Request $request)
+    protected function buildSubMenu(Request $request)
     {
         $menu = $this->factory->createItem('root', array(
             'childrenAttributes' => array('class' => 'nav')
         ));
 
         if (preg_match_all('/tuna_page/i', $request->get('_route'))) {
-            $menu = $this->buildPageSubmenu($menu, $request);
+            $this->addChild($menu, $request, 'Create page', 'tuna_page_create');
         }
 
         if (preg_match_all('/tuna_news/i', $request->get('_route'))) {
-            $menu = $this->buildNewsSubmenu($menu, $request);
+            $this->addChild($menu, $request, 'Create news', 'tuna_news_create');
         }
 
         return $menu;
     }
 
-    private function buildPageSubmenu($menu, $request)
+    /**
+     * @return ItemInterface
+     */
+    protected function addChild($menu, $request, $label, $route, $position = 0, callable $activeTest = null)
     {
-        $menu->addChild($this->translatorInterface->trans('Create page'), array(
-            'route' => 'tuna_page_create',
+        if ($activeTest == null) {
+            $activeTest = function ($request, $route) {
+                return $request->get('_route') === $route;
+            };
+        }
+        $child = $this->factory->createItem($this->translatorInterface->trans($label), array(
+            'route' => $route,
             'attributes' => array(
-                "class" => $request->get('_route') === 'tuna_page_create' ? "active" : ""
+                'class' => $activeTest($request, $route) ? 'active' : ''
             )
-        ));
-
-        return $menu;
-    }
-
-    private function buildNewsSubmenu($menu, $request)
-    {
-        $menu->addChild($this->translatorInterface->trans('Create news'), array(
-            'route' => 'tuna_news_create',
-            'attributes' => array(
-                "class" => $request->get('_route') === 'tuna_news_create' ? "active" : ""
-            )
-        ));
+        ))->setExtra('position', $position);
+        $menu->addChild($child);
 
         return $menu;
     }

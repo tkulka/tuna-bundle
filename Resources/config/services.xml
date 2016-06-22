@@ -23,16 +23,16 @@
             <argument type="service" id="translator"/>
             <argument type="string">%enable_translations%</argument>
         </service>
-        <service id="the_codeine_admin.menu.top.static" class="%the_codeine_admin.menu.item.class%"
+        <service id="the_codeine_admin.menu.top" class="%the_codeine_admin.menu.item.class%"
                  factory-service="the_codeine_admin.menu_builder"
-                 factory-method="buildTopMenuStatic"
+                 factory-method="getTopMenu"
                  scope="request">
             <argument type="service" id="request"/>
-            <tag name="knp_menu.menu" alias="menu.top.static"/>
+            <tag name="knp_menu.menu" alias="menu.top"/>
         </service>
         <service id="the_codeine_admin.menu.sub" class="%the_codeine_admin.menu.item.class%"
                  factory-service="the_codeine_admin.menu_builder"
-                 factory-method="buildMenu"
+                 factory-method="getSubmenu"
                  scope="request">
             <argument type="service" id="request"/>
             <tag name="knp_menu.menu" alias="menu.sub"/>
