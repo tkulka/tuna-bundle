@@ -4,10 +4,8 @@ namespace TheCodeine\AdminBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
-use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Translation\TranslatorInterface;
-use Doctrine\Common\Persistence\ObjectManager;
 
 class Builder
 {
