@@ -15,7 +15,7 @@ use TheCodeine\NewsBundle\Entity\Attachment;
  * Page
  *
  * @ORM\Table(name="pages")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="TheCodeine\PageBundle\Entity\PageRepository")
  * @Gedmo\TranslationEntity(class="TheCodeine\PageBundle\Entity\PageTranslation")
  *
  * @ORM\HasLifecycleCallbacks

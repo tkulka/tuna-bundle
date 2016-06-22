@@ -81,12 +81,6 @@ class Builder
 
     private function buildPageSubmenu($menu, $request)
     {
-        $menu->addChild($this->translatorInterface->trans('List of pages'), array(
-            'route' => 'tuna_page_list',
-            'attributes' => array(
-                "class" => $request->get('_route') === 'tuna_page_list' ? "active" : ""
-            )
-        ));
         $menu->addChild($this->translatorInterface->trans('Create page'), array(
             'route' => 'tuna_page_create',
             'attributes' => array(
@@ -99,12 +93,6 @@ class Builder
 
     private function buildNewsSubmenu($menu, $request)
     {
-        $menu->addChild($this->translatorInterface->trans('List of news'), array(
-            'route' => 'tuna_news_list',
-            'attributes' => array(
-                "class" => $request->get('_route') === 'tuna_news_list' ? "active" : ""
-            )
-        ));
         $menu->addChild($this->translatorInterface->trans('Create news'), array(
             'route' => 'tuna_news_create',
             'attributes' => array(

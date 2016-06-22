@@ -34,11 +34,13 @@ class NewsController extends Controller
      */
     public function listAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $pages = $em->createQuery('SELECT n FROM TheCodeineNewsBundle:News n ORDER BY n.createdAt DESC')->getResult();
+        $query = $this->getDoctrine()->getManager()->getRepository('TheCodeineNewsBundle:News')->getListQuery();
+        $page = $request->get('page', 1);
+        $limit = 10;
 
         return array(
-            'newsList' => $pages,
+            'pagination' => $this->get('knp_paginator')->paginate($query, $page, $limit),
+            'offset' => ($page - 1) * $limit,
         );
     }
 
@@ -53,6 +55,7 @@ class NewsController extends Controller
         $em = $this->getDoctrine()->getManager();
         $em->remove($news);
         $em->flush();
+
         return $this->redirect($this->generateUrl('tuna_news_list'));
     }
 

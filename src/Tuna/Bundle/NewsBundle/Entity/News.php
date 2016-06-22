@@ -11,7 +11,7 @@ use TheCodeine\PageBundle\Entity\BasePage;
  * News
  *
  * @ORM\Table(name="news")
- * @ORM\Entity(repositoryClass="TheCodeine\NewsBundle\Repository\NewsRepository")
+ * @ORM\Entity(repositoryClass="TheCodeine\NewsBundle\Entity\NewsRepository")
  * @Gedmo\TranslationEntity(class="TheCodeine\NewsBundle\Entity\NewsTranslation")
  *
  * @ORM\HasLifecycleCallbacks

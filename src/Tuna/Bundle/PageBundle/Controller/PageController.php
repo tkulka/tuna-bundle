@@ -3,7 +3,6 @@
 namespace TheCodeine\PageBundle\Controller;
 
 use TheCodeine\PageBundle\Entity\Page;
-use TheCodeine\PageBundle\Repository\PageRepository;
 use TheCodeine\PageBundle\Form\PageType;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -11,7 +10,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Collections\ArrayCollection;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class PageController extends Controller
 {
@@ -38,7 +36,7 @@ class PageController extends Controller
      *
      * @return array
      */
-    public function listAction()
+    public function listAction(Request $request)
     {
         return array(
             'pagesList' => $this->getDoctrine()->getManager()->getRepository("TheCodeinePageBundle:Page")->findAll(),
