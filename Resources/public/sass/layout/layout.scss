@@ -72,7 +72,7 @@ body {
         }
     }
 
-    & > form {
+    & > form, .translation-container {
         @include flex-box();
         @include flex-flow(row wrap);
         height: 100vh;
