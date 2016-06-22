@@ -88,15 +88,15 @@ class Builder
             'childrenAttributes' => array('class' => 'nav')
         ));
 
-        $this->addChild($menu, $request, 'Pages', 'tuna_page_list', 101, function ($request, $route) {
+        $this->addChild($menu, $request, 'Pages', 'tuna_page_list', 100, function ($request, $route) {
             return preg_match_all('/tuna_page/i', $request->get('_route'));
         });
-        $this->addChild($menu, $request, 'News', 'tuna_news_list', 100, function ($request, $route) {
+        $this->addChild($menu, $request, 'News', 'tuna_news_list', 101, function ($request, $route) {
             return preg_match_all('/tuna_news/i', $request->get('_route'));
         });
 
         if ($this->enableTranslations == 'true') {
-            $this->addChild($menu, $request, 'Translations', 'tuna_translations', 200, function ($request, $route) {
+            $this->addChild($menu, $request, 'Translations', 'tuna_translations', 500, function ($request, $route) {
                 return preg_match_all('/thecodeine_translations/i', $request->get('_route'));
             });
         }
@@ -128,8 +128,11 @@ class Builder
     /**
      * @return ItemInterface
      */
-    protected function addChild($menu, $request, $label, $route, $position = 0, callable $activeTest = null)
+    protected function addChild($menu, $request, $label, $route, $position = null, callable $activeTest = null)
     {
+        if ($position === null) {
+            $position = 200;
+        }
         if ($activeTest == null) {
             $activeTest = function ($request, $route) {
                 return $request->get('_route') === $route;
