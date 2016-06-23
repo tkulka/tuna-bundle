@@ -112,6 +112,10 @@ class Builder
             $this->addChild($menu, $request, 'Create news', 'tuna_news_create');
         }
 
+        if (preg_match_all('/tuna_category/i', $request->get('_route'))) {
+            $this->addChild($menu, $request, 'Create category', 'tuna_category_create');
+        }
+
         return $menu;
     }
 
@@ -119,6 +123,16 @@ class Builder
      * @return ItemInterface
      */
     protected function addChild($menu, $request, $label, $route, $position = null, callable $activeTest = null)
+    {
+        $menu->addChild($this->createChild($request, $label, $route, $position, $activeTest));
+
+        return $menu;
+    }
+
+    /**
+     * @return ItemInterface
+     */
+    protected function createChild($request, $label, $route, $position, $activeTest = null)
     {
         if ($position === null) {
             $position = 200;
@@ -134,8 +148,7 @@ class Builder
                 'class' => $activeTest($request, $route) ? 'active' : ''
             )
         ))->setExtra('position', $position);
-        $menu->addChild($child);
 
-        return $menu;
+        return $child;
     }
 }

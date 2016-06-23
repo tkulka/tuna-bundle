@@ -1,0 +1,14 @@
+<h1>{% trans %}Categories{% endtrans %}</h1>
+
+{% for categoryType, categories in groupedCategories %}
+    <h2>{{ categoryType }}</h2>
+    <ul>
+        {% for category in categories %}
+            <li>
+                {{ category.name }}
+                <a href="{{ path('tuna_category_edit', { id: category.id }) }}">edit</a> |
+                <a href="{{ path('tuna_category_delete', { id: category.id }) }}">delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endfor %}
