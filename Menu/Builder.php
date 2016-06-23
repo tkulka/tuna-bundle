@@ -5,7 +5,6 @@ namespace TheCodeine\AdminBundle\Menu;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Translation\TranslatorInterface;
 
 class Builder
 {
@@ -15,24 +14,17 @@ class Builder
     protected $factory;
 
     /**
-     * @var Translator
-     */
-    protected $translatorInterface;
-
-    /**
      * @var String
      */
     private $enableTranslations;
 
     /**
      * @param FactoryInterface $factory
-     * @param TranslatorInterface $translatorInterface
      * @param String $enableTranslations
      */
-    public function __construct(FactoryInterface $factory, TranslatorInterface $translatorInterface, $enableTranslations)
+    public function __construct(FactoryInterface $factory, $enableTranslations)
     {
         $this->factory = $factory;
-        $this->translatorInterface = $translatorInterface;
         $this->enableTranslations = $enableTranslations;
     }
 
@@ -136,7 +128,7 @@ class Builder
                 return $request->get('_route') === $route;
             };
         }
-        $child = $this->factory->createItem($this->translatorInterface->trans($label), array(
+        $child = $this->factory->createItem($label, array(
             'route' => $route,
             'attributes' => array(
                 'class' => $activeTest($request, $route) ? 'active' : ''
