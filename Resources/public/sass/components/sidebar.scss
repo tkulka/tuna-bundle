@@ -25,18 +25,9 @@
 
     .nav {
         li {
-            padding: 0 20px;
-
-            &.active {
-                background: $brand-tertiary;
-
-                a {
-                    color: $link-hover-color;
-                }
-            }
 
             a {
-                padding: 20px 0;
+                padding: 20px;
                 color: lighten($brand-tertiary, 25%);
                 font-size: 18px;
                 font-weight: 400;
@@ -45,6 +36,22 @@
                 &:hover, &:focus {
                     background: transparent;
                     color: $link-hover-color;
+                }
+            }
+
+            &.active {
+                > a {
+                    background: $brand-tertiary;
+                    color: $brand-primary;
+                }
+            }
+
+            ul {
+                padding: 0;
+
+                li a {
+                    display: block;
+                    padding-left: 40px;
                 }
             }
         }

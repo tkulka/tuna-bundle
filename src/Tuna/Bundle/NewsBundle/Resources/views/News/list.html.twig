@@ -7,9 +7,6 @@
                 <h2>{{ news.title }}
                     <small>({{ news.createdAt|date("Y-m-d") }})</small>
                 </h2>
-                {% if news.category %}
-                    <p>{{ news.category.name }}</p>
-                {% endif %}
                 <p>{{ news.body|striptags[:150] ~ '...' }}</p>
                 <p>
                     <a href="{{ path('tuna_news_edit', {'id': news.id}) }}" class="btn btn-default " title="edytuj">Edytuj</a>

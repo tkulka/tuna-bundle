@@ -1,0 +1,3 @@
+error:
+    category:
+        not_empty: Nie można usunąć kategorii <strong>%name%</strong>, ponieważ nie jest ona pusta.
