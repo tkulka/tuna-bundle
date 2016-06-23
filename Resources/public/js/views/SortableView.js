@@ -31,6 +31,7 @@
             });
         },
         onSaveOrderClick: function (event) {
+            event.preventDefault();
             $.ajax({
                 type: 'POST',
                 data: {
