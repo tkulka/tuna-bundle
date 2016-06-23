@@ -82,8 +82,10 @@ class Builder
             return preg_match_all('/tuna_page/i', $request->get('_route'));
         });
         $this->addChild($menu, $request, 'News', 'tuna_news_list', 110, function ($request, $route) {
-            return preg_match_all('/tuna_news/i', $request->get('_route'));
-        });
+            return preg_match_all('/tuna_news/i', $request->get('_route')) && $request->attributes->get('newsType') == 'News';
+        }, array(
+            'newsType' => 'News'
+        ));
 
         if ($this->enableTranslations == 'true') {
             $this->addChild($menu, $request, 'Translations', 'tuna_translations', 500, function ($request, $route) {
@@ -109,7 +111,9 @@ class Builder
         }
 
         if (preg_match_all('/tuna_news/i', $request->get('_route'))) {
-            $this->addChild($menu, $request, 'Create news', 'tuna_news_create');
+            $this->addChild($menu, $request, 'Create news', 'tuna_news_create', null, null, array(
+                'newsType' => 'News',
+            ));
         }
 
         return $menu;
@@ -118,9 +122,9 @@ class Builder
     /**
      * @return ItemInterface
      */
-    protected function addChild($menu, $request, $label, $route, $position = null, callable $activeTest = null)
+    protected function addChild($menu, $request, $label, $route, $position = null, callable $activeTest = null, $routeParameters = array())
     {
-        $menu->addChild($this->createChild($request, $label, $route, $position, $activeTest));
+        $menu->addChild($this->createChild($request, $label, $route, $position, $activeTest, $routeParameters));
 
         return $menu;
     }
@@ -128,7 +132,7 @@ class Builder
     /**
      * @return ItemInterface
      */
-    protected function createChild($request, $label, $route, $position, $activeTest = null)
+    protected function createChild($request, $label, $route, $position, $activeTest = null, $routeParameters = array())
     {
         if ($position === null) {
             $position = 200;
@@ -140,6 +144,7 @@ class Builder
         }
         $child = $this->factory->createItem($label, array(
             'route' => $route,
+            'routeParameters' => $routeParameters,
             'attributes' => array(
                 'class' => $activeTest($request, $route) ? 'active' : ''
             )

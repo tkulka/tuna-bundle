@@ -46,13 +46,6 @@ class BaseNews extends BasePage
 
     /**
      * @var
-     * @ORM\ManyToOne(targetEntity="NewsCategory")
-     * @ORM\JoinColumn(name="news_category_id", referencedColumnName="id")
-     */
-    protected $newsCategory;
-
-    /**
-     * @var
      * @ORM\ManyToMany(targetEntity="\TheCodeine\TagBundle\Entity\Tag", cascade={"persist"})
      * @ORM\JoinTable(name="news_tags",
      *      joinColumns={@ORM\JoinColumn(name="news_id", referencedColumnName="id")},
@@ -98,16 +91,6 @@ class BaseNews extends BasePage
     public function getCreatedAt()
     {
         return $this->createdAt;
-    }
-
-    /**
-     * Get category
-     *
-     * @return \TheCodeine\NewsBundle\Entity\NewsCategory
-     */
-    public function getNewsCategory()
-    {
-        return $this->newsCategory;
     }
 
     /**

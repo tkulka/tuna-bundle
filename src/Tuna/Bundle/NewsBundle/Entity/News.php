@@ -11,8 +11,6 @@ use TheCodeine\PageBundle\Entity\BasePage;
  * News
  *
  * @ORM\Entity
- *
- * @ORM\HasLifecycleCallbacks
  */
 class News extends BaseNews
 {

@@ -87,8 +87,6 @@ class NewsController extends Controller
         $em = $this->getDoctrine()->getManager();
         $news = $this->get('tuna.news.factory')->getInstance($newsType);
 
-        $news->setCategory($this->get('tuna.news.factory')->getCategoryByType($newsType));
-
         $form = $this->createForm($this->get('tuna.news.factory')->getFormInstance($news), $news);
 
         $form->handleRequest($request);

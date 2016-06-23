@@ -46,9 +46,4 @@ class NewsFactory
                 return new NewsType();
         }
     }
-
-    public function getCategoryByType($type)
-    {
-        return $this->em->getRepository('TheCodeineNewsBundle:Category')->findOneBySlug(self::$NEWS_TYPES[$type]);
-    }
 }
