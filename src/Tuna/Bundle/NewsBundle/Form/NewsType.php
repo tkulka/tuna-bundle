@@ -9,7 +9,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 use TheCodeine\GalleryBundle\Form\GalleryType;
-use TheCodeine\NewsBundle\Entity\Category;
 use TheCodeine\NewsBundle\Entity\News;
 use TheCodeine\ImageBundle\Form\ImageRequestThumbnailType;
 use TheCodeine\PageBundle\Form\PageType;

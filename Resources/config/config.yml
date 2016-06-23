@@ -1,3 +1,6 @@
+parameters:
+    enable_translations: 'true'
+
 imports:
     - { resource: security.yml }
 
@@ -8,8 +11,6 @@ fos_user:
 
 a2lix_translation_form:
     locales: [pl, en]
-    default_required: true
-    manager_registry: doctrine
     templating: "TheCodeineAdminBundle::_partials/_form/_theme.html.twig"
 
 the_codeine_editor:

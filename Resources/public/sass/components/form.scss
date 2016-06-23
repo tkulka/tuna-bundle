@@ -1,0 +1,19 @@
+.new-value {
+    display: none;
+}
+
+.ui-sortable-helper {
+    display: table;
+
+    .center {
+        text-align: center;
+    }
+}
+
+.save-order {
+    height: 100px;
+
+    [data-action="save-order"] {
+        display: none;
+    }
+}

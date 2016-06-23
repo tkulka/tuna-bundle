@@ -8,6 +8,7 @@ class BundleDependencyRegisterer
     {
         $dependencies = array(
             new \TheCodeine\AdminBundle\TheCodeineAdminBundle(),
+            new \TheCodeine\CategoryBundle\TheCodeineCategoryBundle(),
             new \TheCodeine\EditorBundle\TheCodeineEditorBundle(),
             new \TheCodeine\PageBundle\TheCodeinePageBundle(),
             new \TheCodeine\ImageBundle\TheCodeineImageBundle(),
@@ -16,6 +17,7 @@ class BundleDependencyRegisterer
             new \TheCodeine\TagBundle\TheCodeineTagBundle(),
             new \TheCodeine\NewsBundle\TheCodeineNewsBundle(),
             new \TheCodeine\UserBundle\TheCodeineUserBundle(),
+            new \TheCodeine\TranslationBundle\TheCodeineTranslationBundle(),
         );
 
         foreach ($bundles as $bundle) {

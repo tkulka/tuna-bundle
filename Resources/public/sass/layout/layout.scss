@@ -32,6 +32,7 @@ body {
         .content {
             padding: 20px;
             background: $brand-tertiary;
+            color: $link-color-inverse;
 
             @media all and (min-width: $desktopSmallScreen) {
                 padding: 60px;
@@ -56,11 +57,19 @@ body {
 }
 
 .admin-container {
-    overflow: hidden;
-    width: 100%;
-    display: block;
+    @media all and (min-width: $desktopSmallScreen) {
+        .actions {
+            display: none;
+        }
+    }
 
     & > form {
+        overflow: hidden;
+    }
+
+    & > form, .translation-container {
+        @include flex-box();
+        @include flex-flow(row wrap);
         height: 100vh;
 
         .inside {

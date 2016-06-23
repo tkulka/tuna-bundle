@@ -6,7 +6,7 @@
         <div class="admin-alert alert text-center">
             <h3>{% trans %}Oops there is nothing here!{% endtrans %}</h3>
             <a href="{{ path('tuna_news_create', { 'newsType': newsType }) }}" class="btn btn-primary btn-wide">
-                <i class="fui-plus-inverted"></i> {{ ('Add first ' ~ newsType|lower ~ ' item')|trans  }}
+                <i class="fui-plus-inverted"></i> {% trans %}Add first item{% endtrans %}
             </a>
         </div>
     {% else %}
@@ -20,17 +20,17 @@
                         <thead>
                             <tr>
                                 <th>{% trans %}No.{% endtrans %}</th>
-                                <th>{{ knp_pagination_sortable(pagination, 'Title'|trans, 'n.title') }}</th>
-                                <th>{{ knp_pagination_sortable(pagination, 'Create date'|trans, 'n.createdAt') }}</th>
-                                <th class="center">{{ knp_pagination_sortable(pagination, 'Published'|trans, 'n.published') }}</th>
-                                <th class="center">{{ knp_pagination_sortable(pagination, 'Featured'|trans, 'n.important') }}</th>
+                                <th>{{ knp_pagination_sortable(pagination, 'Title'|trans, 'p.title') }}</th>
+                                <th>{{ knp_pagination_sortable(pagination, 'Create date'|trans, 'p.createdAt') }}</th>
+                                <th class="center">{{ knp_pagination_sortable(pagination, 'Published'|trans, 'p.published') }}</th>
+                                <th class="center">{{ knp_pagination_sortable(pagination, 'Featured'|trans, 'p.important') }}</th>
                                 <th class="text-right">{% trans %}Options{% endtrans %}</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for item in pagination %}
                                 <tr data-enabled="{{ item.published|round }}" class="{% if not item.published %}unpublished{% endif %}">
-                                    <td>{{ loop.index + limit}}</td>
+                                    <td>{{ loop.index + offset }}</td>
                                     <td>{{ item.title }}</td>
                                     <td>{{ item.createdAt|date('d/m/Y H:m:s') }}</td>
                                     <td class="center">

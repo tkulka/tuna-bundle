@@ -8,12 +8,6 @@
         <th>Utworzono</th>
         <td>{{ news.createdAt|date("Y-m-d") }}</td>
     </tr>
-    {% if news.category %}
-        <tr>
-            <th>Kategoria</th>
-            <td>{{ news.category.name }}</td>
-        </tr>
-    {% endif %}
     <tr>
         <th>Tytuł</th>
         <td>{{ news.title }}</td>

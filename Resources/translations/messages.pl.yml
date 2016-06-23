@@ -12,48 +12,49 @@ Slug: Slug
 "Edit page:": "Edytuj stronę:"
 "Edit news:": "Edytuj newsa:"
 "Edit event:": "Edytuj wydarzenie:"
-Featured: "Przypięty"
-"Create date": "Data utworzenia"
-"Choose gallery item type": "Wybierz typ elementu galerii"
-"Choose main picture": "Wybierz zdjęcie główne"
-Logout: "Wyloguj się"
+Featured: Przypięty
+Create date: Data utworzenia
+Choose gallery item type: Wybierz typ elementu galerii
+Choose main picture: Wybierz zdjęcie główne
+Logout: Wyloguj się
 Pages: Strony
 News: Aktualności
+List of pages: Lista stron
+Create page: Stwórz stronę
+List of news: Lista newsów
+Create news: Stwórz newsa
+Create category: Stwórz kategorię
+Manage categories: Zarządzaj kategoriami
+Oops there is nothing here!: Ups! Jeszcze ni tutaj nie ma
+The Codeine - Admin Bundle: The Codeine - Admin Bundle
+Woopsie!: Ups!
+Attention: Uwaga
+Do you really want to remove this element?: Czy na pewno chcesz usunąć ten element?
+Cancel: Anuluj
+Remove: Usuń
+Panel: Panel
+Add first item: Dodaj pierwszy wpis
+Enter your name: Podaj swoje imię
+Password: Hasło
+Remember me: Zapamiętaj mnie
+Log in: Zaloguj się
 Event: Wydarzenia
-"List of pages": "Lista stron"
-"Create page": "Stwórz stronę"
-"Create News": Stwórz aktualność
-"Create Event": Stwórz wydarzenie
-"List of news": "Lista newsów"
-"Polish title": "Tytuł polski"
-"Polish subtitle": "Podtytuł polski"
-"Polish content": "Treść polska"
-"English title": "Tytuł angielski"
-"English subtitle": "Podtytuł angielski"
-"English content": "Treść angielski"
-"Oops there is nothing here!": "Ups! Jeszcze nic tutaj nie ma"
-"The Codeine - Admin Bundle": "The Codeine - Admin Bundle"
-"Woops!": "Ups!"
-"Attention": "Uwaga"
-"Do you really want to remove this element?": "Czy na pewno chcesz usunąć ten element?"
-"Cancel": "Anuluj"
-"Remove": "Usuń"
-"Panel": "Panel"
-"Add first news item": "Dodaj pierwszego newsa"
-"Add first event item": "Dodaj pierwsze wydarzenie"
-"Add first page item": "Dodaj pierwszą stronę"
-"Enter your name": "Podaj swoje imię"
-"Password": "Hasło"
-"Remember me": "Zapamiętaj mnie"
-"Log in": "Zaloguj się"
-"Start date": "Data początku"
-"End date": "Data zakończenia"
-Teaser: Zajawka
-Body: Treść
-Video: Film
-Image: Obraz
-No.: Lp.
-"Video URL": "URL do filmu"
-"Video title": "Tytuł filmu"
-"Image title": "Tytuł obrazka"
-"Attachment title": "Tytuł załącznika"
+Video URL: URL do filmu
+Video title: Tytuł filmu
+Image title: Tytuł obrazka
+Attachment title: Tytuł załącznika
+Video URL: URL do filmu
+Video title: Tytuł filmu
+Image title: Tytuł obrazka
+Attachment title: Tytuł załącznika
+Could not be saved.: Nie udało się zapisać
+Translation was saved.: Tłumaczenie zapisane
+Select file: Wybierz plik
+Select language: Wybierz język
+Translations: Tłumaczenia
+The translation file is not writable.: Nie można zapisać pliku z tłumaczeniem.
+Translation: Tłumaczenie
+Additional Information: Dodatkowe informacje
+Alternative Translations: Pozostałe tłumaczenia
+Meaning: Znaczenie
+Sources: Źródła

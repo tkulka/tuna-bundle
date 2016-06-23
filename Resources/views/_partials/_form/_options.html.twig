@@ -17,15 +17,19 @@
         {{ form_widget(form.image) }}
     {% endif %}
 
+    {% if form.gallery is defined %}
     <a href="javascript:void(0)" class="btn btn-small btn-secondary btn-block btn-gallery">
         {% trans %}Gallery{% endtrans %}
         <i class="fui-arrow-right pull-right"></i>
     </a>
+    {% endif %}
 
+    {% if form.attachments is defined %}
     <a href="javascript:void(0)" class="btn btn-small btn-secondary btn-block btn-attachments">
         {% trans %}Attachments{% endtrans %}
         <i class="fui-arrow-right pull-right"></i>
     </a>
+    {% endif %}
 
     {% if form.tags is defined %}
         <h6 class="text-inverse">{% trans %}Tags{% endtrans %}</h6>
@@ -33,14 +37,14 @@
     {% endif %}
 
     {% if form.startDate is defined %}
-        {{ form_row(form.startDate, {'label': 'Start date'|trans}) }}
+        {{ form_row(form.startDate, { label: 'Start date' }) }}
     {% endif %}
 
     {% if form.endDate is defined %}
-        {{ form_row(form.endDate, {'label': 'End date'|trans}) }}
+        {{ form_row(form.endDate, { label: 'End date' }) }}
     {% endif %}
 
-    {{ form_widget(form.save, {'attr': {'class': 'btn btn-small btn-primary btn-block'}, 'label': 'Save'|trans}) }}
+    {{ form_widget(form.save, {'attr': {'class': 'btn btn-small btn-primary btn-block'}}) }}
 
 </div>
 
@@ -51,8 +55,10 @@
 
     {% include 'TheCodeineAdminBundle::_partials/_form/_translations.menu.html.twig' %}
 
-    <h3>{% trans %}Attachments{% endtrans %}</h3>
-    {{ form_widget(form.attachments) }}
+    {% if form.attachments is defined %}
+        <h3>{% trans %}Attachments{% endtrans %}</h3>
+        {{ form_widget(form.attachments) }}
+    {% endif %}
 </div>
 
 <div class="admin-gallery-container">
@@ -62,6 +68,8 @@
 
     {% include 'TheCodeineAdminBundle::_partials/_form/_translations.menu.html.twig' %}
 
-    <h3>{% trans %}Gallery{% endtrans %}</h3>
-    {{ form_widget(form.gallery) }}
+    {% if form.attachments is defined %}
+        <h3>{% trans %}Gallery{% endtrans %}</h3>
+        {{ form_widget(form.gallery) }}
+    {% endif %}
 </div>

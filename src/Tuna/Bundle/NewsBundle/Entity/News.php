@@ -16,5 +16,4 @@ use TheCodeine\PageBundle\Entity\BasePage;
  */
 class News extends BaseNews
 {
-
 }

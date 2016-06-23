@@ -1,0 +1,22 @@
+{% extends 'TheCodeineAdminBundle::_layout.html.twig' %}
+{% block main_class %}bg-lightgray{% endblock %}
+
+{% block content %}
+    {% if groupedCategories |length == 0 %}
+        <div class="admin-alert alert text-center">
+            <h3>{% trans %}Oops there is nothing here!{% endtrans %}</h3>
+        </div>
+    {% else %}
+        <div class="row admin-container">
+            <div class="col-sm-12">
+                <div class="admin-list">
+                    {% for categoryType, categories in groupedCategories %}
+                        <h2>{{ categoryType | trans({}, 'categories') }}</h2>
+                        {% include 'TheCodeineAdminBundle:Category:_list.html.twig' with { entities: categories} %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    <div class="clear"></div>
+{% endblock %}

@@ -1,3 +1,19 @@
+{% block editor_widget %}
+    <div class="form-group">
+        <textarea {{ block('widget_attributes') }} placeholder="{{ name | capitalize | trans }}" class="form-control thecodeine_admin_editor" rows="10">{% if value is not empty %}{{ value|raw }}{% endif %}</textarea>
+    </div>
+{% endblock %}
+
+{% block tuna_addable_category_widget %}
+    <div class="addable-entity-select">
+        {{ form_widget(form.choice, { attr: { 'data-addable-entity-select': null }}) }}
+        <div class="new-value">
+            {{ form_errors(form.new_value) }}
+            {{ form_widget(form.new_value.translations) }}
+        </div>
+    </div>
+{% endblock %}
+
 {% block form_errors %}
     {% spaceless %}
         {% if errors|length > 0 %}
@@ -20,51 +36,33 @@
 {% endblock form_row %}
 
 {% block text_widget %}
-    <div class="form-group">
-        {% set type = type|default('text') %}
-        <input type="{{ type }}"
-               {% if value is not empty %}value="{{ value }}" {% endif %} {{ block('widget_attributes') }}
-               placeholder="{{ label }}" class="form-control input-lg">
-    </div>
-{% endblock %}
-
-{% block editor_widget %}
-    <div class="form-group">
-        <textarea {{ block('widget_attributes') }} placeholder="{{ label }}"
-                                                   class="form-control thecodeine_admin_editor"
-                                                   rows="10">{% if value is not empty %}{{ value|raw }}{% endif %}</textarea>
+    {% set attr = attr | merge({class: (attr.class | default('') ~ ' form-control input-lg') | trim}) %}
+    {% if value is not empty %}
+        {% set attr = attr | merge({value: value}) %}
+    {% endif %}
+    <div class="form-group form--{{ name }}">
+        <input type='{{ type|default('text') }}' {{ block('widget_attributes') }} placeholder="{{ name | capitalize | trans }}">
     </div>
 {% endblock %}
 
 {% block choice_widget %}
     {% spaceless %}
-        {% if attr.original_widget is defined %}
-            <select {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %}
-                class="form-control select select-primary">
-                {% if empty_value is not none %}
-                    <option
-                        value=""{% if required and value is empty %} selected="selected"{% endif %}>{{ empty_value|trans({}, translation_domain) }}</option>
-                {% endif %}
-                {% if preferred_choices|length > 0 %}
-                    {% set options = preferred_choices %}
-                    {{ block('choice_widget_options') }}
-                    {% if choices|length > 0 and separator is not none %}
-                        <option disabled="disabled">{{ separator }}</option>
-                    {% endif %}
-                {% endif %}
-                {% set options = choices %}
+        <select {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %}
+            class="form-control select select-primary">
+            {% if empty_value is not none %}
+                <option
+                    value=""{% if required and value is empty %} selected="selected"{% endif %}>{{ empty_value|trans({}, translation_domain) }}</option>
+            {% endif %}
+            {% if preferred_choices|length > 0 %}
+                {% set options = preferred_choices %}
                 {{ block('choice_widget_options') }}
-            </select>
-        {% else %}
-            <label class="checkbox" for="{{ id }}">
-                <span class="icons"><span class="first-icon fui-checkbox-unchecked"></span><span
-                        class="second-icon fui-checkbox-checked"></span></span>
-                <input
-                    type="checkbox" {{ block('widget_attributes') }}  {% if value is not empty %}value="{{ value }}" {% endif %}
-                    data-toggle="checkbox">
-                {{ label }}
-            </label>
-        {% endif %}
+                {% if choices|length > 0 and separator is not none %}
+                    <option disabled="disabled">{{ separator }}</option>
+                {% endif %}
+            {% endif %}
+            {% set options = choices %}
+            {{ block('choice_widget_options') }}
+        </select>
     {% endspaceless %}
 {% endblock %}
 
@@ -81,10 +79,6 @@
 
 {% block checkbox_row %}
     {{ form_widget(form) }}
-{% endblock %}
-
-{% block thecodeine_newsbundle_category_widget %}
-    <input type="hidden" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %} />
 {% endblock %}
 
 {% block imagefile_widget %}
@@ -324,4 +318,3 @@
 {% block a2lix_translationsForms_widget %}
     {{ block('a2lix_translations_widget') }}
 {% endblock %}
-

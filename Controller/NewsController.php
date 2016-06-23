@@ -22,24 +22,20 @@ class NewsController extends \TheCodeine\NewsBundle\Controller\NewsController
         $em = $this->getDoctrine()->getManager();
         $dql   = "SELECT n FROM TheCodeineNewsBundle:$newsType n";
         $query = $em->createQuery($dql);
-        $defaultSort = array('defaultSortFieldName' => 'n.createdAt', 'defaultSortDirection' => 'desc');
+        $defaultSort = array(
+            'defaultSortFieldName' => 'n.createdAt',
+            'defaultSortDirection' => 'DESC'
+        );
 
-        $categoryId = $request->get('cid');
         $page = $request->query->get('page', 1);
         $limit = 10;
-
-        if ($categoryId) {
-            $query
-                ->where('n.category = :categoryId')
-                ->setParameter('categoryId', $categoryId);
-        }
 
         $paginator =  $this->get('knp_paginator');
         $pagination = $paginator->paginate($query, $page, $limit, $defaultSort);
 
         return array(
             'pagination' => $pagination,
-            'limit' => $page * $limit - $limit,
+            'offset' => $page * $limit - $limit,
             'newsType' => $newsType,
         );
     }

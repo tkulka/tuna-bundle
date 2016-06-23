@@ -15,6 +15,21 @@ fos_user_security_logout:
     path: /logout
     defaults: { _controller: TheCodeineAdminBundle:Security:logout }
 
+# CATEGORY Route
+tuna_category:
+    resource: "@TheCodeineCategoryBundle/Resources/config/routes.yml"
+    prefix: /admin
+
+tuna_category_list:
+    path: /admin/category/list
+    defaults:  { _controller: TheCodeineAdminBundle:Category:list }
+
+tuna_category_edit:
+    path: /admin/category/{id}/edit
+    defaults:  { _controller: TheCodeineAdminBundle:Category:edit }
+    requirements:
+        id:  \d+
+
 # IMAGE Route
 tuna_image:
     resource: "@TheCodeineImageBundle/Resources/config/routing.yml"
@@ -89,3 +104,19 @@ tuna_page_delete:
 tuna_admin_homepage:
     path: /admin/
     defaults: { _controller: TheCodeineAdminBundle:Admin:index }
+
+# TRANSLATIONS Route
+JMSTranslationBundle_translate:
+    resource: "@JMSTranslationBundle/Controller/ApiController.php"
+    type: annotation
+    prefix: /admin/translations
+    condition: "%enable_translations%"
+
+JMSTranslationBundle_api:
+    resource: "@JMSTranslationBundle/Controller/TranslateController.php"
+    type: annotation
+    prefix: /admin/translations
+    condition: "%enable_translations%"
+
+tuna_translations:
+    path: /admin/translations
