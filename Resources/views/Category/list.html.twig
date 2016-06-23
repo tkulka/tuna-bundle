@@ -2,7 +2,7 @@
 {% block main_class %}bg-lightgray{% endblock %}
 
 {% block content %}
-    {% if (groupedCategories is defined ? groupedCategories : categories)|length == 0 %}
+    {% if groupedCategories |length == 0 %}
         <div class="admin-alert alert text-center">
             <h3>{% trans %}Oops there is nothing here!{% endtrans %}</h3>
         </div>
@@ -10,14 +10,10 @@
         <div class="row admin-container">
             <div class="col-sm-12">
                 <div class="admin-list">
-                    {% if groupedCategories is defined %}
-                        {% for categoryType, categories in groupedCategories %}
-                            <h2>{{ categoryType | trans({}, 'categories') }}</h2>
-                            {% include 'TheCodeineAdminBundle:Category:_list.html.twig' with { entities: categories} %}
-                        {% endfor %}
-                    {% else %}
+                    {% for categoryType, categories in groupedCategories %}
+                        <h2>{{ categoryType | trans({}, 'categories') }}</h2>
                         {% include 'TheCodeineAdminBundle:Category:_list.html.twig' with { entities: categories} %}
-                    {% endif %}
+                    {% endfor %}
                 </div>
             </div>
         </div>

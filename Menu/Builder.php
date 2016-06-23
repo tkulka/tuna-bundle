@@ -112,10 +112,6 @@ class Builder
             $this->addChild($menu, $request, 'Create news', 'tuna_news_create');
         }
 
-        if (preg_match_all('/tuna_category/i', $request->get('_route'))) {
-            $this->addChild($menu, $request, 'Create category', 'tuna_category_create');
-        }
-
         return $menu;
     }
 

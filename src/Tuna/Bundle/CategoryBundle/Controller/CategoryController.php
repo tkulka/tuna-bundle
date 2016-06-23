@@ -32,11 +32,9 @@ class CategoryController extends Controller
     /**
      * @Template()
      */
-    public function editAction(Request $request, Category $category, $redirectRoute = 'tuna_category_list')
+    public function editAction(Request $request, Category $category)
     {
         $em = $this->getDoctrine()->getManager();
-
-        dump($redirectRoute);
 
         $form = $this->createForm(new CategoryType(), $category);
         $form->add('save', 'submit');
@@ -45,7 +43,7 @@ class CategoryController extends Controller
         if ($form->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl($redirectRoute));
+            return $this->redirectToRoute('tuna_category_list');
         }
 
         return array(
@@ -54,7 +52,7 @@ class CategoryController extends Controller
         );
     }
 
-    public function deleteAction(Request $request, Category $category, $redirectRoute = 'tuna_category_list')
+    public function deleteAction(Request $request, Category $category)
     {
         $em = $this->getDoctrine()->getManager();
         $em->remove($category);
@@ -67,6 +65,6 @@ class CategoryController extends Controller
             $this->get('session')->getFlashBag()->add('error', $errorMsg);
         }
 
-        return $this->redirectToRoute($redirectRoute);
+        return $this->redirectToRoute('tuna_category_list');
     }
 }

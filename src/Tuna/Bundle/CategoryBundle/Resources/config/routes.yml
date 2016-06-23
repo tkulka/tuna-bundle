@@ -2,14 +2,6 @@ tuna_category_list:
     path: /category/list
     defaults:  { _controller: TheCodeineCategoryBundle:Category:list }
 
-tuna_category_list:
-    path: /category/list/{type}
-    defaults:  { _controller: TheCodeineCategoryBundle:Category:listByType }
-
-tuna_category_create:
-    path: /category/create
-    defaults:  { _controller: TheCodeineCategoryBundle:Category:create }
-
 tuna_category_edit:
     path: /category/{id}/edit
     defaults:  { _controller: TheCodeineCategoryBundle:Category:edit }
