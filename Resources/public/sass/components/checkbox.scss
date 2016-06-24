@@ -1,17 +1,24 @@
-.checkbox .icons .first-icon, .checkbox .icons .second-icon, .radio .icons .first-icon, .radio .icons .second-icon {
-    background-color: transparent;
-    color: lighten($brand-tertiary, 25%);
-}
+.checkbox,
+.radio {
+    color: lighten($brand-tertiary, 40%);
 
-.checkbox {
-    color: lighten($brand-tertiary, 25%);
-}
+    .icons {
+        color: lighten($brand-tertiary, 40%);
+    }
 
-.checkbox.checked .second-icon, .radio.checked .second-icon {
-    background-color: transparent;
-    color: transparent;
-}
+    input[type="checkbox"].custom-checkbox,
+    input[type="radio"].custom-radio {
 
-.fui-checkbox-checked:before {
-    color: $brand-primary;
+        &:checked + .icons {
+            color: $brand-primary;
+
+            .icon-unchecked {
+                color: $brand-primary;
+            }
+
+            .icon-checked {
+                color: $brand-primary;
+            }
+        }
+    }
 }

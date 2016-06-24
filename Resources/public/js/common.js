@@ -39,6 +39,9 @@ tuna.website = {
             selector: '.tab-pane.active .thecodeine_admin_editor',
             lang: options.lang
         });
+
+        $(':checkbox').radiocheck();
+        $('select').select2();
     },
 
     goToUri: function (uri) {
@@ -294,6 +297,7 @@ tuna.view.GalleryView = Backbone.View.extend({
 
         this.$('.gallery-items').prepend($(newForm));
         this.choiceEventListener(index);
+        $('select').select2({dropdownCssClass: 'select-inverse'});
     },
 
     _onClickDelete: function (e) {

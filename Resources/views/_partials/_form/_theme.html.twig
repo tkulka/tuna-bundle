@@ -40,7 +40,7 @@
     {% spaceless %}
         {% if attr.original_widget is defined %}
             <select {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %}
-                class="form-control select select-primary">
+                class="form-control select select-inverse">
                 {% if empty_value is not none %}
                     <option
                         value=""{% if required and value is empty %} selected="selected"{% endif %}>{{ empty_value|trans({}, translation_domain) }}</option>
@@ -57,11 +57,13 @@
             </select>
         {% else %}
             <label class="checkbox" for="{{ id }}">
-                <span class="icons"><span class="first-icon fui-checkbox-unchecked"></span><span
-                        class="second-icon fui-checkbox-checked"></span></span>
                 <input
                     type="checkbox" {{ block('widget_attributes') }}  {% if value is not empty %}value="{{ value }}" {% endif %}
-                    data-toggle="checkbox">
+                    data-toggle="checkbox" class="custom-checkbox">
+                <span class="icons">
+                    <span class="icon-unchecked"></span>
+                    <span class="icon-checked"></span>
+                </span>
                 {{ label }}
             </label>
         {% endif %}
@@ -70,8 +72,6 @@
 
 {% block checkbox_widget %}
     <label class="checkbox" for="{{ id }}">
-        <span class="icons"><span class="first-icon fui-checkbox-unchecked"></span><span
-                class="second-icon fui-checkbox-checked"></span></span>
         <input
             type="checkbox" {{ block('widget_attributes') }}  {% if value is not empty %}value="{{ value }}" {% endif %} {% if checked %} checked="checked"{% endif %}
             data-toggle="checkbox">
@@ -140,7 +140,7 @@
 {% block tag_collection_widget %}
     <div class="form-group">
         <input type="text" {% if value is not empty %}value="{{ value }}" {% endif %} {{ block('widget_attributes') }}
-               placeholder="{{ label }}" class="form-control input-sm tagsinput tagsinput-primary">
+               placeholder="{{ label }}" data-role="tagsinput" class="form-control input-sm tagsinput tagsinput-primary">
     </div>
 {% endblock %}
 

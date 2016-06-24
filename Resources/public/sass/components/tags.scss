@@ -1,14 +1,11 @@
-.tagsinput {
+.bootstrap-tagsinput {
     border-radius: 0;
-    border-color: $brand-primary;
-
-    &:focus {
-        border-color: $brand-primary;
-    }
+    border: 2px solid lighten($brand-tertiary, 25%);
 
     .tag, .tag:hover {
         border-radius: 0;
         background: $brand-primary;
+        color: $brand-content;
     }
 
     .tagsinput-add {
