@@ -71,10 +71,6 @@
         <input
             type="checkbox" {{ block('widget_attributes') }}  {% if value is not empty %}value="{{ value }}" {% endif %} {% if checked %} checked="checked"{% endif %}
             data-toggle="checkbox">
-        <span class="icons">
-            <span class="icon-unchecked"></span>
-            <span class="icon-checked"></span>
-        </span>
         {{ label }}
     </label>
 {% endblock %}

@@ -93,7 +93,7 @@
             // increase the index with one for the next item
             $(e.currentTarget).data('index', index + 1);
 
-            this.$('.gallery-items').prepend($(newForm));
+            this.$('.gallery-items').append($(newForm));
             this.choiceEventListener(index);
             $('select').select2();
         },
