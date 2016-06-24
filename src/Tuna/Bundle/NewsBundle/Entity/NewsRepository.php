@@ -58,10 +58,12 @@ class NewsRepository extends PageRepository
         return $this->addTranslationWalker($qb)->getResult();
     }
 
-    public function getLatestItems($limit = 3)
+    public function getLatestItems($limit = 3, $slug = '')
     {
         $qb = $this->createQueryBuilder('t')
             ->where('t.published=1')
+            ->andWhere('t.slug != :slug')
+            ->setParameter('slug', $slug)
             ->orderBy('t.createdAt', 'DESC')
             ->setMaxResults($limit);
 
