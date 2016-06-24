@@ -52,7 +52,6 @@ class NewsController extends Controller
     /**
      *
      * @param Request $request
-     * @param string $newsType
      * @param integer $id
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse

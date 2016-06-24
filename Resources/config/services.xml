@@ -33,8 +33,8 @@
             <tag name="twig.extension"/>
         </service>
 
-        <service id="the_codeine_admin.twig.globals_extension" class="TheCodeine\AdminBundle\Twig\GlobalsExtension">
-            <argument type="service" id="service_container" />
+        <service id="the_codeine_admin.twig.path_extension" class="TheCodeine\AdminBundle\Twig\PathExtension">
+            <argument>%the_codeine_admin.paths%</argument>
             <tag name="twig.extension" />
         </service>
     </services>

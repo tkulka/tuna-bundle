@@ -21,7 +21,7 @@ class NewsFactory
         $this->em = $em;
     }
 
-    public function getInstance($type)
+    public function getInstance($type = null)
     {
         switch ($type) {
             case 'Event':
@@ -31,10 +31,10 @@ class NewsFactory
         }
     }
 
-    public function getFormInstance(BaseNews $news)
+    public function getFormInstance(BaseNews $news = null)
     {
-        switch ($news instanceof Event) {
-            case 'Event':
+        switch (true) {
+            case $news instanceof Event:
                 return new EventType();
             default:
                 return new NewsType();
