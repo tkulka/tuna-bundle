@@ -3,7 +3,6 @@
 namespace TheCodeine\PageBundle\Entity;
 
 use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;
-use TheCodeine\NewsBundle\Entity\Category;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -28,17 +27,10 @@ abstract class BasePage
     protected $id;
 
     /**
-     * @var
-     * @ORM\ManyToOne(targetEntity="TheCodeine\NewsBundle\Entity\Category")
-     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
-     */
-    protected $category;
-
-    /**
      * @var string
      *
      * @Gedmo\Translatable
-     * @ORM\Column(name="title", type="string", length=255, nullable=true)
+     * @ORM\Column(name="title", type="string", length=255)
      * @Assert\NotBlank()
      */
     protected $title;
@@ -53,7 +45,7 @@ abstract class BasePage
 
     /**
      * @Gedmo\Slug(fields={"title"})
-     * @ORM\Column(length=64, type="string", unique=true)
+     * @ORM\Column(type="string", unique=true)
      */
     protected $slug;
 
@@ -233,25 +225,6 @@ abstract class BasePage
         }
 
         $this->translations = $translations;
-    }
-
-    /**
-     * @param mixed $category
-     * @return Page
-     */
-    public function setCategory($category)
-    {
-        $this->category = $category;
-
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCategory()
-    {
-        return $this->category;
     }
 
     /**

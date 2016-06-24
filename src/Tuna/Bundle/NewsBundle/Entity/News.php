@@ -11,7 +11,7 @@ use TheCodeine\PageBundle\Entity\BasePage;
  * News
  *
  * @ORM\Table(name="news")
- * @ORM\Entity(repositoryClass="TheCodeine\NewsBundle\Repository\NewsRepository")
+ * @ORM\Entity(repositoryClass="TheCodeine\NewsBundle\Entity\NewsRepository")
  * @Gedmo\TranslationEntity(class="TheCodeine\NewsBundle\Entity\NewsTranslation")
  *
  * @ORM\HasLifecycleCallbacks
@@ -40,13 +40,6 @@ class News extends BasePage
      * @ORM\OrderBy({"position" = "ASC"})
      */
     protected $attachments;
-
-    /**
-     * @var
-     * @ORM\ManyToOne(targetEntity="NewsCategory")
-     * @ORM\JoinColumn(name="news_category_id", referencedColumnName="id")
-     */
-    protected $newsCategory;
 
     /**
      * @var
@@ -95,16 +88,6 @@ class News extends BasePage
     public function getCreatedAt()
     {
         return $this->createdAt;
-    }
-
-    /**
-     * Get category
-     *
-     * @return \TheCodeine\NewsBundle\Entity\NewsCategory
-     */
-    public function getNewsCategory()
-    {
-        return $this->newsCategory;
     }
 
     /**

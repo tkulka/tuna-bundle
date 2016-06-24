@@ -3,10 +3,9 @@
 namespace TheCodeine\AdminBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\Request;
 
-use TheCodeine\PageBundle\Controller\PageController as Controller;
-
-class PageController extends Controller
+class PageController extends \TheCodeine\PageBundle\Controller\PageController
 {
     /**
      *
@@ -14,23 +13,15 @@ class PageController extends Controller
      *
      * @return array
      */
-    public function listAction()
+    public function listAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $repository = $em->getRepository('TheCodeinePageBundle:Page');
-
-        $page = $this->get('request')->get('page', 1);
+        $query = $this->getDoctrine()->getManager()->getRepository('TheCodeinePageBundle:Page')->getListQuery();
+        $page = $request->get('page', 1);
         $limit = 10;
 
-        $pages = $repository->findAll();
-
-        $paginator =  $this->get('knp_paginator');
-        $pagination = $paginator->paginate($pages, $page, $limit);
-
         return array(
-            'pagination' => $pagination,
-            'lp' => $page * $limit - $limit,
-            'pagesList' => $pages
+            'pagination' => $this->get('knp_paginator')->paginate($query, $page, $limit),
+            'offset' => ($page - 1) * $limit,
         );
     }
 }

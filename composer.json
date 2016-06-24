@@ -33,6 +33,7 @@
         "leafo/scssphp": "^0.6.3"
     },
     "replace": {
+        "thecodeine/tuna-categorybundle": "self.version",
         "thecodeine/tuna-editorbundle": "self.version",
         "thecodeine/tuna-gallerybundle": "self.version",
         "thecodeine/tuna-imagebundle": "self.version",
@@ -57,6 +58,7 @@
     "autoload": {
         "psr-4": {
             "TheCodeine\\AdminBundle\\": "",
+            "TheCodeine\\CategoryBundle\\": "src/Tuna/Bundle/CategoryBundle",
             "TheCodeine\\EditorBundle\\": "src/Tuna/Bundle/EditorBundle",
             "TheCodeine\\GalleryBundle\\": "src/Tuna/Bundle/GalleryBundle",
             "TheCodeine\\ImageBundle\\": "src/Tuna/Bundle/ImageBundle",

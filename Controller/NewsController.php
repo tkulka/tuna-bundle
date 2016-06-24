@@ -18,27 +18,17 @@ class NewsController extends \TheCodeine\NewsBundle\Controller\NewsController
      */
     public function listAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $dql   = "SELECT n FROM TheCodeineNewsBundle:News n";
-        $query = $em->createQuery($dql);
-        $defaultSort = array('defaultSortFieldName' => 'n.createdAt', 'defaultSortDirection' => 'desc');
-
-        $categoryId = $request->get('cid');
-        $page = $request->query->get('page', 1);
+        $query = $this->getDoctrine()->getManager()->getRepository('TheCodeineNewsBundle:News')->getListQuery();
+        $page = $request->get('page', 1);
         $limit = 10;
-
-        if ($categoryId) {
-            $query
-                ->where('n.category = :categoryId')
-                ->setParameter('categoryId', $categoryId);
-        }
-
-        $paginator =  $this->get('knp_paginator');
-        $pagination = $paginator->paginate($query, $page, $limit, $defaultSort);
+        $sort = array(
+            'defaultSortFieldName' => 'p.createdAt',
+            'defaultSortDirection' => 'DESC',
+        );
 
         return array(
-            'pagination' => $pagination,
-            'lp' => $page * $limit - $limit,
+            'pagination' => $this->get('knp_paginator')->paginate($query, $page, $limit, $sort),
+            'offset' => ($page - 1) * $limit,
         );
     }
 }

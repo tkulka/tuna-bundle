@@ -6,7 +6,7 @@
         <div class="admin-alert alert text-center">
             <h3>{% trans %}Oops there is nothing here!{% endtrans %}</h3>
             <a href="{{ path('tuna_page_create') }}" class="btn btn-primary btn-wide">
-                <i class="fui-plus-inverted"></i> {% trans %}Add first page item{% endtrans %}
+                <i class="fui-plus-inverted"></i> {% trans %}Add first item{% endtrans %}
             </a>
         </div>
     {% else %}
@@ -29,7 +29,7 @@
                         <tbody>
                             {% for item in pagination %}
                                 <tr data-enabled="{{ item.published|round }}" class="{% if not item.published %}unpublished{% endif %}">
-                                    <td>{{ loop.index + lp}}</td>
+                                    <td>{{ loop.index + offset }}</td>
                                     <td>{{ item.title }}</td>
                                     <td>{{ item.slug }}</td>
                                     <td class="center">

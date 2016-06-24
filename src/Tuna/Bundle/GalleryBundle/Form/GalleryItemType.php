@@ -29,9 +29,6 @@ class GalleryItemType extends AbstractType
                     1 => 'Image'
                 ),
                 'required' => true,
-                'attr' => array(
-                    'original_widget' => true,
-                )
             ));
 
         $formModifier = function (FormInterface $form, $type) {
