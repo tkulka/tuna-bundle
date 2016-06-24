@@ -1,6 +1,3 @@
-parameters:
-    enable_translations: 'true'
-
 imports:
     - { resource: security.yml }
 

@@ -5,6 +5,7 @@ namespace TheCodeine\AdminBundle\Menu;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 use Symfony\Component\HttpFoundation\Request;
+use TheCodeine\NewsBundle\Entity\News;
 
 class Builder
 {
@@ -70,7 +71,12 @@ class Builder
             return preg_match_all('/tuna_page/i', $request->get('_route'));
         });
         $this->addChild($menu, $request, 'News', 'tuna_news_list', 110, function ($request, $route) {
-            return preg_match_all('/tuna_news/i', $request->get('_route')) && $request->attributes->get('newsType') == 'News';
+            return
+                preg_match_all('/tuna_news_/i', $request->get('_route')) &&
+                (
+                    $request->attributes->get('newsType') == 'News' ||
+                    $request->attributes->get('news') instanceof News
+                );
         }, array(
             'newsType' => 'News'
         ));

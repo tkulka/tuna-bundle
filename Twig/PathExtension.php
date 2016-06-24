@@ -12,11 +12,6 @@ class PathExtension extends \Twig_Extension
      */
     private $paths;
 
-    /**
-     * @var ContainerInterface
-     */
-    private $container;
-
     public function __construct($paths)
     {
         $this->paths = $paths;

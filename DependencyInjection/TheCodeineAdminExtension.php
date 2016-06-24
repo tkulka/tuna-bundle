@@ -39,5 +39,6 @@ class TheCodeineAdminExtension extends Extension implements PrependExtensionInte
     private function setParameters(ContainerBuilder $container, array $config)
     {
         $container->setParameter('the_codeine_admin.paths', $config['paths']);
+        $container->setParameter('the_codeine_admin.enable_translations', $config['enable_translations']);
     }
 }

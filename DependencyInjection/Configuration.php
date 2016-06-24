@@ -20,14 +20,21 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('the_codeine_admin');
 
-        $rootNode->children()
+        // @formatter:off
+        $rootNode
+            ->children()
             ->arrayNode('paths')
             ->children()
             ->scalarNode('admin_logo')
             ->defaultValue('bundles/thecodeineadmin/images/logo.png')
             ->end()
             ->end()
+            ->end()
+            ->booleanNode('enable_translations')
+            ->defaultValue(true)
+            ->end()
             ->end();
+        // @formatter:on
 
         return $treeBuilder;
     }

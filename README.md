@@ -24,9 +24,17 @@
     Tuna injects some basic configs, but feel free to override them (be aware that you can broke some of functionalities by this).  
     For newest config defaults check [Resources/config/config.yml](Resources/config/config.yml). This file also includes
     [Resources/config/security.yml](Resources/config/security.yml), so be sure to clear your security.yml file, or override some parts.
+    
+    You can also fine tune Tuna by changing bundle config.  
+    Here is full option config with defaults:
+    
+        the_codeine_admin:
+            paths:
+                admin_logo: bundles/thecodeineadmin/images/logo.png
+            enable_translations: true
 
 ##Translations:
-Translations are enabled by default. You can turn them off by changing `parameters.enable_translations` to `"false"` in `config.yml`.
+Translations are enabled by default. You can turn them off by overriding `the_codeine_admin.enable_translations` config.
 
 Dump translation files:
 
