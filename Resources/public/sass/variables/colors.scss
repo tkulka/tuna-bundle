@@ -10,6 +10,12 @@ $link-hover-color:          #ffffff !default;
 $link-color-inverse:        #ffffff !default;
 $link-hover-color-inverse:  #252324 !default;
 
+$select-default-bg: lighten($brand-tertiary, 25%) !default;
+$select-default-hover-bg: $brand-secondary !default;
+$select-dropdown-highlighted-item-bg: $brand-primary !default;
+$select-dropdown-item-hover-bg: $brand-primary !default;
+$select-dropdown-item-hover-color: #ffffff !default;
+
 $brand-success:             #1abc9c !default;
 $brand-warning:             #f1c40f !default;
 $brand-danger:              #e74c3c !default;
