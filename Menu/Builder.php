@@ -41,18 +41,6 @@ class Builder
     }
 
     /**
-     * @param Request $request
-     * @return ItemInterface
-     */
-    public function getSubmenu(Request $request)
-    {
-        $menu = $this->buildSubMenu($request);
-        $this->reorderMenu($menu);
-
-        return $menu;
-    }
-
-    /**
      * @param ItemInterface
      * @return ItemInterface
      */
@@ -91,29 +79,6 @@ class Builder
             $this->addChild($menu, $request, 'Translations', 'tuna_translations', 500, function ($request, $route) {
                 return preg_match_all('/thecodeine_translations/i', $request->get('_route'));
             });
-        }
-
-        return $menu;
-    }
-
-    /**
-     * @param Request $request
-     * @return ItemInterface
-     */
-    protected function buildSubMenu(Request $request)
-    {
-        $menu = $this->factory->createItem('root', array(
-            'childrenAttributes' => array('class' => 'nav')
-        ));
-
-        if (preg_match_all('/tuna_page/i', $request->get('_route'))) {
-            $this->addChild($menu, $request, 'Create page', 'tuna_page_create');
-        }
-
-        if (preg_match_all('/tuna_news/i', $request->get('_route'))) {
-            $this->addChild($menu, $request, 'Create news', 'tuna_news_create', null, null, array(
-                'newsType' => 'News',
-            ));
         }
 
         return $menu;

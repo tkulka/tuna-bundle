@@ -10,7 +10,7 @@ use TheCodeine\PageBundle\Entity\BasePage;
 /**
  * BaseNews
  *
- * @ORM\Entity(repositoryClass="TheCodeine\NewsBundle\Repository\NewsRepository")
+ * @ORM\Entity(repositoryClass="TheCodeine\NewsBundle\Entity\NewsRepository")
  * @Gedmo\TranslationEntity(class="TheCodeine\NewsBundle\Entity\NewsTranslation")
  *
  * @ORM\Table(name="news")
@@ -21,6 +21,11 @@ use TheCodeine\PageBundle\Entity\BasePage;
  */
 class BaseNews extends BasePage
 {
+    public static $newsTypeMap = array(
+        'aktualnosci' => 'News',
+        'wydarzenia' => 'Event',
+    );
+    
     /**
      * @var \DateTime
      *

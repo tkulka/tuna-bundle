@@ -6,16 +6,13 @@
         <div class="admin-alert alert text-center">
             <h3>{% trans %}Oops there is nothing here!{% endtrans %}</h3>
             <a href="{{ path('tuna_page_create') }}" class="btn btn-primary btn-wide">
-                <i class="fui-plus-inverted"></i> {% trans %}Add first item{% endtrans %}
+                <i class="fui-plus"></i> {% trans %}Add first item{% endtrans %}
             </a>
         </div>
     {% else %}
         <div class="row admin-container">
             <div class="col-sm-12">
                 <div class="admin-list">
-
-                    {% include 'TheCodeineAdminBundle::_partials/_menu.sub.html.twig' %}
-
                     <table class="table table-hover">
                         <thead>
                             <tr>

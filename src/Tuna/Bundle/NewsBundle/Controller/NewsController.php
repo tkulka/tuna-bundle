@@ -39,16 +39,8 @@ class NewsController extends Controller
      */
     public function listAction(Request $request, $newsType)
     {
-        $categoryId = $request->get('cid');
         $em = $this->getDoctrine()->getManager();
-        if ($categoryId) {
-            $query = $em
-                ->createQuery('SELECT n FROM TheCodeineNewsBundle:$newsType n WHERE n.category = :category ORDER BY n.createdAt DESC')
-                ->setParameter('category', $categoryId);
-        } else {
-            $query = $em
-                ->createQuery('SELECT n FROM TheCodeineNewsBundle:$newsType n ORDER BY n.createdAt DESC');
-        }
+        $query = $em->createQuery('SELECT n FROM TheCodeineNewsBundle:$newsType n ORDER BY n.createdAt DESC');
         $pages = $query->getResult();
 
         return array(

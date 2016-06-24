@@ -29,13 +29,6 @@
             <argument type="service" id="request"/>
             <tag name="knp_menu.menu" alias="menu.top"/>
         </service>
-        <service id="the_codeine_admin.menu.sub" class="%the_codeine_admin.menu.item.class%"
-                 factory-service="the_codeine_admin.menu_builder"
-                 factory-method="getSubmenu"
-                 scope="request">
-            <argument type="service" id="request"/>
-            <tag name="knp_menu.menu" alias="menu.sub"/>
-        </service>
         <service class="TheCodeine\AdminBundle\Twig\TwigExtension" id="the_codeine_admin.twig.twig_extension">
             <tag name="twig.extension"/>
         </service>

@@ -11,12 +11,6 @@ use TheCodeine\NewsBundle\Form\EventType;
 
 class NewsFactory
 {
-
-    private static $NEWS_TYPES = array(
-        'News' => 'aktualnosci',
-        'Event' => 'wydarzenia',
-    );
-
     /**
      * @var EntityManager
      */

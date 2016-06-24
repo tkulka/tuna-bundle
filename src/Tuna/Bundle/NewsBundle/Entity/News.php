@@ -10,7 +10,7 @@ use TheCodeine\PageBundle\Entity\BasePage;
 /**
  * News
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="TheCodeine\NewsBundle\Entity\NewsRepository")
  */
 class News extends BaseNews
 {
