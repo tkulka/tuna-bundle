@@ -1,7 +1,7 @@
 {% extends app.request.isXmlHttpRequest ? 'TheCodeineAdminBundle::_embed.html.twig' : "TheCodeineAdminBundle::_layout.html.twig" %}
 
 {% block content %}
-    {% include 'TheCodeineAdminBundle::_partials/_form/_main.html.twig' with {'title': 'Create news'|trans } %}
+    {% include 'TheCodeineAdminBundle::_partials/_form/_main.html.twig' with {'title': ('Create ' ~ newsType)|trans } %}
 {% endblock %}
 
 {% block extra_javascript %}

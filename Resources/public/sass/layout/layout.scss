@@ -23,9 +23,6 @@ body {
 }
 
 .container {
-    @include flex-box();
-    @include flex-flow(row wrap);
-
     max-width: 100%!important;
     width: 100%!important;
     height: 100%;
@@ -43,11 +40,6 @@ body {
         }
     }
 }
-
-.container > * {
-    flex: 1 100%;
-}
-
 .content {
     padding: 0;
     background: $brand-content;
@@ -76,18 +68,12 @@ body {
     }
 
     & > form, .translation-container {
-        @include flex-box();
-        @include flex-flow(row wrap);
         height: 100vh;
 
-        & > * {
-            flex: 1;
-        }
-
         .inside {
-            height: 100vh;
             overflow-x: hidden;
             overflow-y: auto;
+            @include calc(height, '100% -' $headerHeight);
 
             .body {
                 padding: 40px 60px 60px 60px;
@@ -96,17 +82,9 @@ body {
     }
 }
 
-@media all and (min-width: $desktopSmallScreen) {
-    .aside {
-        flex: 1;
-        order: 1;
-        position: relative;
-        z-index: 100;
-        height: 100%;
-    }
-
-    .content, .inside {
-        flex: 1;
-        order: 3;
-    }
+.aside {
+    position: relative;
+    z-index: 100;
+    height: 100%;
+    float: left;
 }

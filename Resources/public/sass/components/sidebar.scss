@@ -1,26 +1,12 @@
 .aside-1 {
-    padding: 20px 0;
+    padding: 0;
     background: $brand-secondary;
     height: 100%;
     display: none;
 
     @media all and (min-width: $desktopSmallScreen) {
         display: block;
-        max-width: $sidebarNavWidth;
-    }
-
-    .actions {
-        padding: 0 0 0 20px;
-        margin: 0 0 20px 0;
-
-        li {
-            display: inline-block;
-            list-style: none;
-
-            &.active {
-                background: transparent;
-            }
-        }
+        width: $sidebarNavWidth;
     }
 
     .nav {

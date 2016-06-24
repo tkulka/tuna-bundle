@@ -72,7 +72,7 @@ liip_imagine:
         tuna_admin_thumb:
             quality: 90
             filters:
-                thumbnail: { size: [260, 180], mode: outbound }
+                thumbnail: { size: [280, 196], mode: outbound }
         tuna_gallery_thumb:
             quality: 90
             filters:

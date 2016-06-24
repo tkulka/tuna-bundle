@@ -1,7 +1,0 @@
-<ul class="actions">
-    {% for item in knp_menu_get('menu.sub') %}
-        <li {% if item.attributes.class is defined %}class="{{ item.attributes.class }}"{% endif %}>
-            <a href="{{ item.uri }}" class="btn btn-primary btn-sm btn-round"><i class="fa fa-plus" aria-hidden="true"></i> {{ item.label | trans }}</a>
-        </li>
-    {% endfor %}
-</ul>

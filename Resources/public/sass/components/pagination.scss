@@ -1,0 +1,25 @@
+.pagination {
+    li {
+        &.active {
+            > a,
+            > a:focus,
+            > a:hover {
+                background-color: $brand-primary;
+                border: 0;
+                color: $link-hover-color;
+                border-radius: 0;
+            }
+        }
+
+        a, span {
+            background-color: transparent;
+            border: 0;
+            color: $link-color-inverse;
+
+            &:hover, &:focus {
+                background-color: transparent;
+                color: $brand-primary;
+            }
+        }
+    }
+}

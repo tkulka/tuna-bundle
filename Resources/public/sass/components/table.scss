@@ -1,56 +1,58 @@
-.table > tbody, .table > thead  {
+.table {
+    border-collapse: initial;
 
-    > tr {
+    > tbody, > thead {
+        > tr {
 
-        &.unpublished {
-            opacity: .5;
-        }
-
-        &:hover {
-            opacity: 1;
-
-            > td {
-                background: $brand-secondary;
-                color: $link-hover-color;
+            &.unpublished {
+                opacity: .5;
             }
-        }
 
-        td, th {
-            color: lighten($brand-tertiary, 40%);
-            border-top: 0;
-            border-bottom: 1px solid lighten($brand-tertiary, 25%);
+            &:hover {
+                opacity: 1;
 
-            a {
-                color: $link-hover-color;
-
-                &:hover {
-                    color: $brand-primary;
+                > td {
+                    background: $brand-secondary;
+                    color: $link-hover-color;
                 }
             }
-        }
 
-        th, th a {
-            font-weight: 400;
-            font-size: 12px;
-            opacity: .6;
-        }
-
-        td {
-            font-size: 15px;
-
-            &.options {
-                text-align: right;
-                min-width: 120px;
+            td, th {
+                color: lighten($brand-tertiary, 40%);
+                border-top: 0;
+                border-bottom: 1px solid lighten($brand-tertiary, 25%);
 
                 a {
-                    margin-left: 10px;
+                    color: $link-hover-color;
+
+                    &:hover {
+                        color: $brand-primary;
+                    }
+                }
+            }
+
+            th, th a {
+                font-weight: 400;
+                font-size: 12px;
+                opacity: .6;
+            }
+
+            td {
+                font-size: 15px;
+
+                &.options {
+                    text-align: right;
+                    min-width: 120px;
+
+                    a {
+                        margin-left: 10px;
+                    }
                 }
             }
         }
-    }
 
-    .center {
-        text-align: center;
+        .center {
+            text-align: center;
+        }
     }
 }
-

@@ -3,7 +3,7 @@
 
     @media all and (min-width: $mobileLargeScreen) {
         display: block;
-        max-width: $sidebarOptionsWidth;
+        width: $sidebarOptionsWidth;
     }
 
     .admin-option-container {
@@ -37,6 +37,15 @@
                     color: $brand-secondary;
                 }
             }
+        }
+
+        label {
+            color: $link-color-inverse;
+        }
+
+        .dialog-danger {
+            font-size: 12px;
+            color: $link-color-inverse;
         }
 
         .btn-gallery {

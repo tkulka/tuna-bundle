@@ -24,7 +24,7 @@
                     unlockWidths($(ui.item).closest('table'));
                 },
                 change: _.bind(function (event, ui) {
-                    this.$('[data-action="save-order"]').fadeIn();
+                    this.$('[data-action="save-order"]').removeClass('inactive');
                 }, this)
             }).find('.handle').on('mousedown', function () {
                 lockWidths($(this).closest('table'));
@@ -39,7 +39,7 @@
                 },
                 url: this.$el.data('sortable-url'),
                 success: function (data) {
-                    $(event.currentTarget).fadeOut();
+                    $(event.currentTarget).addClass('inactive');
                 }
             })
         }

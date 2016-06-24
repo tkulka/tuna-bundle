@@ -4,10 +4,15 @@ namespace TheCodeine\NewsBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
 use TheCodeine\NewsBundle\Entity\Attachment;
+use TheCodeine\NewsBundle\Entity\BaseNews;
 use TheCodeine\NewsBundle\Entity\News;
+use TheCodeine\NewsBundle\Entity\Event;
+use TheCodeine\NewsBundle\Entity\Category;
 use TheCodeine\NewsBundle\Entity\NewsTranslation;
 use TheCodeine\NewsBundle\Form\AttachmentType;
+use TheCodeine\NewsBundle\Form\CategoryType;
 use TheCodeine\NewsBundle\Form\NewsType;
+use TheCodeine\NewsBundle\Form\EventType;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,62 +37,67 @@ class NewsController extends Controller
      *
      * @return array
      */
-    public function listAction(Request $request)
+    public function listAction(Request $request, $newsType)
     {
-        $query = $this->getDoctrine()->getManager()->getRepository('TheCodeineNewsBundle:News')->getListQuery();
-        $page = $request->get('page', 1);
-        $limit = 10;
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery('SELECT n FROM TheCodeineNewsBundle:$newsType n ORDER BY n.createdAt DESC');
+        $pages = $query->getResult();
 
         return array(
-            'pagination' => $this->get('knp_paginator')->paginate($query, $page, $limit),
-            'offset' => ($page - 1) * $limit,
+            'newsList' => $pages,
+            'newsType' => $newsType,
         );
     }
 
     /**
      *
-     * @param News $news
+     * @param Request $request
+     * @param string $newsType
+     * @param integer $id
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function deleteAction(News $news)
+    public function deleteAction(BaseNews $news)
     {
         $em = $this->getDoctrine()->getManager();
         $em->remove($news);
         $em->flush();
 
-        return $this->redirect($this->generateUrl('tuna_news_list'));
+        return $this->redirect($this->generateUrl('tuna_news_list', array('newsType' => $news->getType())));
     }
 
     /**
      * @Template()
      *
      * @param Request $request
+     * @param string $newsType
      *
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request, $newsType)
     {
         $em = $this->getDoctrine()->getManager();
-        $news = new News();
+        $news = $this->get('tuna.news.factory')->getInstance($newsType);
 
-        $form = $this->createForm(new NewsType(), $news);
+        $form = $this->createForm($this->get('tuna.news.factory')->getFormInstance($news), $news);
+
         $form->handleRequest($request);
-
         if ($form->isValid()) {
             if ($news->getImage()->getFile() == null) {
                 $news->setImage(null);
             }
+            $em->persist($news);
+
             if (!$request->isXmlHttpRequest()) {
-                $em->persist($news);
                 $em->flush();
 
-                return $this->redirect($this->generateUrl('tuna_news_edit', array('id' => $news->getId())));
+                return $this->redirect($this->generateUrl('tuna_news_list', array('newsType' => $newsType)));
             }
         }
 
         return array(
             'news' => $news,
+            'newsType' => $newsType,
             'form' => $form->createView(),
         );
     }
@@ -96,19 +106,14 @@ class NewsController extends Controller
      * @Template()
      *
      * @param Request $request
-     * @param News $news
      *
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function editAction(Request $request, News $news)
+    public function editAction(BaseNews $news, Request $request)
     {
-        /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
-        if (null == $news) {
-            $news = new News();
-        }
 
-        $form = $this->createForm(new NewsType(), $news);
+        $form = $this->createForm($this->get('tuna.news.factory')->getFormInstance($news), $news);
 
         $originalAttachments = new ArrayCollection();
         foreach ($news->getAttachments() as $attachment) {
@@ -126,9 +131,11 @@ class NewsController extends Controller
 
         if ($form->isValid()) {
             if ($form->get('image')->get('remove')->getData() == '1') {
+                // remove image
                 $em->remove($news->getImage());
                 $news->setImage(null);
             }
+
             //remove attachments
             foreach ($originalAttachments as $attachment) {
                 if (false === $news->getAttachments()->contains($attachment)) {
@@ -142,11 +149,12 @@ class NewsController extends Controller
                 }
             }
 
+            $em->persist($news);
+
             if (!$request->isXmlHttpRequest()) {
-                $em->persist($news);
                 $em->flush();
 
-                return $this->redirect($this->generateUrl('tuna_news_edit', array('id' => $news->getId())));
+                return $this->redirect($this->generateUrl('tuna_news_list', array('newsType' => $news->getType())));
             }
         }
 
@@ -200,5 +208,4 @@ class NewsController extends Controller
             'form' => $form->createView(),
         );
     }
-
 }
