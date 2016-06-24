@@ -23,16 +23,16 @@ class Configuration implements ConfigurationInterface
         // @formatter:off
         $rootNode
             ->children()
-            ->arrayNode('paths')
-            ->children()
-            ->scalarNode('admin_logo')
-            ->defaultValue('bundles/thecodeineadmin/images/logo.png')
-            ->end()
-            ->end()
-            ->end()
-            ->booleanNode('enable_translations')
-            ->defaultValue(true)
-            ->end()
+                ->arrayNode('paths')
+                    ->children()
+                        ->scalarNode('admin_logo')
+                            ->defaultValue('bundles/thecodeineadmin/images/logo.png')
+                        ->end()
+                    ->end()
+                ->end()
+                ->booleanNode('enable_translations')
+                    ->defaultValue(true)
+                ->end()
             ->end();
         // @formatter:on
 
