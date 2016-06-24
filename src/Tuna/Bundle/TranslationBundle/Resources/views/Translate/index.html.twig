@@ -7,14 +7,14 @@
                 <div class="admin-option-container">
                     <form id="config" action="{{ path("jms_translation_index") }}" method="get">
                         <h6 class="text-inverse">{% trans %}Select file{% endtrans %}</h6>
-                        <select name="domain" class="span3 form-control select select-inverse select-block mbl">
+                        <select name="domain" class="span3 form-control select select-default select-block mbl">
                             {% for domain in domains %}
                                 <option value="{{ domain }}"{% if domain == selectedDomain %} selected="selected"{% endif %}>{{ domain }}</option>
                             {% endfor %}
                         </select>
 
                         <h6 class="text-inverse">{% trans %}Select language{% endtrans %}</h6>
-                        <select name="locale" class="span2 form-control select select-inverse select-block mbl">
+                        <select name="locale" class="span2 form-control select select-default select-block mbl">
                             {% for locale in locales %}
                                 <option value="{{ locale }}"{% if locale == selectedLocale %} selected="selected"{% endif %}>{{ locale }}</option>
                             {% endfor %}

@@ -48,7 +48,7 @@
 {% block choice_widget %}
     {% spaceless %}
         <select {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %}
-            class="form-control select select-primary">
+            class="form-control select select-default select-block">
             {% if empty_value is not none %}
                 <option
                     value=""{% if required and value is empty %} selected="selected"{% endif %}>{{ empty_value|trans({}, translation_domain) }}</option>

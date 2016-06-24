@@ -95,6 +95,7 @@
 
             this.$('.gallery-items').prepend($(newForm));
             this.choiceEventListener(index);
+            $('select').select2();
         },
 
         _onClickDelete: function (e) {
