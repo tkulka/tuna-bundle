@@ -22,6 +22,7 @@
                 .datetimepicker({
                     dateFormat: "yy-mm-dd",
                     timeFormat: "HH:mm:ss",
+                    defaultTime: '00:00:00',
                     showAnim: 'slideDown',
                     beforeShow: function (input, inst) {
                         var $dp = $(inst.dpDiv);
