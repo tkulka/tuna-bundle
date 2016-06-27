@@ -1,5 +1,6 @@
 .aside-2 {
     display: none;
+    background-color: $brand-tertiary;
 
     @media all and (min-width: $mobileLargeScreen) {
         display: block;
