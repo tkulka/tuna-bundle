@@ -49,22 +49,16 @@
                 list-style: none;
                 display: table;
                 width: 100%;
+                height: 85px;
                 background: $brand-content;
-                border-bottom: 1px solid $brand-tertiary;
 
                 > div {
                     height: 85px;
+                    border-bottom: 1px solid $brand-tertiary;
                     position: relative;
                     padding: 10px;
                     display: table-cell;
                     vertical-align: middle;
-
-                    &.select2-container {
-                        padding: 0;
-                        margin: 10px 0;
-                        display: block;
-                        height: auto;
-                    }
 
                     &.option {
                         width: 50px;
@@ -151,6 +145,10 @@
             left: 0px;
             z-index: 10;
             cursor: pointer;
+        }
+
+        input[type="url"] {
+            height: 85px;
         }
 
         .fui-plus {
