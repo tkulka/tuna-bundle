@@ -23,6 +23,7 @@ class NewsFactory
 
     public function getInstance($type = null)
     {
+        $type = ucfirst(strtolower($type));
         switch ($type) {
             case 'Event':
                 return new Event();
