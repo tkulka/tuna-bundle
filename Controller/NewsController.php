@@ -20,10 +20,10 @@ class NewsController extends \TheCodeine\NewsBundle\Controller\NewsController
     public function listAction(Request $request, $newsType)
     {
         $em = $this->getDoctrine()->getManager();
-        $dql   = "SELECT n FROM TheCodeineNewsBundle:$newsType n";
+        $dql   = "SELECT p FROM TheCodeineNewsBundle:$newsType p";
         $query = $em->createQuery($dql);
         $defaultSort = array(
-            'defaultSortFieldName' => 'n.createdAt',
+            'defaultSortFieldName' => 'p.createdAt',
             'defaultSortDirection' => 'DESC'
         );
 
