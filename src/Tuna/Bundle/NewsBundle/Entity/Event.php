@@ -27,7 +27,6 @@ class Event extends BaseNews
      * @var \DateTime
      *
      * @Assert\Date()
-     * @Assert\NotNull()
      * @ORM\Column(name="end_date", type="datetime")
      */
     protected $endDate;
