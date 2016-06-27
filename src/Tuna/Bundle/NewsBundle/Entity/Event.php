@@ -36,9 +36,13 @@ class Event extends BaseNews
      */
     public function __construct()
     {
+        $startDate = new \DateTime();
+        $startDate->setTime(0, 0, 0);
+        $startDate->format('Y-m-d');
+
         parent::__construct();
         $this->setCreatedAt(new \DateTime());
-        $this->setStartDate(new \DateTime());
+        $this->setStartDate($startDate);
     }
 
     /**

@@ -1,5 +1,6 @@
 .aside-2 {
     display: none;
+    background-color: $brand-tertiary;
 
     @media all and (min-width: $mobileLargeScreen) {
         display: block;
@@ -11,7 +12,8 @@
         padding: 20px;
         background: $brand-tertiary;
         overflow-y: scroll;
-        @include calc(height, '100vh - ' $headerHeight);
+        height: -webkit-calc(100vh - #{$headerHeight});
+        height: calc(100vh - #{$headerHeight});
         z-index: 100;
         position: relative;
 
