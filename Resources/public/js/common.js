@@ -41,6 +41,9 @@ tuna.website = {
             selector: '.tab-pane.active .thecodeine_admin_editor',
             lang: options.lang
         });
+
+        $(':checkbox').radiocheck();
+        $('select').select2();
     },
 
     goToUri: function (uri) {
