@@ -110,13 +110,14 @@ JMSTranslationBundle_translate:
     resource: "@JMSTranslationBundle/Controller/ApiController.php"
     type: annotation
     prefix: /admin/translations
-    condition: "%enable_translations%"
+    condition: "%the_codeine_admin.enable_translations_string%"
 
 JMSTranslationBundle_api:
     resource: "@JMSTranslationBundle/Controller/TranslateController.php"
     type: annotation
     prefix: /admin/translations
-    condition: "%enable_translations%"
+    condition: "%the_codeine_admin.enable_translations_string%"
 
 tuna_translations:
     path: /admin/translations
+    condition: "%the_codeine_admin.enable_translations_string%"
