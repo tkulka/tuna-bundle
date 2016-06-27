@@ -33,7 +33,8 @@ class EventType extends NewsType
             ))
             ->add('endDate', 'datetime', array(
                 'widget' => 'single_text',
-                'format' => 'yyyy-MM-dd HH:mm:ss'
+                'format' => 'yyyy-MM-dd HH:mm:ss',
+                'required' => false
             ));
     }
 

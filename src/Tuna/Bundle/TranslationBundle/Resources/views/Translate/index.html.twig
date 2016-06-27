@@ -58,7 +58,8 @@
         var isWritable = {{ isWriteable is sameas(true) ? 'true' : 'false' }};
         var infoMessages = {
             'error': '{% trans %}Could not be saved.{% endtrans %}',
-            'success': '{% trans %}Translation was saved.{% endtrans %}'
+            'success': '{% trans %}Translation was saved.{% endtrans %}',
+            'progress': '{% trans %}Saving...{% endtrans %}'
         };
 
         var JMS = new JMSTranslationManager(updateMessagePath, isWritable, infoMessages);

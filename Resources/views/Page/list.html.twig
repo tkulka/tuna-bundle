@@ -27,7 +27,7 @@
                         {% for item in pagination %}
                             <tr data-enabled="{{ item.published|round }}" class="{% if not item.published %}unpublished{% endif %}">
                                 <td>{{ loop.index + offset }}</td>
-                                <td>{{ item.title }}</td>
+                                <td><a href="{{ path('tuna_page_edit',{'id' : item.id}) }}">{{ item.title }}</a></td>
                                 <td>{{ item.slug }}</td>
                                 <td class="center">
                                     {% if item.published %}

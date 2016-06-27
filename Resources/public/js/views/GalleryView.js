@@ -5,6 +5,7 @@
             "click .add_new_item": "_onAddNewItem",
             "click .delete": "_onClickDelete",
             "change input[type='file']": "_onInputFileChange",
+            "keyup input[type='url']": "_onVideoUrlChange",
             'click .close': "_onClose",
             'close': "_onClose",
             'open': "_onOpen",
@@ -93,7 +94,7 @@
             // increase the index with one for the next item
             $(e.currentTarget).data('index', index + 1);
 
-            this.$('.gallery-items').prepend($(newForm));
+            this.$('.gallery-items').append($(newForm));
             this.choiceEventListener(index);
             $('select').select2();
         },
@@ -138,6 +139,27 @@
                 // Read in the image file as a data URL.
                 reader.readAsDataURL(f);
             }
+        },
+
+        _onVideoUrlChange: function(e) {
+            var url = e.target.value;
+            var videoId = '';
+
+            if (/(vimeo)/.test(url)) {
+                url = url.split('/');
+                videoId = url.pop();
+                url = 'https://player.vimeo.com/video/' + videoId;
+            } else {
+                url = url.split('=');
+                videoId = url.pop();
+                url = 'https://www.youtube.com/embed/' + videoId;
+            }
+
+            var iframeTpl = '<iframe width="180" height="100" src="' + url + '" frameborder="0" allowfullscreen></iframe>';
+
+            var $videoPlayer = $(e.target).closest('.item').find('.video-player');
+
+            $videoPlayer.html(iframeTpl);
         },
 
         _onLanguageChange: function (e) {
