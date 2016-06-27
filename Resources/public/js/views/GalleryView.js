@@ -142,10 +142,23 @@
         },
 
         _onVideoUrlChange: function(e) {
-            var url = e.target.value.split('=');
-            var videoId = url.pop();
+            var url = e.target.value;
+            var videoId = '';
+
+            if (/(vimeo)/.test(url)) {
+                url = url.split('/');
+                videoId = url.pop();
+                url = 'https://player.vimeo.com/video/' + videoId;
+            } else {
+                url = url.split('=');
+                videoId = url.pop();
+                url = 'https://www.youtube.com/embed/' + videoId;
+            }
+
+            var iframeTpl = '<iframe width="180" height="100" src="' + url + '" frameborder="0" allowfullscreen></iframe>';
+
             var $videoPlayer = $(e.target).closest('.item').find('.video-player');
-            var iframeTpl = '<iframe width="180" height="100" src="https://www.youtube.com/embed/' + videoId + '" frameborder="0" allowfullscreen></iframe>';
+
             $videoPlayer.html(iframeTpl);
         },
 
