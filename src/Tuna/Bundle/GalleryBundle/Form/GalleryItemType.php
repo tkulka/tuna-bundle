@@ -48,6 +48,8 @@ class GalleryItemType extends AbstractType
                         'translatable_class' => 'TheCodeine\GalleryBundle\Entity\GalleryItem',
                         'fields' => array(
                             'name' => array(
+                                'field_type' => 'text',
+                                'label' => false,
                                 'attr' => array(
                                     'placeholder' => 'Video title',
                                     'class' => 'form-control'

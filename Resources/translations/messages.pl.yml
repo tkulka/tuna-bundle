@@ -1,12 +1,11 @@
 Save: Zapisz
 Options: Opcje
-Important: Ważne
 Published: Opublikowany
 Gallery: Galeria
 Attachments: Załączniki
 Tags: Tagi
 Title: Tytuł
-Teaser: Opis
+Teaser: Krótkie podsumowanie
 Body: Treść
 Slug: Slug
 "Edit page:": "Edytuj stronę:"
@@ -63,3 +62,8 @@ Sources: Źródła
 Save order: Zapisz kolejność
 Start date: Data początkowa
 End date: Data końcowa
+Create News: Utwórz aktualność
+Create Event: Utwórz wydarzenie
+Saving...: Zapisywanie...
+Video: Film
+Image: Obrazek

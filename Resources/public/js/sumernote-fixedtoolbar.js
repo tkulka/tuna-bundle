@@ -35,7 +35,14 @@
             this.initialize = function () {
                 $('.admin-container .inside').scroll(repositionToolbar);
                 repositionToolbar();
+                $toolbar.on('mouseup', this._onToolbarClick)
             };
+
+            this._onToolbarClick = function(e) {
+                if (e.target == this) {
+                    $(e.target).siblings('.note-editing-area').find('.note-editable').focus();
+                }
+            }
         }
     });
 }));

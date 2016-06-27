@@ -10,6 +10,7 @@ JMSTranslationManager = function() {
         {
             var $elem = $(event.target);
             $elem.parent().children('.alert-message').remove();
+            $elem.parent().append(JMS.translation.ajax.progressMessageContent);
         },
         error: function(data, event, JMS)
         {
@@ -23,12 +24,15 @@ JMSTranslationManager = function() {
 
             if (data == 'Translation was saved')
             {
+                $elem.parent().children('.alert-message').remove();
                 $elem.parent().append(JMS.translation.ajax.savedMessageContent);
             } else
             {
+                $elem.parent().children('.alert-message').remove();
                 $elem.parent().append(JMS.translation.ajax.unsavedMessageContent);
             }
         },
+        progressMessageContent: '<span class="alert-message label success">' + infoMessages.progress + '</span>',
         savedMessageContent: '<span class="alert-message label success">' + infoMessages.success + '</span>',
         unsavedMessageContent: '<span class="alert-message label error">' + infoMessages.error + '</span>',
         complete: function(data, event, JMS)

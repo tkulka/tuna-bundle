@@ -2,7 +2,7 @@
     <h6 class="text-inverse">{% trans %}Options{% endtrans %}</h6>
 
     {% if form.important is defined %}
-        {{ form_widget(form.important, {'label': 'Important'|trans}) }}
+        {{ form_widget(form.important, {'label': 'Featured'|trans}) }}
     {% endif %}
 
     {% if form.published is defined %}

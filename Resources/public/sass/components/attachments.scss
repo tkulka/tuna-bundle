@@ -49,6 +49,7 @@
                 list-style: none;
                 display: table;
                 width: 100%;
+                height: 85px;
                 background: $brand-content;
                 border-bottom: 1px solid $brand-tertiary;
 
@@ -59,11 +60,23 @@
                     display: table-cell;
                     vertical-align: middle;
 
-                    &.select2-container {
-                        padding: 0;
-                        margin: 10px 0;
-                        display: block;
-                        height: auto;
+                    &.video-player {
+                        width: 200px;
+                    }
+
+                    .video {
+                        height: 40px;
+                        box-sizing: content-box;
+                        margin-bottom: 10px;
+
+                        &:last-child {
+                            margin-bottom: 0;
+                        }
+
+                        input {
+                            height: 100%;
+                            padding: 8px 12px;
+                        }
                     }
 
                     &.option {
@@ -154,7 +167,7 @@
         }
 
         input[type="url"] {
-            width: 200px;
+            height: 40px;
         }
 
         .fui-plus {
@@ -168,7 +181,7 @@
             color: lighten($brand-tertiary, 25%);
         }
 
-        &.image, &.video {
+        &.image {
             width: 200px;
 
             &:hover {

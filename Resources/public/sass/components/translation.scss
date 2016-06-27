@@ -1,8 +1,14 @@
 .translation-table {
+    width: 100%;
+
     td, th {
         width: 50%;
         position: relative;
         padding: 10px 20px;
+    }
+
+    td:first-child {
+        padding: 40px 20px;
     }
 
     tr {
@@ -15,6 +21,7 @@
 
     textarea {
         height: 70%;
+        min-height: 80px;
     }
 
     .alert-message {

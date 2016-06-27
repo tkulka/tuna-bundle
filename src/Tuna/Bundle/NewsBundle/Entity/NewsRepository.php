@@ -46,10 +46,10 @@ class NewsRepository extends PageRepository
         return $this->addTranslationWalker($qb);
     }
 
-    public function getSimilar(Page $page)
+    public function getSimilar($limit = 2, BaseNews $news)
     {
         $tagNames = array();
-        foreach ($page->getTags() as $tag) {
+        foreach ($news->getTags() as $tag) {
             $tagNames[] = $tag->getName();
         }
 
@@ -57,9 +57,9 @@ class NewsRepository extends PageRepository
             ->leftJoin('p.tags', 'tag')
             ->where('p.published=1')
             ->andWhere('p.id != :article_id')
-            ->setParameter('article_id', $page->getId())
+            ->setParameter('article_id', $news->getId())
             ->orderBy('p.createdAt', 'DESC')
-            ->setMaxResults(2);
+            ->setMaxResults($limit);
 
         if (count($tagNames) > 0) {
             $qb->andWhere($qb->expr()->in('tag.name', $tagNames));
