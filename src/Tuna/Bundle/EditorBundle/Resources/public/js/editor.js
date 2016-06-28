@@ -29,7 +29,7 @@ tuna.view.EditorView = Backbone.View.extend({
 
     types: {
         default: {
-            styleTags: ['h2', 'h3', 'h4', 'p'],
+            styleTags: ['h1', 'h2', 'h3', 'h4', 'p', 'blockquote'],
             toolbar: [
                 ['style', ['style', 'bold', 'italic', 'underline', 'clear']],
                 ['para', ['ul', 'ol', 'paragraph']],
