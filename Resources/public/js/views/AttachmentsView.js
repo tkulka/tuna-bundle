@@ -3,6 +3,7 @@
         events: {
             "click .add_new_attachment": "_onAddNewAttachment",
             "click .delete": "_onClickDelete",
+            "change input[type='file']": "_onInputFileChange",
             'click .close': "_onClose",
             'close': "_onClose",
             'open': "_onOpen",
@@ -74,6 +75,13 @@
 
         _onLanguageChange: function (e) {
             Backbone.trigger('LanguageChange', e);
+        },
+
+        _onInputFileChange: function (e) {
+            var fileName = e.target.value.split(/(\\|\/)/g).pop();
+            var container = $(e.target.closest('.item')).find('.item-name .tab-content');
+            container.find('.attachment-name').remove();
+            container.append('<p class="attachment-name">Dodano: ' + fileName + '</p>')
         }
     });
 })();
