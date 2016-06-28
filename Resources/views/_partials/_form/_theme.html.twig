@@ -45,26 +45,18 @@
     </div>
 {% endblock %}
 
-{% block choice_widget %}
-    {% spaceless %}
-        <select {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %}
-            class="form-control select select-default select-block">
-            {% if empty_value is not none %}
-                <option
-                    value=""{% if required and value is empty %} selected="selected"{% endif %}>{{ empty_value|trans({}, translation_domain) }}</option>
-            {% endif %}
-            {% if preferred_choices|length > 0 %}
-                {% set options = preferred_choices %}
-                {{ block('choice_widget_options') }}
-                {% if choices|length > 0 and separator is not none %}
-                    <option disabled="disabled">{{ separator }}</option>
-                {% endif %}
-            {% endif %}
-            {% set options = choices %}
-            {{ block('choice_widget_options') }}
-        </select>
-    {% endspaceless %}
-{% endblock %}
+{%- block choice_widget -%}
+    {% if expanded %}
+        {{- block('choice_widget_expanded') -}}
+    {% else %}
+        {{- block('tuna_choice_widget_collapsed') -}}
+    {% endif %}
+{%- endblock choice_widget -%}
+
+{%- block tuna_choice_widget_collapsed -%}
+    {% set attr = attr | merge({class: (attr.class | default('') ~ ' form-control select select-default select-block') | trim}) %}
+    {{ block('choice_widget_collapsed') }}
+{%- endblock -%}
 
 {% block checkbox_widget %}
     <label class="checkbox" for="{{ id }}">
