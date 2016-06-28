@@ -49,53 +49,39 @@
             });
         },
 
-        choiceEventListener: function (index) {
-            var oThis = this;
-
+        loadItemForm: function (index) {
             if ($('#thecodeine_pagebundle_page_gallery_items_' + index + '_type').length > 0) {
                 var id = '#thecodeine_pagebundle_page_gallery_items_';
             } else if ($('#thecodeine_newsbundle_news_gallery_items_' + index + '_type').length > 0) {
                 var id = '#thecodeine_newsbundle_news_gallery_items_';
             }
 
-            var $type = $(id + index + '_type');
-
-            // When sport gets selected ...
-            $type.change(function () {
-                $type.hide();
-                // ... retrieve the corresponding form.
-                var $form = $(this).closest('form');
-                // Simulate form data, but only include the selected sport value.
-                var data = $form.serialize();
-                // Submit data via AJAX to the form's action path.
-                $.ajax({
-                    url: $form.attr('action'),
-                    type: $form.attr('method'),
-                    data: data,
-                    success: function (html) {
-                        // Replace current position field ...
-                        $(id + index).replaceWith(
-                            // ... with the returned one from the AJAX response.
-                            $(html).find(id + index)
-                        );
-                    }
-                });
+            var $form = this.$el.closest('form');
+            var data = $form.serialize();
+            $.ajax({
+                url: $form.attr('action'),
+                type: $form.attr('method'),
+                data: data,
+                success: function (html) {
+                    $(id + index).replaceWith(
+                        $(html).find(id + index)
+                    );
+                }
             });
         },
 
         _onAddNewItem: function (e) {
-            var prototype = $(e.currentTarget).data('prototype');
-            // get the new index
-            var index = $(e.currentTarget).data('index');
-            index = index ? index : $('li.item').size();
-            // Replace '__name__' in the prototype's HTML to
-            // instead be a number based on how many items we have
-            var newForm = prototype.replace(/__name__/g, index);
-            // increase the index with one for the next item
-            $(e.currentTarget).data('index', index + 1);
+            var $a = $(e.currentTarget);
+            var $wrapper = $a.closest('.thecodeine_admin_gallery');
+            var prototype = $wrapper.data('prototype');
+            var index = $wrapper.data('index') | this.$('li.item').size();
+            var $newForm = $(prototype.replace(/__name__/g, index));
+            $newForm.find('input[type="hidden"]').val($a.data('type'));
 
-            this.$('.gallery-items').append($(newForm));
-            this.choiceEventListener(index);
+            $wrapper.data('index', index + 1);
+
+            this.$('.gallery-items').append($newForm);
+            this.loadItemForm(index);
             $('select').select2();
         },
 
@@ -141,7 +127,7 @@
             }
         },
 
-        _onVideoUrlChange: function(e) {
+        _onVideoUrlChange: function (e) {
             var url = e.target.value;
             var videoId = '';
 

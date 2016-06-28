@@ -142,16 +142,17 @@
 
 
 {% block thecodeine_gallerybundle_gallery_widget %}
-    <div class="form-group thecodeine_admin_gallery">
+    <div class="form-group thecodeine_admin_gallery" data-prototype="{{ form_widget(form.items.vars.prototype)|e }}">
         <ul class="gallery-items">
             {% for item in form.items %}
                 {{ form_widget(item) }}
             {% endfor %}
         </ul>
-        <a href="javascript:void(0)" class="btn btn-border add_new_item"
-           data-prototype="{{ form_widget(form.items.vars.prototype)|e }}">
-            <i class="fa fa-plus" aria-hidden="true"></i>
-        </a>
+        {% for type in form.vars.attr.types %}
+            <a href="#" class="btn btn-border add_new_item" data-type="{{ type }}">
+                <i class="fa fa-plus" aria-hidden="true"></i> {{ type | capitalize | trans }}
+            </a>
+        {% endfor %}
     </div>
 {% endblock %}
 
@@ -185,7 +186,7 @@
                     {% set video = form.vars.value.video %}
                     {% if(video is not null) %}
                         <iframe width="180" height="100" src="{{ videoPlayer(video.type, video.videoId) }}"
-                            frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                                frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                     {% endif %}
                 </div>
                 <div>
