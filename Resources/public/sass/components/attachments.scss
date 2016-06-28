@@ -101,6 +101,13 @@
                                 height: 100%;
                                 width: 100%;
                                 border: 0;
+
+                                .attachment-name {
+                                    font-size: 14px;
+                                    margin: 10px;
+                                    color: lighten($brand-tertiary, 30%);
+                                    font-weight: 600;
+                                }
                             }
                             .nav-tabs, .tab-pane label {
                                 display: none;
