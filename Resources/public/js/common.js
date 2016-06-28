@@ -43,7 +43,13 @@ tuna.website = {
         });
 
         $(':checkbox').radiocheck();
-        $('select').select2();
+        _.each($('select'), function (select) {
+            var $select = $(select);
+            $select.select2({
+                containerCssClass: $select.attr('class'),
+                dropdownCssClass: $select.attr('class')
+            });
+        });
     },
 
     goToUri: function (uri) {
