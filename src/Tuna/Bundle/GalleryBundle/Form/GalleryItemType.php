@@ -28,6 +28,7 @@ class GalleryItemType extends AbstractType
                     0 => 'Video',
                     1 => 'Image'
                 ),
+                'empty_value' => 'Choose gallery item type',
                 'required' => true,
             ));
 
