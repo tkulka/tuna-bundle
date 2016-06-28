@@ -2,21 +2,15 @@
 
 namespace TheCodeine\NewsBundle\Controller;
 
-use Doctrine\ORM\EntityManager;
 use TheCodeine\NewsBundle\Entity\Attachment;
 use TheCodeine\NewsBundle\Entity\BaseNews;
 use TheCodeine\NewsBundle\Entity\News;
-use TheCodeine\NewsBundle\Entity\Event;
 use TheCodeine\NewsBundle\Entity\Category;
-use TheCodeine\NewsBundle\Entity\NewsTranslation;
 use TheCodeine\NewsBundle\Form\AttachmentType;
 use TheCodeine\NewsBundle\Form\CategoryType;
-use TheCodeine\NewsBundle\Form\NewsType;
-use TheCodeine\NewsBundle\Form\EventType;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Acl\Domain\DoctrineAclCache;
 
 use Doctrine\ORM\Query;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -24,8 +18,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-
-use Gedmo\Translatable\TranslatableListener;
 
 class NewsController extends Controller
 {
@@ -37,22 +29,16 @@ class NewsController extends Controller
      *
      * @return array
      */
-    public function listAction(Request $request, $newsType)
+    public function listAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $query = $em->createQuery('SELECT n FROM TheCodeineNewsBundle:$newsType n ORDER BY n.createdAt DESC');
-        $pages = $query->getResult();
-
         return array(
-            'newsList' => $pages,
-            'newsType' => $newsType,
+            'entities' => $this->getDoctrine()->getRepository('TheCodeineNewsBundle:BaseNews')->findAll(),
         );
     }
 
     /**
      *
      * @param Request $request
-     * @param string $newsType
      * @param integer $id
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse

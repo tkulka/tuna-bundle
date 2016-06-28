@@ -21,11 +21,6 @@ use TheCodeine\PageBundle\Entity\BasePage;
  */
 class BaseNews extends BasePage
 {
-    public static $newsTypeMap = array(
-        'aktualnosci' => 'News',
-        'wydarzenia' => 'Event',
-    );
-    
     /**
      * @var \DateTime
      *
@@ -158,8 +153,6 @@ class BaseNews extends BasePage
 
     public function getType()
     {
-        $reflect = new \ReflectionClass($this);
-
-        return $reflect->getShortName();
+        return (new \ReflectionClass($this))->getShortName();
     }
 }

@@ -14,6 +14,17 @@ use TheCodeine\PageBundle\Entity\PageRepository;
  */
 class NewsRepository extends PageRepository
 {
+    public function getListQuery($type = null)
+    {
+        $type = ucfirst(strtolower($type));
+        $qb = $this->createQueryBuilder('n');
+        if ($type) {
+            $qb->where('n INSTANCE OF TheCodeineNewsBundle:' . $type);
+        }
+
+        return $qb->getQuery();
+    }
+
     public function getItemsForTag($tag)
     {
         if (!$tag) {
