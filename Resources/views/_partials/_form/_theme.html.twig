@@ -166,6 +166,7 @@
 
             {% if form.image is defined %}
                 {% set image = form.vars.value.image %}
+                {{ form_errors(form.image) }}
                 <div class="image">
                     {% if(image is not null) %}
                         <div class="gallery-image" style="background-image: url({{ ('uploads/' ~ image.path) | imagine_filter('tuna_admin_thumb') }})"></div>
@@ -177,6 +178,7 @@
             {% endif %}
 
             {% if form.video is defined %}
+                {{ form_errors(form.video) }}
                 <div class="video-player">
                     {% set video = form.vars.value.video %}
                     {% if(video is not null) %}
@@ -187,11 +189,6 @@
                 <div>
                     <div class="video">
                         {{ form_widget(form.video, {'attr': {'class': 'form-control'}}) }}
-                        {#{% set video = form.vars.value.video %}#}
-                        {#{% if(video is not null) %}#}
-                        {#<iframe width="200" height="100" src="{{ videoPlayer(video.type, video.videoId) }}"#}
-                        {#frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>#}
-                        {#{% endif %}#}
                     </div>
                     <div class="item-name video">
                         {% if form.translations is defined %}

@@ -53,11 +53,11 @@ class PageController extends Controller
      */
     public function createAction(Request $request)
     {
-
         $page = new Page();
         $em = $this->getDoctrine()->getManager();
+        $validate = !$request->isXmlHttpRequest();
 
-        $form = $this->createForm(new PageType(), $page);
+        $form = $this->createForm(new PageType($validate), $page);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -94,7 +94,8 @@ class PageController extends Controller
             $page = new Page();
         }
 
-        $form = $this->createForm(new PageType(), $page);
+        $validate = !$request->isXmlHttpRequest();
+        $form = $this->createForm(new PageType($validate), $page);
 
         $originalAttachments = new ArrayCollection();
         foreach ($page->getAttachments() as $attachment) {
@@ -132,7 +133,7 @@ class PageController extends Controller
                 $em->persist($page);
                 $em->flush();
 
-                return $this->redirect($this->generateUrl('tuna_page_edit', array('id' => $page->getId())));
+                return $this->redirect($this->generateUrl('tuna_page_list'));
             }
         }
 
