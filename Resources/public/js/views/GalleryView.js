@@ -1,28 +1,24 @@
 (function () {
     tuna.view.GalleryView = Backbone.View.extend({
-
         events: {
-            "click .add_new_item": "_onAddNewItem",
-            "click .delete": "_onClickDelete",
-            "change input[type='file']": "_onInputFileChange",
-            "keyup input[type='url']": "_onVideoUrlChange",
-            'click .close': "_onClose",
-            'close': "_onClose",
-            'open': "_onOpen",
-            'click': '_onClick',
-            'click .a2lix_translationsLocales li a': "_onLanguageChange"
+            'click [data-action="add-new-item"]': 'onAddItemClick',
+            'click .delete': 'onDeleteClick',
+            'change .image input[type="file"]': 'onFileInputChange',
+            'keyup input[type="url"]': 'onVideoUrlInputChange',
+            'click .close': 'onClose',
+            'close': 'onClose',
+            'open': 'onOpen',
+            'click': 'onClick',
+            'click .a2lix_translationsLocales li a': 'onLanguageChange'
         },
-
         initialize: function () {
             this.$el.addClass('magictime');
-            this._initSortable();
+            this.initSortable();
         },
-
-        _onClick: function (e) {
+        onClick: function (e) {
             e.stopPropagation();
         },
-
-        _initSortable: function () {
+        initSortable: function () {
             var oThis = this;
             this.$('.gallery-items')
                 .sortable({
@@ -33,22 +29,18 @@
                     oThis.recalculateImagePositions();
                 });
         },
-
-        _onClose: function () {
+        onClose: function () {
             this.$el.removeClass('slideLeftRetourn').addClass('holeOut');
         },
-
-        _onOpen: function () {
+        onOpen: function () {
             $('.admin-attachments-container').trigger('close');
             this.$el.removeClass('holeOut').show().addClass('slideLeftRetourn');
         },
-
         recalculateImagePositions: function () {
             this.$('input.position').each(function (idx) {
                 $(this).val(idx);
             });
         },
-
         loadItemForm: function (index) {
             if ($('#thecodeine_pagebundle_page_gallery_items_' + index + '_type').length > 0) {
                 var id = '#thecodeine_pagebundle_page_gallery_items_';
@@ -69,44 +61,37 @@
                 }
             });
         },
-
-        _onAddNewItem: function (e) {
-            var $a = $(e.currentTarget);
-            var $wrapper = $a.closest('.thecodeine_admin_gallery');
+        addItem: function (type, content) {
+            var $wrapper = this.$('.thecodeine_admin_gallery');
             var prototype = $wrapper.data('prototype');
             var index = $wrapper.data('index') | this.$('li.item').size();
             var $newForm = $(prototype.replace(/__name__/g, index));
-            $newForm.find('input[type="hidden"]').val($a.data('type'));
+            $newForm.find('input[type="hidden"]').val(type);
 
             $wrapper.data('index', index + 1);
 
             this.$('.gallery-items').append($newForm);
             this.loadItemForm(index);
-            $('select').select2();
+            tuna.website.enableFancySelect(this.$('select'));
         },
-
-        _onClickDelete: function (e) {
+        onAddItemClick: function (event) {
+            event.preventDefault();
+            this.addItem($(event.currentTarget).data('type'));
+        },
+        onDeleteClick: function (e) {
             $(e.currentTarget).parent().remove()
         },
-
-        _onInputFileChange: function (e) {
+        onFileInputChange: function (e) {
             var $element = $(e.currentTarget);
-            var files = e.target.files; // FileList object
-            $element.parent().removeClass('jelly-in');
-            // Loop through the FileList and render image files as thumbnails.
+            var files = e.target.files;
             for (var i = 0, f; f = files[i]; i++) {
-
-                // Only process image files.
                 if (!f.type.match('image.*')) {
                     continue;
                 }
-
                 var reader = new FileReader();
 
-                // Closure to capture the file information.
                 reader.onload = (function (theFile) {
                     return function (event) {
-                        // Render thumbnail.
                         var $cnt = $element.parent();
                         $cnt.css({
                             'background-position': 'center center',
@@ -122,12 +107,10 @@
                     }
                 })(f);
 
-                // Read in the image file as a data URL.
                 reader.readAsDataURL(f);
             }
         },
-
-        _onVideoUrlChange: function (e) {
+        onVideoUrlInputChange: function (e) {
             var url = e.target.value;
             var videoId = '';
 
@@ -148,7 +131,7 @@
             $videoPlayer.html(iframeTpl);
         },
 
-        _onLanguageChange: function (e) {
+        onLanguageChange: function (e) {
             Backbone.trigger('LanguageChange', e);
         }
     });
