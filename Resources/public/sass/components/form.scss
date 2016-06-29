@@ -13,3 +13,16 @@
 .select2-drop.filtered .select2-search {
     display: block;
 }
+
+.input-wrapper {
+    position: relative;
+    input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 101;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+    }
+}

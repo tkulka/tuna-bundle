@@ -20,6 +20,14 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class GalleryItem
 {
+    const VIDEO_TYPE = 'video';
+    const IMAGE_TYPE = 'image';
+
+    public static $TYPES = array(
+        self::VIDEO_TYPE,
+        self::IMAGE_TYPE,
+    );
+
     /**
      * @var integer
      *
@@ -69,7 +77,7 @@ class GalleryItem
     /**
      * @var string
      *
-     * @ORM\Column(length=64, nullable=false, type="integer")
+     * @ORM\Column(length=10, nullable=false, type="string")
      */
     private $type;
 
@@ -85,9 +93,13 @@ class GalleryItem
      */
     private $locale;
 
-    public function __construct()
+    public function __construct($type = null)
     {
         $this->translations = new ArrayCollection();
+
+        if ($type !== null) {
+            $this->setType($type);
+        }
     }
 
     /**
@@ -178,11 +190,18 @@ class GalleryItem
     /**
      * Set type
      *
-     * @param integer $type
+     * @param string $type
      * @return GalleryItem
      */
     public function setType($type)
     {
+        if (!in_array($type, self::$TYPES)) {
+            throw new \InvalidArgumentException(sprintf(
+                "Unknown GalleryItem type (given: '%s', available: '%s')",
+                $type,
+                implode(', ', self::$TYPES)
+            ));
+        }
         $this->type = $type;
 
         return $this;
@@ -191,7 +210,7 @@ class GalleryItem
     /**
      * Get type
      *
-     * @return integer
+     * @return string
      */
     public function getType()
     {

@@ -21,23 +21,14 @@ class GalleryItemType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->setMethod('POST')
-            ->setAttribute('enctype', 'multipart/form-data')
-            ->add('type', 'choice', array(
-                'choices' => array(
-                    0 => 'Video',
-                    1 => 'Image'
-                ),
-                'empty_value' => 'Choose gallery item type',
-                'required' => true,
-            ));
+            ->add('type', 'hidden');
 
         $formModifier = function (FormInterface $form, $type) {
-            if ($type === null || !is_int($type)) {
+            if (empty($type)) {
                 return;
             }
 
-            if ($type === 0) {
+            if ($type === GalleryItem::VIDEO_TYPE) {
                 $form
                     ->add('position', 'hidden')
                     ->add('video', 'thecodeine_videobundle_url', array(
@@ -58,7 +49,7 @@ class GalleryItemType extends AbstractType
                             ),
                         )
                     ));
-            } else if ($type === 1) {
+            } else if ($type === GalleryItem::IMAGE_TYPE) {
                 $form
                     ->add('position', 'hidden')
                     ->add('image', new ImageRequestThumbnailType(), array(

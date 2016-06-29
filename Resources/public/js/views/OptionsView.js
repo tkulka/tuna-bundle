@@ -7,6 +7,7 @@
 
         initialize: function () {
             this.$el.addClass('magictime');
+
             new tuna.view.MainImageView({
                 el: this.$('.thecodeine_admin_main_image')
             });
