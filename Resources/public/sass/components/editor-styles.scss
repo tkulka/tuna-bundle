@@ -48,7 +48,7 @@
 
     blockquote {
         border-left: 0;
-        padding-left: 100px;
+        padding-left: 0;
         font-size: 15px;
         font-style: italic;
         line-height: 19px;
@@ -70,5 +70,27 @@
     a {
         color: #000000;
         text-decoration: none;
+    }
+}
+
+.note-editable.panel-body {
+    blockquote {
+        padding-left: 100px;
+    }
+
+    blockquote, p {
+        margin-bottom: 35px;
+    }
+
+    h1, h2 {
+        margin-bottom: 45px;
+    }
+
+    a {
+        text-decoration: underline;
+
+        &:hover {
+            color: $brand-primary;
+        }
     }
 }

@@ -10,26 +10,28 @@ tuna.view.EditorView = Backbone.View.extend({
 
     summernoteOptions: {
         dialogsInBody: true,
-        onPaste: function (e) {
-            e.preventDefault();
-            var html = (e.originalEvent || e).clipboardData.getData('text/html') || (e.originalEvent || e).clipboardData.getData('text/plain');
-            document.execCommand('insertHTML', false, $.htmlClean(html, {
-                format: false,
-                replace: [['h1'], 'h2'],
-                removeAttrs: ['class', 'style', 'font'],
-                allowedAttributes: ['width', 'height', 'src', 'frameborder', 'allowfullscreen'],
-                allowedTags: ['p', 'i', 'b', 'u', 'strong', 'iframe', 'ul', 'li'],
-                removeTags: ['span', 'basefont', 'center', 'dir', 'font', 'frame', 'frameset', 'isindex', 'menu', 'noframes', 's', 'strike', 'br', 'canvas', 'hr', 'img'],
-                allowEmpty: ['iframe'],
-                tagAllowEmpty: ['iframe'],
-                allowComments: false,
-            }));
+        callbacks: {
+            onPaste: function (e) {
+                e.preventDefault();
+                var html = (e.originalEvent || e).clipboardData.getData('text/html') || (e.originalEvent || e).clipboardData.getData('text/plain');
+                document.execCommand('insertHTML', false, $.htmlClean(html, {
+                    format: false,
+                    replace: [['h1'], 'h2'],
+                    removeAttrs: ['class', 'style', 'font'],
+                    allowedAttributes: ['width', 'height', 'src', 'frameborder', 'allowfullscreen'],
+                    allowedTags: ['p', 'i', 'b', 'u', 'strong', 'iframe', 'ul', 'li'],
+                    removeTags: ['span', 'basefont', 'center', 'dir', 'font', 'frame', 'frameset', 'isindex', 'menu', 'noframes', 's', 'strike', 'br', 'canvas', 'hr', 'img'],
+                    allowEmpty: ['iframe'],
+                    tagAllowEmpty: ['iframe'],
+                    allowComments: false,
+                }));
+            }
         }
     },
 
     types: {
         default: {
-            styleTags: ['h1', 'h2', 'h3', 'h4', 'p', 'blockquote'],
+            styleTags: ['h1', 'h2', 'p', 'blockquote'],
             toolbar: [
                 ['style', ['style', 'bold', 'italic', 'underline', 'clear']],
                 ['para', ['ul', 'ol', 'paragraph']],
