@@ -32,13 +32,13 @@ class NewsFactory
         }
     }
 
-    public function getFormInstance(BaseNews $news = null)
+    public function getFormInstance(BaseNews $news = null, $validate = true)
     {
         switch (true) {
             case $news instanceof Event:
-                return new EventType();
+                return new EventType($validate);
             default:
-                return new NewsType();
+                return new NewsType($validate);
         }
     }
 }

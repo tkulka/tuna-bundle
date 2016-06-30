@@ -3,7 +3,6 @@
 namespace TheCodeine\ImageBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ImageFile extends AbstractType
 {
@@ -16,5 +15,4 @@ class ImageFile extends AbstractType
     {
         return 'imagefile';
     }
-
 }

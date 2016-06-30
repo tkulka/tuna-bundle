@@ -17,7 +17,6 @@ use TheCodeine\TagBundle\Doctrine\TagManager;
 
 class NewsType extends PageType
 {
-
     /**
      * @param FormBuilderInterface $builder
      * @param array $options

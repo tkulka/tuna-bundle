@@ -4,6 +4,8 @@ namespace TheCodeine\PageBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use TheCodeine\ImageBundle\Form\MainImage;
@@ -13,12 +15,28 @@ use TheCodeine\GalleryBundle\Form\GalleryType;
 
 class PageType extends AbstractType
 {
+    private $validate;
+
+    /**
+     * PageType constructor.
+     * @param $validate
+     */
+    public function __construct($validate = true)
+    {
+        $this->validate = $validate;
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        if (!$this->validate) {
+            $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+                $event->stopPropagation();
+            }, 900);
+        }
         $builder
             ->add('image', new MainImage($options['data']->getImage() !== null), array(
                 'required' => false,
@@ -70,7 +88,8 @@ class PageType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => $this->getTranslatableClass()
+            'data_class' => '$this->getTranslatableClass(),
+            'cascade_validation' => true,
         ));
     }
 
