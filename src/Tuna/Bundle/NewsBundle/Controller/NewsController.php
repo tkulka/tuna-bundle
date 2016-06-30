@@ -22,9 +22,9 @@ class NewsController extends BasePageController
         return new BaseNews();
     }
 
-    public function getNewFormType(BasePage $news = null)
+    public function getNewFormType(BasePage $news = null, $validate = true)
     {
-        return $this->get('tuna.news.factory')->getFormInstance($news);
+        return $this->get('tuna.news.factory')->getFormInstance($news, $validate);
     }
 
     public function getRedirectUrl(BasePage $page = null)

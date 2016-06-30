@@ -13,9 +13,9 @@ class PageController extends BasePageController
         return new Page();
     }
 
-    public function getNewFormType(BasePage $page = null)
+    public function getNewFormType(BasePage $page = null, $validate = true)
     {
-        return new PageType();
+        return new PageType($validate);
     }
 
     public function getRedirectUrl(BasePage $page = null)

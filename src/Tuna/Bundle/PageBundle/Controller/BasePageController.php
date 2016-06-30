@@ -23,7 +23,7 @@ abstract class BasePageController extends Controller
     /**
      * @return AbstractType
      */
-    abstract public function getNewFormType(BasePage $page = null);
+    abstract public function getNewFormType(BasePage $page = null, $validate = true);
 
     /**
      * @return string
