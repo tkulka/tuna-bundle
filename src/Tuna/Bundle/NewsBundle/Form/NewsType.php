@@ -50,8 +50,7 @@ class NewsType extends PageType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'TheCodeine\NewsBundle\Entity\News',
-            'em' => null,
+            'data_class' => 'TheCodeine\NewsBundle\Entity\BaseNews',
         ));
     }
 

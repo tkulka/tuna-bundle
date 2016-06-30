@@ -70,7 +70,7 @@ class PageType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'TheCodeine\PageBundle\Entity\Page'
+            'data_class' => $this->getTranslatableClass()
         ));
     }
 

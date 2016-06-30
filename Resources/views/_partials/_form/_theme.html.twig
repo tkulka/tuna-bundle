@@ -133,7 +133,7 @@
 {% endblock %}
 
 {% block thecodeine_gallerybundle_gallery_widget %}
-    <div class="form-group thecodeine_admin_gallery" data-prototype="{{ form_widget(form.items.vars.prototype)|e }}">
+    <div class="form-group thecodeine_admin_gallery" data-prototype="{{ form_widget(form.items.vars.prototype)|e }}" data-items-id="{{ form.items.vars.id }}">
         <ul class="gallery-items">
             {% for item in form.items %}
                 {{ form_widget(item) }}

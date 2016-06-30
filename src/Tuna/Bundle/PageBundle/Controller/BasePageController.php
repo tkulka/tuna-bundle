@@ -75,7 +75,7 @@ abstract class BasePageController extends Controller
     public function createAction(Request $request)
     {
         $page = $this->getNewPage();
-        $form = $this->createForm($this->getNewFormType(), $page);
+        $form = $this->createForm($this->getNewFormType($page), $page);
 
         return $this->handleCreateForm($request, $form, $page);
     }
@@ -92,7 +92,7 @@ abstract class BasePageController extends Controller
     public function editAction(Request $request, $id)
     {
         $page = $this->getRepository()->find($id);
-        $form = $this->createForm($this->getNewFormType(), $page);
+        $form = $this->createForm($this->getNewFormType($page), $page);
 
         return $this->handleEditForm($request, $page, $form);
     }
@@ -110,7 +110,7 @@ abstract class BasePageController extends Controller
         $em = $this->getDoctrine()->getManager();
         $em->remove($page);
         $em->flush();
-        return $this->redirectToRoute($this->getRedirectUrl());
+        return $this->redirect($this->getRedirectUrl($page));
     }
 
     /**
@@ -158,7 +158,7 @@ abstract class BasePageController extends Controller
                 $em->persist($page);
                 $em->flush();
 
-                return $this->redirectToRoute($this->getRedirectUrl());
+                return $this->redirect($this->getRedirectUrl($page));
             }
         }
 
@@ -187,7 +187,7 @@ abstract class BasePageController extends Controller
                 $em->persist($page);
                 $em->flush();
 
-                return $this->redirectToRoute($this->getRedirectUrl());
+                return $this->redirect($this->getRedirectUrl($page));
             }
         }
 

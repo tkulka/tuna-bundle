@@ -41,28 +41,24 @@
                 $(this).val(idx);
             });
         },
-        loadItemForm: function (index) {
-            if ($('#thecodeine_pagebundle_page_gallery_items_' + index + '_type').length > 0) {
-                var id = '#thecodeine_pagebundle_page_gallery_items_';
-            } else if ($('#thecodeine_newsbundle_news_gallery_items_' + index + '_type').length > 0) {
-                var id = '#thecodeine_newsbundle_news_gallery_items_';
-            }
-
+        loadItemForm: function (itemsId, index) {
             var $form = this.$el.closest('form');
-            var data = $form.serialize();
             $.ajax({
                 url: $form.attr('action'),
                 type: $form.attr('method'),
-                data: data,
+                data: $form.serialize(),
                 success: function (html) {
-                    $(id + index).replaceWith(
-                        $(html).find(id + index)
+                    var selector = '#' + itemsId + "_" + index;
+
+                    $(selector).replaceWith(
+                        $(html).find(selector)
                     );
                 }
             });
         },
         addItem: function (type, content) {
             var $wrapper = this.$('.thecodeine_admin_gallery');
+            var itemsId = $wrapper.data('itemsId');
             var prototype = $wrapper.data('prototype');
             var index = $wrapper.data('index') | this.$('li.item').size();
             var $newForm = $(prototype.replace(/__name__/g, index));
@@ -71,7 +67,7 @@
             $wrapper.data('index', index + 1);
 
             this.$('.gallery-items').append($newForm);
-            this.loadItemForm(index);
+            this.loadItemForm(itemsId, index);
             tuna.website.enableFancySelect(this.$('select'));
         },
         onAddItemClick: function (event) {
