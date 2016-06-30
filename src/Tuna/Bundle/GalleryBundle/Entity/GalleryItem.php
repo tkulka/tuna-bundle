@@ -113,7 +113,7 @@ class GalleryItem
             return;
         }
 
-        if (!$this->getImage() || !$this->getImage()->getFile()) {
+        if (!$this->getImage() || (!$this->getImage()->getFile() && !$this->getImage()->getPath())) {
             $context->buildViolation('error.image.empty')
                 ->atPath('image.file')
                 ->addViolation();
