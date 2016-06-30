@@ -83,7 +83,7 @@
     {% endspaceless %}
 {% endblock %}
 
-{% block _thecodeine_pagebundle_page_image_widget %}
+{% block main_image_widget %}
     {% set attr = attr | merge({class: (attr.class is defined ? attr.class ~ ' ') ~ 'thecodeine_admin_main_image'}) %}
     <div {{ block('widget_container_attributes') }}>
         {%- if form.parent is empty -%}
@@ -94,7 +94,7 @@
     </div>
 {% endblock %}
 
-{% block _thecodeine_pagebundle_page_image_file_widget %}
+{% block main_imagefile_widget %}
     {% spaceless %}
         {% set image = form.parent.vars.value %}
         <div class="form-group main-image">
@@ -111,14 +111,6 @@
             </div>
         </div>
     {% endspaceless %}
-{% endblock %}
-
-{% block _thecodeine_newsbundle_news_image_widget %}
-    {{ block('_thecodeine_pagebundle_page_image_widget') }}
-{% endblock %}
-
-{% block _thecodeine_newsbundle_news_image_file_widget %}
-    {{ block('_thecodeine_pagebundle_page_image_file_widget') }}
 {% endblock %}
 
 {% block tag_collection_widget %}

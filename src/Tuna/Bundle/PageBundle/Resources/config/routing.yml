@@ -14,12 +14,12 @@ tuna_page_list:
 
 tuna_page_edit:
     path: /admin/page/{id}/edit
-    defaults:  { _controller: TheCodeinePageBundle:Page:edit, id: 0 }
+    defaults:  { _controller: TheCodeinePageBundle:Page:edit }
     requirements:
         id:  \d+
 
 tuna_page_delete:
     path: /admin/page/{id}/delete
-    defaults:  { _controller: TheCodeinePageBundle:Page:delete, id: 0 }
+    defaults:  { _controller: TheCodeinePageBundle:Page:delete }
     requirements:
         id:  \d+

@@ -6,8 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+use TheCodeine\ImageBundle\Form\MainImage;
 use TheCodeine\NewsBundle\Entity\Page;
-use TheCodeine\ImageBundle\Form\ImageRequestThumbnailType;
 use TheCodeine\NewsBundle\Form\AttachmentType;
 use TheCodeine\GalleryBundle\Form\GalleryType;
 
@@ -20,10 +20,8 @@ class PageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->setMethod('POST')
-            ->setAttribute('enctype', 'multipart/form-data')
-            ->add('image', new ImageRequestThumbnailType($options['data']->getImage() !== null), array(
-                'required' => false
+            ->add('image', new MainImage($options['data']->getImage() !== null), array(
+                'required' => false,
             ))
             ->add('published', 'checkbox', array(
                 'required' => false
