@@ -150,7 +150,11 @@
                 videoId = url.pop();
                 url = 'https://player.vimeo.com/video/' + videoId;
             } else {
-                url = url.split('=');
+                if (/(youtu\.be)/.test(url)) {
+                    url = url.split('/');
+                } else {
+                    url = url.split('=');
+                }
                 videoId = url.pop();
                 url = 'https://www.youtube.com/embed/' + videoId;
             }
