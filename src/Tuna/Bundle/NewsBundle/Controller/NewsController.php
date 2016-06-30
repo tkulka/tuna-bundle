@@ -64,8 +64,9 @@ class NewsController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $news = $this->get('tuna.news.factory')->getInstance($newsType);
+        $validate = !$request->isXmlHttpRequest();
 
-        $form = $this->createForm($this->get('tuna.news.factory')->getFormInstance($news), $news);
+        $form = $this->createForm($this->get('tuna.news.factory')->getFormInstance($news, $validate), $news);
 
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -98,8 +99,9 @@ class NewsController extends Controller
     public function editAction(BaseNews $news, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        $validate = !$request->isXmlHttpRequest();
 
-        $form = $this->createForm($this->get('tuna.news.factory')->getFormInstance($news), $news);
+        $form = $this->createForm($this->get('tuna.news.factory')->getFormInstance($news, $validate), $news);
 
         $originalAttachments = new ArrayCollection();
         foreach ($news->getAttachments() as $attachment) {

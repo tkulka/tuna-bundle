@@ -36,7 +36,8 @@ class GalleryType extends AbstractType
             'data_class' => 'TheCodeine\GalleryBundle\Entity\Gallery',
             'attr' => array(
                 'types' => GalleryItem::$TYPES,
-            )
+            ),
+            'cascade_validation' => true,
         ));
     }
 

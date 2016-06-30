@@ -2,10 +2,8 @@
 
 namespace TheCodeine\PageBundle\Entity;
 
-use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Page
