@@ -23,12 +23,12 @@ abstract class BasePageController extends Controller
     /**
      * @return AbstractType
      */
-    abstract public function getNewFormType(BasePage $page);
+    abstract public function getNewFormType(BasePage $page = null);
 
     /**
      * @return string
      */
-    abstract public function getRedirectUrl(BasePage $page);
+    abstract public function getRedirectUrl(BasePage $page = null);
 
     /**
      * @return EntityRepository

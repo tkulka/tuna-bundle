@@ -13,12 +13,12 @@ class PageController extends BasePageController
         return new Page();
     }
 
-    public function getNewFormType(BasePage $page)
+    public function getNewFormType(BasePage $page = null)
     {
         return new PageType();
     }
 
-    public function getRedirectUrl(BasePage $page)
+    public function getRedirectUrl(BasePage $page = null)
     {
         return $this->generateUrl('tuna_page_list');
     }

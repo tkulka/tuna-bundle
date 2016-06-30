@@ -17,6 +17,8 @@
         {{ form_widget(form.image) }}
     {% endif %}
 
+    {% block additionalFields %}{% endblock %}
+
     {% if form.gallery is defined %}
     <a href="javascript:void(0)" class="btn btn-small btn-secondary btn-block btn-gallery">
         {% trans %}Gallery{% endtrans %}

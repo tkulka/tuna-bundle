@@ -2,17 +2,13 @@
 
 namespace TheCodeine\NewsBundle\Controller;
 
-use TheCodeine\NewsBundle\Entity\Attachment;
 use TheCodeine\NewsBundle\Entity\BaseNews;
-use TheCodeine\NewsBundle\Entity\News;
 use TheCodeine\NewsBundle\Entity\Category;
-use TheCodeine\NewsBundle\Form\AttachmentType;
 use TheCodeine\NewsBundle\Form\CategoryType;
 
 use Symfony\Component\HttpFoundation\Request;
 
 use Doctrine\ORM\Query;
-use Doctrine\Common\Collections\ArrayCollection;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -26,12 +22,12 @@ class NewsController extends BasePageController
         return new BaseNews();
     }
 
-    public function getNewFormType(BasePage $news)
+    public function getNewFormType(BasePage $news = null)
     {
         return $this->get('tuna.news.factory')->getFormInstance($news);
     }
 
-    public function getRedirectUrl(BasePage $page)
+    public function getRedirectUrl(BasePage $page = null)
     {
         return $this->generateUrl('tuna_news_list', array('newsType' => $page->getType()));
     }
