@@ -75,7 +75,7 @@ abstract class BasePageController extends Controller
     public function createAction(Request $request)
     {
         $page = $this->getNewPage();
-        $form = $this->createForm($this->getNewFormType($page), $page);
+        $form = $this->createForm($this->getNewFormType($page, !$request->isXmlHttpRequest()), $page);
 
         return $this->handleCreateForm($request, $form, $page);
     }
@@ -92,7 +92,7 @@ abstract class BasePageController extends Controller
     public function editAction(Request $request, $id)
     {
         $page = $this->getRepository()->find($id);
-        $form = $this->createForm($this->getNewFormType($page), $page);
+        $form = $this->createForm($this->getNewFormType($page, !$request->isXmlHttpRequest()), $page);
 
         return $this->handleEditForm($request, $page, $form);
     }

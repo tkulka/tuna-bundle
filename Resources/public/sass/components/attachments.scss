@@ -8,6 +8,7 @@
     top: 50px;
     height: 100%;
     background: $brand-content;
+    color: $brand-tertiary;
     overflow-y: auto;
 
     @media all and (min-width: $mobileLargeScreen) {

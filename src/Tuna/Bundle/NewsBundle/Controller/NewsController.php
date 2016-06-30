@@ -62,8 +62,9 @@ class NewsController extends BasePageController
     public function createAction(Request $request)
     {
         $newsType = $request->query->get('newsType');
+        $validate = !$request->isXmlHttpRequest();
         $news = $this->get('tuna.news.factory')->getInstance($newsType);
-        $form = $this->createForm($this->get('tuna.news.factory')->getFormInstance($news), $news);
+        $form = $this->createForm($this->get('tuna.news.factory')->getFormInstance($news, $validate), $news);
 
         $result = $this->handleCreateForm($request, $form, $news);
 
