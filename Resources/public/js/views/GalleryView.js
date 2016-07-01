@@ -41,15 +41,13 @@
                 $(this).val(idx);
             });
         },
-        loadItemForm: function (itemsId, index) {
+        loadItemForm: function (selector) {
             var $form = this.$el.closest('form');
             $.ajax({
                 url: $form.attr('action'),
                 type: $form.attr('method'),
                 data: $form.serialize(),
                 success: function (html) {
-                    var selector = '#' + itemsId + "_" + index;
-
                     $(selector).replaceWith(
                         $(html).find(selector)
                     );
@@ -67,7 +65,7 @@
             $wrapper.data('index', index + 1);
 
             this.$('.gallery-items').append($newForm);
-            this.loadItemForm(itemsId, index);
+            this.loadItemForm('#' + itemsId + "_" + index);
             tuna.website.enableFancySelect(this.$('select'));
         },
         onAddItemClick: function (event) {
@@ -106,25 +104,9 @@
                 reader.readAsDataURL(f);
             }
         },
-        onVideoUrlInputChange: function (e) {
-            var url = e.target.value;
-            var videoId = '';
-
-            if (/(vimeo)/.test(url)) {
-                url = url.split('/');
-                videoId = url.pop();
-                url = 'https://player.vimeo.com/video/' + videoId;
-            } else {
-                url = url.split('=');
-                videoId = url.pop();
-                url = 'https://www.youtube.com/embed/' + videoId;
-            }
-
-            var iframeTpl = '<iframe width="180" height="100" src="' + url + '" frameborder="0" allowfullscreen></iframe>';
-
-            var $videoPlayer = $(e.target).closest('.item').find('.video-player');
-
-            $videoPlayer.html(iframeTpl).css('display', 'table-cell');
+        onVideoUrlInputChange: function (event) {
+            var id = $(event.currentTarget).closest('.item').attr('id');
+            this.loadItemForm('#' + id + ' .video-player');
         },
 
         onLanguageChange: function (e) {
