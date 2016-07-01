@@ -114,7 +114,7 @@
                 url = url.split('/');
                 videoId = url.pop();
                 url = 'https://player.vimeo.com/video/' + videoId;
-            } else {
+            } else if (/(youtu\.be|youtube.com)/.test(url)) {
                 if (/(youtu\.be)/.test(url)) {
                     url = url.split('/');
                 } else {
@@ -122,6 +122,23 @@
                 }
                 videoId = url.pop();
                 url = 'https://www.youtube.com/embed/' + videoId;
+            } else {
+                var errorTpl = '<div class="gallery-table video-error">' +
+                                    '<div class="table-row">' +
+                                        '<div class="dialog dialog-danger form-errors">' +
+                                            '<div class="form-errors-container">' +
+                                                '<strong class="text-danger">Ups!</strong> <span>Proszę wkleić link do YouTube lub Vimeo.</span>' +
+                                            '</div>' +
+                                        '</div>' +
+                                    '</div>' +
+                                '</div>';
+
+                var $item = $(e.target).closest('.item');
+
+                $item.find('.video-error').remove();
+                $item.append(errorTpl);
+
+                return;
             }
 
             var iframeTpl = '<iframe width="180" height="100" src="' + url + '" frameborder="0" allowfullscreen></iframe>';
