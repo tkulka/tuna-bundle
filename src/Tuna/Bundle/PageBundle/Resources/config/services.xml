@@ -1,5 +1,0 @@
-<?xml version="1.0" ?>
-<container xmlns="http://symfony.com/schema/dic/services" xmlns:doctrine="http://symfony.com/schema/dic/doctrine">
-    <!--TODO: write some services-->
-</container>
-

@@ -5,6 +5,7 @@ namespace TheCodeine\GalleryBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use TheCodeine\GalleryBundle\Entity\GalleryItem;
 
 class GalleryType extends AbstractType
 {
@@ -29,13 +30,14 @@ class GalleryType extends AbstractType
             ->add('save', 'submit');
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
-    public function setDOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'TheCodeine\GalleryBundle\Entity\Gallery'
+            'data_class' => 'TheCodeine\GalleryBundle\Entity\Gallery',
+            'attr' => array(
+                'types' => GalleryItem::$TYPES,
+            ),
+            'cascade_validation' => true,
         ));
     }
 

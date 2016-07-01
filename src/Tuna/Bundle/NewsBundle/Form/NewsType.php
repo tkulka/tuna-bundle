@@ -17,7 +17,6 @@ use TheCodeine\TagBundle\Doctrine\TagManager;
 
 class NewsType extends PageType
 {
-
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -49,10 +48,8 @@ class NewsType extends PageType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'TheCodeine\NewsBundle\Entity\News',
-            'em' => null,
-        ));
+        parent::configureOptions($resolver);
+        $resolver->setDefault('data_class', 'TheCodeine\NewsBundle\Entity\BaseNews');
     }
 
     /**

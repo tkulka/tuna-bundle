@@ -61,7 +61,7 @@ class CategoryController extends Controller
             $em->flush();
         } catch (DBALException $e) {
             $translator = $this->get('translator.default');
-            $errorMsg = $translator->trans('error.category.not_empty', array('%name%' => $category->getName()), 'errors');
+            $errorMsg = $translator->trans('error.category.not_empty', array('%name%' => $category->getName()), 'validators');
             $this->get('session')->getFlashBag()->add('error', $errorMsg);
         }
 

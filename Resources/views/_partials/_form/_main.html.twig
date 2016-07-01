@@ -3,34 +3,33 @@
 {% block content %}
     <div class="admin-container">
         {{ form_errors(form) }}
-
         {{ form_start(form, { 'attr' : { 'class' : 'wysiwyg', 'novalidate': 'novalidate' } }) }}
-            {{ form_widget(form._token) }}
+        {{ form_widget(form._token) }}
 
-            <aside class="aside aside-2">
-                {% include 'TheCodeineAdminBundle::_partials/_form/_options.html.twig' %}
-            </aside>
+        <aside class="aside aside-2">
+            {% include 'TheCodeineAdminBundle::_partials/_form/_options.html.twig' with { extraFields: block('extraFields') } %}
+        </aside>
 
-            <div class="inside">
-                <div class="body">
+        <div class="inside">
+            <div class="body">
 
-                    {% include 'TheCodeineAdminBundle::_partials/_form/_translations.menu.html.twig' %}
+                {% include 'TheCodeineAdminBundle::_partials/_form/_translations.menu.html.twig' %}
 
-                    <h3>
-                        {% if title is defined %}
-                            {{  title }}
-                        {% endif %}
-                        <br>
+                <h3>
+                    {% if title is defined %}
+                        {{ title }}
+                    {% endif %}
+                    <br>
                         <span>
                             {% if slug is defined %}
-                                {{  slug }}
+                                {{ slug }}
                             {% endif %}
                         </span>
-                    </h3>
+                </h3>
 
-                    {% include 'TheCodeineAdminBundle::_partials/_form/_content.html.twig' %}
-                </div>
+                {% include 'TheCodeineAdminBundle::_partials/_form/_content.html.twig' %}
             </div>
+        </div>
         {{ form_end(form, {'render_rest': false}) }}
 
     </div>

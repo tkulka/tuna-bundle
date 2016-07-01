@@ -43,7 +43,10 @@ tuna.website = {
         });
 
         $(':checkbox').radiocheck();
-        _.each($('select'), function (select) {
+        this.enableFancySelect($('select'));
+    },
+    enableFancySelect: function ($el) {
+        _.each($el, function (select) {
             var $select = $(select);
             $select.select2({
                 containerCssClass: $select.attr('class'),
@@ -51,30 +54,24 @@ tuna.website = {
             });
         });
     },
+    confirmModal: function (msg) {
+        var dfd = $.Deferred();
+        $('#modalConfirm').modal('hide'); // don't allow multiple modals
+        $('#modalConfirm .modal-body p').html(msg);
+        $('#modalConfirm').modal({
+            keyboard: true
+        });
+        $('#modalConfirm [data-action="accept"]').on('click', function () {
+            $('#modalConfirm').off('hide.bs.modal').modal('hide');
+            dfd.resolve();
+        });
+        $('#modalConfirm').on('hide.bs.modal', function (event) {
+            dfd.reject();
+        });
 
+        return dfd.promise();
+    },
     goToUri: function (uri) {
         top.location.href = uri;
     }
 };
-
-function tunaConfirm(msg) {
-    var dfd = $.Deferred();
-    $('#modalConfirm').modal('hide'); // don't allow multiple modals
-    $('#modalConfirm .modal-body p').html(msg);
-    $('#modalConfirm').modal({
-        keyboard: true
-    });
-    $('#modalConfirm [data-action="accept"]').on('click', function () {
-        $('#modalConfirm').off('hide.bs.modal').modal('hide');
-        dfd.resolve();
-    });
-    $('#modalConfirm').on('hide.bs.modal', function (event) {
-        dfd.reject();
-    });
-
-    return dfd.promise();
-}
-
-function tunaAlert(msg) {
-    alert(msg);
-}

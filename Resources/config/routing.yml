@@ -49,7 +49,7 @@ tuna_news_show:
         id: \d+
 
 tuna_news_create:
-    path: /admin/news/{newsType}/create
+    path: /admin/news/create
     defaults: { _controller: TheCodeineAdminBundle:News:create }
 
 tuna_news_edit:
@@ -90,13 +90,13 @@ tuna_page_list:
 
 tuna_page_edit:
     path: /admin/page/{id}/edit
-    defaults:  { _controller: TheCodeineAdminBundle:Page:edit, id: 0 }
+    defaults:  { _controller: TheCodeineAdminBundle:Page:edit }
     requirements:
         id:  \d+
 
 tuna_page_delete:
     path: /admin/page/{id}/delete
-    defaults:  { _controller: TheCodeineAdminBundle:Page:delete, id: 0 }
+    defaults:  { _controller: TheCodeineAdminBundle:Page:delete }
     requirements:
         id:  \d+
 

@@ -13,7 +13,7 @@
             e.preventDefault();
             var $a = $(e.currentTarget);
 
-            tunaConfirm('Czy na pewno chcesz usunąć <b>' + $a.data('title') + '</b>?').done(function () {
+            tuna.website.confirmModal('Czy na pewno chcesz usunąć <b>' + $a.data('title') + '</b>?').done(function () {
                 window.location.href = $a.data('url');
             });
         }
