@@ -1,6 +1,6 @@
-#TheCodeine AdminBundle
+# TheCodeine AdminBundle
 
-##Installation:
+## Installation:
   1. Require module:
   
         composer require "thecodeine/tuna-adminbundle": "dev-master"
@@ -33,10 +33,131 @@
                 admin_logo: bundles/thecodeineadmin/images/logo.png
             enable_translations: true
 
-##Translations:
+## Translations:
 Translations are enabled by default. You can turn them off by overriding `the_codeine_admin.enable_translations` config.
 
 Dump translation files:
 
     php app/console translation:extract [language] --dir=[directory] --output-dir=./app/Resources/translations
 Replace `[language]` with any language you want to generate translations for (e.g. `de`) and `[directory]` with path to your bundle (e.g. `./src/Openheim/FrontendBundle`).
+
+## Extending Page:
+  1. Entity:
+  
+        use TheCodeine\PageBundle\Entity\AbstractPage;
+        
+        /**
+         * Subpage
+         *
+         * @ORM\Table(name="subpage")
+         * @Gedmo\TranslationEntity(class="AppBundle\Entity\SubpageTranslation")
+         * @ORM\Entity(repositoryClass="TheCodeine\PageBundle\Entity\PageRepository") // or extend this one
+         */
+        class Subpage extends AbstractPage
+        {
+            /**
+             * @ORM\OneToMany(targetEntity="SubpageTranslation", mappedBy="object", cascade={"persist", "remove"})
+             */
+            protected $translations;
+        
+            /**
+             * @ORM\ManyToMany(targetEntity="TheCodeine\NewsBundle\Entity\Attachment", cascade={"persist"})
+             * @ORM\JoinTable(name="subpage_attachments",
+             *      joinColumns={@ORM\JoinColumn(name="tenant_id", referencedColumnName="id")},
+             *      inverseJoinColumns={@ORM\JoinColumn(name="attachment_id", referencedColumnName="id", unique=true)}
+             *      )
+             * @ORM\OrderBy({"position" = "ASC"})
+             */
+            protected $attachments;
+        }
+
+  2. Form:
+  
+        use TheCodeine\PageBundle\Form\AbstractPageType;
+        
+        class SubpageType extends AbstractPageType
+        {
+            /**
+             * @param FormBuilderInterface $builder
+             * @param array $options
+             */
+            public function buildForm(FormBuilderInterface $builder, array $options)
+            {
+                parent::buildForm($builder, $options);
+                // your additional fields
+            }
+        
+            public function configureOptions(OptionsResolver $resolver)
+            {
+                $resolver->setDefaults(array(
+                    // this is optional and defaults to $this->getEntityClass()
+                    'data_class' => 'AppBundle\Entity\BaseSubpage',
+                ));
+            }
+        
+            protected function getEntityClass()
+            {
+                return 'AppBundle\Entity\Subpage';
+            }
+        
+            /**
+             * @return string
+             */
+            public function getName()
+            {
+                return 'appbundle_subpage';
+            }
+        }
+
+  3. Controller:
+  
+        use TheCodeine\PageBundle\Controller\AbstractPageController;
+        use TheCodeine\PageBundle\Entity\AbstractPage;
+        
+        /**
+         * Subpage controller.
+         */
+        class SubpageController extends AbstractPageController
+        {
+            public function getNewPage()
+            {
+                return new Subpage();
+            }
+        
+            public function getNewFormType(BasePage $page = null, $validate = true)
+            {
+                return new SubpageType($validate);
+            }
+        
+            public function getRedirectUrl(BasePage $page = null)
+            {
+                return $this->generateUrl('app_subpage_list');
+            }
+        
+            public function getRepository()
+            {
+                return $this->getDoctrine()->getRepository('AppBundle:Subpage');
+            }
+        }
+
+    3.1. Routing
+        
+        app_subpage_create:
+            path: /admin/subpage/create
+            defaults:  { _controller: AppBundle:Subpage:create }
+        
+        app_subpage_list:
+            path: /admin/subpage/list
+            defaults:  { _controller: AppBundle:Subpage:list }
+        
+        app_subpage_edit:
+            path: /admin/subpage/{id}/edit
+            defaults:  { _controller: AppBundle:Subpage:edit }
+            requirements:
+                id:  \d+
+        
+        app_subpage_delete:
+            path: /admin/subpage/{id}/delete
+            defaults:  { _controller: AppBundle:Subpage:delete }
+            requirements:
+                id:  \d+

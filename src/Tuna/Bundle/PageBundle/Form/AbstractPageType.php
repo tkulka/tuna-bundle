@@ -13,11 +13,14 @@ use TheCodeine\NewsBundle\Entity\Page;
 use TheCodeine\NewsBundle\Form\AttachmentType;
 use TheCodeine\GalleryBundle\Form\GalleryType;
 
-abstract class BasePageType extends AbstractType
+abstract class AbstractPageType extends AbstractType
 {
     private $validate;
 
-    abstract protected function getTranslatableClass();
+    /**
+     * @return string Fully qualified class name of
+     */
+    abstract protected function getEntityClass();
 
     /**
      * PageType constructor.
@@ -58,7 +61,7 @@ abstract class BasePageType extends AbstractType
                 'data_class' => 'TheCodeine\GalleryBundle\Entity\Gallery'
             ))
             ->add('translations', 'a2lix_translations_gedmo', array(
-                'translatable_class' => $this->getTranslatableClass(),
+                'translatable_class' => $this->getEntityClass(),
                 'fields' => array(
                     'title' => array(
                         'required' => true
@@ -85,7 +88,7 @@ abstract class BasePageType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => $this->getTranslatableClass(),
+            'data_class' => $this->getEntityClass(),
             'cascade_validation' => true,
         ));
     }

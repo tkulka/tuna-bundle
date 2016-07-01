@@ -2,7 +2,7 @@
 
 namespace TheCodeine\NewsBundle\Controller;
 
-use TheCodeine\NewsBundle\Entity\BaseNews;
+use TheCodeine\NewsBundle\Entity\AbstractNews;
 use TheCodeine\NewsBundle\Entity\Category;
 use TheCodeine\NewsBundle\Form\CategoryType;
 
@@ -10,31 +10,30 @@ use Symfony\Component\HttpFoundation\Request;
 
 use Doctrine\ORM\Query;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use TheCodeine\PageBundle\Controller\BasePageController;
-use TheCodeine\PageBundle\Entity\BasePage;
+use TheCodeine\PageBundle\Controller\AbstractPageController;
+use TheCodeine\PageBundle\Entity\AbstractPage;
 
-class NewsController extends BasePageController
+class NewsController extends AbstractPageController
 {
     public function getNewPage()
     {
-        return new BaseNews();
+        return $this->get('tuna.news.factory')->getInstance();
     }
 
-    public function getNewFormType(BasePage $news = null, $validate = true)
+    public function getNewFormType(AbstractPage $news = null, $validate = true)
     {
         return $this->get('tuna.news.factory')->getFormInstance($news, $validate);
     }
 
-    public function getRedirectUrl(BasePage $page = null)
+    public function getRedirectUrl(AbstractPage $page = null)
     {
         return $this->generateUrl('tuna_news_list', array('newsType' => $page->getType()));
     }
 
     public function getRepository()
     {
-        return $this->getDoctrine()->getRepository('TheCodeineNewsBundle:BaseNews');
+        return $this->getDoctrine()->getRepository('TheCodeineNewsBundle:AbstractNews');
     }
 
     /**

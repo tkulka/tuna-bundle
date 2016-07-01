@@ -19,7 +19,7 @@ class NewsController extends \TheCodeine\NewsBundle\Controller\NewsController
      */
     public function listAction(Request $request, $newsType = null)
     {
-        $query = $this->getDoctrine()->getRepository('TheCodeineNewsBundle:BaseNews')->getListQuery($newsType);
+        $query = $this->getDoctrine()->getRepository('TheCodeineNewsBundle:AbstractNews')->getListQuery($newsType);
         $defaultSort = array(
             'defaultSortFieldName' => 'n.createdAt',
             'defaultSortDirection' => 'DESC'

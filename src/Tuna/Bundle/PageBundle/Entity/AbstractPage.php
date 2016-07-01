@@ -16,7 +16,7 @@ use TheCodeine\NewsBundle\Entity\Attachment;
  *
  * @ORM\HasLifecycleCallbacks
  */
-abstract class BasePage
+abstract class AbstractPage
 {
     /**
      * @var string
