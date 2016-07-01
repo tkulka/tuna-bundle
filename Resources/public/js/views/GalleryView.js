@@ -41,15 +41,13 @@
                 $(this).val(idx);
             });
         },
-        loadItemForm: function (itemsId, index) {
+        loadItemForm: function (selector) {
             var $form = this.$el.closest('form');
             $.ajax({
                 url: $form.attr('action'),
                 type: $form.attr('method'),
                 data: $form.serialize(),
                 success: function (html) {
-                    var selector = '#' + itemsId + "_" + index;
-
                     $(selector).replaceWith(
                         $(html).find(selector)
                     );
@@ -67,7 +65,7 @@
             $wrapper.data('index', index + 1);
 
             this.$('.gallery-items').append($newForm);
-            this.loadItemForm(itemsId, index);
+            this.loadItemForm('#' + itemsId + "_" + index);
             tuna.website.enableFancySelect(this.$('select'));
         },
         onAddItemClick: function (event) {
@@ -124,14 +122,14 @@
                 url = 'https://www.youtube.com/embed/' + videoId;
             } else {
                 var errorTpl = '<div class="gallery-table video-error">' +
-                                    '<div class="table-row">' +
-                                        '<div class="dialog dialog-danger form-errors">' +
-                                            '<div class="form-errors-container">' +
-                                                '<strong class="text-danger">Ups!</strong> <span>Proszę wkleić link do YouTube lub Vimeo.</span>' +
-                                            '</div>' +
-                                        '</div>' +
-                                    '</div>' +
-                                '</div>';
+                    '<div class="table-row">' +
+                    '<div class="dialog dialog-danger form-errors">' +
+                    '<div class="form-errors-container">' +
+                    '<strong class="text-danger">Ups!</strong> <span>Proszę wkleić link do YouTube lub Vimeo.</span>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>';
 
                 var $item = $(e.target).closest('.item');
 
@@ -146,6 +144,11 @@
             var $videoPlayer = $(e.target).closest('.item').find('.video-player');
 
             $videoPlayer.html(iframeTpl).css('display', 'table-cell');
+        },
+
+        onVideoUrlInputChange: function (event) {
+            var id = $(event.currentTarget).closest('.item').attr('id');
+            this.loadItemForm('#' + id + ' .video-player');
         },
 
         onLanguageChange: function (e) {

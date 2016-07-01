@@ -134,24 +134,33 @@
     </div>
 {% endblock %}
 
+{% block video_player %}
+    <iframe width="180" height="85" src="{{ video_url | default('__url__') }}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+{% endblock %}
+
 {% block thecodeine_gallerybundle_gallery_widget %}
-    <div class="form-group thecodeine_admin_gallery" data-prototype="{{ form_widget(form.items.vars.prototype)|e }}" data-items-id="{{ form.items.vars.id }}">
-        <ul class="gallery-items">
-            {% for item in form.items %}
-                {{ form_widget(item) }}
-            {% endfor %}
-        </ul>
+    <div
+        class="form-group thecodeine_admin_gallery"
+        data-prototype="{{ form_widget(form.items.vars.prototype)|e }}"
+        data-player-prototype="{{ block('video_player') | e }}"
+        data-items-id="{{ form.items.vars.id }}"
+    >
         {% for type in form.vars.attr.types %}
             <a href="#" class="btn btn-border" data-type="{{ type }}" data-action="add-new-item">
                 <i class="fa fa-plus" aria-hidden="true"></i> {{ type | capitalize | trans }}
             </a>
         {% endfor %}
+        <ul class="gallery-items">
+            {% for item in form.items %}
+                {{ form_widget(item) }}
+            {% endfor %}
+        </ul>
     </div>
 {% endblock %}
 
 {% block thecodeine_gallerybundle_item_widget %}
     {% spaceless %}
-        <li class="item ui-state-default clearfix" id="{{ form.vars.id }}">
+        <li class="item ui-state-default clearfix" id="{{ form.vars.id }}" data-item-number="{{ form.vars.name }}">
             <div class="gallery-table">
                 <div class="table-row">
                     {{ form_widget(form.type) }}
@@ -176,8 +185,8 @@
                         <div class="video-player">
                             {% set video = form.vars.value.video %}
                             {% if(video is not null) %}
-                                <iframe width="180" height="100" src="{{ videoPlayer(video.type, video.videoId) }}"
-                                        frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                                {% set video_url = video_url(video.type, video.videoId) %}
+                                {{ block('video_player') }}
                             {% endif %}
                         </div>
                         <div>
@@ -215,7 +224,7 @@
             {% if form.image is defined %}
                 <div class="gallery-table">
                     <div class="table-row">
-                            {{ form_errors(form.image.file) }}
+                        {{ form_errors(form.image.file) }}
                     </div>
                 </div>
             {% endif %}
