@@ -76,6 +76,11 @@
 
                         &.video-player {
                             width: 200px;
+                            display: none;
+
+                            &.loaded {
+                                display: table-cell;
+                            }
                         }
 
                         .form-group {
@@ -202,6 +207,14 @@
 
             input[type="url"] {
                 height: 40px;
+
+                &.error {
+                    border: 2px solid $brand-danger;
+
+                    &:focus {
+                        border: 2px solid $brand-danger !important;
+                    }
+                }
             }
 
             .fui-plus {

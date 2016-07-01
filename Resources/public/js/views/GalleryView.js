@@ -9,7 +9,8 @@
             'close': 'onClose',
             'open': 'onOpen',
             'click': 'onClick',
-            'click .a2lix_translationsLocales li a': 'onLanguageChange'
+            'click .a2lix_translationsLocales li a': 'onLanguageChange',
+            'showError': 'onShowError'
         },
         initialize: function () {
             this.$el.addClass('magictime');
@@ -51,6 +52,7 @@
                     $(selector).replaceWith(
                         $(html).find(selector)
                     );
+                    $(selector).addClass('loaded');
                 }
             });
         },
@@ -104,51 +106,27 @@
                 reader.readAsDataURL(f);
             }
         },
-        onVideoUrlInputChange: function (e) {
-            var url = e.target.value;
-            var videoId = '';
-
-            if (/(vimeo)/.test(url)) {
-                url = url.split('/');
-                videoId = url.pop();
-                url = 'https://player.vimeo.com/video/' + videoId;
-            } else if (/(youtu\.be|youtube.com)/.test(url)) {
-                if (/(youtu\.be)/.test(url)) {
-                    url = url.split('/');
-                } else {
-                    url = url.split('=');
-                }
-                videoId = url.pop();
-                url = 'https://www.youtube.com/embed/' + videoId;
-            } else {
-                var errorTpl = '<div class="gallery-table video-error">' +
-                    '<div class="table-row">' +
-                    '<div class="dialog dialog-danger form-errors">' +
-                    '<div class="form-errors-container">' +
-                    '<strong class="text-danger">Ups!</strong> <span>Proszę wkleić link do YouTube lub Vimeo.</span>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>';
-
-                var $item = $(e.target).closest('.item');
-
-                $item.find('.video-error').remove();
-                $item.append(errorTpl);
-
-                return;
-            }
-
-            var iframeTpl = '<iframe width="180" height="100" src="' + url + '" frameborder="0" allowfullscreen></iframe>';
-
-            var $videoPlayer = $(e.target).closest('.item').find('.video-player');
-
-            $videoPlayer.html(iframeTpl).css('display', 'table-cell');
-        },
 
         onVideoUrlInputChange: function (event) {
+            var $el = $(event.target);
+            var url = event.target.value;
             var id = $(event.currentTarget).closest('.item').attr('id');
-            this.loadItemForm('#' + id + ' .video-player');
+            console.log(url);
+
+            if (/(youtu\.be|youtube\.com|vimeo\.com)/.test(url)) {
+                this.loadItemForm('#' + id + ' .video-player');
+                $el.removeClass('error').siblings('.form-error').remove();
+            } else {
+                $el.trigger('showError', 'Proszę wkleić link do YouTube lub Vimeo.');
+            }
+        },
+
+        onShowError: function(e, message) {
+            console.log(e.target, message);
+            var $el = $(e.target);
+            var error = '<span class="form-error">' + message + '</span>';
+            $el.siblings('.form-error').remove();
+            $el.addClass('error').after(error);
         },
 
         onLanguageChange: function (e) {
