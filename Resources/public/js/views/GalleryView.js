@@ -111,7 +111,6 @@
             var $el = $(event.target);
             var url = event.target.value;
             var id = $(event.currentTarget).closest('.item').attr('id');
-            console.log(url);
 
             if (/(youtu\.be|youtube\.com|vimeo\.com)/.test(url)) {
                 this.loadItemForm('#' + id + ' .video-player');
@@ -122,7 +121,6 @@
         },
 
         onShowError: function(e, message) {
-            console.log(e.target, message);
             var $el = $(e.target);
             var error = '<span class="form-error">' + message + '</span>';
             $el.siblings('.form-error').remove();
