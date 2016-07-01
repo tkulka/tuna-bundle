@@ -75,7 +75,7 @@
             this.addItem($(event.currentTarget).data('type'));
         },
         onDeleteClick: function (e) {
-            $(e.currentTarget).parent().remove()
+            $(e.currentTarget).closest('.item').remove();
         },
         onFileInputChange: function (e) {
             var $element = $(e.currentTarget);
@@ -124,7 +124,7 @@
 
             var $videoPlayer = $(e.target).closest('.item').find('.video-player');
 
-            $videoPlayer.html(iframeTpl);
+            $videoPlayer.html(iframeTpl).css('display', 'table-cell');
         },
 
         onLanguageChange: function (e) {
