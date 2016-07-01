@@ -18,10 +18,12 @@
     {% spaceless %}
         {% if errors|length > 0 %}
             <div class="dialog dialog-danger form-errors">
-                <strong class="text-danger">{% trans %}Woops!{% endtrans %} </strong>
-                {% for error in errors %}
-                    <span>{{ error.message }}</span>
-                {% endfor %}
+                <div class="form-errors-container">
+                    <strong class="text-danger">{% trans %}Woops!{% endtrans %} </strong>
+                    {% for error in errors %}
+                        <span>{{ error.message }}</span>
+                    {% endfor %}
+                </div>
             </div>
         {% endif %}
     {% endspaceless %}
@@ -150,61 +152,79 @@
 {% block thecodeine_gallerybundle_item_widget %}
     {% spaceless %}
         <li class="item ui-state-default clearfix" id="{{ form.vars.id }}">
-            {{ form_widget(form.type) }}
+            <div class="gallery-table">
+                <div class="table-row">
+                    {{ form_widget(form.type) }}
 
-            {% if form.position is defined %}
-                {{ form_widget(form.position, {'attr': {'class': 'position'} }) }}
-            {% endif %}
+                    {% if form.position is defined %}
+                        {{ form_widget(form.position, {'attr': {'class': 'position'} }) }}
+                    {% endif %}
+
+                    {% if form.image is defined %}
+                        {% set image = form.vars.value.image %}
+                        <div class="image">
+                            {% if(image is not null) %}
+                                <div class="gallery-image" style="background-image: url({{ ('uploads/' ~ image.path) | imagine_filter('tuna_admin_thumb') }})"></div>
+                            {% else %}
+                                {{ form_widget(form.image.file) }}
+                                <span class="fui-plus"></span>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+
+                    {% if form.video is defined %}
+                        <div class="video-player">
+                            {% set video = form.vars.value.video %}
+                            {% if(video is not null) %}
+                                <iframe width="180" height="100" src="{{ videoPlayer(video.type, video.videoId) }}"
+                                        frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                            {% endif %}
+                        </div>
+                        <div>
+                            <div class="video">
+                                {{ form_widget(form.video, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                            <div class="item-name video">
+                                {% if form.translations is defined %}
+                                    {{ form_widget(form.translations, {'label': false}) }}
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if form.image is defined %}
+                        <div class="item-name">
+                            {% if form.translations is defined %}
+                                {{ form_widget(form.translations, {'label': false}) }}
+                            {% endif %}
+                        </div>
+                    {% endif %}
+
+                    {% if form.video is defined or form.image is defined %}
+                        <div class="option handle">
+                            <i class="fa fa-bars" aria-hidden="true"></i>
+                        </div>
+
+                        <div class="option delete">
+                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
 
             {% if form.image is defined %}
-                {% set image = form.vars.value.image %}
-                <div class="image">
-                    {% if(image is not null) %}
-                        <div class="gallery-image" style="background-image: url({{ ('uploads/' ~ image.path) | imagine_filter('tuna_admin_thumb') }})"></div>
-                    {% else %}
-                        {{ form_widget(form.image) }}
-                        <span class="fui-plus"></span>
-                    {% endif %}
-                    {{ form_errors(form.image) }}
+                <div class="gallery-table">
+                    <div class="table-row">
+                            {{ form_errors(form.image.file) }}
+                    </div>
                 </div>
             {% endif %}
 
             {% if form.video is defined %}
-                <div class="video-player">
-                    {% set video = form.vars.value.video %}
-                    {% if(video is not null) %}
-                        <iframe width="180" height="100" src="{{ videoPlayer(video.type, video.videoId) }}"
-                                frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-                    {% endif %}
-                </div>
-                <div>
-                    <div class="video">
-                        {{ form_widget(form.video, {'attr': {'class': 'form-control'}}) }}
-                    </div>
-                    <div class="item-name video">
-                        {% if form.translations is defined %}
-                            {{ form_widget(form.translations, {'label': false}) }}
-                        {% endif %}
+                <div class="gallery-table">
+                    <div class="table-row">
                         {{ form_errors(form.video) }}
                     </div>
-                </div>
-            {% endif %}
-
-            {% if form.image is defined %}
-                <div class="item-name">
-                    {% if form.translations is defined %}
-                        {{ form_widget(form.translations, {'label': false}) }}
-                    {% endif %}
-                </div>
-            {% endif %}
-
-            {% if form.video is defined or form.image is defined %}
-                <div class="option handle">
-                    <i class="fa fa-bars" aria-hidden="true"></i>
-                </div>
-
-                <div class="option delete">
-                    <i class="fa fa-trash-o" aria-hidden="true"></i>
                 </div>
             {% endif %}
         </li>
