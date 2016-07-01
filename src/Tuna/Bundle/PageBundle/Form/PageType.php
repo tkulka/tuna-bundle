@@ -2,9 +2,12 @@
 
 namespace TheCodeine\PageBundle\Form;
 
-class PageType extends BasePageType
+final class PageType extends AbstractPageType
 {
-    protected function getTranslatableClass()
+    /**
+     * @inheritdoc
+     */
+    protected function getEntityClass()
     {
         return 'TheCodeine\PageBundle\Entity\Page';
     }

@@ -15,7 +15,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * @ORM\HasLifecycleCallbacks
  */
-class Page extends BasePage
+class Page extends AbstractPage
 {
     /**
      * @ORM\OneToMany(targetEntity="PageTranslation", mappedBy="object", cascade={"persist", "remove"})

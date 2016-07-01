@@ -4,7 +4,7 @@ namespace TheCodeine\PageBundle\Controller;
 
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
-use TheCodeine\PageBundle\Entity\BasePage;
+use TheCodeine\PageBundle\Entity\AbstractPage;
 use TheCodeine\PageBundle\Entity\Page;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -13,22 +13,22 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-abstract class BasePageController extends Controller
+abstract class AbstractPageController extends Controller
 {
     /**
-     * @return BasePage
+     * @return AbstractPage
      */
     abstract public function getNewPage();
 
     /**
      * @return AbstractType
      */
-    abstract public function getNewFormType(BasePage $page = null, $validate = true);
+    abstract public function getNewFormType(AbstractPage $page = null, $validate = true);
 
     /**
      * @return string
      */
-    abstract public function getRedirectUrl(BasePage $page = null);
+    abstract public function getRedirectUrl(AbstractPage $page = null);
 
     /**
      * @return EntityRepository
@@ -40,11 +40,11 @@ abstract class BasePageController extends Controller
      * @Template()
      *
      * @param Request $request
-     * @param BasePage $page
+     * @param AbstractPage $page
      *
      * @return array
      */
-    public function showAction(Request $request, BasePage $page)
+    public function showAction(Request $request, AbstractPage $page)
     {
         return array(
             'page' => $page
@@ -105,7 +105,7 @@ abstract class BasePageController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function deleteAction(BasePage $page)
+    public function deleteAction(AbstractPage $page)
     {
         $em = $this->getDoctrine()->getManager();
         $em->remove($page);
