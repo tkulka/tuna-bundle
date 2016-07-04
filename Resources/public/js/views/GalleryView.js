@@ -9,7 +9,8 @@
             'close': 'onClose',
             'open': 'onOpen',
             'click': 'onClick',
-            'click .a2lix_translationsLocales li a': 'onLanguageChange'
+            'click .a2lix_translationsLocales li a': 'onLanguageChange',
+            'showError': 'onShowError'
         },
         initialize: function () {
             this.$el.addClass('magictime');
@@ -51,6 +52,7 @@
                     $(selector).replaceWith(
                         $(html).find(selector)
                     );
+                    $(selector).addClass('loaded');
                 }
             });
         },
@@ -104,9 +106,25 @@
                 reader.readAsDataURL(f);
             }
         },
+
         onVideoUrlInputChange: function (event) {
+            var $el = $(event.target);
+            var url = event.target.value;
             var id = $(event.currentTarget).closest('.item').attr('id');
-            this.loadItemForm('#' + id + ' .video-player');
+
+            if (/(youtu\.be|youtube\.com|vimeo\.com)/.test(url)) {
+                this.loadItemForm('#' + id + ' .video-player');
+                $el.removeClass('error').siblings('.form-error').remove();
+            } else {
+                $el.trigger('showError', 'Proszę wkleić link do YouTube lub Vimeo.');
+            }
+        },
+
+        onShowError: function(e, message) {
+            var $el = $(e.target);
+            var error = '<span class="form-error">' + message + '</span>';
+            $el.siblings('.form-error').remove();
+            $el.addClass('error').after(error);
         },
 
         onLanguageChange: function (e) {
