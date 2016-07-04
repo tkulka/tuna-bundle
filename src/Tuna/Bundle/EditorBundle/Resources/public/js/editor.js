@@ -24,7 +24,7 @@ tuna.view.EditorView = Backbone.View.extend({
                     removeTags: ['span', 'basefont', 'center', 'dir', 'font', 'frame', 'frameset', 'isindex', 'menu', 'noframes', 's', 'strike', 'br', 'canvas', 'hr', 'img'],
                     allowEmpty: [],
                     tagAllowEmpty: [],
-                    allowComments: false,
+                    allowComments: false
                 }));
             }
         }
