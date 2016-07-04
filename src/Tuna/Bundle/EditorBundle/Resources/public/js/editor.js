@@ -14,8 +14,8 @@ tuna.view.EditorView = Backbone.View.extend({
             onPaste: function (e) {
                 e.preventDefault();
                 var html = (e.originalEvent || e).clipboardData.getData('text/html') || (e.originalEvent || e).clipboardData.getData('text/plain');
-                var cleanHtml = cleanHTML(html);
-                document.execCommand('insertHTML', false, $.htmlClean(cleanHtml, {
+                html = cleanHTML(html);
+                document.execCommand('insertHTML', false, $.htmlClean(html, {
                     format: false,
                     replace: [['h1'], 'h2'],
                     removeAttrs: ['class', 'style', 'font'],
