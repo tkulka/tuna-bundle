@@ -3,12 +3,17 @@
 namespace TheCodeine\AdminBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * @Route("/page")
+ */
 class PageController extends \TheCodeine\PageBundle\Controller\PageController
 {
     /**
      *
+     * @Route("/list", name="tuna_page_list")
      * @Template()
      *
      * @return array

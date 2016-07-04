@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Collections\ArrayCollection;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\Routing\Annotation\Route;
 
 abstract class AbstractPageController extends Controller
 {
@@ -36,26 +37,8 @@ abstract class AbstractPageController extends Controller
     abstract public function getRepository();
 
     /**
-     *
+     * @Route("/list")
      * @Template()
-     *
-     * @param Request $request
-     * @param AbstractPage $page
-     *
-     * @return array
-     */
-    public function showAction(Request $request, AbstractPage $page)
-    {
-        return array(
-            'page' => $page
-        );
-    }
-
-    /**
-     *
-     * @Template()
-     *
-     * @return array
      */
     public function listAction(Request $request)
     {
@@ -65,12 +48,8 @@ abstract class AbstractPageController extends Controller
     }
 
     /**
-     *
+     * @Route("/create")
      * @Template()
-     *
-     * @param Request $request
-     *
-     * @return array
      */
     public function createAction(Request $request)
     {
@@ -81,13 +60,8 @@ abstract class AbstractPageController extends Controller
     }
 
     /**
-     *
+     * @Route("/{id}/edit", requirements={"id" = "\d+"})
      * @Template()
-     *
-     * @param Request $request
-     * @param integer $id
-     *
-     * @return array
      */
     public function editAction(Request $request, $id)
     {
@@ -98,18 +72,16 @@ abstract class AbstractPageController extends Controller
     }
 
     /**
-     *
+     * @Route("/{id}/delete", requirements={"id" = "\d+"})
      * @Template()
-     *
-     * @param Page $page
-     *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function deleteAction(AbstractPage $page)
+    public function deleteAction(Request $request, $id)
     {
+        $page = $this->getRepository()->find($id);
         $em = $this->getDoctrine()->getManager();
         $em->remove($page);
         $em->flush();
+
         return $this->redirect($this->getRedirectUrl($page));
     }
 

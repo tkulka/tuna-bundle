@@ -175,6 +175,7 @@
                             {% if(image is not null) %}
                                 <div class="gallery-image" style="background-image: url({{ ('uploads/' ~ image.path) | imagine_filter('tuna_admin_thumb') }})"></div>
                             {% else %}
+                                <div class="image-preview"></div>
                                 {{ form_widget(form.image.file) }}
                                 <span class="fui-plus"></span>
                             {% endif %}

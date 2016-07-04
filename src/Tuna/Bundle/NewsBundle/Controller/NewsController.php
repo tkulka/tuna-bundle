@@ -5,15 +5,16 @@ namespace TheCodeine\NewsBundle\Controller;
 use TheCodeine\NewsBundle\Entity\AbstractNews;
 use TheCodeine\NewsBundle\Entity\Category;
 use TheCodeine\NewsBundle\Form\CategoryType;
-
-use Symfony\Component\HttpFoundation\Request;
-
-use Doctrine\ORM\Query;
-
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use TheCodeine\PageBundle\Controller\AbstractPageController;
 use TheCodeine\PageBundle\Entity\AbstractPage;
 
+use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\Routing\Annotation\Route;
+
+/**
+ * @Route("/news")
+ */
 class NewsController extends AbstractPageController
 {
     public function getNewPage()
@@ -38,6 +39,7 @@ class NewsController extends AbstractPageController
 
     /**
      *
+     * @Route("/{newsType}/list", name="tuna_news_list")
      * @Template()
      *
      * @param Request $request
@@ -52,6 +54,7 @@ class NewsController extends AbstractPageController
     }
 
     /**
+     * @Route("/create", name="tuna_news_create")
      * @Template()
      *
      * @param Request $request
@@ -72,5 +75,24 @@ class NewsController extends AbstractPageController
         }
 
         return $result;
+    }
+
+    /**
+     * @Route("/{id}/edit", name="tuna_news_edit", requirements={"id" = "\d+"})
+     * @Template()
+     */
+    public function editAction(Request $request, $id)
+    {
+        return parent::editAction($request, $id);
+    }
+
+    /**
+     *
+     * @Route("/{id}/delete", name="tuna_news_delete", requirements={"id" = "\d+"})
+     * @Template()
+     */
+    public function deleteAction(Request $request, $id)
+    {
+        return parent::deleteAction($request, $id);
     }
 }

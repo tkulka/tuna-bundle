@@ -6,65 +6,59 @@ use Doctrine\DBAL\DBALException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\Routing\Annotation\Route;
 
 use TheCodeine\CategoryBundle\Entity\Category;
 use TheCodeine\CategoryBundle\Form\CategoryType;
 
-class CategoryController extends Controller
+/**
+ * @Route("/category-bitch")
+ */
+class CategoryController extends AbstractCategoryController
 {
+    public function getNewObject()
+    {
+        return new Category();
+    }
+
+    public function getNewFormType(Category $category = null)
+    {
+        return new CategoryType();
+    }
+
+    public function getRedirectUrl(Category $category = null)
+    {
+        return $this->generateUrl('tuna_category_list');
+    }
+
+    public function getRepository()
+    {
+        return $this->getDoctrine()->getRepository('TheCodeineCategoryBundle:Category');
+    }
+
     /**
+     * @Route("/list", name="tuna_category_list")
      * @Template()
      */
     public function listAction(Request $request)
     {
-        $categories = $this->getDoctrine()->getRepository('TheCodeineCategoryBundle:Category')->findAll();
-        $groupedCategories = array();
-
-        foreach ($categories as $category) {
-            $groupedCategories[$category->getType()][] = $category;
-        }
-
-        return array(
-            'groupedCategories' => $groupedCategories,
-        );
+        return parent::listAction($request);
     }
 
     /**
+     * @Route("/{id}/edit", name="tuna_category_edit")
      * @Template()
      */
     public function editAction(Request $request, Category $category)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $form = $this->createForm(new CategoryType(), $category);
-        $form->add('save', 'submit');
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $em->flush();
-
-            return $this->redirectToRoute('tuna_category_list');
-        }
-
-        return array(
-            'entity' => $category,
-            'form' => $form->createView(),
-        );
+        return parent::editAction($request, $category);
     }
 
+    /**
+     * @Route("/{id}/delete", name="tuna_category_delete")
+     */
     public function deleteAction(Request $request, Category $category)
     {
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($category);
-
-        try {
-            $em->flush();
-        } catch (DBALException $e) {
-            $translator = $this->get('translator.default');
-            $errorMsg = $translator->trans('error.category.not_empty', array('%name%' => $category->getName()), 'validators');
-            $this->get('session')->getFlashBag()->add('error', $errorMsg);
-        }
-
-        return $this->redirectToRoute('tuna_category_list');
+        return parent::deleteAction($request, $category);
     }
 }

@@ -156,7 +156,6 @@
                     }
                 }
 
-
             }
         }
     }
@@ -217,6 +216,18 @@
 
             &.image {
                 width: 200px;
+
+                .image-preview {
+                    $padding: 10px;
+
+                    position: absolute;
+                    background-size: cover;
+
+                    top: $padding;
+                    right: $padding;
+                    bottom: $padding;
+                    left: $padding;
+                }
 
                 &:hover {
                     .fui-plus {

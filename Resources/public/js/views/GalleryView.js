@@ -86,18 +86,8 @@
 
                 reader.onload = (function (theFile) {
                     return function (event) {
-                        var $cnt = $element.parent();
-                        $cnt.css({
-                            'background-position': 'center center',
-                            'background-image': 'url(' + event.target.result + ')',
-                            'background-size': 'cover',
-                            height: '85px',
-                            width: '180px',
-                            position: 'relative',
-                            top: 0,
-                            left: 0,
-                            'zIndex': 9
-                        });
+                        $element.closest('.item').find('.image-preview')
+                            .css('background-image', 'url(' + event.target.result + ')');
                     }
                 })(f);
 

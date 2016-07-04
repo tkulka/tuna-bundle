@@ -1,25 +1,3 @@
-tuna_page_show:
-    path: /{_locale}/page/{id}
-    defaults:  { _controller: TheCodeinePageBundle:Page:show }
-    requirements:
-        id:  \d+
-
-tuna_page_create:
-    path: /admin/page/create
-    defaults:  { _controller: TheCodeinePageBundle:Page:create }
-
-tuna_page_list:
-    path: /admin/page/list
-    defaults:  { _controller: TheCodeinePageBundle:Page:list }
-
-tuna_page_edit:
-    path: /admin/page/{id}/edit
-    defaults:  { _controller: TheCodeinePageBundle:Page:edit }
-    requirements:
-        id:  \d+
-
-tuna_page_delete:
-    path: /admin/page/{id}/delete
-    defaults:  { _controller: TheCodeinePageBundle:Page:delete }
-    requirements:
-        id:  \d+
+tuna_admin_page:
+    resource: "@TheCodeinePageBundle/Controller/PageController.php"
+    type:     annotation
