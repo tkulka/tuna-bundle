@@ -34,7 +34,7 @@ tuna.view.EditorView = Backbone.View.extend({
             styleTags: ['h1', 'h2', 'p', 'blockquote'],
             toolbar: [
                 ['style', ['style', 'bold', 'italic', 'underline', 'clear']],
-                ['para', ['ul', 'ol', 'paragraph']],
+                ['para', ['ul', 'paragraph']],
                 ['insert', ['link', 'picture']],
                 ['misc', ['codeview']]
             ]
