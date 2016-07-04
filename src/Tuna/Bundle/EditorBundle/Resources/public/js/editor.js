@@ -14,6 +14,7 @@ tuna.view.EditorView = Backbone.View.extend({
             onPaste: function (e) {
                 e.preventDefault();
                 var html = (e.originalEvent || e).clipboardData.getData('text/html') || (e.originalEvent || e).clipboardData.getData('text/plain');
+                html = cleanHTML(html);
                 document.execCommand('insertHTML', false, $.htmlClean(html, {
                     format: false,
                     replace: [['h1'], 'h2'],
@@ -21,9 +22,9 @@ tuna.view.EditorView = Backbone.View.extend({
                     allowedAttributes: ['width', 'height', 'src', 'frameborder', 'allowfullscreen'],
                     allowedTags: ['p', 'i', 'b', 'u', 'strong', 'iframe', 'ul', 'li'],
                     removeTags: ['span', 'basefont', 'center', 'dir', 'font', 'frame', 'frameset', 'isindex', 'menu', 'noframes', 's', 'strike', 'br', 'canvas', 'hr', 'img'],
-                    allowEmpty: ['iframe'],
-                    tagAllowEmpty: ['iframe'],
-                    allowComments: false,
+                    allowEmpty: [],
+                    tagAllowEmpty: [],
+                    allowComments: false
                 }));
             }
         }
