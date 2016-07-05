@@ -1,0 +1,11 @@
+{% block datetime_widget %}
+    <div class="form-group control-group datepicker-group">
+        <div class="input-group">
+            <button class="btn btn-default btn-sm">
+                <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+            </button>
+            <input type="text" class="form-control datepicker input-sm" {{ block('widget_attributes') }}
+                   value="{{ value }}">
+        </div>
+    </div>
+{% endblock %}
