@@ -220,23 +220,16 @@
                         </div>
                     {% endif %}
                 </div>
-            </div>
-
-            {% if form.image is defined %}
-                <div class="gallery-table">
+                {% if form.image is defined %}
                     <div class="table-row">
                         {{ form_errors(form.image.file) }}
                     </div>
-                </div>
-            {% endif %}
-
-            {% if form.video is defined %}
-                <div class="gallery-table">
+                {% elseif form.video is defined %}
                     <div class="table-row">
                         {{ form_errors(form.video) }}
                     </div>
-                </div>
-            {% endif %}
+                {% endif %}
+            </div>
         </li>
     {% endspaceless %}
 {% endblock %}
@@ -288,15 +281,12 @@
                         <i class="fa fa-trash-o" aria-hidden="true"></i>
                     </div>
                 </div>
-            </div>
-
-            {% if not form.vars.valid %}
-                <div class="gallery-table">
+                {% if not form.vars.valid %}
                     <div class="table-row">
                         {{ form_errors(form) }}
                     </div>
-                </div>
-            {% endif %}
+                {% endif %}
+            </div>
         </li>
     {% endspaceless %}
 {% endblock %}

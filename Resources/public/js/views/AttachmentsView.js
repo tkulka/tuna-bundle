@@ -60,13 +60,13 @@
 
             $(e.currentTarget).data('index', index + 1);
 
-            this.$('.attachments').prepend($(newForm));
+            this.$('.attachments').append($(newForm));
             this.recalculateItemPositions();
             this._initSortable();
         },
 
         _onClickDelete: function (e) {
-            $(e.currentTarget).parent().remove()
+            $(e.currentTarget).closest('.item').remove()
         },
 
         _onLanguageChange: function (e) {

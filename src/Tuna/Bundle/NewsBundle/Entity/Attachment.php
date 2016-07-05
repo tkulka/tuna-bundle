@@ -93,8 +93,7 @@ class Attachment
     public function validateImage(ExecutionContextInterface $context)
     {
         if (!$this->getFile() && !$this->getFileName()) {
-            $context->buildViolation('error.attachment.empty')
-                ->addViolation();
+            $context->addViolation('error.attachment.empty');
         }
     }
 
