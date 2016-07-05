@@ -53,21 +53,4 @@ class CategoryController extends AbstractCategoryController
             'groupedCategories' => $groupedCategories,
         );
     }
-
-    /**
-     * @Route("/{id}/edit", name="tuna_category_edit")
-     * @Template()
-     */
-    public function editAction(Request $request, Category $category)
-    {
-        return parent::editAction($request, $category);
-    }
-
-    /**
-     * @Route("/{id}/delete", name="tuna_category_delete")
-     */
-    public function deleteAction(Request $request, Category $category)
-    {
-        return parent::deleteAction($request, $category);
-    }
 }

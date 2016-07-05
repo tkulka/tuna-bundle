@@ -43,7 +43,7 @@ abstract class AbstractPageController extends Controller
     public function listAction(Request $request)
     {
         return array(
-            'pagesList' => $this->getRepository()->findAll(),
+            'entities' => $this->getRepository()->findAll(),
         );
     }
 

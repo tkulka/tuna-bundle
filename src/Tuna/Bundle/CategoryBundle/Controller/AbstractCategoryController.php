@@ -40,7 +40,7 @@ abstract class AbstractCategoryController extends Controller
     public function listAction(Request $request)
     {
         return array(
-            'categories' => $this->getDoctrine()->getRepository('AppBundle:TenantCategory')->findAll(),
+            'categories' => $this->getRepository()->findAll(),
         );
     }
 
