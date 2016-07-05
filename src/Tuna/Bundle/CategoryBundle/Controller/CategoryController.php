@@ -37,7 +37,7 @@ class CategoryController extends AbstractCategoryController
     }
 
     /**
-     * @Route("/list", name="tuna_category_list")
+     * @Route("/list")
      * @Template()
      */
     public function listAction(Request $request)
