@@ -53,16 +53,26 @@
 
         _onAddNewAttachment: function (e) {
             this._destroySortable();
+            var $wrapper = $(e.currentTarget);
+            var prototype = $wrapper.data('prototype');
 
-            var prototype = $(e.currentTarget).data('prototype');
-            var index = $(e.currentTarget).data('index') | $('li.item').size();
+            if ($wrapper.data('index')) {
+                var index = $wrapper.data('index') + 1;
+            } else if (this.$('li.item').length == 0) {
+                var index = 1;
+            } else {
+                var index = _.max(_.map(this.$('li.item'), function (item) {
+                        return parseInt($(item).data('item-number'));
+                    })) + 1;
+            }
+
+            $wrapper.data('index', index);
+
             var newForm = prototype.replace(/__name__/g, index);
 
-            $(e.currentTarget).data('index', index + 1);
-
             this.$('.attachments').append($(newForm));
-            this.recalculateItemPositions();
             this._initSortable();
+            this.recalculateItemPositions();
         },
 
         _onClickDelete: function (e) {
