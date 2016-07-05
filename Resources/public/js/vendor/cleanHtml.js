@@ -1,6 +1,5 @@
 // removes MS Office generated guff
 function cleanHTML(input) {
-    console.log('Before: ', input);
     // 1. remove line breaks / Mso classes
     var stringStripper = /(\n|\r| class=(")?Mso[a-zA-Z]+(")?)/g;
     var commentStripper = /(<!(|--)\[[^\]]+\]>.*?)|(<!(|--).+?(|--)>)/g;
@@ -23,7 +22,5 @@ function cleanHTML(input) {
         var attributeStripper = new RegExp(' ' + badAttributes[i] + '="(.*?)"','gi');
         output = output.replace(attributeStripper, '');
     }
-
-    console.log('After: ', output);
     return output;
 }
