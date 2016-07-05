@@ -39,15 +39,8 @@ abstract class AbstractCategoryController extends Controller
      */
     public function listAction(Request $request)
     {
-        $categories = $this->getRepository()->findAll();
-        $groupedCategories = array();
-
-        foreach ($categories as $category) {
-            $groupedCategories[$category->getType()][] = $category;
-        }
-
         return array(
-            'groupedCategories' => $groupedCategories,
+            'categories' => $this->getDoctrine()->getRepository('AppBundle:TenantCategory')->findAll(),
         );
     }
 

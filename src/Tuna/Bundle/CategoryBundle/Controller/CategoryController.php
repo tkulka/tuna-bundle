@@ -12,7 +12,7 @@ use TheCodeine\CategoryBundle\Entity\Category;
 use TheCodeine\CategoryBundle\Form\CategoryType;
 
 /**
- * @Route("/category-bitch")
+ * @Route("/category")
  */
 class CategoryController extends AbstractCategoryController
 {
@@ -42,7 +42,16 @@ class CategoryController extends AbstractCategoryController
      */
     public function listAction(Request $request)
     {
-        return parent::listAction($request);
+        $categories = $this->getRepository()->findAll();
+        $groupedCategories = array();
+
+        foreach ($categories as $category) {
+            $groupedCategories[$category->getType()][] = $category;
+        }
+
+        return array(
+            'groupedCategories' => $groupedCategories,
+        );
     }
 
     /**
