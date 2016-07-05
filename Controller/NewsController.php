@@ -3,23 +3,21 @@
 namespace TheCodeine\AdminBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * @Route("/news")
+ */
 class NewsController extends \TheCodeine\NewsBundle\Controller\NewsController
 {
     /**
-     *
+     * @Route("/{newsType}/list", name="tuna_news_list")
      * @Template()
-     *
-     * @param Request $request
-     * @param string $newsType
-     *
-     * @return array
      */
     public function listAction(Request $request, $newsType = null)
     {
-        $query = $this->getDoctrine()->getRepository('TheCodeineNewsBundle:BaseNews')->getListQuery($newsType);
+        $query = $this->getDoctrine()->getRepository('TheCodeineNewsBundle:AbstractNews')->getListQuery($newsType);
         $defaultSort = array(
             'defaultSortFieldName' => 'n.createdAt',
             'defaultSortDirection' => 'DESC'

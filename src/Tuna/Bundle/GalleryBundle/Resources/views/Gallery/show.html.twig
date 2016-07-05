@@ -4,7 +4,7 @@
             {% if item.image %}
                 <img src="{{ ('uploads/' ~ item.image.path) | imagine_filter('tuna_admin_thumb') }}" id="image-1"/>
             {% elseif item.video %}
-                <iframe width="640" height="320" src="{{ videoPlayer(item.video.type, item.video.videoId) }}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                <iframe width="640" height="320" src="{{ video_url(item.video.type, item.video.videoId) }}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
             {% endif %}
         </li>
     {% endfor %}

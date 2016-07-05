@@ -2,20 +2,12 @@
 
 namespace TheCodeine\NewsBundle\Form;
 
-use Doctrine\ORM\EntityRepository;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-use TheCodeine\GalleryBundle\Form\GalleryType;
-use TheCodeine\NewsBundle\Entity\News;
-use TheCodeine\ImageBundle\Form\ImageRequestThumbnailType;
-use TheCodeine\PageBundle\Form\PageType;
-use TheCodeine\TagBundle\Form\TagCollectionType;
-use TheCodeine\TagBundle\Doctrine\TagManager;
+use TheCodeine\PageBundle\Form\AbstractPageType;
 
-class NewsType extends PageType
+class NewsType extends AbstractPageType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -38,7 +30,7 @@ class NewsType extends PageType
             ));
     }
 
-    protected function getTranslatableClass()
+    protected function getEntityClass()
     {
         return 'TheCodeine\NewsBundle\Entity\News';
     }
@@ -48,10 +40,8 @@ class NewsType extends PageType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'TheCodeine\NewsBundle\Entity\News',
-            'em' => null,
-        ));
+        parent::configureOptions($resolver);
+        $resolver->setDefault('data_class', 'TheCodeine\NewsBundle\Entity\AbstractNews');
     }
 
     /**

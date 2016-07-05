@@ -3,12 +3,17 @@
 namespace TheCodeine\AdminBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * @Route("/page")
+ */
 class PageController extends \TheCodeine\PageBundle\Controller\PageController
 {
     /**
      *
+     * @Route("/list", name="tuna_page_list")
      * @Template()
      *
      * @return array
@@ -23,5 +28,33 @@ class PageController extends \TheCodeine\PageBundle\Controller\PageController
             'pagination' => $this->get('knp_paginator')->paginate($query, $page, $limit),
             'offset' => ($page - 1) * $limit,
         );
+    }
+
+    /**
+     * @Route("/create", name="tuna_page_create")
+     * @Template()
+     */
+    public function createAction(Request $request)
+    {
+        return parent::createAction($request);
+    }
+
+    /**
+     * @Route("/{id}/edit", name="tuna_page_edit", requirements={"id" = "\d+"})
+     * @Template()
+     */
+    public function editAction(Request $request, $id)
+    {
+        return parent::editAction($request, $id);
+    }
+
+    /**
+     *
+     * @Route("/{id}/delete", name="tuna_page_delete", requirements={"id" = "\d+"})
+     * @Template()
+     */
+    public function deleteAction(Request $request, $id)
+    {
+        return parent::deleteAction($request, $id);
     }
 }

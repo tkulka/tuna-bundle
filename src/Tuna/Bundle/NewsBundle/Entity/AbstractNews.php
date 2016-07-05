@@ -5,10 +5,10 @@ namespace TheCodeine\NewsBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use TheCodeine\PageBundle\Entity\BasePage;
+use TheCodeine\PageBundle\Entity\AbstractPage;
 
 /**
- * BaseNews
+ * AbstractNews
  *
  * @ORM\Entity(repositoryClass="TheCodeine\NewsBundle\Entity\NewsRepository")
  * @Gedmo\TranslationEntity(class="TheCodeine\NewsBundle\Entity\NewsTranslation")
@@ -19,7 +19,7 @@ use TheCodeine\PageBundle\Entity\BasePage;
  *
  * @ORM\HasLifecycleCallbacks
  */
-class BaseNews extends BasePage
+abstract class AbstractNews extends AbstractPage
 {
     /**
      * @var \DateTime
@@ -33,16 +33,6 @@ class BaseNews extends BasePage
      * @ORM\OneToMany(targetEntity="NewsTranslation", mappedBy="object", cascade={"persist", "remove"})
      */
     protected $translations;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="Attachment", cascade={"persist"})
-     * @ORM\JoinTable(name="news_attachments",
-     *      joinColumns={@ORM\JoinColumn(name="news_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="attachment_id", referencedColumnName="id", unique=true)}
-     *      )
-     * @ORM\OrderBy({"position" = "ASC"})
-     */
-    protected $attachments;
 
     /**
      * @var

@@ -15,6 +15,11 @@ use Gedmo\Translatable\TranslatableListener;
  */
 class PageRepository extends EntityRepository
 {
+    public function findAllPublished()
+    {
+        return $this->findBy(array('published' => true));
+    }
+    
     public function getListQuery($published = null)
     {
         $query = $this->createQueryBuilder('p');

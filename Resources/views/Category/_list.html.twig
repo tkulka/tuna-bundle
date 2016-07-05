@@ -10,8 +10,8 @@
         <tr>
             <td>{{ entity.name }}</td>
             <td class="options">
-                <a href="{{ path('tuna_category_edit', { id : entity.id }) }}" class="fa fa-pencil-square-o" aria-hidden="true"></a>
-                <a href="#" data-title="{{ entity.name }}" data-url="{{ path('tuna_category_delete', { id : entity.id }) }}" data-target="#modal-confirm" data-action="delete" class="fa fa-trash" aria-hidden="true"></a>
+                <a href="{{ path(editRoute | default('tuna_category_edit'), { id : entity.id }) }}" class="fa fa-pencil-square-o" aria-hidden="true"></a>
+                <a href="#" data-title="{{ entity.name }}" data-url="{{ path(deleteRoute | default('tuna_category_delete'), { id : entity.id }) }}" data-target="#modal-confirm" data-action="delete" class="fa fa-trash" aria-hidden="true"></a>
             </td>
         </tr>
     {% endfor %}

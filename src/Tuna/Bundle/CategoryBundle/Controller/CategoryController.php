@@ -6,18 +6,43 @@ use Doctrine\DBAL\DBALException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\Routing\Annotation\Route;
 
 use TheCodeine\CategoryBundle\Entity\Category;
 use TheCodeine\CategoryBundle\Form\CategoryType;
 
-class CategoryController extends Controller
+/**
+ * @Route("/category")
+ */
+class CategoryController extends AbstractCategoryController
 {
+    public function getNewObject()
+    {
+        return new Category();
+    }
+
+    public function getNewFormType(Category $category = null)
+    {
+        return new CategoryType();
+    }
+
+    public function getRedirectUrl(Category $category = null)
+    {
+        return $this->generateUrl('tuna_category_list');
+    }
+
+    public function getRepository()
+    {
+        return $this->getDoctrine()->getRepository('TheCodeineCategoryBundle:Category');
+    }
+
     /**
+     * @Route("/list")
      * @Template()
      */
     public function listAction(Request $request)
     {
-        $categories = $this->getDoctrine()->getRepository('TheCodeineCategoryBundle:Category')->findAll();
+        $categories = $this->getRepository()->findAll();
         $groupedCategories = array();
 
         foreach ($categories as $category) {
@@ -27,44 +52,5 @@ class CategoryController extends Controller
         return array(
             'groupedCategories' => $groupedCategories,
         );
-    }
-
-    /**
-     * @Template()
-     */
-    public function editAction(Request $request, Category $category)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $form = $this->createForm(new CategoryType(), $category);
-        $form->add('save', 'submit');
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $em->flush();
-
-            return $this->redirectToRoute('tuna_category_list');
-        }
-
-        return array(
-            'entity' => $category,
-            'form' => $form->createView(),
-        );
-    }
-
-    public function deleteAction(Request $request, Category $category)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($category);
-
-        try {
-            $em->flush();
-        } catch (DBALException $e) {
-            $translator = $this->get('translator.default');
-            $errorMsg = $translator->trans('error.category.not_empty', array('%name%' => $category->getName()), 'errors');
-            $this->get('session')->getFlashBag()->add('error', $errorMsg);
-        }
-
-        return $this->redirectToRoute('tuna_category_list');
     }
 }

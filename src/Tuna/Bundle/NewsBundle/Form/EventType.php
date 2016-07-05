@@ -42,15 +42,4 @@ class EventType extends NewsType
     {
         return 'TheCodeine\NewsBundle\Entity\Event';
     }
-
-    /**
-     * @param OptionsResolver $resolver
-     */
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults(array(
-            'data_class' => 'TheCodeine\NewsBundle\Entity\Event',
-            'em' => null,
-        ));
-    }
 }

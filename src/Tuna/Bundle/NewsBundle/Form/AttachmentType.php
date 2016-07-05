@@ -4,6 +4,7 @@ namespace TheCodeine\NewsBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use TheCodeine\NewsBundle\Form\Type\AttachmentNameType;
 
@@ -16,8 +17,6 @@ class AttachmentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->setMethod('POST')
-            ->setAttribute('enctype', 'multipart/form-data')
             ->add('position', 'hidden')
             ->add('file', 'file', array())
             ->add('translations', 'a2lix_translations_gedmo', array(
@@ -35,14 +34,11 @@ class AttachmentType extends AbstractType
 
     }
 
-    /**
-     * @param OptionsResolverInterface $resolver
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'render_fieldset' => false,
-            'data_class' => 'TheCodeine\NewsBundle\Entity\Attachment'
+            'data_class' => 'TheCodeine\NewsBundle\Entity\Attachment',
+            'error_bubbling' => false,
         ));
     }
 
@@ -51,7 +47,7 @@ class AttachmentType extends AbstractType
      */
     public function getName()
     {
-        return 'thecodeine_newsbundle_attachment';
+        return 'tuna_attachment';
     }
 
 }
