@@ -1,5 +1,5 @@
 {% block tuna_attachments_widget %}
-    <div class="form-group thecodeine_admin_attachments">
+    <div class="form-group thecodeine_admin_attachments" data-index="{{ form | length }}">
         <a href="javascript:void(0)" class="btn btn-border add_new_attachment " data-prototype="{{ form_widget(form.vars.prototype)|e }}">
             <i class="fa fa-plus" aria-hidden="true"></i>
         </a>

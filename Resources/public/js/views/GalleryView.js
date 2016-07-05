@@ -27,7 +27,7 @@
                 })
                 .disableSelection()
                 .bind('sortupdate', function () {
-                    oThis.recalculateImagePositions();
+                    oThis.recalculateItemPositions();
                 });
         },
         onClose: function () {
@@ -60,15 +60,16 @@
             var $wrapper = this.$('.thecodeine_admin_gallery');
             var itemsId = $wrapper.data('itemsId');
             var prototype = $wrapper.data('prototype');
-            var index = $wrapper.data('index') | this.$('li.item').size();
+            var index = $wrapper.data('index') + 1;
+            $wrapper.data('index', index);
+
             var $newForm = $(prototype.replace(/__name__/g, index));
             $newForm.find('input[type="hidden"]').val(type);
-
-            $wrapper.data('index', index + 1);
 
             this.$('.gallery-items').append($newForm);
             this.loadItemForm('#' + itemsId + "_" + index);
             tuna.website.enableFancySelect(this.$('select'));
+            this.recalculateItemPositions();
         },
         onAddItemClick: function (event) {
             event.preventDefault();
@@ -110,7 +111,7 @@
             }
         },
 
-        onShowError: function(e, message) {
+        onShowError: function (e, message) {
             var $el = $(e.target);
             var error = '<span class="form-error">' + message + '</span>';
             $el.siblings('.form-error').remove();

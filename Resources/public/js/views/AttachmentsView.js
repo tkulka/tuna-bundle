@@ -53,16 +53,16 @@
 
         _onAddNewAttachment: function (e) {
             this._destroySortable();
+            var $a = $(e.currentTarget);
+            var prototype = $a.data('prototype');
+            var index = $a.data('index') + 1;
+            $a.data('index', index);
 
-            var prototype = $(e.currentTarget).data('prototype');
-            var index = $(e.currentTarget).data('index') | $('li.item').size();
             var newForm = prototype.replace(/__name__/g, index);
 
-            $(e.currentTarget).data('index', index + 1);
-
             this.$('.attachments').append($(newForm));
-            this.recalculateItemPositions();
             this._initSortable();
+            this.recalculateItemPositions();
         },
 
         _onClickDelete: function (e) {
