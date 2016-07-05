@@ -7,7 +7,7 @@ class VideoPlayerExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            'videoPlayer' => new \Twig_Function_Method($this, 'videoPlayer', array('is_safe' => array('html'))),
+            'video_url' => new \Twig_Function_Method($this, 'videoPlayer', array('is_safe' => array('html'))),
         );
     }
 

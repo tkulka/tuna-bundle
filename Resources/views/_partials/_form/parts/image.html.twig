@@ -1,0 +1,41 @@
+{% block imagefile_widget %}
+    {% spaceless %}
+        {% set image =  form.parent.vars.value %}
+        {% if image %}
+            <p>
+                <img src="{{ ('/uploads/' ~ image.path) | imagine_filter('tuna_admin_thumb') }}"/>
+            </p>
+        {% endif %}
+        <input type="file" {{ block('widget_attributes') }} />
+    {% endspaceless %}
+{% endblock %}
+
+{% block main_image_widget %}
+    {% set attr = attr | merge({class: (attr.class is defined ? attr.class ~ ' ') ~ 'thecodeine_admin_main_image'}) %}
+    <div {{ block('widget_container_attributes') }}>
+        {%- if form.parent is empty -%}
+            {{ form_errors(form) }}
+        {%- endif -%}
+        {{- block('form_rows') -}}
+        {{- form_rest(form) -}}
+    </div>
+{% endblock %}
+
+{% block main_imagefile_widget %}
+    {% spaceless %}
+        {% set image = form.parent.vars.value %}
+        <div class="form-group main-image">
+            <div class="image" data-action="remove">
+                {% if image and image.path %}
+                    <img src="{{ ('/uploads/' ~ image.path) | imagine_filter('tuna_admin_thumb') }}"/>
+                    <span class="remove">{% trans %}Usuń{% endtrans %}</span>
+                {% endif %}
+            </div>
+            <div class="btn btn-mini btn-primary btn-block input-wrapper">
+                <input type="file" {{ block('widget_attributes') }} />
+                {% trans %}Choose main picture{% endtrans %}
+                <i class="fui-arrow-right pull-right"></i>
+            </div>
+        </div>
+    {% endspaceless %}
+{% endblock %}

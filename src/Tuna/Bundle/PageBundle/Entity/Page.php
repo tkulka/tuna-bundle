@@ -15,22 +15,12 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * @ORM\HasLifecycleCallbacks
  */
-class Page extends BasePage
+class Page extends AbstractPage
 {
     /**
      * @ORM\OneToMany(targetEntity="PageTranslation", mappedBy="object", cascade={"persist", "remove"})
      */
     protected $translations;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="TheCodeine\NewsBundle\Entity\Attachment", cascade={"persist"})
-     * @ORM\JoinTable(name="page_attachments",
-     *      joinColumns={@ORM\JoinColumn(name="page_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="attachment_id", referencedColumnName="id", unique=true)}
-     *      )
-     * @ORM\OrderBy({"position" = "ASC"})
-     */
-    protected $attachments;
 
     /**
      * @var string

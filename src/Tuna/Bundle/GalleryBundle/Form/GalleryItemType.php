@@ -44,7 +44,6 @@ class GalleryItemType extends AbstractType
                                 'label' => false,
                                 'attr' => array(
                                     'placeholder' => 'Video title',
-                                    'class' => 'form-control'
                                 )
                             ),
                         )
@@ -61,7 +60,6 @@ class GalleryItemType extends AbstractType
                             'name' => array(
                                 'attr' => array(
                                     'placeholder' => 'Image title',
-                                    'class' => 'form-control'
                                 )
                             )
                         )

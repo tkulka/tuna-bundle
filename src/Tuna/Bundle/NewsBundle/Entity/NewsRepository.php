@@ -47,7 +47,7 @@ class NewsRepository extends PageRepository
         return $this->addTranslationWalker($qb);
     }
 
-    public function getSimilar($limit = 2, BaseNews $news)
+    public function getSimilar($limit = 2, AbstractNews $news)
     {
         $tagNames = array();
         foreach ($news->getTags() as $tag) {

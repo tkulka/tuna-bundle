@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Entity(repositoryClass="TheCodeine\NewsBundle\Entity\NewsRepository")
  */
-class Event extends BaseNews
+class Event extends AbstractNews
 {
     /**
      * @var \DateTime

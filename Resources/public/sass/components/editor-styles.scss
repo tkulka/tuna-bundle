@@ -79,7 +79,7 @@
     font-weight: 600;
 
     blockquote {
-        padding-left: 100px;
+        padding: 0 50px;
     }
 
     blockquote, p {
@@ -114,14 +114,14 @@
             padding-left: 28px;
 
             &:before {
+                box-sizing: content-box;
                 display: block;
                 content: '';
-                box-sizing: content-box;
                 position: absolute;
                 width: 8px;
                 height: 2px;
                 border: 2px solid #000000;
-                background-color: transparent;
+                background-color: #ffffff;
                 top: 10px;
                 left: 0;
             }

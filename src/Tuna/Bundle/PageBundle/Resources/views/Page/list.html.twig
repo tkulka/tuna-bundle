@@ -1,7 +1,7 @@
 <h1>list</h1>
 
 <ul>
-    {% for page in pagesList %}
+    {% for page in entities %}
         <li>
             <div>
                 <h3>{{ page.title }} <a href="{{ path('tuna_page_edit', {'id': page.id}) }}" class="btn btn-default " title="edytuj">edit</a></h3>

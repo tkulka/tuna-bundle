@@ -4,7 +4,7 @@ namespace TheCodeine\ImageBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use TheCodeine\ImageBundle\Form\Type\ImageFile;
 
 class ImageRequestThumbnailType extends AbstractType
@@ -36,11 +36,11 @@ class ImageRequestThumbnailType extends AbstractType
             );
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'csrf_protection' => false,
-            'data_class' => 'TheCodeine\ImageBundle\Entity\Image'
+            'data_class' => 'TheCodeine\ImageBundle\Entity\Image',
         ));
     }
 

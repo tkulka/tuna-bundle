@@ -8,6 +8,7 @@
     top: 50px;
     height: 100%;
     background: $brand-content;
+    color: $brand-tertiary;
     overflow-y: auto;
 
     @media all and (min-width: $mobileLargeScreen) {
@@ -53,155 +54,200 @@
                 background: $brand-content;
                 border-bottom: 1px solid $brand-tertiary;
 
-                > div {
-                    height: 85px;
-                    position: relative;
-                    padding: 10px;
-                    display: table-cell;
-                    vertical-align: middle;
+                .gallery-table {
+                    display: table;
+                    width: 100%;
+                }
 
-                    &.video-player {
-                        width: 200px;
-                    }
+                .table-row {
+                    display: table-row;
 
-                    .video {
-                        height: 40px;
-                        box-sizing: content-box;
-                        margin-bottom: 10px;
+                    > div {
+                        height: 85px;
+                        position: relative;
+                        padding: 10px;
+                        display: table-cell;
+                        vertical-align: middle;
 
-                        &:last-child {
-                            margin-bottom: 0;
+                        &.dialog-danger {
+                            height: auto;
+                            padding-top: 0;
                         }
 
-                        input {
-                            height: 100%;
-                            padding: 8px 12px;
-                        }
-                    }
+                        &.video-player {
+                            width: 200px;
 
-                    &.option {
-                        width: 50px;
-                        text-align: center;
-
-                        &:hover {
-                            .fa {
-                                color: $brand-primary;
-                            }
-                        }
-                    }
-
-                    &.item-name {
-                        .tabbable {
-                            width: 100%;
-                            height: 100%;
-
-                            .tab-content {
-                                padding: 0;
-                                margin: 0;
-                                height: 100%;
-                                width: 100%;
-                                border: 0;
-
-                                .attachment-name {
-                                    font-size: 14px;
-                                    margin: 10px;
-                                    color: lighten($brand-tertiary, 30%);
-                                    font-weight: 600;
-                                }
-                            }
-                            .nav-tabs, .tab-pane label {
-                                display: none;
+                            &.loaded {
+                                display: table-cell;
                             }
                         }
 
                         .form-group {
-                            margin: 0;
+                            margin-bottom: 0;
                         }
 
-                        input {
-                            height: 41px;
+                        .video {
+                            height: auto;
+                            box-sizing: content-box;
+                            margin-bottom: 10px;
+
+                            &:last-child {
+                                margin-bottom: 0;
+                            }
+
+                            input {
+                                height: 100%;
+                                padding: 8px 12px;
+                            }
                         }
 
-                        textarea {
-                            height: 85px;
+                        &.option {
+                            width: 50px;
+                            text-align: center;
+
+                            &:hover {
+                                .fa {
+                                    color: $brand-primary;
+                                }
+                            }
                         }
 
-                        textarea, input {
-                            display: block;
-                            width: 100%;
-                            padding: 8px 12px;
-                            outline: 0;
-                            resize: none;
-                            border: 2px solid lighten($brand-tertiary, 25%);
+                        &.item-name {
+                            .tabbable {
+                                width: 100%;
+                                height: 100%;
+
+                                .tab-content {
+                                    padding: 0;
+                                    margin: 0;
+                                    height: 100%;
+                                    width: 100%;
+                                    border: 0;
+
+                                    .attachment-name {
+                                        font-size: 14px;
+                                        margin: 10px;
+                                        color: lighten($brand-tertiary, 30%);
+                                        font-weight: 600;
+                                    }
+                                }
+                                .nav-tabs, .tab-pane label {
+                                    display: none;
+                                }
+                            }
+
+                            .form-group {
+                                margin: 0;
+                            }
+
+                            input {
+                                height: 41px;
+                            }
+
+                            textarea {
+                                height: 85px;
+                            }
+
+                            textarea, input {
+                                display: block;
+                                width: 100%;
+                                padding: 8px 12px;
+                                outline: 0;
+                                resize: none;
+                                border: 2px solid lighten($brand-tertiary, 25%);
+                            }
                         }
                     }
                 }
+
             }
         }
     }
 
 }
 
-.thecodeine_admin_gallery .gallery-items .item {
-    > div {
+.thecodeine_admin_gallery .gallery-items .item .table-row div {
 
-        &.image {
-            width: 200px;
+    &.form-errors-container {
+        width: 100%;
+    }
 
-            .form-group {
-                margin-bottom: 0;
-            }
+    &.image {
+        width: 200px;
 
-            .gallery-image {
-                height: 85px;
-                width: 180px;
-                background-position: center center;
-                background-size: cover;
-            }
+        .form-group {
+            margin-bottom: 0;
         }
 
-        &.item-name {
-            padding-top: 10px;
-        }
-
-        input[type="file"] {
-            width: 180px;
+        .gallery-image {
             height: 85px;
-            opacity: 0;
-            top: 0px;
-            left: 0px;
-            z-index: 10;
-            cursor: pointer;
+            width: 180px;
+            background-position: center center;
+            background-size: cover;
         }
+    }
 
-        input[type="url"] {
-            height: 40px;
+    &.item-name {
+        padding-top: 10px;
+    }
+
+    input[type="file"] {
+        width: 180px;
+        height: 85px;
+        opacity: 0;
+        top: 0px;
+        left: 0px;
+        z-index: 10;
+        cursor: pointer;
+    }
+
+    input[type="url"] {
+        height: 40px;
+
+        &.error {
+            border: 2px solid $brand-danger;
+
+            &:focus {
+                border: 2px solid $brand-danger !important;
+            }
         }
+    }
 
-        .fui-plus {
-            font-size: 44px;
+    .fui-plus {
+        font-size: 44px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+        pointer-events: none;
+        color: lighten($brand-tertiary, 25%);
+    }
+
+    &.image {
+        width: 200px;
+
+        .image-preview {
+            $padding: 10px;
+
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 1;
-            pointer-events: none;
-            color: lighten($brand-tertiary, 25%);
+            background-size: cover;
+
+            top: $padding;
+            right: $padding;
+            bottom: $padding;
+            left: $padding;
         }
 
-        &.image {
-            width: 200px;
-
-            &:hover {
-                .fui-plus {
-                    color: $brand-primary;
-                }
+        &:hover {
+            .fui-plus {
+                color: $brand-primary;
             }
         }
     }
 }
 
-.thecodeine_admin_attachments .attachments .item > div {
+.thecodeine_admin_attachments .attachments .item .table-row div {
 
     &.item-name {
         padding-top: 20px;

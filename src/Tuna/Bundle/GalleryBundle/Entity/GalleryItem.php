@@ -113,8 +113,8 @@ class GalleryItem
             return;
         }
 
-        if (!$this->getImage() || !$this->getImage()->getFile()) {
-            $context->buildViolation('Brak mi obrazka')
+        if (!$this->getImage() || (!$this->getImage()->getFile() && !$this->getImage()->getPath())) {
+            $context->buildViolation('error.image.empty')
                 ->atPath('image.file')
                 ->addViolation();
         }

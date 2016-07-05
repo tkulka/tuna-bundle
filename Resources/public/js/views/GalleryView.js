@@ -9,7 +9,8 @@
             'close': 'onClose',
             'open': 'onOpen',
             'click': 'onClick',
-            'click .a2lix_translationsLocales li a': 'onLanguageChange'
+            'click .a2lix_translationsLocales li a': 'onLanguageChange',
+            'showError': 'onShowError'
         },
         initialize: function () {
             this.$el.addClass('magictime');
@@ -36,33 +37,28 @@
             $('.admin-attachments-container').trigger('close');
             this.$el.removeClass('holeOut').show().addClass('slideLeftRetourn');
         },
-        recalculateImagePositions: function () {
+        recalculateItemPositions: function () {
             this.$('input.position').each(function (idx) {
                 $(this).val(idx);
             });
         },
-        loadItemForm: function (index) {
-            if ($('#thecodeine_pagebundle_page_gallery_items_' + index + '_type').length > 0) {
-                var id = '#thecodeine_pagebundle_page_gallery_items_';
-            } else if ($('#thecodeine_newsbundle_news_gallery_items_' + index + '_type').length > 0) {
-                var id = '#thecodeine_newsbundle_news_gallery_items_';
-            }
-
+        loadItemForm: function (selector) {
             var $form = this.$el.closest('form');
-            var data = $form.serialize();
             $.ajax({
                 url: $form.attr('action'),
                 type: $form.attr('method'),
-                data: data,
+                data: $form.serialize(),
                 success: function (html) {
-                    $(id + index).replaceWith(
-                        $(html).find(id + index)
+                    $(selector).replaceWith(
+                        $(html).find(selector)
                     );
+                    $(selector).addClass('loaded');
                 }
             });
         },
         addItem: function (type, content) {
             var $wrapper = this.$('.thecodeine_admin_gallery');
+            var itemsId = $wrapper.data('itemsId');
             var prototype = $wrapper.data('prototype');
             var index = $wrapper.data('index') | this.$('li.item').size();
             var $newForm = $(prototype.replace(/__name__/g, index));
@@ -71,7 +67,7 @@
             $wrapper.data('index', index + 1);
 
             this.$('.gallery-items').append($newForm);
-            this.loadItemForm(index);
+            this.loadItemForm('#' + itemsId + "_" + index);
             tuna.website.enableFancySelect(this.$('select'));
         },
         onAddItemClick: function (event) {
@@ -79,7 +75,7 @@
             this.addItem($(event.currentTarget).data('type'));
         },
         onDeleteClick: function (e) {
-            $(e.currentTarget).parent().remove()
+            $(e.currentTarget).closest('.item').remove();
         },
         onFileInputChange: function (e) {
             var $element = $(e.currentTarget);
@@ -92,43 +88,33 @@
 
                 reader.onload = (function (theFile) {
                     return function (event) {
-                        var $cnt = $element.parent();
-                        $cnt.css({
-                            'background-position': 'center center',
-                            'background-image': 'url(' + event.target.result + ')',
-                            'background-size': 'cover',
-                            height: '85px',
-                            width: '180px',
-                            position: 'relative',
-                            top: 0,
-                            left: 0,
-                            'zIndex': 9
-                        });
+                        $element.closest('.item').find('.image-preview')
+                            .css('background-image', 'url(' + event.target.result + ')');
                     }
                 })(f);
 
                 reader.readAsDataURL(f);
             }
         },
-        onVideoUrlInputChange: function (e) {
-            var url = e.target.value;
-            var videoId = '';
 
-            if (/(vimeo)/.test(url)) {
-                url = url.split('/');
-                videoId = url.pop();
-                url = 'https://player.vimeo.com/video/' + videoId;
+        onVideoUrlInputChange: function (event) {
+            var $el = $(event.target);
+            var url = event.target.value;
+            var id = $(event.currentTarget).closest('.item').attr('id');
+
+            if (/(youtu\.be|youtube\.com|vimeo\.com)/.test(url)) {
+                this.loadItemForm('#' + id + ' .video-player');
+                $el.removeClass('error').siblings('.form-error').remove();
             } else {
-                url = url.split('=');
-                videoId = url.pop();
-                url = 'https://www.youtube.com/embed/' + videoId;
+                $el.trigger('showError', 'Proszę wkleić link do YouTube lub Vimeo.');
             }
+        },
 
-            var iframeTpl = '<iframe width="180" height="100" src="' + url + '" frameborder="0" allowfullscreen></iframe>';
-
-            var $videoPlayer = $(e.target).closest('.item').find('.video-player');
-
-            $videoPlayer.html(iframeTpl);
+        onShowError: function(e, message) {
+            var $el = $(e.target);
+            var error = '<span class="form-error">' + message + '</span>';
+            $el.siblings('.form-error').remove();
+            $el.addClass('error').after(error);
         },
 
         onLanguageChange: function (e) {
