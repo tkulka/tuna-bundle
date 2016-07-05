@@ -1,10 +1,11 @@
 .note-editable.panel-body, .panel-default > .panel-heading .dropdown-menu {
-    h2, h3, h4, h5 {
+    h1, h2, h3, h4, h5 {
          font-weight: 600;
     }
 
     h1 {
         font-size: 18px;
+        line-height: 24px;
     }
 
     h2 {
@@ -74,6 +75,9 @@
 }
 
 .note-editable.panel-body {
+    font-family: "Source Sans Pro";
+    font-weight: 600;
+
     blockquote {
         padding: 0 50px;
     }
@@ -92,6 +96,10 @@
         &:hover {
             color: $brand-primary;
         }
+    }
+
+    b, strong {
+        font-weight: 600;
     }
 
     ul {

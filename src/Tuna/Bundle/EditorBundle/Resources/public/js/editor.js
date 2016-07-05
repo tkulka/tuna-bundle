@@ -20,7 +20,7 @@ tuna.view.EditorView = Backbone.View.extend({
                     replace: [['h1'], 'h2'],
                     removeAttrs: ['class', 'style', 'font'],
                     allowedAttributes: ['width', 'height', 'src', 'frameborder', 'allowfullscreen'],
-                    allowedTags: ['p', 'i', 'b', 'u', 'strong', 'iframe', 'ul', 'li'],
+                    allowedTags: ['h1', 'h2', 'p', 'i', 'b', 'u', 'strong', 'iframe', 'ul', 'li'],
                     removeTags: ['span', 'basefont', 'center', 'dir', 'font', 'frame', 'frameset', 'isindex', 'menu', 'noframes', 's', 'strike', 'br', 'canvas', 'hr', 'img'],
                     allowEmpty: [],
                     tagAllowEmpty: [],
