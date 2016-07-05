@@ -62,7 +62,6 @@ abstract class AbstractPage
      * @ORM\JoinColumn(name="image_id", referencedColumnName="id")
      */
     protected $image;
-
     protected $translations;
 
     /**
@@ -83,6 +82,14 @@ abstract class AbstractPage
      */
     protected $published;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="TheCodeine\NewsBundle\Entity\Attachment", cascade={"persist"})
+     * @ORM\JoinTable(
+     *      joinColumns={@ORM\JoinColumn(name="page_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="attachment_id", referencedColumnName="id", unique=true)}
+     *      )
+     * @ORM\OrderBy({"position" = "ASC"})
+     */
     protected $attachments;
 
     public function __construct()

@@ -35,16 +35,6 @@ abstract class AbstractNews extends AbstractPage
     protected $translations;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Attachment", cascade={"persist"})
-     * @ORM\JoinTable(name="news_attachments",
-     *      joinColumns={@ORM\JoinColumn(name="news_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="attachment_id", referencedColumnName="id", unique=true)}
-     *      )
-     * @ORM\OrderBy({"position" = "ASC"})
-     */
-    protected $attachments;
-
-    /**
      * @var
      * @ORM\ManyToMany(targetEntity="\TheCodeine\TagBundle\Entity\Tag", cascade={"persist"})
      * @ORM\JoinTable(name="news_tags",
