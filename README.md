@@ -8,7 +8,7 @@
   
     Add following line to `AppKernel::registerBundles()`
     
-        `TheCodeine\AdminBundle\BundleDependencyRegisterer::register($bundles);`
+        TheCodeine\AdminBundle\BundleDependencyRegisterer::register($bundles);
   3. Migrate db:
    
     Via `doctrine:migrations:diff && doctrine:migrations:migrate` or `doctrine:schema:update`
@@ -59,16 +59,6 @@ Replace `[language]` with any language you want to generate translations for (e.
              * @ORM\OneToMany(targetEntity="SubpageTranslation", mappedBy="object", cascade={"persist", "remove"})
              */
             protected $translations;
-        
-            /**
-             * @ORM\ManyToMany(targetEntity="TheCodeine\NewsBundle\Entity\Attachment", cascade={"persist"})
-             * @ORM\JoinTable(name="subpage_attachments",
-             *      joinColumns={@ORM\JoinColumn(name="tenant_id", referencedColumnName="id")},
-             *      inverseJoinColumns={@ORM\JoinColumn(name="attachment_id", referencedColumnName="id", unique=true)}
-             *      )
-             * @ORM\OrderBy({"position" = "ASC"})
-             */
-            protected $attachments;
         }
 
   2. Form:
@@ -85,14 +75,6 @@ Replace `[language]` with any language you want to generate translations for (e.
             {
                 parent::buildForm($builder, $options);
                 // your additional fields
-            }
-        
-            public function configureOptions(OptionsResolver $resolver)
-            {
-                $resolver->setDefaults(array(
-                    // this is optional and defaults to $this->getEntityClass()
-                    'data_class' => 'AppBundle\Entity\BaseSubpage',
-                ));
             }
         
             protected function getEntityClass()
@@ -139,25 +121,27 @@ Replace `[language]` with any language you want to generate translations for (e.
                 return $this->getDoctrine()->getRepository('AppBundle:Subpage');
             }
         }
+   
+   4. Routing:
+    Routes should be configured as annotations
+    
+        my_admin:
+            resource: "@MyAdminBundle/Controller/SubpageController.php" # (or with Controller wildcard: "@MyAdminBundle/Controller/")
+            type:     annotation
+            prefix:   /admin/
 
-    3.1. Routing
+## Global overriding Tuna elements
+
+Use bundle overriding:
+
+        namespace My\AdminBundle;
         
-        app_subpage_create:
-            path: /admin/subpage/create
-            defaults:  { _controller: AppBundle:Subpage:create }
+        use Symfony\Component\HttpKernel\Bundle\Bundle;
         
-        app_subpage_list:
-            path: /admin/subpage/list
-            defaults:  { _controller: AppBundle:Subpage:list }
-        
-        app_subpage_edit:
-            path: /admin/subpage/{id}/edit
-            defaults:  { _controller: AppBundle:Subpage:edit }
-            requirements:
-                id:  \d+
-        
-        app_subpage_delete:
-            path: /admin/subpage/{id}/delete
-            defaults:  { _controller: AppBundle:Subpage:delete }
-            requirements:
-                id:  \d+
+        class MyAdminBundle extends Bundle
+        {
+            public function getParent()
+            {
+                return 'TheCodeineAdminBundle';
+            }
+        }
