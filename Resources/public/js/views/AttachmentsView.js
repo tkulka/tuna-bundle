@@ -25,7 +25,7 @@
             this.$el.removeClass('holeOut').show().addClass('slideLeftRetourn');
         },
 
-        recalculateImagePositions: function () {
+        recalculateItemPositions: function () {
             this.$('input.position').each(function (idx) {
                 $(this).val(idx);
             });
@@ -39,7 +39,7 @@
                 })
                 .disableSelection()
                 .bind('sortupdate', function () {
-                    oThis.recalculateImagePositions();
+                    oThis.recalculateItemPositions();
                 });
         },
 
@@ -55,17 +55,13 @@
             this._destroySortable();
 
             var prototype = $(e.currentTarget).data('prototype');
-            // get the new index
-            var index = $(e.currentTarget).data('index');
-            index = index ? index : $('li.item').size();
-            // Replace '__name__' in the prototype's HTML to
-            // instead be a number based on how many items we have
+            var index = $(e.currentTarget).data('index') | $('li.item').size();
             var newForm = prototype.replace(/__name__/g, index);
-            // increase the index with one for the next item
+
             $(e.currentTarget).data('index', index + 1);
 
-            this.$('.attachments').prepend($(newForm).addClass('jelly-in'));
-            this.recalculateImagePositions();
+            this.$('.attachments').prepend($(newForm));
+            this.recalculateItemPositions();
             this._initSortable();
         },
 

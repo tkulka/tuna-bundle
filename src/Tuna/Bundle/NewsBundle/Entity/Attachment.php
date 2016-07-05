@@ -5,6 +5,7 @@ namespace TheCodeine\NewsBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -83,15 +84,17 @@ class Attachment
     public function __construct()
     {
         $this->translations = new ArrayCollection();
+        $this->setPosition(0);
     }
 
     /**
-     * @ORM\PrePersist
+     * @Assert\Callback
      */
-    public function onPrePersist()
+    public function validateImage(ExecutionContextInterface $context)
     {
-        if (null === $this->getPosition()) {
-            $this->setPosition(0);
+        if (!$this->getFile() && !$this->getFileName()) {
+            $context->buildViolation('error.attachment.empty')
+                ->addViolation();
         }
     }
 

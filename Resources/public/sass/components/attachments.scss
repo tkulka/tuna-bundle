@@ -76,7 +76,6 @@
 
                         &.video-player {
                             width: 200px;
-                            display: none;
 
                             &.loaded {
                                 display: table-cell;
@@ -167,92 +166,88 @@
 
 }
 
-.thecodeine_admin_gallery .gallery-items .item {
-    .table-row {
-        > div {
+.thecodeine_admin_gallery .gallery-items .item .table-row div {
 
-            &.form-errors-container {
-                width: 100%;
+    &.form-errors-container {
+        width: 100%;
+    }
+
+    &.image {
+        width: 200px;
+
+        .form-group {
+            margin-bottom: 0;
+        }
+
+        .gallery-image {
+            height: 85px;
+            width: 180px;
+            background-position: center center;
+            background-size: cover;
+        }
+    }
+
+    &.item-name {
+        padding-top: 10px;
+    }
+
+    input[type="file"] {
+        width: 180px;
+        height: 85px;
+        opacity: 0;
+        top: 0px;
+        left: 0px;
+        z-index: 10;
+        cursor: pointer;
+    }
+
+    input[type="url"] {
+        height: 40px;
+
+        &.error {
+            border: 2px solid $brand-danger;
+
+            &:focus {
+                border: 2px solid $brand-danger !important;
             }
+        }
+    }
 
-            &.image {
-                width: 200px;
+    .fui-plus {
+        font-size: 44px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+        pointer-events: none;
+        color: lighten($brand-tertiary, 25%);
+    }
 
-                .form-group {
-                    margin-bottom: 0;
-                }
+    &.image {
+        width: 200px;
 
-                .gallery-image {
-                    height: 85px;
-                    width: 180px;
-                    background-position: center center;
-                    background-size: cover;
-                }
-            }
+        .image-preview {
+            $padding: 10px;
 
-            &.item-name {
-                padding-top: 10px;
-            }
+            position: absolute;
+            background-size: cover;
 
-            input[type="file"] {
-                width: 180px;
-                height: 85px;
-                opacity: 0;
-                top: 0px;
-                left: 0px;
-                z-index: 10;
-                cursor: pointer;
-            }
+            top: $padding;
+            right: $padding;
+            bottom: $padding;
+            left: $padding;
+        }
 
-            input[type="url"] {
-                height: 40px;
-
-                &.error {
-                    border: 2px solid $brand-danger;
-
-                    &:focus {
-                        border: 2px solid $brand-danger !important;
-                    }
-                }
-            }
-
+        &:hover {
             .fui-plus {
-                font-size: 44px;
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                z-index: 1;
-                pointer-events: none;
-                color: lighten($brand-tertiary, 25%);
-            }
-
-            &.image {
-                width: 200px;
-
-                .image-preview {
-                    $padding: 10px;
-
-                    position: absolute;
-                    background-size: cover;
-
-                    top: $padding;
-                    right: $padding;
-                    bottom: $padding;
-                    left: $padding;
-                }
-
-                &:hover {
-                    .fui-plus {
-                        color: $brand-primary;
-                    }
-                }
+                color: $brand-primary;
             }
         }
     }
 }
 
-.thecodeine_admin_attachments .attachments .item > div {
+.thecodeine_admin_attachments .attachments .item .table-row div {
 
     &.item-name {
         padding-top: 20px;

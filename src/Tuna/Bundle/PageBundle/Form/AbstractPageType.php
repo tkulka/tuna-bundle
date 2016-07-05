@@ -10,6 +10,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use TheCodeine\ImageBundle\Form\MainImage;
 use TheCodeine\NewsBundle\Entity\Page;
+use TheCodeine\NewsBundle\Form\AttachmentsType;
 use TheCodeine\NewsBundle\Form\AttachmentType;
 use TheCodeine\GalleryBundle\Form\GalleryType;
 
@@ -49,14 +50,7 @@ abstract class AbstractPageType extends AbstractType
             ->add('published', 'checkbox', array(
                 'required' => false
             ))
-            ->add('attachments', 'collection', array(
-                'type' => new AttachmentType(),
-                'required' => false,
-                'by_reference' => false,
-                'allow_add' => true,
-                'allow_delete' => true,
-                'prototype' => true
-            ))
+            ->add('attachments', new AttachmentsType())
             ->add('gallery', new GalleryType(), array(
                 'data_class' => 'TheCodeine\GalleryBundle\Entity\Gallery'
             ))

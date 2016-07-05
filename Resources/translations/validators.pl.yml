@@ -3,3 +3,5 @@ error:
         not_empty: Nie można usunąć kategorii <strong>%name%</strong>, ponieważ jest ona niepusta.
     image:
         empty: Proszę wgrać obrazek
+    attachment:
+        empty: Proszę wgrać plik załącznika

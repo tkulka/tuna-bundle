@@ -37,7 +37,7 @@
             $('.admin-attachments-container').trigger('close');
             this.$el.removeClass('holeOut').show().addClass('slideLeftRetourn');
         },
-        recalculateImagePositions: function () {
+        recalculateItemPositions: function () {
             this.$('input.position').each(function (idx) {
                 $(this).val(idx);
             });
