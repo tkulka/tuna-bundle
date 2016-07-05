@@ -53,20 +53,10 @@
 
         _onAddNewAttachment: function (e) {
             this._destroySortable();
-            var $wrapper = $(e.currentTarget);
-            var prototype = $wrapper.data('prototype');
-
-            if ($wrapper.data('index')) {
-                var index = $wrapper.data('index') + 1;
-            } else if (this.$('li.item').length == 0) {
-                var index = 1;
-            } else {
-                var index = _.max(_.map(this.$('li.item'), function (item) {
-                        return parseInt($(item).data('item-number'));
-                    })) + 1;
-            }
-
-            $wrapper.data('index', index);
+            var $a = $(e.currentTarget);
+            var prototype = $a.data('prototype');
+            var index = $a.data('index') + 1;
+            $a.data('index', index);
 
             var newForm = prototype.replace(/__name__/g, index);
 
