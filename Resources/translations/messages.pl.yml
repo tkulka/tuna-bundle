@@ -48,8 +48,6 @@ Video URL: URL do filmu
 Video title: Tytuł filmu
 Image title: Tytuł obrazka
 Attachment title: Tytuł załącznika
-Could not be saved.: Nie udało się zapisać
-Translation was saved.: Tłumaczenie zapisane
 Select file: Wybierz plik
 Select language: Wybierz język
 Translations: Tłumaczenia
@@ -64,6 +62,6 @@ Start date: Data początkowa
 End date: Data końcowa
 Create News: Utwórz aktualność
 Create Event: Utwórz wydarzenie
-Saving...: Zapisywanie...
 Video: Film
 Image: Obrazek
+Paste url to YouTube or Vimeo.: Proszę wkleić link do YouTube lub Vimeo.

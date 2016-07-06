@@ -77,7 +77,7 @@
             var fileName = e.target.value.split(/(\\|\/)/g).pop();
             var container = $(e.target.closest('.item')).find('.item-name .tab-content');
             container.find('.attachment-name').remove();
-            container.append('<p class="attachment-name">Dodano: ' + fileName + '</p>')
+            container.append('<p class="attachment-name">' + Translator.trans('Added') + ': ' + fileName + '</p>')
         }
     });
 })();

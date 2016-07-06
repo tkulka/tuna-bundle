@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ app.request.locale }}">
+<html lang="{{ app.request.defaultLocale }}">
 <head>
     <meta charset="UTF-8"/>
     <title>{% block title %}{% trans %}Tuna Admin Bundle{% endtrans %}{% endblock %}</title>
@@ -49,6 +49,9 @@
 {% include 'TheCodeineAdminBundle::_partials/_modal.html.twig' %}
 
 {% javascripts
+'@BazingaJsTranslationBundle/Resources/js/translator.js'
+'@TheCodeineAdminBundle/Resources/translations/translations/config.js'
+'@TheCodeineAdminBundle/Resources/translations/translations/*/*.js'
 '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery-2.0.3.min.js'
 '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery-ui-1.11.4.js'
 '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.ui.touch-punch.min.js'
@@ -73,12 +76,14 @@
 <script src="{{ asset_url }}" type="text/javascript"></script>
 {% endjavascripts %}
 
+<script src="{{ url('bazinga_jstranslation_js') }}"></script>
+
 {{ block('extra_javascript') }}
 
 <script type="text/javascript">
     (function () {
         tuna.website.init({
-            lang: '{{ app.request.locale }}'
+            lang: '{{ app.request.defaultLocale }}'
         });
     })();
 </script>

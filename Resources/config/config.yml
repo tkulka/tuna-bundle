@@ -78,3 +78,8 @@ liip_imagine:
             quality: 90
             filters:
                 thumbnail: { size: [1900, 1200], mode: inset }
+
+bazinga_js_translation:
+    default_domain: tuna_admin
+    active_domains:
+        - tuna_admin

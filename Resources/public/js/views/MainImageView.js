@@ -14,7 +14,7 @@
         },
         previewImage: function (input) {
             if (!this.$('.image img').length) {
-                this.$('.image').prepend($('<img><span class="remove">Usuń</span>'));
+                this.$('.image').prepend($('<img><span class="remove">' + Translator.trans('Remove') + '</span>'));
             }
 
             var $img = this.$('.image img');
