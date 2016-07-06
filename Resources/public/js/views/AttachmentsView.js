@@ -14,6 +14,8 @@
         initialize: function () {
             this.$el.addClass('magictime');
             this._initSortable();
+            this.$wrapper = this.$('.thecodeine_admin_attachments');
+            this.$wrapper.data('index', this.$('li.item').length);
         },
 
         _onClose: function () {
@@ -55,8 +57,8 @@
             this._destroySortable();
             var $a = $(e.currentTarget);
             var prototype = $a.data('prototype');
-            var index = $a.data('index') + 1;
-            $a.data('index', index);
+            var index = this.$wrapper.data('index') + 1;
+            this.$wrapper.data('index', index);
 
             var newForm = prototype.replace(/__name__/g, index);
 

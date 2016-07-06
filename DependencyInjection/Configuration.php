@@ -33,6 +33,9 @@ class Configuration implements ConfigurationInterface
                 ->booleanNode('enable_translations')
                     ->defaultValue(true)
                 ->end()
+                ->scalarNode('host')
+                    ->defaultValue(null)
+                ->end()
             ->end();
         // @formatter:on
 

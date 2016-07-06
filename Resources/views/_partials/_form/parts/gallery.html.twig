@@ -6,8 +6,6 @@
     <div
         class="form-group thecodeine_admin_gallery"
         data-prototype="{{ form_widget(form.items.vars.prototype)|e }}"
-        data-index="{{ form.items | length }}"
-        data-player-prototype="{{ block('video_player') | e }}"
         data-items-id="{{ form.items.vars.id }}"
     >
         {% for type in form.vars.attr.types %}

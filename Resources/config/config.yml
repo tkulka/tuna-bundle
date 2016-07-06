@@ -83,3 +83,8 @@ bazinga_js_translation:
     default_domain: tuna_admin
     active_domains:
         - tuna_admin
+
+accelerator_cache:
+    host: %the_codeine_admin.host%
+    web_dir: %kernel.root_dir%/../web
+    mode: curl
