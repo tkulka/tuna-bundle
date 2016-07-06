@@ -31,7 +31,7 @@
         "doctrine/doctrine-fixtures-bundle": "^2.2",
         "friendsofsymfony/user-bundle": "^1.3",
         "leafo/scssphp": "^0.6.3",
-        "smart-core/accelerator-cache-bundle": "dev-master"
+        "smart-core/accelerator-cache-bundle": "^1.2.0"
     },
     "replace": {
         "thecodeine/tuna-categorybundle": "self.version",
