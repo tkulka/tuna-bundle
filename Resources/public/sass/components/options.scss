@@ -13,8 +13,7 @@
         padding: 20px;
         background: $brand-tertiary;
         overflow-y: scroll;
-        height: -webkit-calc(100vh - #{$headerHeight});
-        height: calc(100vh - #{$headerHeight});
+        @include calc(height, "100vh - #{$headerHeight}");
         z-index: 100;
         position: relative;
 

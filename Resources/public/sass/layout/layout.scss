@@ -73,7 +73,7 @@ body {
         .inside {
             overflow-x: hidden;
             overflow-y: auto;
-            @include calc(height, '100% -' $headerHeight);
+            @include calc(height, "100% - #{$headerHeight}");
 
             .body {
                 padding: 40px 60px 60px 60px;
