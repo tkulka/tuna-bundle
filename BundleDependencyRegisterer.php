@@ -18,6 +18,7 @@ class BundleDependencyRegisterer
             new \TheCodeine\NewsBundle\TheCodeineNewsBundle(),
             new \TheCodeine\UserBundle\TheCodeineUserBundle(),
             new \TheCodeine\TranslationBundle\TheCodeineTranslationBundle(),
+            new SmartCore\Bundle\AcceleratorCacheBundle\AcceleratorCacheBundle(),
         );
 
         foreach ($bundles as $bundle) {
