@@ -34,6 +34,7 @@ class Configuration implements ConfigurationInterface
                     ->defaultValue(true)
                 ->end()
                 ->scalarNode('host')
+                    ->defaultValue(null)
                 ->end()
             ->end();
         // @formatter:on
