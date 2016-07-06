@@ -30,7 +30,8 @@
         "gedmo/doctrine-extensions": "^2.4",
         "doctrine/doctrine-fixtures-bundle": "^2.2",
         "friendsofsymfony/user-bundle": "^1.3",
-        "leafo/scssphp": "^0.6.3"
+        "leafo/scssphp": "^0.6.3",
+        "willdurand/js-translation-bundle": "^2.5"
     },
     "replace": {
         "thecodeine/tuna-categorybundle": "self.version",
