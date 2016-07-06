@@ -78,3 +78,8 @@ liip_imagine:
             quality: 90
             filters:
                 thumbnail: { size: [1900, 1200], mode: inset }
+
+accelerator_cache:
+    host: %the_codeine_admin.host%
+    web_dir: %kernel.root_dir%/../web
+    mode: curl
