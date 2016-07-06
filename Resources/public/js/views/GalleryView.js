@@ -15,6 +15,8 @@
         initialize: function () {
             this.$el.addClass('magictime');
             this.initSortable();
+            this.$wrapper = this.$('.thecodeine_admin_gallery');
+            this.$wrapper.data('index', this.$('li.item').length);
         },
         onClick: function (e) {
             e.stopPropagation();
@@ -57,11 +59,10 @@
             });
         },
         addItem: function (type, content) {
-            var $wrapper = this.$('.thecodeine_admin_gallery');
-            var itemsId = $wrapper.data('itemsId');
-            var prototype = $wrapper.data('prototype');
-            var index = $wrapper.data('index') + 1;
-            $wrapper.data('index', index);
+            var itemsId = this.$wrapper.data('itemsId');
+            var prototype = this.$wrapper.data('prototype');
+            var index = this.$wrapper.data('index') + 1;
+            this.$wrapper.data('index', index);
 
             var $newForm = $(prototype.replace(/__name__/g, index));
             $newForm.find('input[type="hidden"]').val(type);
