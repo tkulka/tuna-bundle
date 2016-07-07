@@ -59,3 +59,6 @@ tuna_translations_cache:
 tuna_translations:
     path: /admin/translations
     condition: "%the_codeine_admin.enable_translations_string%"
+
+_bazinga_jstranslation:
+    resource: "@BazingaJsTranslationBundle/Resources/config/routing/routing.yml"

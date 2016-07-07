@@ -57,13 +57,8 @@
     <script language="javascript" type="text/javascript">
         var updateMessagePath = {{ path("jms_translation_update_message", {"config": selectedConfig, "domain": selectedDomain, "locale": selectedLocale})|json_encode|raw }};
         var isWritable = {{ isWriteable is sameas(true) ? 'true' : 'false' }};
-        var infoMessages = {
-            'error': '{% trans %}Could not be saved.{% endtrans %}',
-            'success': '{% trans %}Translation was saved.{% endtrans %}',
-            'progress': '{% trans %}Saving...{% endtrans %}'
-        };
 
-        var JMS = new JMSTranslationManager(updateMessagePath, isWritable, infoMessages);
+        var JMS = new JMSTranslationManager(updateMessagePath, isWritable);
 
         $('[data-toggle="tooltip"]').tooltip();
 

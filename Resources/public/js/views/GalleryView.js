@@ -108,7 +108,7 @@
                 this.loadItemForm('#' + id + ' .video-player');
                 $el.removeClass('error').siblings('.form-error').remove();
             } else {
-                $el.trigger('showError', 'Proszę wkleić link do YouTube lub Vimeo.');
+                $el.trigger('showError', Translator.trans('Paste url to YouTube or Vimeo.'));
             }
         },
 

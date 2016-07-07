@@ -31,6 +31,7 @@
         "doctrine/doctrine-fixtures-bundle": "^2.2",
         "friendsofsymfony/user-bundle": "^1.3",
         "leafo/scssphp": "^0.6.3",
+        "willdurand/js-translation-bundle": "^2.5",
         "smart-core/accelerator-cache-bundle": "^1.2.0"
     },
     "replace": {
