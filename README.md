@@ -34,18 +34,6 @@
             enable_translations: true
 
 ## Frontend translations:
-Register bundle in `app/AppKernel.php`:
-
-    <?php
-    // app/AppKernel.php
-    public function registerBundles()
-    {
-        return array(
-            // ...
-            new JMS\TranslationBundle\JMSTranslationBundle(),
-        );
-    }
-    
 Translations are enabled by default. You can turn them off by overriding `the_codeine_admin.enable_translations` config.
 
 Dump translation files:
@@ -54,18 +42,6 @@ Dump translation files:
 Replace `[language]` with any language you want to generate translations for (e.g. `de`) and `[directory]` with path to your bundle (e.g. `./src/Openheim/FrontendBundle`).
 
 ## Admin JS translations:
-Register bundle in `app/AppKernel.php`:
-
-    <?php
-    // app/AppKernel.php
-    public function registerBundles()
-    {
-        return array(
-            // ...
-            new Bazinga\Bundle\JsTranslationBundle\BazingaJsTranslationBundle(),
-        );
-    }
-    
 JavaScript translations are in `Resources/translations/tuna_admin.pl.yml`. After editing the file you have to dump translations:
 
     php app/console bazinga:js-translation:dump vendor/thecodeine/tuna-adminbundle/Resources/translations

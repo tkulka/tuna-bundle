@@ -19,6 +19,8 @@ class BundleDependencyRegisterer
             new \TheCodeine\UserBundle\TheCodeineUserBundle(),
             new \TheCodeine\TranslationBundle\TheCodeineTranslationBundle(),
             new \SmartCore\Bundle\AcceleratorCacheBundle\AcceleratorCacheBundle(),
+            new \JMS\TranslationBundle\JMSTranslationBundle(),
+            new \Bazinga\Bundle\JsTranslationBundle\BazingaJsTranslationBundle(),
         );
 
         foreach ($bundles as $bundle) {
