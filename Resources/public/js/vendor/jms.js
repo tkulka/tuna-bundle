@@ -11,10 +11,10 @@ JMSTranslationManager = function() {
                 $this.closest('.admin-option-container').find('.refresh-message').remove();
             },
             error: function() {
-                $this.before('<div class="refresh-message error">Nie udało się odświeżyć tłumaczeń.</div>');
+                $this.before('<div class="refresh-message error">' + Translator.trans("Couldn't refresh translations.") + '</div>');
             },
             success: function() {
-                $this.before('<div class="refresh-message">Odświeżono tłumaczenia na stronie.</div>');
+                $this.before('<div class="refresh-message">' + Translator.trans('Translations refreshed.') + '</div>');
             }
         })
     });
