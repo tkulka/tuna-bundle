@@ -1,6 +1,6 @@
 var jms = JMSTranslationManager;
 JMSTranslationManager = function() {
-    jms.call(this, updateMessagePath, isWritable, infoMessages);
+    jms.call(this, updateMessagePath, isWritable);
 
     this.translation.ajax = {
         type: 'POST',
@@ -17,7 +17,7 @@ JMSTranslationManager = function() {
             var $elem = $(event.target);
             $elem.parent().append(JMS.translation.ajax.errorMessageContent);
         },
-        errorMessageContent: '<span class="alert-message label error">' + infoMessages.error + '</span>',
+        errorMessageContent: '<span class="alert-message label error">' + Translator.trans('Could not be saved.') + '</span>',
         success: function(data, event, JMS)
         {
             var $elem = $(event.target);
@@ -32,9 +32,9 @@ JMSTranslationManager = function() {
                 $elem.parent().append(JMS.translation.ajax.unsavedMessageContent);
             }
         },
-        progressMessageContent: '<span class="alert-message label success">' + infoMessages.progress + '</span>',
-        savedMessageContent: '<span class="alert-message label success">' + infoMessages.success + '</span>',
-        unsavedMessageContent: '<span class="alert-message label error">' + infoMessages.error + '</span>',
+        progressMessageContent: '<span class="alert-message label success">' + Translator.trans('Saving...') + '</span>',
+        savedMessageContent: '<span class="alert-message label success">' + Translator.trans('Translation was saved.') + '</span>',
+        unsavedMessageContent: '<span class="alert-message label error">' + Translator.trans('Could not be saved.') + '</span>',
         complete: function(data, event, JMS)
         {
             var $elem = $(event.target);
