@@ -51,6 +51,11 @@ JMSTranslationBundle_api:
     prefix: /admin/translations
     condition: "%the_codeine_admin.enable_translations_string%"
 
+tuna_translations_cache:
+    resource: "@TheCodeineTranslationBundle/Controller/CacheController.php"
+    type: annotation
+    prefix: /admin/translations
+
 tuna_translations:
     path: /admin/translations
     condition: "%the_codeine_admin.enable_translations_string%"

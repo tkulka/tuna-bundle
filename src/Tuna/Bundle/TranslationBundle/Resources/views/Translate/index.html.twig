@@ -19,6 +19,7 @@
                                 <option value="{{ locale }}"{% if locale == selectedLocale %} selected="selected"{% endif %}>{{ locale }}</option>
                             {% endfor %}
                         </select>
+                        <button class="refresh-translations btn btn-small btn-primary btn-block">{% trans %}Refesh{% endtrans %} <span data-toggle="tooltip" data-placement="top" title="{% trans %}To show new translations, you have to refresh them by clicking this button.{% endtrans %}">[?]</span></button>
                     </form>
                 </div>
             </aside>
@@ -63,6 +64,8 @@
         };
 
         var JMS = new JMSTranslationManager(updateMessagePath, isWritable, infoMessages);
+
+        $('[data-toggle="tooltip"]').tooltip();
 
         JMS.ready();
     </script>

@@ -2,6 +2,23 @@ var jms = JMSTranslationManager;
 JMSTranslationManager = function() {
     jms.call(this, updateMessagePath, isWritable, infoMessages);
 
+    $('.refresh-translations').on('click', function(e) {
+        var $this = $(this);
+        e.preventDefault();
+        $.ajax({
+            url: 'refresh',
+            beforeSend: function() {
+                $this.closest('.admin-option-container').find('.refresh-message').remove();
+            },
+            error: function() {
+                $this.before('<div class="refresh-message error">Nie udało się odświeżyć tłumaczeń.</div>');
+            },
+            success: function() {
+                $this.before('<div class="refresh-message">Odświeżono tłumaczenia na stronie.</div>');
+            }
+        })
+    });
+
     this.translation.ajax = {
         type: 'POST',
         headers: {'X-HTTP-METHOD-OVERRIDE': 'PUT'},
