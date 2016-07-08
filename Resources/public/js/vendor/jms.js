@@ -2,7 +2,7 @@ var jms = JMSTranslationManager;
 JMSTranslationManager = function() {
     jms.call(this, updateMessagePath, isWritable);
 
-    $('.refresh-translations').on('click', function(e) {
+    $('[data-action="refresh-translations"]').on('click', function(e) {
         var $this = $(this);
         e.preventDefault();
         $.ajax({
