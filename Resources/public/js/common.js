@@ -44,6 +44,7 @@ tuna.website = {
 
         $(':checkbox').radiocheck();
         this.enableFancySelect($('select'));
+        $('[data-toggle="tooltip"]').tooltip();
     },
     enableFancySelect: function ($el) {
         _.each($el, function (select) {

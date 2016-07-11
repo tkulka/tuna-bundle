@@ -38,3 +38,15 @@
         }
     }
 }
+
+.refresh-message {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    border: 2px solid $brand-primary;
+    margin-bottom: 10px;
+
+    &.error {
+        border-color: $brand-danger;
+    }
+}
