@@ -7,4 +7,6 @@
     Translator.add("Could not be saved.", "Nie uda\u0142o si\u0119 zapisa\u0107", "tuna_admin", "pl");
     Translator.add("Translation was saved.", "T\u0142umaczenie zapisane", "tuna_admin", "pl");
     Translator.add("Saving...", "Zapisywanie...", "tuna_admin", "pl");
+    Translator.add("Couldn't refresh translations.", "Nie uda\u0142o si\u0119 od\u015bwie\u017cy\u0107 t\u0142umacze\u0144.", "tuna_admin", "pl");
+    Translator.add("Translations refreshed.", "Od\u015bwie\u017cono t\u0142umaczenia na stronie.", "tuna_admin", "pl");
 })(Translator);
