@@ -15,6 +15,10 @@ fos_user_security_logout:
     path: /logout
     defaults: { _controller: TheCodeineAdminBundle:Security:logout }
 
+fos_user_change_password:
+    path: /admin/change-password
+    defaults: { _controller: TheCodeineUserBundle:ChangePassword:changePassword }
+
 tuna_image:
     resource: "@TheCodeineImageBundle/Resources/config/routing.yml"
 
