@@ -21,6 +21,13 @@ class BundleDependencyRegisterer
             new \SmartCore\Bundle\AcceleratorCacheBundle\AcceleratorCacheBundle(),
             new \JMS\TranslationBundle\JMSTranslationBundle(),
             new \Bazinga\Bundle\JsTranslationBundle\BazingaJsTranslationBundle(),
+            new \Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+            new \A2lix\TranslationFormBundle\A2lixTranslationFormBundle(),
+            new \Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new \Knp\Bundle\GaufretteBundle\KnpGaufretteBundle(),
+            new \Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            new \Vich\UploaderBundle\VichUploaderBundle(),
+            new \Liip\ImagineBundle\LiipImagineBundle(),
         );
 
         foreach ($bundles as $bundle) {

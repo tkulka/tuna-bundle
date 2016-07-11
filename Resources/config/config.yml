@@ -23,9 +23,6 @@ stof_doctrine_extensions:
             sluggable: true
             translatable: true
 
-fos_js_routing:
-    routes_to_expose: [ 'tuna_image_internal_upload_request' ]
-
 knp_paginator:
     page_range: 5
     template:
