@@ -36,6 +36,9 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('host')
                     ->defaultValue(null)
                 ->end()
+                ->scalarNode('menu_builder')
+                    ->defaultValue('TheCodeine\AdminBundle\Menu\Builder')
+                ->end()
             ->end();
         // @formatter:on
 
