@@ -14,19 +14,16 @@ class Builder
      */
     protected $factory;
 
-    /**
-     * @var String
-     */
-    private $enableTranslations;
+    private $componentsConfig;
 
     /**
      * @param FactoryInterface $factory
      * @param String $enableTranslations
      */
-    public function __construct(FactoryInterface $factory, $enableTranslations)
+    public function __construct(FactoryInterface $factory, $componentsConfig)
     {
         $this->factory = $factory;
-        $this->enableTranslations = $enableTranslations;
+        $this->componentsConfig = $componentsConfig;
     }
 
     /**
@@ -67,21 +64,39 @@ class Builder
             'childrenAttributes' => array('class' => 'nav')
         ));
 
-        $this->addChild($menu, $request, 'Pages', 'tuna_page_list', 100, function ($request, $route) {
-            return preg_match_all('/tuna_page/i', $request->get('_route'));
-        });
-        $this->addChild($menu, $request, 'News', 'tuna_news_list', 110, function ($request, $route) {
-            return
-                preg_match_all('/tuna_news_/i', $request->get('_route')) &&
-                (
-                    $request->attributes->get('newsType') == 'News' ||
-                    $request->attributes->get('news') instanceof News
-                );
-        }, array(
-            'newsType' => 'News'
-        ));
+        if ($this->componentsConfig['page']['menu_link']) {
+            $this->addChild($menu, $request, 'Pages', 'tuna_page_list', 100, function ($request, $route) {
+                return preg_match_all('/tuna_page/i', $request->get('_route'));
+            });
+        }
 
-        if ($this->enableTranslations == 'true') {
+        if ($this->componentsConfig['news']['menu_link']) {
+            $this->addChild($menu, $request, 'News', 'tuna_news_list', 110, function ($request, $route) {
+                return
+                    preg_match_all('/tuna_news_/i', $request->get('_route')) &&
+                    (
+                        $request->attributes->get('newsType') == 'News' ||
+                        $request->attributes->get('news') instanceof News
+                    );
+            }, array(
+                'newsType' => 'News'
+            ));
+        }
+
+        if ($this->componentsConfig['event']['menu_link']) {
+            $this->addChild($menu, $request, 'Event', 'tuna_news_list', 120, function ($request, $route) {
+                return
+                    preg_match_all('/tuna_news_/i', $request->get('_route')) &&
+                    (
+                        $request->attributes->get('newsType') == 'Event' ||
+                        $request->attributes->get('news') instanceof Event
+                    );
+            }, array(
+                'newsType' => 'Event'
+            ));
+        }
+
+        if ($this->componentsConfig['translations']['menu_link']) {
             $this->addChild($menu, $request, 'Translations', 'tuna_translations', 500, function ($request, $route) {
                 return preg_match_all('/thecodeine_translations/i', $request->get('_route'));
             });

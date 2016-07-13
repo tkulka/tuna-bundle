@@ -26,7 +26,7 @@ class NewsController extends \TheCodeine\NewsBundle\Controller\NewsController
         $page = $request->query->get('page', 1);
         $limit = 10;
 
-        $paginator =  $this->get('knp_paginator');
+        $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate($query, $page, $limit, $defaultSort);
 
         return array(
@@ -34,5 +34,29 @@ class NewsController extends \TheCodeine\NewsBundle\Controller\NewsController
             'offset' => $page * $limit - $limit,
             'newsType' => $newsType,
         );
+    }
+
+    /**
+     * @Route("/create", name="tuna_news_create")
+     * @Template()
+     */
+    public function createAction(Request $request)
+    {
+        $this->denyAccessUnlessGranted('create', strtolower($request->query->get('newsType')));
+
+        return parent::createAction($request);
+    }
+
+    /**
+     *
+     * @Route("/{id}/delete", name="tuna_news_delete", requirements={"id" = "\d+"})
+     * @Template()
+     */
+    public function deleteAction(Request $request, $id)
+    {
+        $page = $this->getRepository()->find($id);
+        $this->denyAccessUnlessGranted('delete', strtolower($page->getType()));
+
+        return parent::handleDeletion($page);
     }
 }
