@@ -92,11 +92,14 @@ abstract class AbstractPage
      */
     protected $attachments;
 
-    public function __construct()
+    public function __construct($title = null)
     {
         $this->attachments = new ArrayCollection();
         $this->translations = new ArrayCollection();
         $this->setPublished(false);
+        if ($title !== null) {
+            $this->setTitle($title);
+        }
     }
 
     /**
