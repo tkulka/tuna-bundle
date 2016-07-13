@@ -38,10 +38,10 @@ class TheCodeineAdminExtension extends Extension implements PrependExtensionInte
 
     private function setParameters(ContainerBuilder $container, array $config)
     {
-        $container->setParameter('the_codeine_admin.paths', $config['paths']);
-        $container->setParameter('the_codeine_admin.host', $config['host']);
+        foreach ($config as $key => $value) {
+            $container->setParameter("the_codeine_admin.$key", $value);
+        }
         $container->setParameter('the_codeine_admin.menu_builder.class', $config['menu_builder']);
-        $container->setParameter('the_codeine_admin.enable_translations', $config['enable_translations']);
         $container->setParameter('the_codeine_admin.enable_translations_string', $config['enable_translations'] ? 'true' : 'false');
     }
 }
