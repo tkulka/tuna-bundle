@@ -31,9 +31,6 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
-                ->booleanNode('enable_translations')
-                    ->defaultValue(true)
-                ->end()
                 ->scalarNode('host')
                     ->defaultValue(null)
                 ->end()
@@ -57,6 +54,17 @@ class Configuration implements ConfigurationInterface
         $this->addComponent($components, 'page', true, false, false);
         $this->addComponent($components, 'news', true, true, true);
         $this->addComponent($components, 'event', false, true, true);
+
+        $components
+            ->children()
+                ->arrayNode('translations')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->booleanNode('menu_link')->defaultValue(true)->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
 
         $rootNode->children()->append($components)->end();
     }

@@ -5,14 +5,23 @@
     {% if pagination|length == 0 %}
         <div class="admin-alert alert text-center">
             <h3>{% trans %}Oops there is nothing here!{% endtrans %}</h3>
-            <a href="{{ path('tuna_page_create') }}" class="btn btn-primary btn-wide">
-                <i class="fui-plus"></i> {% trans %}Add first item{% endtrans %}
-            </a>
+            {% if is_granted('create', 'page') %}
+                <a href="{{ path('tuna_page_create') }}" class="btn btn-primary btn-wide">
+                    <i class="fui-plus"></i> {% trans %}Add first item{% endtrans %}
+                </a>
+            {% endif %}
         </div>
     {% else %}
         <div class="row admin-container">
             <div class="col-sm-12">
                 <div class="admin-list">
+                    {% if is_granted('create', 'page') %}
+                        <div class="action-buttons">
+                            <a href="{{ path('tuna_page_create') }}" class="btn btn-primary btn-wide">
+                                <i class="fui-plus"></i> {% trans %}Add item{% endtrans %}
+                            </a>
+                        </div>
+                    {% endif %}
                     <table class="table table-hover">
                         <thead>
                         <tr>
@@ -38,7 +47,7 @@
                                 </td>
                                 <td class="options">
                                     <a href="{{ path('tuna_page_edit',{'id' : item.id}) }}" class="fa fa-pencil-square-o" aria-hidden="true"></a>
-                                    {% if allowDeletion is not defined or allowDeletion %}
+                                    {% if is_granted('delete', 'page') %}
                                         <a href="#" data-title="{{ item.title }}" data-url="{{ path('tuna_page_delete',{'id' : item.id}) }}" data-target="#modal-confirm" data-action="delete" class="fa fa-trash" aria-hidden="true"></a>
                                     {% endif %}
                                 </td>

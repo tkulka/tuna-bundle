@@ -78,6 +78,12 @@ abstract class AbstractPageController extends Controller
     public function deleteAction(Request $request, $id)
     {
         $page = $this->getRepository()->find($id);
+
+        return $this->handleDeletion($page);
+    }
+
+    protected function handleDeletion($page)
+    {
         $em = $this->getDoctrine()->getManager();
         $em->remove($page);
         $em->flush();
