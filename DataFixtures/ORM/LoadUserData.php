@@ -31,16 +31,30 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
     {
         /* @var UserManager $userManager */
         $userManager = $this->container->get('fos_user.user_manager');
-        $email = 'fake@thecodeine.com';
-        $username = 'admin';
+        $users = array(
+            array(
+                'email' => 'fake@thecodeine.com',
+                'name' => 'admin',
+                'role' => 'ROLE_ADMIN'
+            ),
+            array(
+                'email' => 'fakesuperadmin@thecodeine.com',
+                'name' => 'superadmin',
+                'role' => 'ROLE_SUPER_ADMIN'
+            ),
+        );
 
-        if ($userManager->findUserByUsername($username) == null && $userManager->findUserByEmail($email) == null) {
+        foreach ($users as $u) {
+            if ($userManager->findUserByUsername($u['name']) != null || $userManager->findUserByEmail($u['email']) != null) {
+                continue;
+            }
+            
             $user = $userManager->createUser();
             $user->setEnabled(true);
-            $user->setPlainPassword('admin');
-            $user->setUsername($username);
-            $user->setEmail($email);
-            $user->addRole('ROLE_ADMIN');
+            $user->setPlainPassword($u['name']);
+            $user->setUsername($u['name']);
+            $user->setEmail($u['email']);
+            $user->addRole($u['role']);
 
             $userManager->updateUser($user);
         }
