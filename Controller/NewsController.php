@@ -35,28 +35,4 @@ class NewsController extends \TheCodeine\NewsBundle\Controller\NewsController
             'newsType' => $newsType,
         );
     }
-
-    /**
-     * @Route("/create", name="tuna_news_create")
-     * @Template()
-     */
-    public function createAction(Request $request)
-    {
-        $this->denyAccessUnlessGranted('create', strtolower($request->query->get('newsType')));
-
-        return parent::createAction($request);
-    }
-
-    /**
-     *
-     * @Route("/{id}/delete", name="tuna_news_delete", requirements={"id" = "\d+"})
-     * @Template()
-     */
-    public function deleteAction(Request $request, $id)
-    {
-        $page = $this->getRepository()->find($id);
-        $this->denyAccessUnlessGranted('delete', strtolower($page->getType()));
-
-        return parent::handleDeletion($page);
-    }
 }
