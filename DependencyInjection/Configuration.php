@@ -46,17 +46,30 @@ class Configuration implements ConfigurationInterface
 
     private function addComponentsSection(ArrayNodeDefinition $rootNode)
     {
-        $components = $rootNode->children()
+        $rootNode->children()
             ->arrayNode('components')
             ->addDefaultsIfNotSet()
-        ;
-
-        $this->addComponent($components, 'page', true, false, false);
-        $this->addComponent($components, 'news', true, true, true);
-        $this->addComponent($components, 'event', false, true, true);
-
-        $components
             ->children()
+                ->arrayNode('page')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->booleanNode('menu_link')->defaultValue(true)->end()
+                        ->booleanNode('create')->defaultValue(false)->end()
+                        ->booleanNode('delete')->defaultValue(false)->end()
+                    ->end()
+                ->end()
+                ->arrayNode('news')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->booleanNode('enabled')->defaultValue(true)->end()
+                    ->end()
+                ->end()
+                ->arrayNode('event')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->booleanNode('enabled')->defaultValue(false)->end()
+                    ->end()
+                ->end()
                 ->arrayNode('translations')
                     ->addDefaultsIfNotSet()
                     ->children()
@@ -65,8 +78,6 @@ class Configuration implements ConfigurationInterface
                 ->end()
             ->end()
         ;
-
-        $rootNode->children()->append($components)->end();
     }
 
     private function addComponent(ArrayNodeDefinition $componentsSection, $name, $menuLink, $create, $delete)
