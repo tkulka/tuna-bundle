@@ -36,7 +36,7 @@ class PageController extends \TheCodeine\PageBundle\Controller\PageController
      */
     public function createAction(Request $request)
     {
-        $this->denyAccessUnlessGranted('create', 'page');
+        $this->denyAccessUnlessGranted('create', 'pages');
 
         return parent::createAction($request);
     }
@@ -57,8 +57,8 @@ class PageController extends \TheCodeine\PageBundle\Controller\PageController
      */
     public function deleteAction(Request $request, $id)
     {
-        $this->denyAccessUnlessGranted('delete', 'page');
-        
+        $this->denyAccessUnlessGranted('delete', 'pages');
+
         return parent::deleteAction($request, $id);
     }
 }

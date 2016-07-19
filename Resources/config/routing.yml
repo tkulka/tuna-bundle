@@ -26,7 +26,6 @@ tuna_page:
     resource: "@TheCodeineAdminBundle/Controller/PageController.php"
     type:     annotation
     prefix:   /admin/
-    condition: "%the_codeine_admin.components.page.enabled% == 1"
 
 tuna_news:
     resource: "@TheCodeineAdminBundle/Controller/NewsController.php"
@@ -36,7 +35,6 @@ tuna_news:
 tuna_translations:
     resource: "@TheCodeineTranslationBundle/Resources/config/routing.yml"
     prefix:   /admin/
-    condition: "%the_codeine_admin.components.translations.enabled% == 1"
 
 tuna_category:
     resource: "@TheCodeineAdminBundle/Controller/CategoryController.php"

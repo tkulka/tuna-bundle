@@ -31,7 +31,7 @@ class ComponentVoter extends Voter
             return false;
         }
 
-        return in_array($subject, array('page', 'news', 'event'));
+        return in_array($subject, array('pages', 'news', 'events'));
     }
 
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token)

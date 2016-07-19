@@ -64,7 +64,7 @@ class Builder
             'childrenAttributes' => array('class' => 'nav')
         ));
 
-        if ($this->componentsConfig['page']['enabled']) {
+        if ($this->componentsConfig['pages']['enabled']) {
             $this->addChild($menu, $request, 'Pages', 'tuna_page_list', 100, function ($request, $route) {
                 return preg_match_all('/tuna_page/i', $request->get('_route'));
             });
@@ -83,7 +83,7 @@ class Builder
             ));
         }
 
-        if ($this->componentsConfig['event']['enabled']) {
+        if ($this->componentsConfig['events']['enabled']) {
             $this->addChild($menu, $request, 'Event', 'tuna_news_list', 120, function ($request, $route) {
                 return
                     preg_match_all('/tuna_news_/i', $request->get('_route')) &&
@@ -94,6 +94,12 @@ class Builder
             }, array(
                 'newsType' => 'Event'
             ));
+        }
+
+        if ($this->componentsConfig['categories']['enabled']) {
+            $this->addChild($menu, $request, 'Categories', 'tuna_category_list', 400, function ($request, $route) {
+                return preg_match_all('/tuna_category/i', $request->get('_route'));
+            });
         }
 
         if ($this->componentsConfig['translations']['enabled']) {

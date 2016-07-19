@@ -41,20 +41,36 @@
     Here is full option config with defaults:
     
         the_codeine_admin:
+            menu_builder: TheCodeine\AdminBundle\Menu\Builder
             paths:
                 admin_logo: bundles/thecodeineadmin/images/logo.png
-            menu_builder: TheCodeine\AdminBundle\Menu\Builder
+            host: null
             components:
-                page:
+                pages:
                     enabled: true
                     create: false
                     delete: false
                 news:
                     enabled: true
-                event:
+                events:
                     enabled: false
                 translations:
                     enabled: true
+                categories:
+                    enabled: false
+
+    You can also use shorter component syntax:
+    
+        the_codeine_admin:
+            components:
+                pages: false
+        
+        # above config is equal to:
+        
+        the_codeine_admin:
+            components:
+                pages:
+                    enabled: false
 
 
 ## Frontend translations:
@@ -62,8 +78,7 @@ Translations are enabled by default. You can turn them off by setting:
 
         the_codeine_admin:
             components:
-                translation:
-                    enabled: false
+                translations: false
 
 Dump translation files:
 
