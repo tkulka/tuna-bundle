@@ -41,10 +41,6 @@ class NewsController extends AbstractPageController
      *
      * @Route("/{newsType}/list", name="tuna_news_list")
      * @Template()
-     *
-     * @param Request $request
-     *
-     * @return array
      */
     public function listAction(Request $request)
     {
@@ -56,10 +52,6 @@ class NewsController extends AbstractPageController
     /**
      * @Route("/create", name="tuna_news_create")
      * @Template()
-     *
-     * @param Request $request
-     *
-     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function createAction(Request $request)
     {
