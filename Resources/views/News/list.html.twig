@@ -5,23 +5,19 @@
     {% if pagination|length == 0 %}
         <div class="admin-alert alert text-center">
             <h3>{% trans %}Oops there is nothing here!{% endtrans %}</h3>
-            {% if is_granted('create', newsType | lower) %}
-                <a href="{{ path('tuna_news_create', { 'newsType': newsType }) }}" class="btn btn-primary btn-wide">
-                    <i class="fui-plus"></i> {% trans %}Add first item{% endtrans %}
-                </a>
-            {% endif %}
+            <a href="{{ path('tuna_news_create', { 'newsType': newsType }) }}" class="btn btn-primary btn-wide">
+                <i class="fui-plus"></i> {% trans %}Add first item{% endtrans %}
+            </a>
         </div>
     {% else %}
         <div class="row admin-container">
             <div class="col-sm-12">
                 <div class="admin-list">
-                    {% if is_granted('create', newsType | lower) %}
-                        <div class="action-buttons">
-                            <a href="{{ path('tuna_news_create', { 'newsType': newsType }) }}" class="btn btn-primary btn-wide">
-                                <i class="fui-plus"></i> {% trans %}Add item{% endtrans %}
-                            </a>
-                        </div>
-                    {% endif %}
+                    <div class="action-buttons">
+                        <a href="{{ path('tuna_news_create', { 'newsType': newsType }) }}" class="btn btn-primary btn-wide">
+                            <i class="fui-plus"></i> {% trans %}Add item{% endtrans %}
+                        </a>
+                    </div>
                     <table class="table table-hover">
                         <thead>
                         <tr>
@@ -55,9 +51,7 @@
                                 </td>
                                 <td class="options">
                                     <a href="{{ path('tuna_news_edit', { id: item.id }) }}" class="fa fa-pencil-square-o"></a>
-                                    {% if is_granted('delete', newsType | lower) %}
-                                        <a href="#" data-title="{{ item.title }}" data-url="{{ path('tuna_news_delete',{ id: item.id }) }}" data-target="#modal-confirm" data-action="delete" class="fa fa-trash"></a>
-                                    {% endif %}
+                                    <a href="#" data-title="{{ item.title }}" data-url="{{ path('tuna_news_delete',{ id: item.id }) }}" data-target="#modal-confirm" data-action="delete" class="fa fa-trash"></a>
                                 </td>
                             </tr>
                         {% endfor %}

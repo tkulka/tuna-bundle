@@ -42,6 +42,6 @@ class TheCodeineAdminExtension extends Extension implements PrependExtensionInte
             $container->setParameter("the_codeine_admin.$key", $value);
         }
         $container->setParameter('the_codeine_admin.menu_builder.class', $config['menu_builder']);
-        $container->setParameter('the_codeine_admin.enable_translations_string', $config['components']['translations']['enable'] ? 'true' : 'false');
+        $container->setParameter('the_codeine_admin.enable_translations_string', $config['components']['translations']['enabled'] ? 'true' : 'false');
     }
 }

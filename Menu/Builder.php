@@ -64,13 +64,13 @@ class Builder
             'childrenAttributes' => array('class' => 'nav')
         ));
 
-        if ($this->componentsConfig['page']['enable']) {
+        if ($this->componentsConfig['page']['enabled']) {
             $this->addChild($menu, $request, 'Pages', 'tuna_page_list', 100, function ($request, $route) {
                 return preg_match_all('/tuna_page/i', $request->get('_route'));
             });
         }
 
-        if ($this->componentsConfig['news']['enable']) {
+        if ($this->componentsConfig['news']['enabled']) {
             $this->addChild($menu, $request, 'News', 'tuna_news_list', 110, function ($request, $route) {
                 return
                     preg_match_all('/tuna_news_/i', $request->get('_route')) &&
@@ -83,7 +83,7 @@ class Builder
             ));
         }
 
-        if ($this->componentsConfig['event']['enable']) {
+        if ($this->componentsConfig['event']['enabled']) {
             $this->addChild($menu, $request, 'Event', 'tuna_news_list', 120, function ($request, $route) {
                 return
                     preg_match_all('/tuna_news_/i', $request->get('_route')) &&
@@ -96,7 +96,7 @@ class Builder
             ));
         }
 
-        if ($this->componentsConfig['translations']['enable']) {
+        if ($this->componentsConfig['translations']['enabled']) {
             $this->addChild($menu, $request, 'Translations', 'tuna_translations', 500, function ($request, $route) {
                 return preg_match_all('/thecodeine_translations/i', $request->get('_route'));
             });

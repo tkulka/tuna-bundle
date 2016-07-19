@@ -43,19 +43,18 @@
         the_codeine_admin:
             paths:
                 admin_logo: bundles/thecodeineadmin/images/logo.png
-            enable_translations: true
             menu_builder: TheCodeine\AdminBundle\Menu\Builder
             components:
                 page:
-                    enable: true
+                    enabled: true
                     create: false
                     delete: false
                 news:
-                    enable: true
+                    enabled: true
                 event:
-                    enable: false
+                    enabled: false
                 translations:
-                    enable: true
+                    enabled: true
 
 
 ## Frontend translations:
@@ -64,7 +63,7 @@ Translations are enabled by default. You can turn them off by setting:
         the_codeine_admin:
             components:
                 translation:
-                    enable: false
+                    enabled: false
 
 Dump translation files:
 
