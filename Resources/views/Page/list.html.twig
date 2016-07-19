@@ -5,7 +5,7 @@
     {% if pagination|length == 0 %}
         <div class="admin-alert alert text-center">
             <h3>{% trans %}Oops there is nothing here!{% endtrans %}</h3>
-            {% if is_granted('create', 'page') %}
+            {% if is_granted('create', 'pages') %}
                 <a href="{{ path('tuna_page_create') }}" class="btn btn-primary btn-wide">
                     <i class="fui-plus"></i> {% trans %}Add first item{% endtrans %}
                 </a>
@@ -15,7 +15,7 @@
         <div class="row admin-container">
             <div class="col-sm-12">
                 <div class="admin-list">
-                    {% if is_granted('create', 'page') %}
+                    {% if is_granted('create', 'pages') %}
                         <div class="action-buttons">
                             <a href="{{ path('tuna_page_create') }}" class="btn btn-primary btn-wide">
                                 <i class="fui-plus"></i> {% trans %}Add item{% endtrans %}
@@ -47,7 +47,7 @@
                                 </td>
                                 <td class="options">
                                     <a href="{{ path('tuna_page_edit',{'id' : item.id}) }}" class="fa fa-pencil-square-o" aria-hidden="true"></a>
-                                    {% if is_granted('delete', 'page') %}
+                                    {% if is_granted('delete', 'pages') %}
                                         <a href="#" data-title="{{ item.title }}" data-url="{{ path('tuna_page_delete',{'id' : item.id}) }}" data-target="#modal-confirm" data-action="delete" class="fa fa-trash" aria-hidden="true"></a>
                                     {% endif %}
                                 </td>
