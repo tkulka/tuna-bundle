@@ -1,0 +1,20 @@
+JMSTranslationBundle_translate:
+    resource: "@JMSTranslationBundle/Controller/ApiController.php"
+    type: annotation
+    prefix: /translations
+
+JMSTranslationBundle_api:
+    resource: "@JMSTranslationBundle/Controller/TranslateController.php"
+    type: annotation
+    prefix: /translations
+
+tuna_translations_cache:
+    resource: "@TheCodeineTranslationBundle/Controller/CacheController.php"
+    type: annotation
+    prefix: /translations
+
+tuna_translations:
+    path: /translations
+
+_bazinga_jstranslation:
+    resource: "@BazingaJsTranslationBundle/Resources/config/routing/routing.yml"

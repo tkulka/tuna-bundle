@@ -26,43 +26,23 @@ tuna_page:
     resource: "@TheCodeineAdminBundle/Controller/PageController.php"
     type:     annotation
     prefix:   /admin/
+    condition: "%the_codeine_admin.components.page.enabled% == 1"
 
 tuna_news:
     resource: "@TheCodeineAdminBundle/Controller/NewsController.php"
     type:     annotation
     prefix:   /admin/
 
+tuna_translations:
+    resource: "@TheCodeineTranslationBundle/Resources/config/routing.yml"
+    prefix:   /admin/
+    condition: "%the_codeine_admin.components.translations.enabled% == 1"
+
 tuna_category:
     resource: "@TheCodeineAdminBundle/Controller/CategoryController.php"
     type:     annotation
     prefix:   /admin/
 
-# ADMIN Route
 tuna_admin_homepage:
     path: /admin/
     defaults: { _controller: TheCodeineAdminBundle:Admin:index }
-
-# TRANSLATIONS Route
-JMSTranslationBundle_translate:
-    resource: "@JMSTranslationBundle/Controller/ApiController.php"
-    type: annotation
-    prefix: /admin/translations
-    condition: "%the_codeine_admin.enable_translations_string%"
-
-JMSTranslationBundle_api:
-    resource: "@JMSTranslationBundle/Controller/TranslateController.php"
-    type: annotation
-    prefix: /admin/translations
-    condition: "%the_codeine_admin.enable_translations_string%"
-
-tuna_translations_cache:
-    resource: "@TheCodeineTranslationBundle/Controller/CacheController.php"
-    type: annotation
-    prefix: /admin/translations
-
-tuna_translations:
-    path: /admin/translations
-    condition: "%the_codeine_admin.enable_translations_string%"
-
-_bazinga_jstranslation:
-    resource: "@BazingaJsTranslationBundle/Resources/config/routing/routing.yml"

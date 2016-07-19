@@ -38,10 +38,23 @@ class TheCodeineAdminExtension extends Extension implements PrependExtensionInte
 
     private function setParameters(ContainerBuilder $container, array $config)
     {
+        $config += $this->flattenArray($config);
         foreach ($config as $key => $value) {
             $container->setParameter("the_codeine_admin.$key", $value);
         }
         $container->setParameter('the_codeine_admin.menu_builder.class', $config['menu_builder']);
-        $container->setParameter('the_codeine_admin.enable_translations_string', $config['components']['translations']['enabled'] ? 'true' : 'false');
+    }
+
+    private function flattenArray($array, $prefix = '')
+    {
+        $result = array();
+        foreach ($array as $key => $value) {
+            if (is_array($value)) {
+                $result = $result + $this->flattenArray($value, $prefix . $key . '.');
+            } else {
+                $result[$prefix . $key] = is_bool($value) ? ($value ? 1 : 0) : $value;
+            }
+        }
+        return $result;
     }
 }
