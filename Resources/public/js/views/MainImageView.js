@@ -1,34 +1,49 @@
 (function () {
     tuna.view.MainImageView = Backbone.View.extend({
         events: {
-            'change input[type="file"]': 'onChange',
             'click [data-action="remove"]': 'onRemove'
         },
-        onChange: function (event) {
-            this.previewImage(event.currentTarget);
+        initialize: function () {
+            this.initDropzone();
+        },
+        initDropzone: function () {
+            var oThis = this;
+
+           this.$('.main-image').dropzone({
+                url: '/admin/news/image/upload',
+                maxFilesize: 2,
+                acceptedFiles: '.jpg, .jpeg',
+                paramName: 'the_codeine_image_request[file]',
+                clickable: '.main-image .btn',
+                maxFiles: 1,
+                addedfile: function () {},
+                error: function (file, errorMessage) {
+                    alert(errorMessage);
+                },
+                init: function () {
+                    this.on("success", function(file, response) {
+                        oThis.onSending();
+                        oThis.showImagePreview(response);
+                    });
+
+                    this.on("queuecomplete", function () {
+                        this.removeAllFiles();
+                    });
+
+                    this.on("sending", function() {
+                        oThis.onSending();
+                    });
+                }
+            });
+        },
+        showImagePreview: function (response) {
+            this.$('.main-image .image').html('<div><img src="'+response.path+'"><span class="remove">Usuń</span></div>');
+        },
+        onSending: function () {
+            this.$('.main-image .btn').toggleClass('loading');
         },
         onRemove: function (event) {
             this.$('.image').empty();
-            this.$('input').val('');
-            this.$('.remove-image').val('1');
-        },
-        previewImage: function (input) {
-            if (!this.$('.image img').length) {
-                this.$('.image').prepend($('<img><span class="remove">' + Translator.trans('Remove') + '</span>'));
-            }
-
-            var $img = this.$('.image img');
-
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = _.bind(function (e) {
-                    $img.attr('src', e.target.result);
-                    this.$('.remove-image').val('0');
-                }, this);
-
-                reader.readAsDataURL(input.files[0]);
-            }
         }
     });
 })();

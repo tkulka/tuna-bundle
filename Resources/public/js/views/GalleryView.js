@@ -38,16 +38,16 @@
             this.$('.thecodeine_admin_gallery').dropzone({
                 url: '/admin/news/image/upload',
                 maxFilesize: 2,
+                acceptedFiles: '.jpg, .jpeg',
                 paramName: 'the_codeine_image_request[file]',
                 clickable: 'a[data-type="image"]',
-                autoProcessQueue: true,
                 addedfile: function () {},
                 error: function (file, errorMessage) {
                     alert(errorMessage);
                 },
                 init: function () {
-                    this.on("success", function(file, responseText) {
-                        oThis.addItem('image', responseText);
+                    this.on("success", function(file, response) {
+                        oThis.addItem('image', response);
                     });
                 }
             });
@@ -64,7 +64,7 @@
                 $(this).val(idx);
             });
         },
-        loadItemForm: function (selector, responseText) {
+        loadItemForm: function (selector, response) {
             var $form = this.$el.closest('form');
 
             $.ajax({
@@ -77,11 +77,11 @@
                     );
                     $(selector).addClass('loaded');
 
-                    $(selector).find('.image .gallery-image').css('backgroundImage', 'url('+responseText.path+')')
+                    $(selector).find('.image .gallery-image').css('backgroundImage', 'url('+response.path+')')
                 }
             });
         },
-        addItem: function (type, responseText) {
+        addItem: function (type, response) {
             var itemsId = this.$wrapper.data('itemsId');
             var prototype = this.$wrapper.data('prototype');
             var index = this.$wrapper.data('index') + 1;
@@ -91,7 +91,7 @@
             $newForm.find('input[type="hidden"]').val(type);
 
             this.$('.gallery-items').append($newForm);
-            this.loadItemForm('#' + itemsId + "_" + index, responseText);
+            this.loadItemForm('#' + itemsId + "_" + index, response);
             tuna.website.enableFancySelect(this.$('select'));
             this.recalculateItemPositions();
         },

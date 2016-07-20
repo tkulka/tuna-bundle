@@ -16,10 +16,14 @@
             position: relative;
             cursor: pointer;
 
+            > div {
+                border: 2px solid $brand-primary;
+                width: 280px;
+                height: 188px;
+            }
+
             img {
                 width: 100%;
-                transition: all ease-out .3s;
-                border: 2px solid $brand-primary;
             }
 
             &:hover {
