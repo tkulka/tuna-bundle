@@ -3,6 +3,30 @@
     background-color: $brand-tertiary;
     color: $link-color-inverse;
 
+    .drag-over {
+        &:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 400;
+            width: 100%;
+            height: 100%;
+            background: rgba(#343233, .9);
+        }
+        &:after {
+            text-align: center;
+            content: attr(data-drop);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 401;
+            font-size: 24px;
+            color: #fff;
+        }
+    }
+
     @media all and (min-width: $mobileLargeScreen) {
         display: block;
         width: $sidebarOptionsWidth;
