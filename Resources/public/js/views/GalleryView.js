@@ -1,9 +1,8 @@
 (function () {
     tuna.view.GalleryView = Backbone.View.extend({
         events: {
-            'click [data-action="add-new-item"]': 'onAddItemClick',
+            'click [data-type="video"]': 'onAddItemClick',
             'click .delete': 'onDeleteClick',
-            'change .image input[type="file"]': 'onFileInputChange',
             'keyup input[type="url"]': 'onVideoUrlInputChange',
             'click .close': 'onClose',
             'close': 'onClose',
@@ -17,6 +16,7 @@
             this.initSortable();
             this.$wrapper = this.$('.thecodeine_admin_gallery');
             this.$wrapper.data('index', this.$('li.item').length);
+            this.initDropzone();
         },
         onClick: function (e) {
             e.stopPropagation();
@@ -32,6 +32,26 @@
                     oThis.recalculateItemPositions();
                 });
         },
+        initDropzone: function () {
+            var oThis = this;
+
+            this.$('.thecodeine_admin_gallery').dropzone({
+                url: '/admin/news/image/upload',
+                maxFilesize: 2,
+                paramName: 'the_codeine_image_request[file]',
+                clickable: 'a[data-type="image"]',
+                autoProcessQueue: true,
+                addedfile: function () {},
+                error: function (file, errorMessage) {
+                    alert(errorMessage);
+                },
+                init: function () {
+                    this.on("success", function(file, responseText) {
+                        oThis.addItem('image', responseText);
+                    });
+                }
+            });
+        },
         onClose: function () {
             this.$el.removeClass('slideLeftRetourn').addClass('holeOut');
         },
@@ -44,8 +64,9 @@
                 $(this).val(idx);
             });
         },
-        loadItemForm: function (selector) {
+        loadItemForm: function (selector, responseText) {
             var $form = this.$el.closest('form');
+
             $.ajax({
                 url: $form.attr('action'),
                 type: $form.attr('method'),
@@ -55,10 +76,12 @@
                         $(html).find(selector)
                     );
                     $(selector).addClass('loaded');
+
+                    $(selector).find('.image .gallery-image').css('backgroundImage', 'url('+responseText.path+')')
                 }
             });
         },
-        addItem: function (type, content) {
+        addItem: function (type, responseText) {
             var itemsId = this.$wrapper.data('itemsId');
             var prototype = this.$wrapper.data('prototype');
             var index = this.$wrapper.data('index') + 1;
@@ -68,7 +91,7 @@
             $newForm.find('input[type="hidden"]').val(type);
 
             this.$('.gallery-items').append($newForm);
-            this.loadItemForm('#' + itemsId + "_" + index);
+            this.loadItemForm('#' + itemsId + "_" + index, responseText);
             tuna.website.enableFancySelect(this.$('select'));
             this.recalculateItemPositions();
         },
@@ -79,26 +102,6 @@
         onDeleteClick: function (e) {
             $(e.currentTarget).closest('.item').remove();
         },
-        onFileInputChange: function (e) {
-            var $element = $(e.currentTarget);
-            var files = e.target.files;
-            for (var i = 0, f; f = files[i]; i++) {
-                if (!f.type.match('image.*')) {
-                    continue;
-                }
-                var reader = new FileReader();
-
-                reader.onload = (function (theFile) {
-                    return function (event) {
-                        $element.closest('.item').find('.image-preview')
-                            .css('background-image', 'url(' + event.target.result + ')');
-                    }
-                })(f);
-
-                reader.readAsDataURL(f);
-            }
-        },
-
         onVideoUrlInputChange: function (event) {
             var $el = $(event.target);
             var url = event.target.value;
@@ -111,14 +114,12 @@
                 $el.trigger('showError', Translator.trans('Paste url to YouTube or Vimeo.'));
             }
         },
-
         onShowError: function (e, message) {
             var $el = $(e.target);
             var error = '<span class="form-error">' + message + '</span>';
             $el.siblings('.form-error').remove();
             $el.addClass('error').after(error);
         },
-
         onLanguageChange: function (e) {
             Backbone.trigger('LanguageChange', e);
         }

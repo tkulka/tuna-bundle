@@ -6,6 +6,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
+use TheCodeine\ImageBundle\Entity\Image;
+use TheCodeine\ImageBundle\Form\ImageRequestType;
+
 /**
  * @Route("/news")
  */
@@ -34,5 +38,35 @@ class NewsController extends \TheCodeine\NewsBundle\Controller\NewsController
             'offset' => $page * $limit - $limit,
             'newsType' => $newsType,
         );
+    }
+
+    /**
+     *
+     * @Route("/image/upload")
+     */
+    public function uploadFile(Request $request)
+    {
+        $image = new Image();
+        $form = $this->createForm(new ImageRequestType(), $image);
+
+
+        dump($form->createView());
+        $imagine = $this->get('liip_imagine.cache.manager');
+
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($image);
+            $em->flush();
+
+            return new JsonResponse(
+                array(
+                    'path' => $imagine->getBrowserPath('/uploads/'.$image->getPath(), 'main_image'),
+                    'imageId' => $image->getId(),
+                )
+            );
+        }
+
+        return new JsonResponse(array('message' => $form->getErrorsAsString()), 500);
     }
 }
