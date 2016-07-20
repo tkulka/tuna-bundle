@@ -1,7 +1,9 @@
 <?php
+// @formatter:off
 
 namespace TheCodeine\AdminBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -19,11 +21,10 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('the_codeine_admin');
-
-        // @formatter:off
         $rootNode
             ->children()
                 ->arrayNode('paths')
+                    ->addDefaultsIfNotSet()
                     ->children()
                         ->scalarNode('admin_logo')
                             ->defaultValue('bundles/thecodeineadmin/images/logo.png')
@@ -33,15 +34,59 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
-                ->booleanNode('enable_translations')
-                    ->defaultValue(true)
-                ->end()
                 ->scalarNode('host')
                     ->defaultValue(null)
                 ->end()
+                ->scalarNode('menu_builder')
+                    ->defaultValue('TheCodeine\AdminBundle\Menu\Builder')
+                ->end()
             ->end();
-        // @formatter:on
+
+        $this->addComponentsSection($rootNode);
 
         return $treeBuilder;
+    }
+
+    private function addComponentsSection(ArrayNodeDefinition $rootNode)
+    {
+        $sections = $rootNode->children()
+            ->arrayNode('components')
+            ->addDefaultsIfNotSet()
+        ;
+
+        $sections->children()
+            ->arrayNode('pages')
+                ->beforeNormalization()
+                    ->ifTrue(function ($v) { return is_bool($v); })
+                    ->then(function ($v) { return array('enabled' => $v); })
+                ->end()
+                ->addDefaultsIfNotSet()
+                ->children()
+                    ->booleanNode('enabled')->defaultValue(true)->end()
+                    ->booleanNode('create')->defaultValue(false)->end()
+                    ->booleanNode('delete')->defaultValue(false)->end()
+                ->end()
+            ->end()
+        ;
+
+        $this->addEnabledConfig($sections, 'news', true);
+        $this->addEnabledConfig($sections, 'events', false);
+        $this->addEnabledConfig($sections, 'translations', true);
+        $this->addEnabledConfig($sections, 'categories', false);
+    }
+
+    private function addEnabledConfig(ArrayNodeDefinition $node, $name, $defaultValue)
+    {
+        $node->children()
+            ->arrayNode($name)
+                ->beforeNormalization()
+                    ->ifTrue(function ($v) { return is_bool($v); })
+                    ->then(function ($v) { return array('enabled' => $v); })
+                ->end()
+                ->addDefaultsIfNotSet()
+                ->children()
+                    ->booleanNode('enabled')->defaultValue($defaultValue)->end()
+            ->end()
+        ;
     }
 }

@@ -26,7 +26,7 @@ class NewsController extends \TheCodeine\NewsBundle\Controller\NewsController
         $page = $request->query->get('page', 1);
         $limit = 10;
 
-        $paginator =  $this->get('knp_paginator');
+        $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate($query, $page, $limit, $defaultSort);
 
         return array(

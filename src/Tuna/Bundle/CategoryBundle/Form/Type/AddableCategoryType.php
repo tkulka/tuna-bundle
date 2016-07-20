@@ -63,7 +63,7 @@ class AddableCategoryType extends AbstractType
         foreach ($entities as $entity) {
             $choices[$entity->getId()] = $entity->getName();
         }
-        $choices[self::NEW_VALUE_OPTION] = 'New';
+        $choices[self::NEW_VALUE_OPTION] = 'category.new';
 
         return $choices;
     }
