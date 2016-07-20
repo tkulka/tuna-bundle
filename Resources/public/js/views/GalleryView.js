@@ -50,7 +50,11 @@
                         oThis.addItem('image', response);
                     });
                 }
-            });
+            }).on('dragbetterenter', function() {
+                oThis.$el.addClass('drag-over');
+            }).on('dragbetterleave', function() {
+                oThis.$el.removeClass('drag-over');
+            })
         },
         onClose: function () {
             this.$el.removeClass('slideLeftRetourn').addClass('holeOut');

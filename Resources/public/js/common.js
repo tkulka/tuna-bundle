@@ -27,12 +27,12 @@ tuna.website = {
         this.options = options;
 
         //init main views
-        new tuna.view.NavigationView({el: $('nav')[0]});
-        new tuna.view.ListView({el: $('.admin-list')[0]});
-        new tuna.view.OptionsView({el: $('.admin-option-container')[0]});
-        new tuna.view.GalleryView({el: $('.admin-gallery-container')[0]});
-        new tuna.view.AttachmentsView({el: $('.admin-attachments-container')[0]});
-        new tuna.view.EditView({el: $('.admin-container')[0], lang: options.lang});
+        new tuna.view.NavigationView({el: $('nav')});
+        new tuna.view.ListView({el: $('.admin-list')});
+        new tuna.view.OptionsView({el: $('.admin-option-container')});
+        new tuna.view.GalleryView({el: $('.admin-gallery-container')});
+        new tuna.view.AttachmentsView({el: $('.admin-attachments-container')});
+        new tuna.view.EditView({el: $('.admin-container'), lang: options.lang});
         new tuna.view.AddableEntitySelectView({el: $('.addable-entity-select')});
         new tuna.view.SortableView({el: $('[data-sortable-url]')});
 
