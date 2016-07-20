@@ -35,7 +35,7 @@
         initDropzone: function () {
             var oThis = this;
 
-            this.$('.thecodeine_admin_gallery').dropzone({
+            this.$el.dropzone({
                 url: '/admin/news/image/upload',
                 maxFilesize: 2,
                 acceptedFiles: '.jpg, .jpeg',

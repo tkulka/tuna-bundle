@@ -18,15 +18,16 @@
                 maxFiles: 1,
                 addedfile: function () {},
                 error: function (file, errorMessage) {
+                    oThis.onSending();
                     alert(errorMessage);
                 },
                 init: function () {
                     this.on("success", function(file, response) {
-                        oThis.onSending();
                         oThis.showImagePreview(response);
                     });
 
                     this.on("queuecomplete", function () {
+                        oThis.onSending();
                         this.removeAllFiles();
                     });
 
