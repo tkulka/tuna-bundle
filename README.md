@@ -44,6 +44,7 @@
             menu_builder: TheCodeine\AdminBundle\Menu\Builder
             paths:
                 admin_logo: bundles/thecodeineadmin/images/logo.png
+                editor_styles: bundles/thecodeineadmin/css/editor-styles.css
             host: null
             components:
                 pages:
