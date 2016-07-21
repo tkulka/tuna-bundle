@@ -61,7 +61,7 @@ class NewsController extends \TheCodeine\NewsBundle\Controller\NewsController
 
             return new JsonResponse(
                 array(
-                    'path' => $imagine->getBrowserPath('/uploads/'.$image->getPath(), 'main_image'),
+                    'path' => $imagine->getBrowserPath('/uploads/'.$image->getPath(), 'tuna_admin_thumb'),
                     'imageId' => $image->getId(),
                 )
             );
