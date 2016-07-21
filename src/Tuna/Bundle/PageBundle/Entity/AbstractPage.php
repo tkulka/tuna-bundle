@@ -58,10 +58,11 @@ abstract class AbstractPage
     protected $body;
 
     /**
-     * @ORM\OneToOne(targetEntity="\TheCodeine\ImageBundle\Entity\Image", cascade={"persist"})
-     * @ORM\JoinColumn(name="image_id", referencedColumnName="id")
+     * @ORM\OneToOne(targetEntity="TheCodeine\FileBundle\Entity\Image", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(onDelete="SET NULL")
      */
     protected $image;
+
     protected $translations;
 
     /**

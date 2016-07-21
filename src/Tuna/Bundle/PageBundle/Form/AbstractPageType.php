@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+use TheCodeine\FileBundle\Form\ImageType;
 use TheCodeine\ImageBundle\Form\MainImage;
 use TheCodeine\NewsBundle\Entity\Page;
 use TheCodeine\NewsBundle\Form\AttachmentsType;
@@ -44,9 +45,7 @@ abstract class AbstractPageType extends AbstractType
             }, 900);
         }
         $builder
-            ->add('image', new MainImage($options['data']->getImage() !== null), array(
-                'required' => false,
-            ))
+            ->add('image', ImageType::class)
             ->add('published', 'checkbox', array(
                 'required' => false
             ))

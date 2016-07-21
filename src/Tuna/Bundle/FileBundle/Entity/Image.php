@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\HasLifecycleCallbacks
  * @ORM\Entity
- * @ORM\Table(name="files")
+ * @ORM\Table(name="images")
  */
-class File extends AbstractFile
+class Image extends AbstractFile
 {
 }

@@ -1,1 +1,7 @@
 services:
+    the_codeine_file.event_listener.file_upload_subscriber:
+        class: TheCodeine\FileBundle\EventListener\FileUploadSubscriber
+        arguments:
+            - "@filesystem"
+        tags:
+            - { name: doctrine.event_subscriber }

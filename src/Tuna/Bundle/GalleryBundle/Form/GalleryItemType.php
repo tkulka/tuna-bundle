@@ -9,6 +9,7 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 
+use TheCodeine\FileBundle\Form\ImageType;
 use TheCodeine\GalleryBundle\Entity\GalleryItem;
 use TheCodeine\ImageBundle\Form\ImageRequestThumbnailType;
 
@@ -51,9 +52,7 @@ class GalleryItemType extends AbstractType
             } else if ($type === GalleryItem::IMAGE_TYPE) {
                 $form
                     ->add('position', 'hidden')
-                    ->add('image', new ImageRequestThumbnailType(), array(
-                        'data_class' => 'TheCodeine\ImageBundle\Entity\Image'
-                    ))
+                    ->add('image', new ImageType())
                     ->add('translations', 'a2lix_translations_gedmo', array(
                         'translatable_class' => 'TheCodeine\GalleryBundle\Entity\GalleryItem',
                         'fields' => array(

@@ -12,7 +12,6 @@ class BundleDependencyRegisterer
             new \TheCodeine\EditorBundle\TheCodeineEditorBundle(),
             new \TheCodeine\FileBundle\TheCodeineFileBundle(),
             new \TheCodeine\PageBundle\TheCodeinePageBundle(),
-            new \TheCodeine\ImageBundle\TheCodeineImageBundle(),
             new \TheCodeine\VideoBundle\TheCodeineVideoBundle(),
             new \TheCodeine\GalleryBundle\TheCodeineGalleryBundle(),
             new \TheCodeine\TagBundle\TheCodeineTagBundle(),

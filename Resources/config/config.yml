@@ -1,3 +1,8 @@
+parameters:
+    web.root_dir: "%kernel.root_dir%/../web"
+    tmp_files_path: /uploads/tmp
+    files_path: /uploads/files
+
 imports:
     - { resource: security.yml }
 
@@ -5,6 +10,16 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: TheCodeine\UserBundle\Entity\User
+
+assetic:
+    debug:              "%kernel.debug%"
+    use_controller:     false
+    ruby: ~
+    filters:
+        cssrewrite: ~
+        sass:
+            apply_to: "\.s[ac]ss$"
+            bin: "%sass_bin%"
 
 a2lix_translation_form:
     locales: [pl, en]
