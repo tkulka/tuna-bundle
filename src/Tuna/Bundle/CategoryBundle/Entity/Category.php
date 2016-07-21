@@ -52,9 +52,12 @@ class Category
     /**
      * Category constructor.
      */
-    public function __construct()
+    public function __construct($name = null)
     {
         $this->translations = new ArrayCollection();
+        if ($name !== null) {
+            $this->setName($name);
+        }
     }
 
     public function __toString()

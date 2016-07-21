@@ -66,10 +66,12 @@ liip_imagine:
         tuna_admin_thumb:
             quality: 90
             filters:
+                upscale: { min: [280, 196] }
                 thumbnail: { size: [280, 196], mode: outbound }
         tuna_gallery_thumb:
             quality: 90
             filters:
+                upscale: { min: [160, 120] }
                 thumbnail: { size: [160, 120], mode: outbound }
         tuna_gallery_full:
             quality: 90

@@ -1,3 +1,4 @@
+Tuna Admin Bundle: Pakiet Tuńczyków Administratora
 Save: Zapisz
 Options: Opcje
 Published: Opublikowany
@@ -8,6 +9,7 @@ Title: Tytuł
 Teaser: Krótkie podsumowanie
 Body: Treść
 Slug: Slug
+Name: Nazwa
 "Edit page:": "Edytuj stronę:"
 "Edit news:": "Edytuj newsa:"
 "Edit event:": "Edytuj wydarzenie:"
@@ -25,6 +27,9 @@ List of news: Lista newsów
 Create news: Stwórz newsa
 Create category: Stwórz kategorię
 Manage categories: Zarządzaj kategoriami
+Categories: Kategorie
+Category: Kategoria
+category.new: Nowa kategoria
 Oops there is nothing here!: Ups! Jeszcze nic tutaj nie ma
 The Codeine - Admin Bundle: The Codeine - Admin Bundle
 Woops!: Ups!

@@ -1,27 +1,28 @@
 # TheCodeine AdminBundle
 
 ## Installation:
-  1. Require module:
-  
-        composer require "thecodeine/tuna-adminbundle": "dev-master"
-        
-  2. Add to `composer.json`:
-  
+  1. Add to `composer.json`:
+                  
         "repositories": [
-                {
-                    "type": "vcs",
-                    "url": "git@bitbucket.org:thecodeine/tuna-adminbundle.git"
-                }
-            ],
+            {
+                "type": "vcs",
+                "url": "git@bitbucket.org:thecodeine/tuna-adminbundle.git"
+            }
+        ],
+        
+  2. Require module:
+  
+        composer require "thecodeine/tuna-adminbundle": "dev-master"  
             
   3. Register bundles:
   
     Add following line to `AppKernel::registerBundles()`
     
         TheCodeine\AdminBundle\BundleDependencyRegisterer::register($bundles);
+        
   4. Migrate db:
    
-    Via `doctrine:migrations:diff && doctrine:migrations:migrate` or `doctrine:schema:update`
+        doctrine:migrations:diff && doctrine:migrations:migrate
     
   5. Add routing
     
@@ -29,6 +30,7 @@
         
         the_codeine_tuna_admin:
             resource: "@TheCodeineAdminBundle/Resources/config/routing.yml"
+            
   6. Override config
   
     Tuna injects some basic configs, but feel free to override them (be aware that you can broke some of functionalities by this).  
@@ -39,12 +41,44 @@
     Here is full option config with defaults:
     
         the_codeine_admin:
+            menu_builder: TheCodeine\AdminBundle\Menu\Builder
             paths:
                 admin_logo: bundles/thecodeineadmin/images/logo.png
-            enable_translations: true
+            host: null
+            components:
+                pages:
+                    enabled: true
+                    create: false
+                    delete: false
+                news:
+                    enabled: true
+                events:
+                    enabled: false
+                translations:
+                    enabled: true
+                categories:
+                    enabled: false
+
+    You can also use shorter component syntax:
+    
+        the_codeine_admin:
+            components:
+                pages: false
+        
+        # above config is equal to:
+        
+        the_codeine_admin:
+            components:
+                pages:
+                    enabled: false
+
 
 ## Frontend translations:
-Translations are enabled by default. You can turn them off by overriding `the_codeine_admin.enable_translations` config.
+Translations are enabled by default. You can turn them off by setting:
+
+        the_codeine_admin:
+            components:
+                translations: false
 
 Dump translation files:
 
@@ -145,18 +179,44 @@ JavaScript translations are in `Resources/translations/tuna_admin.pl.yml`. After
             type:     annotation
             prefix:   /admin/
 
-## Global overriding Tuna elements
+## Overriding Tuna
+
+### General
 
 Use bundle overriding:
 
-        namespace My\AdminBundle;
-        
-        use Symfony\Component\HttpKernel\Bundle\Bundle;
-        
-        class MyAdminBundle extends Bundle
+    namespace My\AdminBundle;
+    
+    use Symfony\Component\HttpKernel\Bundle\Bundle;
+    
+    class MyAdminBundle extends Bundle
+    {
+        public function getParent()
         {
-            public function getParent()
-            {
-                return 'TheCodeineAdminBundle';
-            }
+            return 'TheCodeineAdminBundle';
         }
+    }
+
+### Menu
+
+Add `menu_builder` class to config, and override, or use your own Builder:
+
+    class Builder extends \TheCodeine\AdminBundle\Menu\Builder
+    {
+        protected function buildTopMenu(Request $request)
+        {
+            $menu = parent::buildTopMenu($request);
+            /**
+             * use custom position to inject your pages between standard links, e.g.:
+             *      Pages: 100
+             *      News: 110
+             *      Translations: 500
+             */
+            $this->addChild($menu, $request, 'Projects', 'tuna_page_list', 90, function ($request, $route) {
+                return preg_match_all('/app_project_/i', $request->get('_route'));
+            });
+    
+            return $menu;
+        }
+    
+    }

@@ -5,6 +5,7 @@ namespace TheCodeine\AdminBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+use FOS\UserBundle\Entity\UserManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -28,15 +29,35 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
      */
     public function load(ObjectManager $om)
     {
+        /* @var UserManager $userManager */
         $userManager = $this->container->get('fos_user.user_manager');
-        $user = $userManager->createUser();
-        $user->setEnabled(true);
-        $user->setPlainPassword('admin');
-        $user->setUsername('admin');
-        $user->setEmail('fake@thecodeine.com');
-        $user->addRole('ROLE_ADMIN');
+        $users = array(
+            array(
+                'email' => 'fake@thecodeine.com',
+                'name' => 'admin',
+                'role' => 'ROLE_ADMIN'
+            ),
+            array(
+                'email' => 'fakesuperadmin@thecodeine.com',
+                'name' => 'superadmin',
+                'role' => 'ROLE_SUPER_ADMIN'
+            ),
+        );
 
-        $userManager->updateUser($user);
+        foreach ($users as $u) {
+            if ($userManager->findUserByUsername($u['name']) != null || $userManager->findUserByEmail($u['email']) != null) {
+                continue;
+            }
+            
+            $user = $userManager->createUser();
+            $user->setEnabled(true);
+            $user->setPlainPassword($u['name']);
+            $user->setUsername($u['name']);
+            $user->setEmail($u['email']);
+            $user->addRole($u['role']);
+
+            $userManager->updateUser($user);
+        }
     }
 
 

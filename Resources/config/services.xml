@@ -5,7 +5,6 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="the_codeine_admin.menu_builder.class">TheCodeine\AdminBundle\Menu\Builder</parameter>
         <parameter key="the_codeine_admin.menu.item.class">Knp\Menu\MenuItem</parameter>
         <parameter key="the_codeine_admin.gedmo_tree_listener.class">Gedmo\Tree\TreeListener</parameter>
     </parameters>
@@ -20,7 +19,7 @@
 
         <service id="the_codeine_admin.menu_builder" class="%the_codeine_admin.menu_builder.class%">
             <argument type="service" id="knp_menu.factory"/>
-            <argument>%the_codeine_admin.enable_translations%</argument>
+            <argument>%the_codeine_admin.components%</argument>
         </service>
         <service id="the_codeine_admin.menu.top" class="%the_codeine_admin.menu.item.class%"
                  factory-service="the_codeine_admin.menu_builder"
@@ -32,10 +31,14 @@
         <service class="TheCodeine\AdminBundle\Twig\TwigExtension" id="the_codeine_admin.twig.twig_extension">
             <tag name="twig.extension"/>
         </service>
-
         <service id="the_codeine_admin.twig.path_extension" class="TheCodeine\AdminBundle\Twig\PathExtension">
             <argument>%the_codeine_admin.paths%</argument>
             <tag name="twig.extension" />
+        </service>
+        <service id="app.post_voter" class="TheCodeine\AdminBundle\Security\ComponentVoter" public="false">
+            <argument type="service" id="security.access.decision_manager"/>
+            <argument>%the_codeine_admin.components%</argument>
+            <tag name="security.voter"/>
         </service>
     </services>
 </container>
