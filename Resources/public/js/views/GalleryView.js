@@ -16,7 +16,6 @@
             this.initSortable();
             this.$wrapper = this.$('.thecodeine_admin_gallery');
             this.$wrapper.data('index', this.$('li.item').length);
-            this.initDropzone();
         },
         onClick: function (e) {
             e.stopPropagation();
@@ -31,30 +30,6 @@
                 .bind('sortupdate', function () {
                     oThis.recalculateItemPositions();
                 });
-        },
-        initDropzone: function () {
-            var oThis = this;
-
-            this.$el.dropzone({
-                url: '/admin/news/image/upload',
-                maxFilesize: 2,
-                acceptedFiles: '.jpg, .jpeg',
-                paramName: 'the_codeine_image_request[file]',
-                clickable: 'a[data-type="image"]',
-                addedfile: function () {},
-                error: function (file, errorMessage) {
-                    alert(errorMessage);
-                },
-                init: function () {
-                    this.on("success", function(file, response) {
-                        oThis.addItem('image', response);
-                    });
-                }
-            }).on('dragbetterenter', function() {
-                oThis.$el.addClass('drag-over');
-            }).on('dragbetterleave', function() {
-                oThis.$el.removeClass('drag-over');
-            })
         },
         onClose: function () {
             this.$el.removeClass('slideLeftRetourn').addClass('holeOut');

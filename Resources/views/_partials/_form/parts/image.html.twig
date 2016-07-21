@@ -23,14 +23,14 @@
 {% block main_imagefile_widget %}
     {% spaceless %}
         {% set image = form.parent.vars.value %}
-        <div class="form-group main-image">
+        <div class="form-group main-image dropzone" data-dropzone-selector=".admin-option-container">
             <div class="image" data-action="remove">
                 {% if image and image.path %}
                     <img src="{{ ('/uploads/' ~ image.path) | imagine_filter('tuna_admin_thumb') }}"/>
                     <span class="remove">{% trans %}Usuń{% endtrans %}</span>
                 {% endif %}
             </div>
-            <div class="btn btn-mini btn-primary btn-block input-wrapper">
+            <div class="btn btn-mini btn-primary btn-block input-wrapper" data-dropzone-clickable>
                 {% trans %}Choose main picture{% endtrans %}
                 <i class="fui-arrow-right pull-right"></i>
             </div>

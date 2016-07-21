@@ -4,9 +4,12 @@
 
 {% block thecodeine_gallerybundle_gallery_widget %}
     <div
-        class="form-group thecodeine_admin_gallery"
+        class="form-group thecodeine_admin_gallery dropzone"
+        data-dropzone-options='{"clickable": "a[data-type=image]"}'
+        data-dropzone-selector=".admin-gallery-container"
         data-prototype="{{ form_widget(form.items.vars.prototype)|e }}"
         data-items-id="{{ form.items.vars.id }}"
+
     >
         {% for type in form.vars.attr.types %}
             <a href="#" class="btn btn-border" data-type="{{ type }}" data-action="add-new-item">

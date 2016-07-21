@@ -36,6 +36,11 @@ tuna.website = {
         new tuna.view.AddableEntitySelectView({el: $('.addable-entity-select')});
         new tuna.view.SortableView({el: $('[data-sortable-url]')});
 
+
+        $('.dropzone').each(function (index, item) {
+            new tuna.view.DropzoneView({el: item});
+        });
+
         //WYSIWYG EDITOR
         tuna.view.EditorView && new tuna.view.EditorView({
             selector: '.tab-pane.active .thecodeine_admin_editor',
