@@ -29,9 +29,6 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('admin_logo')
                             ->defaultValue('bundles/thecodeineadmin/images/logo.png')
                         ->end()
-                        ->scalarNode('editor_styles')
-                            ->defaultValue('bundles/thecodeineadmin/css/editor-styles.css')
-                        ->end()
                     ->end()
                 ->end()
                 ->scalarNode('host')
@@ -65,6 +62,17 @@ class Configuration implements ConfigurationInterface
                     ->booleanNode('enabled')->defaultValue(true)->end()
                     ->booleanNode('create')->defaultValue(false)->end()
                     ->booleanNode('delete')->defaultValue(false)->end()
+                ->end()
+            ->end()
+        ;
+
+        $sections->children()
+            ->arrayNode('editor')
+                ->addDefaultsIfNotSet()
+                ->children()
+                    ->scalarNode('wysiwyg_style_dir')
+                        ->defaultValue('vendor/thecodeine/tuna-adminbundle/Resources/public/sass/common/')
+                    ->end()
                 ->end()
             ->end()
         ;
