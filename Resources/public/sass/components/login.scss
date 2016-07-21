@@ -1,36 +1,23 @@
-.login-form {
+.login-page {
+    .content {
+        background: $brand-secondary;
 
-    .login-field-icon {
-        top: 3px;
+        .login {
+            background: transparent;
+            padding: 100px 0;
+            margin-bottom: 0;
+
+            h2 {
+                padding-bottom: 20px;
+            }
+
+            .dialog {
+                padding: 0 0 20px 0;
+            }
+
+            .login-form {
+                background: $brand-tertiary;
+            }
+        }
     }
-
-    &:before {
-        content: none;
-    }
-}
-
-.login {
-    background: transparent;
-    padding: 40px 0;
-    margin-bottom: 0;
-
-    h2, label.checkbox  {
-        color: $brand-secondary;
-    }
-
-    .checkbox .icons .first-icon {
-        color: $link-hover-color;
-    }
-
-    input {
-        @include placeholder(lighten($brand-tertiary, 30%));
-    }
-}
-
-.login-form .login-field:focus + .login-field-icon, .checkbox.checked, .radio.checked  {
-    color: $brand-primary;
-}
-
-.login-form .login-field:focus {
-    border-color: $brand-primary;
 }
