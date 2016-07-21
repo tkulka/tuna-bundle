@@ -1,7 +1,8 @@
 parameters:
-    web.root_dir: "%kernel.root_dir%/../web"
-    tmp_files_path: /uploads/tmp
-    files_path: /uploads/files
+    tuna_file_manager:
+        web_root_dir: "%kernel.root_dir%/../web"
+        tmp_files_path: uploads/tmp
+        files_path: uploads/files
 
 imports:
     - { resource: security.yml }

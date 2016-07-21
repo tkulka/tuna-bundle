@@ -6,7 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,10 +26,10 @@ class DefaultController extends Controller
 
         if ($form->isValid()) {
             $file = $form->get('file')->getData();
-            $fileInfo = $this->getFileInfo($file, $file->getClientOriginalName());
+            $fileInfo = $this->getFileInfo($file);
 
             try {
-                $this->moveUploadedFile($file, $fileInfo['fileName']);
+                $this->get('the_codeine_file.manager.file_manager')->moveUploadedFile($file, $fileInfo['filename']);
             } catch (FileException $e) {
                 return new JsonResponse(array('messages' => array('Tmp file cannot be moved')));
             }
@@ -38,16 +37,6 @@ class DefaultController extends Controller
         } else {
             return $this->getErrorResponse($form);
         }
-    }
-
-    /**
-     * @Route("/remote/")
-     */
-    public function remoteAction(Request $request)
-    {
-        return new JsonResponse(array(
-            'messages' => array('Remote files are not implemented yet'),
-        ), 400);
     }
 
     private function getErrorResponse(FormInterface $form)
@@ -63,35 +52,16 @@ class DefaultController extends Controller
         ), 400);
     }
 
-    private function getFileInfo(File $file, $originalName)
+    private function getFileInfo(UploadedFile $file)
     {
-        $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+        $fileManager = $this->get('the_codeine_file.manager.file_manager');
+        $filename = $fileManager->generateTmpFilename($file);
 
         return array(
-            'path' => sprintf(
-                '%s/%s',
-                $this->getParameter('tmp_files_path'),
-                $fileName
-            ),
-            'originalName' => $originalName,
+            'path' => $fileManager->getTmpPath($filename),
+            'originalName' => $file->getClientOriginalName(),
             'mimeType' => $file->getMimeType(),
-            'fileName' => $fileName,
-        );
-    }
-
-    /**
-     * @param UploadedFile $file
-     * @param $fileName
-     */
-    private function moveUploadedFile(UploadedFile $file, $fileName)
-    {
-        $file->move(
-            sprintf(
-                '%s/%s',
-                $this->getParameter('web.root_dir'),
-                $this->getParameter('tmp_files_path')
-            ),
-            $fileName
+            'filename' => $filename,
         );
     }
 }

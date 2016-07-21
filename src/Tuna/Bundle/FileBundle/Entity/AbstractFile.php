@@ -4,6 +4,10 @@ namespace TheCodeine\FileBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * @ORM\EntityListeners({"TheCodeine\FileBundle\EventListener\FileListener"})
+ * @ORM\MappedSuperclass
+ */
 abstract class AbstractFile
 {
     /**
@@ -31,9 +35,6 @@ abstract class AbstractFile
      */
     protected $filename;
 
-    /**
-     * @ORM\PostLoad
-     */
     public function saveOldPath()
     {
         $this->oldPath = $this->path;

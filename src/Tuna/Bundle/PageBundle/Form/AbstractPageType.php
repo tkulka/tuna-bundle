@@ -9,10 +9,8 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use TheCodeine\FileBundle\Form\ImageType;
-use TheCodeine\ImageBundle\Form\MainImage;
 use TheCodeine\NewsBundle\Entity\Page;
 use TheCodeine\NewsBundle\Form\AttachmentsType;
-use TheCodeine\NewsBundle\Form\AttachmentType;
 use TheCodeine\GalleryBundle\Form\GalleryType;
 
 abstract class AbstractPageType extends AbstractType
