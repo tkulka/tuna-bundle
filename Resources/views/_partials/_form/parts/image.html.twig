@@ -1,13 +1,5 @@
-{% block imagefile_widget %}
-    {% spaceless %}
-        {% set image =  form.parent.vars.value %}
-        {% if image %}
-            <p>
-                <img src="{{ ('/uploads/' ~ image.path) | imagine_filter('tuna_admin_thumb') }}"/>
-            </p>
-        {% endif %}
-        <input type="file" {{ block('widget_attributes') }} />
-    {% endspaceless %}
+{% block tuna_image_row %}
+    {{ form_row(form) }}
 {% endblock %}
 
 {% block main_image_widget %}

@@ -1,7 +1,7 @@
 parameters:
     tuna_file_manager:
         web_root_dir: "%kernel.root_dir%/../web"
-        tmp_files_path: uploads/tmp
+        tmp_path: uploads/tmp
         files_path: uploads/files
 
 imports:

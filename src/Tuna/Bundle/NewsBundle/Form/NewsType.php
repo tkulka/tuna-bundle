@@ -2,10 +2,12 @@
 
 namespace TheCodeine\NewsBundle\Form;
 
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use TheCodeine\PageBundle\Form\AbstractPageType;
+use TheCodeine\TagBundle\Form\TagCollectionType;
 
 class NewsType extends AbstractPageType
 {
@@ -20,10 +22,10 @@ class NewsType extends AbstractPageType
             ->add('important', null, array(
                 'required' => false
             ))
-            ->add('tags', 'tag_collection', array(
+            ->add('tags', TagCollectionType::class, array(
                 'required' => false
             ))
-            ->add('createdAt', 'datetime', array(
+            ->add('createdAt', DateTimeType::class, array(
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd HH:mm:ss',
                 'required' => false

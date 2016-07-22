@@ -3,10 +3,12 @@
 namespace TheCodeine\FileBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use TheCodeine\FileBundle\Validator\Constraints as FileAssert;
 
 /**
  * @ORM\EntityListeners({"TheCodeine\FileBundle\EventListener\FileListener"})
  * @ORM\MappedSuperclass
+ * @FileAssert\FileExists
  */
 abstract class AbstractFile
 {

@@ -29,7 +29,7 @@ class DefaultController extends Controller
             $fileInfo = $this->getFileInfo($file);
 
             try {
-                $this->get('the_codeine_file.manager.file_manager')->moveUploadedFile($file, $fileInfo['filename']);
+                $this->get('the_codeine_file.manager.file_manager')->moveUploadedFile($file, $fileInfo['path']);
             } catch (FileException $e) {
                 return new JsonResponse(array('messages' => array('Tmp file cannot be moved')));
             }
@@ -58,10 +58,9 @@ class DefaultController extends Controller
         $filename = $fileManager->generateTmpFilename($file);
 
         return array(
-            'path' => $fileManager->getTmpPath($filename),
+            'path' => $filename,
             'originalName' => $file->getClientOriginalName(),
             'mimeType' => $file->getMimeType(),
-            'filename' => $filename,
         );
     }
 }

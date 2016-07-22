@@ -2,6 +2,7 @@
 
 namespace TheCodeine\FileBundle\Manager;
 
+use Symfony\Component\Filesystem\Exception\FileNotFoundException;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\File as HttpFile;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -25,10 +26,41 @@ class FileManager
         $this->config = $config;
     }
 
-    public function removeFile(AbstractFile $file)
+    public function removeFile($file)
     {
-        dump($file);
-        $this->fs->remove($file->getOldPath());
+        if ($file == null) {
+            return;
+        }
+        $path = $this->getFullFilePath($file);
+        $this->fs->remove($path);
+    }
+
+    public function tmpFileExists(AbstractFile $file)
+    {
+        $filename = basename($file->getPath());
+        $fullPath = $this->getFullTmpPath($filename);
+
+        return $this->fs->exists($fullPath);
+    }
+
+    public function moveTmpFile(AbstractFile $file)
+    {
+        $filename = basename($file->getPath());
+        $from = $this->getFullTmpPath($filename);
+        $to = $this->getFullFilePath($filename);
+
+        try {
+            $this->fs->copy($from, $to);
+        } catch (FileNotFoundException $e) {
+            throw $e;
+        }
+        $this->fs->remove($from);
+    }
+
+    private function removeTmpFile(AbstractFile $file)
+    {
+        $path = $this->getFullTmpPath($file);
+        $this->fs->remove($path);
     }
 
     public function generateTmpFilename(HttpFile $file)
@@ -40,40 +72,35 @@ class FileManager
         );
     }
 
-    public function getTmpPath($filename)
-    {
-        return $filename;
-    }
-
     public function moveUploadedFile(UploadedFile $file, $filename)
     {
         $file->move(
             sprintf(
                 '%s/%s',
                 $this->config['web_root_dir'],
-                $this->config['tmp_files_path']
+                $this->config['tmp_path']
             ),
             $filename
         );
     }
 
-    public function moveTmpFile(AbstractFile $file)
+    private function getFullTmpPath($file)
     {
-        $filename = basename($file->getPath());
-        $from = sprintf(
-            '%s/%s/%s',
-            $this->config['web_root_dir'],
-            $this->config['tmp_files_path'],
-            $filename
-        );
-        $to = sprintf(
-            '%s/%s/%s',
-            $this->config['web_root_dir'],
-            $this->config['files_path'],
-            $filename
-        );
+        return $this->getFullPath('tmp', $file);
+    }
 
-        $this->fs->copy($from, $to);
-        $this->fs->remove($from);
+    private function getFullFilePath($file)
+    {
+        return $this->getFullPath('files', $file);
+    }
+
+    private function getFullPath($type, $file)
+    {
+        return sprintf(
+            '%s/%s/%s',
+            $this->config['web_root_dir'],
+            $this->config[$type . '_path'],
+            $file
+        );
     }
 }

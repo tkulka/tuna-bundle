@@ -1,12 +1,12 @@
 <?php
 
-namespace TheCodeine\NewsBundle\Form;
+namespace TheCodeine\FileBundle\Form;
 
+use A2lix\TranslationFormBundle\Form\Type\GedmoTranslationsType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use TheCodeine\NewsBundle\Form\Type\AttachmentNameType;
 
 class AttachmentType extends AbstractType
 {
@@ -17,10 +17,10 @@ class AttachmentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('position', 'hidden')
-            ->add('file', 'file', array())
-            ->add('translations', 'a2lix_translations_gedmo', array(
-                'translatable_class' => 'TheCodeine\NewsBundle\Entity\Attachment',
+            ->add('position', Type\HiddenType::class)
+            ->add('file', FileType::class)
+            ->add('translations', GedmoTranslationsType::class, array(
+                'translatable_class' => 'TheCodeine\FileBundle\Entity\Attachment',
                 'fields' => array(
                     'title' => array(
                         'required' => true,
@@ -29,16 +29,15 @@ class AttachmentType extends AbstractType
                         )
                     )
                 )
-            ))
-            ->add('save', 'submit');
-
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'TheCodeine\NewsBundle\Entity\Attachment',
+            'data_class' => 'TheCodeine\FileBundle\Entity\Attachment',
             'error_bubbling' => false,
+            'cascade_validation' => true,
         ));
     }
 
@@ -51,4 +50,3 @@ class AttachmentType extends AbstractType
     }
 
 }
-

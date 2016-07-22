@@ -14,10 +14,10 @@ use Symfony\Component\HttpKernel\KernelInterface;
 use Doctrine\ORM\Tools\SchemaTool;
 
 use TheCodeine\NewsBundle\Entity\News;
-use TheCodeine\NewsBundle\Entity\Attachment;
+use TheCodeine\FileBundle\Entity\Attachment;
 use TheCodeine\GalleryBundle\Entity\Gallery;
 use TheCodeine\GalleryBundle\Entity\GalleryItem;
-use TheCodeine\ImageBundle\Entity\Image;
+use TheCodeine\FileBundle\Entity\Image;
 
 class NewsContext implements MinkAwareContext
 {

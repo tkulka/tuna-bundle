@@ -2,6 +2,7 @@
 
 namespace TheCodeine\FileBundle\EventListener;
 
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use TheCodeine\FileBundle\Entity\AbstractFile;
 use TheCodeine\FileBundle\Manager\FileManager;
@@ -21,38 +22,49 @@ class FileListener
         $this->fileManager = $fileManager;
     }
 
+    /**
+     * save current path to 'old' property to help file manipulations
+     */
     public function postLoad(AbstractFile $file, LifecycleEventArgs $args)
     {
-        $args->getEntity()->saveOldPath();
+        $file->saveOldPath();
+    }
+
+    public function prePersist(AbstractFile $file, LifecycleEventArgs $args)
+    {
+        if ($file->getPath() == null) {
+            $args->getEntityManager()->remove($file);
+        }
     }
 
     public function postPersist(AbstractFile $file, LifecycleEventArgs $args)
     {
-        $this->handleUpload($args);
+        $this->handleUpload($file, $args->getEntityManager());
     }
 
     public function postUpdate(AbstractFile $file, LifecycleEventArgs $args)
     {
-        $this->handleUpload($args);
+        $this->handleUpload($file, $args->getEntityManager());
+    }
+
+    public function preRemove(AbstractFile $file, LifecycleEventArgs $args)
+    {
+        $file->saveOldPath();
     }
 
     public function postRemove(AbstractFile $file, LifecycleEventArgs $args)
     {
-        $this->fileManager->removeFile($file);
+        $this->fileManager->removeFile($file->getOldPath());
     }
 
-    private function handleUpload(LifecycleEventArgs $args)
+    private function handleUpload(AbstractFile $file, EntityManager $em)
     {
-        $file = $args->getEntity();
-        $em = $args->getEntityManager();
-
-        /* @var $file AbstractFile */
         if ($file->getPath() !== $file->getOldPath()) {
             if ($file->getPath() == null) {
                 $em->remove($file);
             } else {
-                $this->fileManager->removeFile($file);
                 $this->fileManager->moveTmpFile($file);
+                $this->fileManager->removeFile($file->getOldPath());
             }
         }
     }

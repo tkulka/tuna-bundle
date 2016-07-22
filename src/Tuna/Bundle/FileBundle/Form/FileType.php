@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
-use TheCodeine\FileBundle\Entity\AbstractFile;
+use TheCodeine\FileBundle\Entity\File;
 
 class FileType extends AbstractType
 {
@@ -21,7 +21,8 @@ class FileType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => AbstractFile::class,
+            'data_class' => File::class,
+            'error_bubbling' => false
         ));
     }
 

@@ -4,6 +4,7 @@ namespace TheCodeine\NewsBundle\Form;
 
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -27,11 +28,11 @@ class EventType extends NewsType
     {
         parent::buildForm($builder, $options);
         $builder
-            ->add('startDate', 'datetime', array(
+            ->add('startDate', DateTimeType::class, array(
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd HH:mm:ss'
             ))
-            ->add('endDate', 'datetime', array(
+            ->add('endDate', DataTimeType::class, array(
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd HH:mm:ss',
                 'required' => false

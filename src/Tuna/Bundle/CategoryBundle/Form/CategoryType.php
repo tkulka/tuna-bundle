@@ -2,13 +2,11 @@
 
 namespace TheCodeine\CategoryBundle\Form;
 
+use A2lix\TranslationFormBundle\Form\Type\GedmoTranslationsType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\CallbackTransformer;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-use TheCodeine\AdminBundle\Form\DataTransformer\ValueToChoiceOrTextTransformer;
 
 class CategoryType extends AbstractType
 {
@@ -20,7 +18,7 @@ class CategoryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('translations', 'a2lix_translations_gedmo', array(
+            ->add('translations', GedmoTranslationsType::class, array(
                 'translatable_class' => $this->dataClass,
             ));
     }

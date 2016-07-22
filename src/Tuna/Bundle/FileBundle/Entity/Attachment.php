@@ -1,21 +1,19 @@
 <?php
 
-namespace TheCodeine\NewsBundle\Entity;
+namespace TheCodeine\FileBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Gedmo\Mapping\Annotation as Gedmo;
+use TheCodeine\FileBundle\Validator\Constraints as FileAssert;
 
 /**
  * Attachment
  *
  * @ORM\Table(name="attachments")
  * @ORM\Entity
- * @Gedmo\TranslationEntity(class="TheCodeine\NewsBundle\Entity\AttachmentTranslation")
- * @Vich\Uploadable
+ * @Gedmo\TranslationEntity(class="TheCodeine\FileBundle\Entity\AttachmentTranslation")
  * @ORM\HasLifecycleCallbacks
  */
 class Attachment
@@ -27,23 +25,15 @@ class Attachment
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
-     * @var File $file
-     * @Assert\File(
-     *     maxSize="10M"
-     * )
-     * @Vich\UploadableField(mapping="news_attachments", fileNameProperty="fileName")
-     */
-    private $file;
-
-    /**
-     * @ORM\Column(type="string", length=255, name="file_name")
+     * @var File
      *
-     * @var string $fileName
-     */
-    protected $fileName;
+     * @FileAssert\FileNotNull
+     * @ORM\ManyToOne(targetEntity="TheCodeine\FileBundle\Entity\File", cascade={"persist", "remove"})
+     **/
+    protected $file;
 
     /**
      * @var string
@@ -57,26 +47,19 @@ class Attachment
      *
      * @ORM\Column(name="position", type="integer")
      */
-    private $position;
-
-    /**
-     * @ORM\Column(type="datetime")
-     *
-     * @var \DateTime $updatedAt
-     */
-    protected $updatedAt;
+    protected $position;
 
     /**
      * @ORM\OneToMany(targetEntity="AttachmentTranslation", mappedBy="object", cascade={"persist", "remove"})
      */
-    private $translations;
+    protected $translations;
 
     /**
      * @Gedmo\Locale
      * Used locale to override Translation listener`s locale
      * this is not a mapped field of entity metadata, just a simple property
      */
-    private $locale;
+    protected $locale;
 
     /**
      * Constructor
@@ -88,16 +71,6 @@ class Attachment
     }
 
     /**
-     * @Assert\Callback
-     */
-    public function validateImage(ExecutionContextInterface $context)
-    {
-        if (!$this->getFile() && !$this->getFileName()) {
-            $context->addViolation('error.attachment.empty');
-        }
-    }
-
-    /**
      * Get id
      *
      * @return integer
@@ -105,56 +78,6 @@ class Attachment
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set file
-     *
-     * @param string $file
-     * @return Attachment
-     */
-    public function setFile($file)
-    {
-        $this->file = $file;
-
-        if ($this->file) {
-            $this->updatedAt = new \DateTime('now');
-        }
-
-        return $this;
-    }
-
-    /**
-     * Get file
-     *
-     * @return string
-     */
-    public function getFile()
-    {
-        return $this->file;
-    }
-
-    /**
-     * Set fileName
-     *
-     * @param string $fileName
-     * @return Attachment
-     */
-    public function setFileName($fileName)
-    {
-        $this->fileName = $fileName;
-
-        return $this;
-    }
-
-    /**
-     * Get fileName
-     *
-     * @return string
-     */
-    public function getFileName()
-    {
-        return $this->fileName;
     }
 
     /**
@@ -224,7 +147,7 @@ class Attachment
     /**
      * Remove translations
      *
-     * @param \TheCodeine\NewsBundle\Entity\AttachmentTranslation $translations
+     * @param \TheCodeine\FileBundle\Entity\AttachmentTranslation $translations
      */
     public function removeTranslation(AttachmentTranslation $translations)
     {
@@ -243,5 +166,24 @@ class Attachment
         }
 
         $this->translations = $translations;
+    }
+
+    /**
+     * @return File
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @return $this
+     * @param File $file
+     */
+    public function setFile($file)
+    {
+        $this->file = $file;
+
+        return $this;
     }
 }

@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
+use TheCodeine\FileBundle\Validator\Constraints as FileAssert;
 
 /**
  * PositionedImage
@@ -56,6 +57,7 @@ class GalleryItem
     /**
      * @var Image
      *
+     * @FileAssert\FileNotNull
      * @ORM\ManyToOne(targetEntity="TheCodeine\FileBundle\Entity\Image", cascade={"persist"})
      **/
     private $image;

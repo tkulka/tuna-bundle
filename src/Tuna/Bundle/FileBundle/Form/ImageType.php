@@ -11,9 +11,8 @@ class ImageType extends FileType
 {
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => Image::class,
-        ));
+        parent::configureOptions($resolver);
+        $resolver->setDefault('data_class', Image::class);
     }
 
     public function getBlockPrefix()

@@ -5,6 +5,7 @@ namespace TheCodeine\CategoryBundle\Form\Type;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use TheCodeine\CategoryBundle\Form\CategoryType;
@@ -31,7 +32,7 @@ class AddableCategoryType extends AbstractType
         $repo = $this->em->getRepository($options['class']);
 
         $builder
-            ->add(self::CHOICE_FIELD, 'choice', array(
+            ->add(self::CHOICE_FIELD, Type\ChoiceType::class, array(
                 'choices' => $this->getChoices($repo)
             ))
             ->add(self::NEW_VALUE_FIELD, new CategoryType($options['class']), array())
