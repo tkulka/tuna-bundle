@@ -36,9 +36,12 @@ tuna.website = {
         new tuna.view.AddableEntitySelectView({el: $('.addable-entity-select')});
         new tuna.view.SortableView({el: $('[data-sortable-url]')});
 
-
-        $('.dropzone').each(function (index, item) {
-            new tuna.view.DropzoneView({el: item});
+        $('[data-dropzone-options]').each(function (index, item) {
+            var options = $(item).data('dropzone-options');
+            new tuna.view.DropzoneView({
+                el: $(options.selector),
+                options: options
+            });
         });
 
         //WYSIWYG EDITOR

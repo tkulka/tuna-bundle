@@ -1,37 +1,54 @@
 (function () {
     tuna.view.DropzoneView = Backbone.View.extend({
         
-        initialize: function () {
+        initialize: function (object) {
             Dropzone.autoDiscover = false;
-            this.dropzoneEl = this.$el.data('dropzone-selector') ? $(this.$el.data('dropzone-selector')) : this.$el;
 
+            this.options = object.options;
             this.setupOptions();
             this.createDropzone();
             this.bindEvents();
         },
 
         createDropzone: function () {
-            this.dropzone = this.dropzoneEl.dropzone(this.options)
+            this.dropzone = this.$el.dropzone(this.defaultOttions)
         },
 
         bindEvents: function () {
             this.dropzone.on('dragbetterenter', _.bind(function() {
-                this.dropzoneEl.addClass('drag-over');
+                this.$el.addClass('drag-over');
             }, this));
 
             this.dropzone.on('dragbetterleave', _.bind(function() {
-                this.dropzoneEl.removeClass('drag-over');
+                this.$el.removeClass('drag-over');
+            }, this));
+
+            this.dropzone.on("queuecomplete", _.bind(function () {
+                this.onSendingComplate();
+                this.removeAllFiles();
+            }, this));
+
+            this.dropzone.on("sending", _.bind(function () {
+                this.onSending();
             }, this));
         },
         
         setupOptions: function () {
-            this.options = _.extend({
+            this.defaultOttions = _.extend({
                 url: '/admin/news/image/upload',
                 acceptedFiles: '.jpg, .jpeg, .gif',
                 paramName: 'the_codeine_image_request[file]',
                 clickable:'[data-dropzone-clickable]',
                 addedfile: function () {}
-            }, this.$el.data('dropzone-options'));
+            }, this.options);
+
+            this.$el.attr('data-dropover-text', this.options.dropoverText);
+        },
+
+        onSendingComplate: function () {
+        },
+
+        onSending: function () {
         }
     });
 })();

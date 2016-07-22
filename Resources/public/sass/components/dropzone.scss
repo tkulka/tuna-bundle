@@ -11,7 +11,7 @@
   }
   &:after {
     text-align: center;
-    content: attr(data-drop);
+    content: attr(data-dropover-text);
     position: absolute;
     top: 50%;
     left: 50%;

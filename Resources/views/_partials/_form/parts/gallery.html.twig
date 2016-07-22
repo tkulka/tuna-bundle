@@ -4,9 +4,8 @@
 
 {% block thecodeine_gallerybundle_gallery_widget %}
     <div
-        class="form-group thecodeine_admin_gallery dropzone"
-        data-dropzone-options='{"clickable": "a[data-type=image]"}'
-        data-dropzone-selector=".admin-gallery-container"
+        class="form-group thecodeine_admin_gallery"
+        data-dropzone-options='{"clickable": "a[data-type=image]", "selector": ".admin-gallery-container", "dropoverText": "{% trans %}Drop your gallery images here{% endtrans %}"}'
         data-prototype="{{ form_widget(form.items.vars.prototype)|e }}"
         data-items-id="{{ form.items.vars.id }}"
 

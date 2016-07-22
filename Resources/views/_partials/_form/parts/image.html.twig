@@ -23,7 +23,7 @@
 {% block main_imagefile_widget %}
     {% spaceless %}
         {% set image = form.parent.vars.value %}
-        <div class="form-group main-image dropzone" data-dropzone-selector=".admin-option-container">
+        <div class="form-group main-image" data-dropzone-options='{"selector": ".admin-option-container", "dropoverText": "{% trans %}Drop your cover image here{% endtrans %}"}'>
             <div class="image" data-action="remove">
                 {% if image and image.path %}
                     <img src="{{ ('/uploads/' ~ image.path) | imagine_filter('tuna_admin_thumb') }}"/>
