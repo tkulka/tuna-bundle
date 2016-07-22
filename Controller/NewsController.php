@@ -6,10 +6,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
-use Symfony\Component\HttpFoundation\JsonResponse;
-use TheCodeine\ImageBundle\Entity\Image;
-use TheCodeine\ImageBundle\Form\ImageRequestType;
-
 /**
  * @Route("/news")
  */
