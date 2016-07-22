@@ -19,8 +19,8 @@ abstract class AbstractFileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('path')
-            ->add('filename');
+            ->add('path', Type\HiddenType::class)
+            ->add('filename', Type\HiddenType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)

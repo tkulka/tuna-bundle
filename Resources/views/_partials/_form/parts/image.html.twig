@@ -1,5 +1,23 @@
+{% block tuna_image_preview %}{% spaceless %}
+    <div class="preview">
+        {% if file_url is not null %}
+            <img src="{{ file_url }}"/>
+        {% endif %}
+    </div>
+{% endspaceless %}{% endblock %}
+
 {% block tuna_image_row %}
-    {{ form_row(form) }}
+    {% set wrapperId = form.vars.id ~ '_wrapper' %}
+    {% set file_url = '/uploads/tmp/%path%' %}
+    <div id="{{ wrapperId }}" data-dropzone-options="{
+        selector: '#{{ wrapperId }}',
+        previewTemplate: '{{ block('tuna_image_preview') | e }}',
+        previewSelector: '#{{ wrapperId }} .preview',
+    }">
+        {% set file_url = form.path.vars.value ? ('/uploads/files/' ~ form.path.vars.value) | imagine_filter('tuna_admin_thumb') %}
+        {{ block('tuna_image_preview') | raw }}
+        {{ form_row(form) }}
+    </div>
 {% endblock %}
 
 {% block main_image_widget %}
