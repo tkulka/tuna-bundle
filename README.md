@@ -229,4 +229,4 @@ To override default editor styles, add `typography.scss` and `fonts.scss` to dir
     the_codeine_admin:
         components:
             editor:
-                wysiwyg_style_dir: "src/AppBundle/Resources/public/Frontend/sass/base/"
+                wysiwyg_style_dir: "%kernel.root_dir%/../src/AppBundle/Resources/public/Frontend/sass/base/"
