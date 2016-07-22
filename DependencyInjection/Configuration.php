@@ -66,6 +66,17 @@ class Configuration implements ConfigurationInterface
             ->end()
         ;
 
+        $sections->children()
+            ->arrayNode('editor')
+                ->addDefaultsIfNotSet()
+                ->children()
+                    ->scalarNode('wysiwyg_style_dir')
+                        ->defaultValue('vendor/thecodeine/tuna-adminbundle/Resources/public/sass/editor/')
+                    ->end()
+                ->end()
+            ->end()
+        ;
+
         $this->addEnabledConfig($sections, 'news', true);
         $this->addEnabledConfig($sections, 'events', false);
         $this->addEnabledConfig($sections, 'translations', true);

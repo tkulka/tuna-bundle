@@ -1,0 +1,17 @@
+services:
+    the_codeine_file.manager.file_manager:
+        class: TheCodeine\FileBundle\Manager\FileManager
+        arguments: ["@filesystem", "%the_codeine_file.file_manager%"]
+
+    the_codeine_file.event_listener.file_listener:
+        class: TheCodeine\FileBundle\EventListener\FileListener
+        arguments:
+            - "@the_codeine_file.manager.file_manager"
+        tags:
+            - { name: doctrine.orm.entity_listener }
+
+    the_codeine_file.validator_constraints.file_exists_validator:
+        class: TheCodeine\FileBundle\Validator\Constraints\FileExistsValidator
+        arguments: ['@the_codeine_file.manager.file_manager']
+        tags:
+            - { name: validator.constraint_validator }

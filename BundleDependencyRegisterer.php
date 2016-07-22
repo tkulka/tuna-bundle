@@ -10,8 +10,8 @@ class BundleDependencyRegisterer
             new \TheCodeine\AdminBundle\TheCodeineAdminBundle(),
             new \TheCodeine\CategoryBundle\TheCodeineCategoryBundle(),
             new \TheCodeine\EditorBundle\TheCodeineEditorBundle(),
+            new \TheCodeine\FileBundle\TheCodeineFileBundle(),
             new \TheCodeine\PageBundle\TheCodeinePageBundle(),
-            new \TheCodeine\ImageBundle\TheCodeineImageBundle(),
             new \TheCodeine\VideoBundle\TheCodeineVideoBundle(),
             new \TheCodeine\GalleryBundle\TheCodeineGalleryBundle(),
             new \TheCodeine\TagBundle\TheCodeineTagBundle(),
@@ -28,6 +28,7 @@ class BundleDependencyRegisterer
             new \Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new \Vich\UploaderBundle\VichUploaderBundle(),
             new \Liip\ImagineBundle\LiipImagineBundle(),
+            new \Symfony\Bundle\AsseticBundle\AsseticBundle(),
         );
 
         foreach ($bundles as $bundle) {

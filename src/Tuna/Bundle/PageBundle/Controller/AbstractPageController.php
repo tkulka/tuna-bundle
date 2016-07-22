@@ -115,11 +115,6 @@ abstract class AbstractPageController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            if ($form->get('image')->get('remove')->getData() == '1') {
-                $em->remove($page->getImage());
-                $page->setImage(null);
-            }
-
             foreach ($originalAttachments as $attachment) {
                 if (false === $page->getAttachments()->contains($attachment)) {
                     $em->remove($attachment);
@@ -158,9 +153,6 @@ abstract class AbstractPageController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         if ($form->isValid()) {
-            if ($page->getImage()->getFile() == null) {
-                $page->setImage(null);
-            }
             if (!$request->isXmlHttpRequest()) {
                 $em->persist($page);
                 $em->flush();

@@ -16,7 +16,6 @@
 
 {% block tuna_attachment_widget %}
     {% spaceless %}
-        {% set attachment = form.vars.value %}
         <li class="item ui-state-default">
             <div class="gallery-table">
                 <div class="table-row">
@@ -27,17 +26,7 @@
                     </div>
 
                     <div class="options-container">
-                        <div class="upload-container">
-                            <a href="javascript:void(0)" class="btn btn-secondary">
-                                <span class="fa fa-upload" aria-hidden="true"></span>
-                                {{ form_widget(form.file) }}
-                            </a>
-                        </div>
-
-                        {% if(attachment is not null) %}
-                            <a href="{{ vich_uploader_asset(attachment,'file') }}" class="btn btn-secondary"
-                               target="_blank"><span class="fui-eye"></span></a>
-                        {% endif %}
+                        {{ form_widget(form.file) }}
                     </div>
 
                     <div class="option handle">
@@ -51,6 +40,7 @@
                 {% if not form.vars.valid %}
                     <div class="table-row">
                         {{ form_errors(form) }}
+                        {{ form_errors(form.file) }}
                     </div>
                 {% endif %}
             </div>

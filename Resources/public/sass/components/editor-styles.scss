@@ -1,129 +1,21 @@
 .note-editable.panel-body, .panel-default > .panel-heading .dropdown-menu {
-    h1, h2, h3, h4, h5 {
-         font-weight: 600;
-    }
-
-    h1 {
-        font-size: 18px;
-        line-height: 24px;
-    }
-
-    h2 {
-        font-size: 15px;
-    }
-
-    h3 {
-        font-size: 18px;
-    }
-
-    h4 {
-        font-size: 16px;
-    }
-
-    h5 {
-        font-size: 14px;
-    }
-
-    p {
-        font-size: 18px;
-    }
-
-    hr {
-        margin-top: 20px;
-        margin-bottom: 20px;
-        border: 0;
-        border-top: 1px solid #000000;
-    }
-
-    b, strong{
-        font-weight: 700;
-    }
-
-    i {
-        font-style: italic;
-    }
-
-    u {
-        text-decoration: underline;
-    }
-
-    blockquote {
-        border-left: 0;
-        padding-left: 0;
-        font-size: 15px;
-        font-style: italic;
-        line-height: 19px;
-
-        &:before {
-            display: none;
-        }
-    }
-
-    ul {
-        margin: 0;
-        padding: 0;
-
-        li {
-
-        }
-    }
-
-    a {
-        color: #000000;
-        text-decoration: none;
-    }
+    @import "typography";
 }
 
-.note-editable.panel-body {
-    font-family: "Source Sans Pro";
-
-    blockquote {
-        padding: 0 50px;
-    }
-
-    blockquote, p {
-        margin-bottom: 35px;
-    }
-
-    h1, h2 {
-        margin-bottom: 45px;
-    }
-
+.panel-default > .panel-heading .dropdown-menu {
     a {
-        text-decoration: underline;
+        color: #000000;
+        font-size: 18px;
+        margin-bottom: 0;
+        text-decoration: none;
 
         &:hover {
-            color: $brand-primary;
+            color: #ffffff !important;
         }
-    }
 
-    b, strong {
-        font-weight: 600;
-    }
-
-    ul {
-        margin: 30px 0;
-        padding: 0 50px;
-        list-style: none;
-
-        li {
-            font-weight: 600;
-            font-size: 18px;
-            position: relative;
-            padding-left: 28px;
-
-            &:before {
-                box-sizing: content-box;
-                display: block;
-                content: '';
-                position: absolute;
-                width: 8px;
-                height: 2px;
-                border: 2px solid #000000;
-                background-color: #ffffff;
-                top: 10px;
-                left: 0;
-            }
+        * {
+            padding: 0 !important;
+            margin: 0 !important;
         }
     }
 }

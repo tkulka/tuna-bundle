@@ -2,14 +2,14 @@
 
 namespace TheCodeine\GalleryBundle\Entity;
 
-use TheCodeine\ImageBundle\Entity\Image;
+use TheCodeine\FileBundle\Entity\Image;
 use TheCodeine\VideoBundle\Entity\Video;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use TheCodeine\FileBundle\Validator\Constraints as FileAssert;
 
 /**
  * PositionedImage
@@ -57,7 +57,8 @@ class GalleryItem
     /**
      * @var Image
      *
-     * @ORM\ManyToOne(targetEntity="TheCodeine\ImageBundle\Entity\Image", cascade={"persist"})
+     * @FileAssert\FileNotNull
+     * @ORM\ManyToOne(targetEntity="TheCodeine\FileBundle\Entity\Image", cascade={"persist"})
      **/
     private $image;
 
@@ -101,22 +102,6 @@ class GalleryItem
 
         if ($type !== null) {
             $this->setType($type);
-        }
-    }
-
-    /**
-     * @Assert\Callback
-     */
-    public function validateImage(ExecutionContextInterface $context)
-    {
-        if ($this->getType() !== GalleryItem::IMAGE_TYPE) {
-            return;
-        }
-
-        if (!$this->getImage() || (!$this->getImage()->getFile() && !$this->getImage()->getPath())) {
-            $context->buildViolation('error.image.empty')
-                ->atPath('image.file')
-                ->addViolation();
         }
     }
 

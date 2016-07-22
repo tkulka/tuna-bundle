@@ -87,3 +87,15 @@ accelerator_cache:
     host: %the_codeine_admin.host%
     web_dir: %kernel.root_dir%/../web
     mode: curl
+
+assetic:
+    debug:              "%kernel.debug%"
+    use_controller:     false
+    ruby: ~
+    filters:
+        cssrewrite: ~
+        sass:
+            load_paths:
+                - "%the_codeine_admin.components.editor.wysiwyg_style_dir%"
+            apply_to: "\.s[ac]ss$"
+            bin: "%sass_bin%"

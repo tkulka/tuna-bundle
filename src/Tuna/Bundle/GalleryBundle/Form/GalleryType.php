@@ -3,6 +3,7 @@
 namespace TheCodeine\GalleryBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use TheCodeine\GalleryBundle\Entity\GalleryItem;
@@ -16,7 +17,7 @@ class GalleryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('items', 'collection', array(
+            ->add('items', CollectionType::class, array(
                 'type' => new GalleryItemType(),
                 'required' => false,
                 'allow_add' => true,

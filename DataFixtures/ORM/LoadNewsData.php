@@ -9,12 +9,8 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 
-use TheCodeine\GalleryBundle\Entity\GalleryItem;
-use TheCodeine\GalleryBundle\Entity\Gallery;
 use TheCodeine\NewsBundle\Entity\News;
-use TheCodeine\VideoBundle\Entity\Video;
-use TheCodeine\ImageBundle\Entity\Image;
-use TheCodeine\NewsBundle\Entity\Attachment;
+use TheCodeine\FileBundle\Entity\Attachment;
 
 class LoadNewsData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
 {
@@ -58,11 +54,9 @@ class LoadNewsData extends AbstractFixture implements OrderedFixtureInterface, C
         $news->setTeaser('A tuna is a saltwater finfish that belongs to the tribe Thunnini, a sub-grouping of the mackerel family (Scombridae)');
 
         $path = $this->container->get('kernel')->locateResource('@TheCodeineAdminBundle/DataFixtures/img') . '/tuna.jpg';
-        $file = new File($path);
 
-    //    $news->setImage($file);
-
-        if ($branch === 'attachment') {
+        // FIXME new attachment handling
+        if ($branch === 'attachmentIsNotSupportedYet') {
 
             $path = $this->container->get('kernel')->locateResource('@TheCodeineAdminBundle/DataFixtures/img') . '/tuna.jpg';
             $file = new File($path);

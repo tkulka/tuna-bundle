@@ -2,16 +2,18 @@
 
 namespace TheCodeine\PageBundle\Form;
 
+use A2lix\TranslationFormBundle\Form\Type\GedmoTranslationsType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-use TheCodeine\ImageBundle\Form\MainImage;
+use TheCodeine\FileBundle\Form\AttachmentCollectionType;
+use TheCodeine\FileBundle\Form\ImageType;
 use TheCodeine\NewsBundle\Entity\Page;
 use TheCodeine\NewsBundle\Form\AttachmentsType;
-use TheCodeine\NewsBundle\Form\AttachmentType;
 use TheCodeine\GalleryBundle\Form\GalleryType;
 
 abstract class AbstractPageType extends AbstractType
@@ -44,17 +46,13 @@ abstract class AbstractPageType extends AbstractType
             }, 900);
         }
         $builder
-            ->add('image', new MainImage($options['data']->getImage() !== null), array(
-                'required' => false,
-            ))
-            ->add('published', 'checkbox', array(
+            ->add('image', ImageType::class)
+            ->add('published', Type\CheckboxType::class, array(
                 'required' => false
             ))
-            ->add('attachments', new AttachmentsType())
-            ->add('gallery', new GalleryType(), array(
-                'data_class' => 'TheCodeine\GalleryBundle\Entity\Gallery'
-            ))
-            ->add('translations', 'a2lix_translations_gedmo', array(
+            ->add('attachments', AttachmentCollectionType::class)
+            ->add('gallery', GalleryType::class)
+            ->add('translations', GedmoTranslationsType::class, array(
                 'translatable_class' => $this->getEntityClass(),
                 'fields' => array(
                     'title' => array(

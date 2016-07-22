@@ -9,7 +9,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 
 use TheCodeine\GalleryBundle\Entity\Gallery;
-use TheCodeine\NewsBundle\Entity\Attachment;
+use TheCodeine\FileBundle\Entity\Attachment;
 
 /**
  * Page
@@ -58,10 +58,11 @@ abstract class AbstractPage
     protected $body;
 
     /**
-     * @ORM\OneToOne(targetEntity="\TheCodeine\ImageBundle\Entity\Image", cascade={"persist"})
-     * @ORM\JoinColumn(name="image_id", referencedColumnName="id")
+     * @ORM\OneToOne(targetEntity="TheCodeine\FileBundle\Entity\Image", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(onDelete="SET NULL")
      */
     protected $image;
+
     protected $translations;
 
     /**
@@ -83,7 +84,7 @@ abstract class AbstractPage
     protected $published;
 
     /**
-     * @ORM\ManyToMany(targetEntity="TheCodeine\NewsBundle\Entity\Attachment", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="TheCodeine\FileBundle\Entity\Attachment", cascade={"persist", "remove"})
      * @ORM\JoinTable(
      *      joinColumns={@ORM\JoinColumn(name="page_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="attachment_id", referencedColumnName="id", unique=true)}
@@ -273,10 +274,10 @@ abstract class AbstractPage
     /**
      * Add attachments
      *
-     * @param \TheCodeine\NewsBundle\Entity\Attachment $attachment
+     * @param Attachment $attachment
      * @return News
      */
-    public function addAttachment(\TheCodeine\NewsBundle\Entity\Attachment $attachment)
+    public function addAttachment(Attachment $attachment)
     {
 
         $this->attachments[] = $attachment;
@@ -287,7 +288,7 @@ abstract class AbstractPage
     /**
      * Remove attachments
      *
-     * @param \TheCodeine\NewsBundle\Entity\Attachment $attachment
+     * @param Attachment $attachment
      */
     public function removeAttachment(Attachment $attachment)
     {

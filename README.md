@@ -1,6 +1,7 @@
 # TheCodeine AdminBundle
 
 ## Installation:
+
   1. Add to `composer.json`:
                   
         "repositories": [
@@ -58,6 +59,8 @@
                     enabled: true
                 categories:
                     enabled: false
+                editor:
+                    wysiwyg_style_dir: "vendor/thecodeine/tuna-adminbundle/Resources/public/sass/editor/"
 
     You can also use shorter component syntax:
     
@@ -74,6 +77,7 @@
 
 
 ## Frontend translations:
+
 Translations are enabled by default. You can turn them off by setting:
 
         the_codeine_admin:
@@ -86,6 +90,7 @@ Dump translation files:
 Replace `[language]` with any language you want to generate translations for (e.g. `de`) and `[directory]` with path to your bundle (e.g. `./src/Openheim/FrontendBundle`).
 
 ## Admin JS translations:
+
 JavaScript translations are in `Resources/translations/tuna_admin.pl.yml`. After editing the file you have to dump translations:
 
     php app/console bazinga:js-translation:dump vendor/thecodeine/tuna-adminbundle/Resources/translations
@@ -220,3 +225,46 @@ Add `menu_builder` class to config, and override, or use your own Builder:
         }
     
     }
+
+### Editor styles
+
+To override default editor styles, add `typography.scss` and `fonts.scss` to directory specified in `the_codeine_admin.components.editor.wysiwyg_style_dir` (remember to change it in your config). Example:
+    
+    the_codeine_admin:
+        components:
+            editor:
+                wysiwyg_style_dir: "%kernel.root_dir%/../src/AppBundle/Resources/public/Frontend/sass/base/"
+
+## File type
+
+Tuna provides two types of files: `File` and `Image`. You can easily add yours by extending `AbstractFile` entity and `AbstractFileType` form.
+
+You can use these types in entity as:
+
+  1. required field:
+  
+        use TheCodeine\FileBundle\Validator\Constraints as FileAssert;
+        
+        /**
+         * @var File
+         *
+         * @FileAssert\FileNotNull
+         * @ORM\ManyToOne(targetEntity="TheCodeine\FileBundle\Entity\File", cascade={"persist", "remove"})
+        **/
+        protected $file;
+        
+  2. optional field (you can delete file by setting empty `path`):
+  
+        /**
+         * @ORM\OneToOne(targetEntity="TheCodeine\FileBundle\Entity\Image", cascade={"persist", "remove"})
+         * @ORM\JoinColumn(onDelete="SET NULL")
+         */
+        protected $image;
+
+You can change default file location via `the_codeine_file` config (here's the defaults):
+
+    the_codeine_file:
+        file_manager:
+            web_root_dir: '%kernel.root_dir%/../web'
+            tmp_path: uploads/tmp
+            files_path: uploads/files
