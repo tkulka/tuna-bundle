@@ -1,10 +1,13 @@
 {% block tuna_attachments_widget %}
-    <div class="form-group thecodeine_admin_attachments">
-        <a href="javascript:void(0)" class="btn btn-border add_new_attachment " data-prototype="{{ form_widget(form.vars.prototype)|e }}">
+    <div
+        class="form-group thecodeine_admin_attachments"
+        data-dropzone-options='{"clickable": ".add_new_attachment", "previewsContainer": ".attachments", "acceptedFiles": "", "selector": ".admin-attachments-container", "dropoverText": "{% trans %}Drop your gallery images here{% endtrans %}"}'
+    >
+        <a href="javascript:void(0)" class="btn btn-border add_new_attachment" data-prototype="{{ form_widget(form.vars.prototype)|e }}">
             <i class="fa fa-plus" aria-hidden="true"></i>
         </a>
         <ul class="attachments clearfix">
-            {% for attachment in form %}
+            {% for attachment in form gi%}
                 {{ form_widget(attachment, {'label': false}) }}
             {% endfor %}
         </ul>

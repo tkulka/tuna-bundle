@@ -1,7 +1,6 @@
 (function () {
     tuna.view.AttachmentsView = Backbone.View.extend({
         events: {
-            "click .add_new_attachment": "_onAddNewAttachment",
             "click .delete": "_onClickDelete",
             "change input[type='file']": "_onInputFileChange",
             'click .close': "_onClose",
