@@ -224,4 +224,9 @@ Add `menu_builder` class to config, and override, or use your own Builder:
     }
 
 ### Editor styles
-To override default editor styles, add `typography.scss` and `fonts.scss` to directory specified in `the_codeine_admin.components.editor.wysiwyg_style_dir` (remember to change it in your config).
+To override default editor styles, add `typography.scss` and `fonts.scss` to directory specified in `the_codeine_admin.components.editor.wysiwyg_style_dir` (remember to change it in your config). Example:
+    
+    the_codeine_admin:
+        components:
+            editor:
+                wysiwyg_style_dir: "src/AppBundle/Resources/public/Frontend/sass/base/"
