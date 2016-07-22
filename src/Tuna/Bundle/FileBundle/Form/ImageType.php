@@ -3,16 +3,14 @@
 namespace TheCodeine\FileBundle\Form;
 
 use Symfony\Component\Form\Extension\Core\Type;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
 use TheCodeine\FileBundle\Entity\Image;
 
-class ImageType extends FileType
+class ImageType extends AbstractFileType
 {
-    public function configureOptions(OptionsResolver $resolver)
+    protected function getEntityClass()
     {
-        parent::configureOptions($resolver);
-        $resolver->setDefault('data_class', Image::class);
+        return Image::class;
     }
 
     public function getBlockPrefix()

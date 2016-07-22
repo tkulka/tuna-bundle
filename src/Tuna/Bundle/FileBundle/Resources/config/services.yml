@@ -1,7 +1,7 @@
 services:
     the_codeine_file.manager.file_manager:
         class: TheCodeine\FileBundle\Manager\FileManager
-        arguments: ["@filesystem", "%tuna_file_manager%"]
+        arguments: ["@filesystem", "%the_codeine_file.file_manager%"]
 
     the_codeine_file.event_listener.file_listener:
         class: TheCodeine\FileBundle\EventListener\FileListener
