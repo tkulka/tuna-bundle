@@ -1,5 +1,5 @@
 {% extends "TheCodeineAdminBundle::_layout.html.twig" %}
 
 {% block content %}
-    {% include 'TheCodeineAdminBundle::_partials/_form/_main.html.twig' with {'title': entity.name, 'slug': '' } %}
+    {% include 'TheCodeineAdminBundle::_partials/_form/_main.html.twig' with {'title': entity.name, 'slug': entity.slug } %}
 {% endblock %}
