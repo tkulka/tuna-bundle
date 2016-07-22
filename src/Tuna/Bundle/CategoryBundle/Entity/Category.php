@@ -38,6 +38,12 @@ class Category
     protected $name;
 
     /**
+     * @Gedmo\Slug(fields={"name"})
+     * @ORM\Column(type="string", unique=true)
+     */
+    protected $slug;
+
+    /**
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="CategoryTranslation", mappedBy="object", cascade={"persist", "remove"})
@@ -123,6 +129,22 @@ class Category
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * @param mixed $slug
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 
     /**

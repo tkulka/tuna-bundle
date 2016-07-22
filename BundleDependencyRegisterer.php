@@ -28,6 +28,7 @@ class BundleDependencyRegisterer
             new \Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new \Vich\UploaderBundle\VichUploaderBundle(),
             new \Liip\ImagineBundle\LiipImagineBundle(),
+            new \Symfony\Bundle\AsseticBundle\AsseticBundle(),
         );
 
         foreach ($bundles as $bundle) {

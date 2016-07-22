@@ -12,16 +12,6 @@ fos_user:
     firewall_name: main
     user_class: TheCodeine\UserBundle\Entity\User
 
-assetic:
-    debug:              "%kernel.debug%"
-    use_controller:     false
-    ruby: ~
-    filters:
-        cssrewrite: ~
-        sass:
-            apply_to: "\.s[ac]ss$"
-            bin: "%sass_bin%"
-
 a2lix_translation_form:
     locales: [pl, en]
     templating: "TheCodeineAdminBundle::_partials/_form/_theme.html.twig"
@@ -103,3 +93,15 @@ accelerator_cache:
     host: %the_codeine_admin.host%
     web_dir: %kernel.root_dir%/../web
     mode: curl
+
+assetic:
+    debug:              "%kernel.debug%"
+    use_controller:     false
+    ruby: ~
+    filters:
+        cssrewrite: ~
+        sass:
+            load_paths:
+                - "%the_codeine_admin.components.editor.wysiwyg_style_dir%"
+            apply_to: "\.s[ac]ss$"
+            bin: "%sass_bin%"
