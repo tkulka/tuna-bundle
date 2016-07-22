@@ -7,7 +7,7 @@
             <i class="fa fa-plus" aria-hidden="true"></i>
         </a>
         <ul class="attachments clearfix">
-            {% for attachment in form gi%}
+            {% for attachment in form %}
                 {{ form_widget(attachment, {'label': false}) }}
             {% endfor %}
         </ul>
