@@ -35,9 +35,9 @@
         
         setupOptions: function () {
             this.defaultOttions = _.extend({
-                url: '/admin/news/image/upload',
+                url: '/admin/file/upload/',
                 acceptedFiles: '.jpg, .jpeg, .gif',
-                paramName: 'the_codeine_image_request[file]',
+                paramName: 'file',
                 clickable:'[data-dropzone-clickable]',
                 addedfile: function () {}
             }, this.options);

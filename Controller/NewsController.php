@@ -39,34 +39,4 @@ class NewsController extends \TheCodeine\NewsBundle\Controller\NewsController
             'newsType' => $newsType,
         );
     }
-
-    /**
-     *
-     * @Route("/image/upload")
-     */
-    public function uploadFile(Request $request)
-    {
-        $image = new Image();
-        $form = $this->createForm(new ImageRequestType(), $image);
-
-
-        dump($form->createView());
-        $imagine = $this->get('liip_imagine.cache.manager');
-
-        $form->handleRequest($request);
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($image);
-            $em->flush();
-
-            return new JsonResponse(
-                array(
-                    'path' => $imagine->getBrowserPath('/uploads/'.$image->getPath(), 'tuna_admin_thumb'),
-                    'imageId' => $image->getId(),
-                )
-            );
-        }
-
-        return new JsonResponse(array('message' => $form->getErrorsAsString()), 500);
-    }
 }
