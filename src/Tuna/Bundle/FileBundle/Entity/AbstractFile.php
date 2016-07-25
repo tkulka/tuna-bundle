@@ -28,7 +28,10 @@ abstract class AbstractFile
      */
     protected $path;
 
-    protected $oldPath;
+    /**
+     * @var string Path of persisted file in database (unmapped property)
+     */
+    protected $persistedPath;
 
     /**
      * @var string
@@ -36,11 +39,6 @@ abstract class AbstractFile
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $filename;
-
-    public function saveOldPath()
-    {
-        $this->oldPath = $this->path;
-    }
 
     /**
      * @return int
@@ -89,10 +87,22 @@ abstract class AbstractFile
     }
 
     /**
-     * @return string
+     * @return $this
      */
-    public function getOldPath()
+    public function savePersistedPath()
     {
-        return $this->oldPath;
+        $this->persistedPath = $this->path;
+
+        return $this;
+    }
+
+    public function getPersistedPath()
+    {
+        return $this->persistedPath;
+    }
+
+    public function isUploaded()
+    {
+        return $this->persistedPath != $this->path;
     }
 }

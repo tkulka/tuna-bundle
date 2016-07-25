@@ -267,4 +267,4 @@ You can change default file location via `the_codeine_file` config (here's the d
         file_manager:
             web_root_dir: '%kernel.root_dir%/../web'
             tmp_path: uploads/tmp
-            files_path: uploads/files
+            upload_files_path: uploads/files

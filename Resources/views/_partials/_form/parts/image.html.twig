@@ -1,51 +1,25 @@
 {% block tuna_image_preview %}{% spaceless %}
     <div class="preview">
         {% if file_url is not null %}
-            <img src="{{ file_url }}"/>
+            <img src="{{ file_url | imagine_filter('tuna_admin_thumb') }}"/>
         {% endif %}
     </div>
 {% endspaceless %}{% endblock %}
 
 {% block tuna_image_row %}
     {% set wrapperId = form.vars.id ~ '_wrapper' %}
-    {% set file_url = '/uploads/tmp/%path%' %}
-    <div id="{{ wrapperId }}" data-dropzone-options="{
-        selector: '#{{ wrapperId }}',
-        previewTemplate: '{{ block('tuna_image_preview') | e }}',
-        previewSelector: '#{{ wrapperId }} .preview',
-    }">
-        {% set file_url = form.path.vars.value ? ('/uploads/files/' ~ form.path.vars.value) | imagine_filter('tuna_admin_thumb') %}
-        {{ block('tuna_image_preview') | raw }}
+    {% set file_url = '/uploads/tmp/__path__' %}
+    {% set dropzoneOptions = {
+    selector: '#' ~ wrapperId,
+    previewTemplate: block('tuna_image_preview'),
+    previewSelector: '#' ~ wrapperId ~ ' .preview'
+    } %}
+    <div id="{{ wrapperId }}" class="thecodeine_admin_main_image" data-dropzone-options="{{ dropzoneOptions | json_encode }}">
+        {% set image = form.vars.data %}
+        {% if image %}
+            {% set file_url = (image.uploaded and form.vars.valid ? '/uploads/tmp/' : '/uploads/files/') ~ image.path %}
+            {{ block('tuna_image_preview') | raw }}
+        {% endif %}
         {{ form_row(form) }}
     </div>
-{% endblock %}
-
-{% block main_image_widget %}
-    {% set attr = attr | merge({class: (attr.class is defined ? attr.class ~ ' ') ~ 'thecodeine_admin_main_image'}) %}
-    <div {{ block('widget_container_attributes') }}>
-        {%- if form.parent is empty -%}
-            {{ form_errors(form) }}
-        {%- endif -%}
-        {{- block('form_rows') -}}
-        {{- form_rest(form) -}}
-    </div>
-{% endblock %}
-
-{% block main_imagefile_widget %}
-    {% spaceless %}
-        {% set image = form.parent.vars.value %}
-        <div class="form-group main-image">
-            <div class="image" data-action="remove">
-                {% if image and image.path %}
-                    <img src="{{ ('/uploads/' ~ image.path) | imagine_filter('tuna_admin_thumb') }}"/>
-                    <span class="remove">{% trans %}Usuń{% endtrans %}</span>
-                {% endif %}
-            </div>
-            <div class="btn btn-mini btn-primary btn-block input-wrapper">
-                <input type="file" {{ block('widget_attributes') }} />
-                {% trans %}Choose main picture{% endtrans %}
-                <i class="fui-arrow-right pull-right"></i>
-            </div>
-        </div>
-    {% endspaceless %}
 {% endblock %}

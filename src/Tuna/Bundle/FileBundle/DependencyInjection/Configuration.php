@@ -26,7 +26,7 @@ class Configuration implements ConfigurationInterface
                 ->children()
                     ->scalarNode('web_root_dir')->defaultValue('%kernel.root_dir%/../web')->end()
                     ->scalarNode('tmp_path')->defaultValue('uploads/tmp')->end()
-                    ->scalarNode('files_path')->defaultValue('uploads/files')->end()
+                    ->scalarNode('upload_files_path')->defaultValue('uploads/files')->end()
                 ->end()
             ->end()
         ;

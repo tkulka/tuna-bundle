@@ -6,8 +6,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints;
-use TheCodeine\FileBundle\Entity\File;
 
 abstract class AbstractFileType extends AbstractType
 {
@@ -19,8 +17,8 @@ abstract class AbstractFileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('path', Type\HiddenType::class)
-            ->add('filename', Type\HiddenType::class);
+            ->add('path')
+            ->add('filename');
     }
 
     public function configureOptions(OptionsResolver $resolver)

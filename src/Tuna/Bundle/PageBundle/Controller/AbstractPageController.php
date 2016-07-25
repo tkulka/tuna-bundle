@@ -5,7 +5,6 @@ namespace TheCodeine\PageBundle\Controller;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use TheCodeine\PageBundle\Entity\AbstractPage;
-use TheCodeine\PageBundle\Entity\Page;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
