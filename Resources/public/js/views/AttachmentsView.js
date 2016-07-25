@@ -15,6 +15,14 @@
             this._initSortable();
             this.$wrapper = this.$('.thecodeine_admin_attachments');
             this.$wrapper.data('index', this.$('li.item').length);
+
+            var options = this.$('[data-dropzone-options]').data('dropzone-options');
+
+            new tuna.view.DropzoneView({
+                el: $(options.selector),
+                options: options,
+                oThis: this
+            });
         },
 
         _onClose: function () {
@@ -52,16 +60,18 @@
             e.stopPropagation();
         },
 
-        _onAddNewAttachment: function (e) {
+        addItem: function (response) {
             this._destroySortable();
-            var $a = $(e.currentTarget);
-            var prototype = $a.data('prototype');
+            var prototype = this.$('.thecodeine_admin_attachments a').data('prototype');
             var index = this.$wrapper.data('index') + 1;
             this.$wrapper.data('index', index);
 
-            var newForm = prototype.replace(/__name__/g, index);
+            var $newForm = $(prototype.replace(/__name__/g, index));
 
-            this.$('.attachments').append($(newForm));
+            $newForm.find('.form--path input').val(response.path);
+            $newForm.find('.form--filename input').val(response.originalName);
+
+            this.$('.attachments').append($newForm);
             this._initSortable();
             this.recalculateItemPositions();
         },
@@ -79,6 +89,9 @@
             var container = $(e.target.closest('.item')).find('.item-name .tab-content');
             container.find('.attachment-name').remove();
             container.append('<p class="attachment-name">' + Translator.trans('Added') + ': ' + fileName + '</p>')
+        },
+        uploadCallback: function (response) {
+            this.addItem(response);
         }
     });
 })();

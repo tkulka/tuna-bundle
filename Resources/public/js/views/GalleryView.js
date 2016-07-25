@@ -16,6 +16,15 @@
             this.initSortable();
             this.$wrapper = this.$('.thecodeine_admin_gallery');
             this.$wrapper.data('index', this.$('li.item').length);
+
+            var options = this.$('[data-dropzone-options]').data('dropzone-options');
+
+            new tuna.view.DropzoneView({
+                el: $(options.selector),
+                options: options,
+                oThis: this
+            });
+
         },
         onClick: function (e) {
             e.stopPropagation();
@@ -101,6 +110,9 @@
         },
         onLanguageChange: function (e) {
             Backbone.trigger('LanguageChange', e);
+        },
+        uploadCallback: function (response) {
+            this.addItem('image', response);
         }
     });
 })();

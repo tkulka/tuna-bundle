@@ -1,33 +1,24 @@
 {% block tuna_image_row %}
-    {{ form_row(form) }}
-{% endblock %}
-
-{% block main_image_widget %}
-    {% set attr = attr | merge({class: (attr.class is defined ? attr.class ~ ' ') ~ 'thecodeine_admin_main_image'}) %}
-    <div {{ block('widget_container_attributes') }}>
-        {%- if form.parent is empty -%}
-            {{ form_errors(form) }}
-        {%- endif -%}
-        {{- block('form_rows') -}}
-        {{- form_rest(form) -}}
-    </div>
-{% endblock %}
-
-{% block main_imagefile_widget %}
-    {% spaceless %}
-        {% set image = form.parent.vars.value %}
-        <div class="form-group main-image">
-            <div class="image" data-action="remove">
+    {% set image = form.parent.vars.value.image %}
+    <div class="form-group main-image">
+        <div class="image" data-action="remove">
+            <div class="preview">
                 {% if image and image.path %}
-                    <img src="{{ ('/uploads/' ~ image.path) | imagine_filter('tuna_admin_thumb') }}"/>
-                    <span class="remove">{% trans %}Usuń{% endtrans %}</span>
+                    <div>
+                        <img src="{{ ('/uploads/files/' ~ image.path) | imagine_filter('tuna_admin_thumb') }}"/>
+                        <span class="remove">{% trans %}Usuń{% endtrans %}</span>
+                    </div>
                 {% endif %}
             </div>
-            <div class="btn btn-mini btn-primary btn-block input-wrapper">
-                <input type="file" {{ block('widget_attributes') }} />
-                {% trans %}Choose main picture{% endtrans %}
-                <i class="fui-arrow-right pull-right"></i>
-            </div>
+            {{ form_row(form) }}
         </div>
-    {% endspaceless %}
+
+        <div
+            class="btn btn-mini btn-primary btn-block input-wrapper"
+            data-dropzone-options='{"clickable": ".main-image .btn", "previewsContainer": ".main-image .image",  "maxFiles": 1, "callback": "tuna.view.MainImageView.uploadCallback", "selector": ".admin-option-container", "dropoverText": "{% trans %}Drop your cover image here{% endtrans %}"}'
+        >
+            {% trans %}Choose main picture{% endtrans %}
+            <i class="fui-arrow-right pull-right"></i>
+        </div>
+    </div>
 {% endblock %}

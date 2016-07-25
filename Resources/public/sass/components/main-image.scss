@@ -1,38 +1,38 @@
 .thecodeine_admin_main_image {
     .main-image {
-        .remove {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            opacity: 0;
-            transition: all ease-out .3s;
-            padding: 9px 12px 10px;
-            background: $brand-primary;
-            color: #fff;
-        }
-
         .image {
             position: relative;
             cursor: pointer;
 
-            > div {
+            .preview > div {
                 border: 2px solid $brand-primary;
                 width: 280px;
-                height: 188px;
-            }
-
-            img {
-                width: 100%;
-            }
-
-            &:hover {
-                img {
-                    opacity: .5;
-                }
+                min-height: 150px;
 
                 .remove {
-                    opacity: 1;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    opacity: 0;
+                    transition: all ease-out .3s;
+                    padding: 9px 12px 10px;
+                    background: $brand-primary;
+                    color: #fff;
+                }
+
+                img {
+                    width: 100%;
+                }
+
+                &:hover {
+                    img {
+                        opacity: .5;
+                    }
+
+                    .remove {
+                        opacity: 1;
+                    }
                 }
             }
         }
