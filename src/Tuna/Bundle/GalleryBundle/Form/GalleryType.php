@@ -19,18 +19,17 @@ class GalleryType extends AbstractType
     {
         $builder
             ->add('items', Type\CollectionType::class, array(
-                'type' => new GalleryItemType(),
+                'entry_type' => GalleryItemType::class,
                 'required' => false,
-                'allow_add' => true,
-                'prototype' => true,
-                'allow_delete' => true,
                 'by_reference' => false,
-                'cascade_validation' => true,
-                'options' => array(
-                    'data_class' => GalleryItem::class
+                'allow_add' => true,
+                'allow_delete' => true,
+                'prototype' => true,
+                'error_bubbling' => false,
+                'entry_options' => array(
+                    'data_class' => GalleryItem::class,
                 )
-            ))
-            ->add('save', Type\SubmitType::class);
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -40,7 +39,6 @@ class GalleryType extends AbstractType
             'attr' => array(
                 'types' => GalleryItem::$TYPES,
             ),
-            'cascade_validation' => true,
         ));
     }
 

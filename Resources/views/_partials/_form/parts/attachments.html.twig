@@ -5,7 +5,7 @@
         </a>
         <ul class="attachments clearfix">
             {% for attachment in form %}
-                {{ form_widget(attachment, {'label': false}) }}
+                {{ form_row(attachment, {label: false}) }}
             {% endfor %}
         </ul>
     </div>
@@ -34,12 +34,12 @@
                         <i class="fa fa-trash-o" aria-hidden="true"></i>
                     </div>
                 </div>
-                {% if not form.vars.valid %}
+                {#{% if not form.vars.valid %}#}
                     <div class="table-row">
                         {{ form_errors(form) }}
                         {{ form_errors(form.file) }}
                     </div>
-                {% endif %}
+                {#{% endif %}#}
             </div>
         </li>
     {% endspaceless %}

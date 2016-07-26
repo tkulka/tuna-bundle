@@ -28,6 +28,8 @@ class Attachment
     protected $id;
 
     /**
+     * @Assert\Valid
+     *
      * @var File
      *
      * @FileAssert\FileNotNull
@@ -50,6 +52,8 @@ class Attachment
     protected $position;
 
     /**
+     * @Assert\Valid
+     *
      * @ORM\OneToMany(targetEntity="AttachmentTranslation", mappedBy="object", cascade={"persist", "remove"})
      */
     protected $translations;

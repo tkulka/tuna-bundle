@@ -54,6 +54,7 @@ abstract class AbstractPageController extends Controller
     {
         $page = $this->getNewPage();
         $form = $this->createForm($this->getNewFormType($page, !$request->isXmlHttpRequest()), $page);
+        $form->add('save', 'submit');
 
         return $this->handleCreateForm($request, $form, $page);
     }
@@ -66,6 +67,7 @@ abstract class AbstractPageController extends Controller
     {
         $page = $this->getRepository()->find($id);
         $form = $this->createForm($this->getNewFormType($page, !$request->isXmlHttpRequest()), $page);
+        $form->add('save', 'submit');
 
         return $this->handleEditForm($request, $page, $form);
     }

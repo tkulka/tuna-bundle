@@ -25,7 +25,7 @@ abstract class AbstractFileType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => $this->getEntityClass(),
-            'error_bubbling' => false
+            'error_bubbling' => false,
         ));
     }
 

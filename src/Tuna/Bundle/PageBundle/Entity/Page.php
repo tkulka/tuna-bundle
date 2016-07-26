@@ -18,6 +18,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
 class Page extends AbstractPage
 {
     /**
+     * @Assert\Valid
+     *
      * @ORM\OneToMany(targetEntity="PageTranslation", mappedBy="object", cascade={"persist", "remove"})
      */
     protected $translations;

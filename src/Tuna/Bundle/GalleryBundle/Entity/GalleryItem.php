@@ -40,7 +40,6 @@ class GalleryItem
     private $id;
 
     /**
-     * @var
      * @ORM\ManyToOne(targetEntity="TheCodeine\GalleryBundle\Entity\Gallery", inversedBy="items")
      * @ORM\JoinColumn(name="gallery_id", referencedColumnName="id")
      *
@@ -55,14 +54,18 @@ class GalleryItem
     private $position;
 
     /**
+     * @Assert\Valid
+     *
      * @var Image
      *
      * @FileAssert\FileNotNull
-     * @ORM\OneToOne(targetEntity="TheCodeine\FileBundle\Entity\Image", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="TheCodeine\FileBundle\Entity\Image", cascade={"persist", "remove"})
      **/
     private $image;
 
     /**
+     * @Assert\Valid
+     *
      * @var Video
      *
      * @ORM\ManyToOne(targetEntity="TheCodeine\VideoBundle\Entity\Video", cascade={"persist"})
@@ -85,6 +88,8 @@ class GalleryItem
     private $type;
 
     /**
+     * @Assert\Valid
+     *
      * @ORM\OneToMany(targetEntity="GalleryItemTranslation", mappedBy="object", cascade={"persist", "remove"})
      */
     private $translations;

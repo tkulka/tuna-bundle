@@ -51,9 +51,7 @@ abstract class AbstractPageType extends AbstractType
                 'required' => false
             ))
             ->add('attachments', AttachmentCollectionType::class)
-            ->add('gallery', GalleryType::class, array(
-                'cascade_validation' => true,
-            ))
+            ->add('gallery', GalleryType::class)
             ->add('translations', GedmoTranslationsType::class, array(
                 'translatable_class' => $this->getEntityClass(),
                 'fields' => array(
@@ -72,8 +70,7 @@ abstract class AbstractPageType extends AbstractType
                         'required' => true
                     )
                 )
-            ))
-            ->add('save', 'submit');
+            ));
     }
 
     /**
@@ -83,7 +80,6 @@ abstract class AbstractPageType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => $this->getEntityClass(),
-            'cascade_validation' => true,
         ));
     }
 

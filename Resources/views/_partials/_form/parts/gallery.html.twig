@@ -4,18 +4,21 @@
 
 {% block thecodeine_gallerybundle_gallery_widget %}
     <div
-        class="form-group thecodeine_admin_gallery"
-        data-prototype="{{ form_widget(form.items.vars.prototype)|e }}"
-        data-items-id="{{ form.items.vars.id }}"
+            class="form-group thecodeine_admin_gallery"
+            data-prototype="{{ form_widget(form.items.vars.prototype)|e }}"
+            data-items-id="{{ form.items.vars.id }}"
     >
         {% for type in form.vars.attr.types %}
             <a href="#" class="btn btn-border" data-type="{{ type }}" data-action="add-new-item">
                 <i class="fa fa-plus" aria-hidden="true"></i> {{ type | capitalize | trans }}
             </a>
         {% endfor %}
+        {{ form_errors(form) }}
         <ul class="gallery-items">
+            <h2>items errors</h2>
+            {{ form_errors(form.items) }}
             {% for item in form.items %}
-                {{ form_widget(item) }}
+                {{ form_row(item, { label: false }) }}
             {% endfor %}
         </ul>
     </div>
@@ -26,6 +29,8 @@
         <li class="item ui-state-default clearfix" id="{{ form.vars.id }}" data-item-number="{{ form.vars.name }}">
             <div class="gallery-table">
                 <div class="table-row">
+                    <h2>item row</h2>
+                    {{ form_errors(form) }}
                     {{ form_widget(form.type) }}
 
                     {% if form.position is defined %}
@@ -33,12 +38,12 @@
                     {% endif %}
 
                     {% if form.image is defined %}
-                        {{ form_row(form.image) }}
+                        {{ form_widget(form.image) }}
                     {% endif %}
 
                     {% if form.video is defined %}
                         <div class="video-player">
-                            {% set video = form.vars.value.video %}
+                            {% set video = form.video.vars.data %}
                             {% if(video is not null) %}
                                 {% set video_url = video_url(video.type, video.videoId) %}
                                 {{ block('video_player') }}

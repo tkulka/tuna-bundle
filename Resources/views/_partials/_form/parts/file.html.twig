@@ -1,4 +1,4 @@
-{% block tuna_image_preview %}{% spaceless %}
+{% block tuna_file_preview %}{% spaceless %}
     <div class="preview">
         {% if file_url is not null %}
             <img src="{{ file_url | imagine_filter('tuna_admin_thumb') }}"/>
@@ -11,14 +11,14 @@
     {% set file_url = '/uploads/tmp/__path__' %}
     {% set dropzoneOptions = {
     selector: '#' ~ wrapperId,
-    previewTemplate: block('tuna_image_preview'),
+    previewTemplate: block('tuna_file_preview'),
     previewSelector: '#' ~ wrapperId ~ ' .preview'
     } %}
-    <div id="{{ wrapperId }}" class="thecodeine_admin_main_image" data-dropzone-options="{{ dropzoneOptions | json_encode }}">
-        {% set image = form.vars.data %}
-        {% if image and image.path and form.vars.valid %}
-            {% set file_url = (image.uploaded ? '/uploads/tmp/' : '/uploads/files/') ~ image.path %}
-            {{ block('tuna_image_preview') | raw }}
+    <div id="{{ wrapperId }}" class="thecodeine_admin_file" data-dropzone-options="{{ dropzoneOptions | json_encode }}">
+        {% set file = form.vars.data %}
+        {% if file and file.path and form.vars.valid %}
+            {% set file_url = (file.uploaded  ? '/uploads/tmp/' : '/uploads/files/') ~ file.path %}
+            {{ block('tuna_file_preview') | raw }}
         {% endif %}
         {{ form_widget(form) }}
     </div>
