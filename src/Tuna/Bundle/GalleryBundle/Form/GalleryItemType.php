@@ -54,7 +54,9 @@ class GalleryItemType extends AbstractType
             } else if ($type === GalleryItem::IMAGE_TYPE) {
                 $form
                     ->add('position', Type\HiddenType::class)
-                    ->add('image', ImageType::class)
+                    ->add('image', ImageType::class, array(
+                        'cascade_validation' => true,
+                    ))
                     ->add('translations', GedmoTranslationsType::class, array(
                         'translatable_class' => 'TheCodeine\GalleryBundle\Entity\GalleryItem',
                         'fields' => array(
@@ -97,6 +99,7 @@ class GalleryItemType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'TheCodeine\GalleryBundle\Entity\GalleryItem',
+            'cascade_validation' => true,
         ));
     }
 

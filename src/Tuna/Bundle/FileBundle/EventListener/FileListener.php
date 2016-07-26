@@ -23,7 +23,7 @@ class FileListener
     }
 
     /**
-     * save current path to 'old' property to help file manipulations
+     * save current path to 'persisted' property to help file manipulations
      */
     public function postLoad(AbstractFile $file, LifecycleEventArgs $args)
     {
@@ -42,7 +42,7 @@ class FileListener
 
     public function preRemove(AbstractFile $file, LifecycleEventArgs $args)
     {
-        $file->savePersistedPath();
+        $args->getEntityManager()->refresh($file);
     }
 
     public function postRemove(AbstractFile $file, LifecycleEventArgs $args)

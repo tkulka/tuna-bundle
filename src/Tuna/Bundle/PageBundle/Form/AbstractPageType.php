@@ -51,7 +51,9 @@ abstract class AbstractPageType extends AbstractType
                 'required' => false
             ))
             ->add('attachments', AttachmentCollectionType::class)
-            ->add('gallery', GalleryType::class)
+            ->add('gallery', GalleryType::class, array(
+                'cascade_validation' => true,
+            ))
             ->add('translations', GedmoTranslationsType::class, array(
                 'translatable_class' => $this->getEntityClass(),
                 'fields' => array(

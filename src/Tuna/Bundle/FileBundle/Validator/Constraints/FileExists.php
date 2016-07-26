@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraint;
  */
 class FileExists extends Constraint
 {
-    public $message = 'Cannot find "%filename%" file in tmp directory.';
+    public $message = 'Cannot find "%filename%" file.';
 
     public function validatedBy()
     {
