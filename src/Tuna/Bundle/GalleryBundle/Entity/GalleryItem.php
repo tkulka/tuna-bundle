@@ -58,7 +58,7 @@ class GalleryItem
      * @var Image
      *
      * @FileAssert\FileNotNull
-     * @ORM\ManyToOne(targetEntity="TheCodeine\FileBundle\Entity\Image", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="TheCodeine\FileBundle\Entity\Image", cascade={"persist"})
      **/
     private $image;
 
