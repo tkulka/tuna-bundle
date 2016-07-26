@@ -57,9 +57,8 @@
             this._destroySortable();
             var $a = $(e.currentTarget);
             var prototype = $a.data('prototype');
-            var index = this.$wrapper.data('index') + 1;
-            this.$wrapper.data('index', index);
-
+            var index = this.$wrapper.data('index');
+            this.$wrapper.data('index', index + 1);
             var newForm = prototype.replace(/__name__/g, index);
 
             this.$('.attachments').append($(newForm));

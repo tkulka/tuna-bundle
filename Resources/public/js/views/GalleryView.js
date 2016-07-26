@@ -61,8 +61,8 @@
         addItem: function (type, content) {
             var itemsId = this.$wrapper.data('itemsId');
             var prototype = this.$wrapper.data('prototype');
-            var index = this.$wrapper.data('index') + 1;
-            this.$wrapper.data('index', index);
+            var index = this.$wrapper.data('index');
+            this.$wrapper.data('index', index + 1);
 
             var $newForm = $(prototype.replace(/__name__/g, index));
             $newForm.find('input[type="hidden"]').val(type);
