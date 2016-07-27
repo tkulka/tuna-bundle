@@ -1,12 +1,14 @@
 {% block tuna_file_preview %}{% spaceless %}
     <div class="preview">
         {% if file_url is not null %}
-            <img src="{{ file_url | imagine_filter('tuna_admin_thumb') }}"/>
+            <a href="{{ asset(file_url) }}" class="btn btn-secondary" target="_blank">
+                <span class="fui-eye"></span>
+            </a>
         {% endif %}
     </div>
 {% endspaceless %}{% endblock %}
 
-{% block tuna_image_widget %}
+{% block tuna_file_widget %}
     {% set wrapperId = form.vars.id ~ '_wrapper' %}
     {% set file_url = '/uploads/tmp/__path__' %}
     {% set dropzoneOptions = {
