@@ -15,8 +15,6 @@
         {% endfor %}
         {{ form_errors(form) }}
         <ul class="gallery-items">
-            <h2>items errors</h2>
-            {{ form_errors(form.items) }}
             {% for item in form.items %}
                 {{ form_row(item, { label: false }) }}
             {% endfor %}
@@ -24,13 +22,11 @@
     </div>
 {% endblock %}
 
-{% block thecodeine_gallerybundle_item_widget %}
+{% block thecodeine_gallerybundle_item_row %}
     {% spaceless %}
         <li class="item ui-state-default clearfix" id="{{ form.vars.id }}" data-item-number="{{ form.vars.name }}">
             <div class="gallery-table">
                 <div class="table-row">
-                    <h2>item row</h2>
-                    {{ form_errors(form) }}
                     {{ form_widget(form.type) }}
 
                     {% if form.position is defined %}
@@ -43,8 +39,8 @@
 
                     {% if form.video is defined %}
                         <div class="video-player">
-                            {% set video = form.video.vars.data %}
-                            {% if(video is not null) %}
+                            {% set video = form.vars.value.video %}
+                            {% if(video) %}
                                 {% set video_url = video_url(video.type, video.videoId) %}
                                 {{ block('video_player') }}
                             {% endif %}
@@ -79,13 +75,11 @@
                         </div>
                     {% endif %}
                 </div>
-                {% if form.image is defined %}
+                {% if not form.vars.valid %}
                     <div class="table-row">
-                        {{ form_errors(form.image) }}
-                    </div>
-                {% elseif form.video is defined %}
-                    <div class="table-row">
-                        {{ form_errors(form.video) }}
+                        {{ form_errors(form) }}
+                        {% if form.image is defined %}{{ form_errors(form.image) }}{% endif %}
+                        {% if form.video is defined %}{{ form_errors(form.video) }}{% endif %}
                     </div>
                 {% endif %}
             </div>

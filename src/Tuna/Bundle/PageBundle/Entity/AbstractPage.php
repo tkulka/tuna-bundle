@@ -278,28 +278,16 @@ abstract class AbstractPage
     }
 
     /**
-     * Add attachments
-     *
-     * @param Attachment $attachment
-     * @return News
+     * @return $this
+     * @param mixed $attachments
      */
-    public function addAttachment(Attachment $attachment)
+    public function setAttachments($attachments)
     {
-
-        $this->attachments[] = $attachment;
+        $this->attachments = $attachments;
 
         return $this;
     }
 
-    /**
-     * Remove attachments
-     *
-     * @param Attachment $attachment
-     */
-    public function removeAttachment(Attachment $attachment)
-    {
-        $this->attachments->removeElement($attachment);
-    }
 
     /**
      * Get attachments

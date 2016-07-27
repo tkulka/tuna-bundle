@@ -42,7 +42,7 @@ class FileListener
 
     public function preRemove(AbstractFile $file, LifecycleEventArgs $args)
     {
-        $args->getEntityManager()->refresh($file);
+        $file->savePersistedPath();
     }
 
     public function postRemove(AbstractFile $file, LifecycleEventArgs $args)
