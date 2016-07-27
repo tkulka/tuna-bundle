@@ -2,6 +2,9 @@
     <div class="preview">
         {% if file_url is not null %}
             <img src="{{ file_url | imagine_filter('tuna_admin_thumb') }}"/>
+            {% if form.vars.attr.deletable %}
+                <span data-action="remove" class="remove">{% trans %}remove{% endtrans %}</span>
+            {% endif %}
         {% endif %}
     </div>
 {% endspaceless %}{% endblock %}

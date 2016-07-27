@@ -14,7 +14,7 @@
     {% endif %}
 
     {% if form.image is defined %}
-        {{ form_row(form.image) }}
+        {{ form_row(form.image, { label: false }) }}
     {% endif %}
 
     {{ extraFields | raw }}

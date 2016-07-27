@@ -28,7 +28,6 @@ class GalleryType extends AbstractType
                 'error_bubbling' => false,
                 'entry_options' => array(
                     'data_class' => GalleryItem::class,
-                    'error_bubbling' => false,
                 )
             ));
     }

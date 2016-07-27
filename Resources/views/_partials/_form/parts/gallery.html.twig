@@ -34,7 +34,7 @@
                     {% endif %}
 
                     {% if form.image is defined %}
-                        {{ form_widget(form.image) }}
+                        {{ form_widget(form.image, { label: false }) }}
                     {% endif %}
 
                     {% if form.video is defined %}
@@ -55,9 +55,7 @@
                                 {% endif %}
                             </div>
                         </div>
-                    {% endif %}
-
-                    {% if form.image is defined %}
+                    {% elseif form.image is defined %}
                         <div class="item-name">
                             {% if form.translations is defined %}
                                 {{ form_widget(form.translations, {'label': false}) }}
