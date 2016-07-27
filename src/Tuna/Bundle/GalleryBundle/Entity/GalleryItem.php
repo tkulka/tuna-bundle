@@ -2,6 +2,7 @@
 
 namespace TheCodeine\GalleryBundle\Entity;
 
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use TheCodeine\FileBundle\Entity\Image;
 use TheCodeine\VideoBundle\Entity\Video;
 
@@ -10,6 +11,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use TheCodeine\FileBundle\Validator\Constraints as FileAssert;
+use TheCodeine\GalleryBundle\Validator\Constraints as GalleryAssert;
 
 /**
  * PositionedImage
@@ -17,6 +19,7 @@ use TheCodeine\FileBundle\Validator\Constraints as FileAssert;
  * @ORM\Table(name="gallery_items")
  * @ORM\Entity
  * @Gedmo\TranslationEntity(class="TheCodeine\GalleryBundle\Entity\GalleryItemTranslation")
+ * @GalleryAssert\GalleryItemFileNotNull
  *
  * @ORM\HasLifecycleCallbacks
  */
@@ -58,7 +61,6 @@ class GalleryItem
      *
      * @var Image
      *
-     * @FileAssert\FileNotNull
      * @ORM\OneToOne(targetEntity="TheCodeine\FileBundle\Entity\Image", cascade={"persist", "remove"})
      **/
     private $image;

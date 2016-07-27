@@ -91,7 +91,9 @@ abstract class AbstractFile
      */
     public function savePersistedPath()
     {
-        $this->persistedPath = $this->path;
+        if ($this->getPath()) {
+            $this->persistedPath = $this->path;
+        }
 
         return $this;
     }

@@ -13,7 +13,6 @@ class AttachmentCollectionType extends AbstractType
         $resolver->setDefaults(array(
             'entry_type' => AttachmentType::class,
             'required' => false,
-            'by_reference' => false,
             'allow_add' => true,
             'allow_delete' => true,
             'prototype' => true,

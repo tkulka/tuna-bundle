@@ -75,28 +75,17 @@ class Gallery
     }
 
     /**
-     * Add item
-     *
-     * @param GalleryItem $item
-     *
      * @return $this
+     * @param mixed $items
      */
-    public function addItem(GalleryItem $item)
+    public function setItems($items)
     {
-        $item->setGallery($this);
-        $this->items[] = $item;
+        foreach ($items as $item) {
+            $item->setGallery($this);
+        }
+        $this->items = $items;
 
         return $this;
-    }
-
-    /**
-     * Remove item
-     *
-     * @param GalleryItem $item
-     */
-    public function removeItem(GalleryItem $item)
-    {
-        $this->items->removeElement($item);
     }
 
     /**
