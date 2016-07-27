@@ -17,7 +17,6 @@
             this.$wrapper.data('index', this.$('li.item').length);
 
             var options = this.$('[data-dropzone-options]').data('dropzone-options');
-            console.log(options);
 
             new tuna.view.DropzoneView({
                 el: $(options.selector),
