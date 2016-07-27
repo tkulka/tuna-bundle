@@ -11,9 +11,18 @@
 {% use "TheCodeineAdminBundle:_partials/_form/parts:translations.html.twig" %}
 
 {% block form_row %}
-    <div class="form-group {% if form.vars.errors | length > 0 %}has-errors{% endif %}">
+    <div class="form-group form--{{ name }} {% if form.vars.errors | length > 0 %}has-errors{% endif %}">
         {{ form_label(form) }}
         {{ form_errors(form) }}
         {{ form_widget(form) }}
     </div>
 {% endblock form_row %}
+
+{%- block form_widget_simple -%}
+    {% set attr = attr | merge({class: (attr.class | default('') ~ ' form--' ~ name) | trim}) %}
+    {% if value is not empty %}
+        {% set attr = attr | merge({value: value}) %}
+    {% endif %}
+    {%- set type = type|default('text') -%}
+    <input type="{{ type }}" {{ block('widget_attributes') }}/>
+{%- endblock form_widget_simple -%}

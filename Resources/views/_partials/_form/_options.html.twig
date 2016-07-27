@@ -13,12 +13,9 @@
         {{ form_row(form.createdAt, {'label': 'Create date'|trans}) }}
     {% endif %}
 
-
-    <div class="thecodeine_admin_main_image">
-        {% if form.image is defined %}
-            {{ form_row(form.image) }}
-        {% endif %}
-    </div>
+    {% if form.image is defined %}
+        {{ form_row(form.image, { label: false }) }}
+    {% endif %}
 
     {{ extraFields | raw }}
 

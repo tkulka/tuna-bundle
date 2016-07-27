@@ -1,24 +1,28 @@
-{% block tuna_image_row %}
-    {% set image = form.parent.vars.value.image %}
-    <div class="form-group main-image">
-        <div class="image" data-action="remove">
-            <div class="preview">
-                {% if image and image.path %}
-                    <div>
-                        <img src="{{ ('/uploads/files/' ~ image.path) | imagine_filter('tuna_admin_thumb') }}"/>
-                        <span class="remove">{% trans %}Usuń{% endtrans %}</span>
-                    </div>
-                {% endif %}
-            </div>
-            {{ form_row(form) }}
-        </div>
+{% block tuna_image_preview %}{% spaceless %}
+    <div class="preview">
+        {% if file_url is not null %}
+            <img src="{{ file_url | imagine_filter('tuna_admin_thumb') }}"/>
+            {% if form.vars.attr.deletable %}
+                <span data-action="remove" class="remove">{% trans %}remove{% endtrans %}</span>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endspaceless %}{% endblock %}
 
-        <div
-            class="btn btn-mini btn-primary btn-block input-wrapper"
-            data-dropzone-options='{"clickable": ".main-image .btn", "previewsContainer": ".main-image .image",  "maxFiles": 1, "callback": "tuna.view.MainImageView.uploadCallback", "selector": ".admin-option-container", "dropoverText": "{% trans %}Drop your cover image here{% endtrans %}"}'
-        >
-            {% trans %}Choose main picture{% endtrans %}
-            <i class="fui-arrow-right pull-right"></i>
-        </div>
+{% block tuna_image_widget %}
+    {% set wrapperId = form.vars.id ~ '_wrapper' %}
+    {% set file_url = '/uploads/tmp/__path__' %}
+    {% set dropzoneOptions = {
+    selector: '#' ~ wrapperId,
+    previewTemplate: block('tuna_image_preview'),
+    previewSelector: '#' ~ wrapperId ~ ' .preview'
+    } %}
+    <div id="{{ wrapperId }}" class="thecodeine_admin_main_image" data-dropzone-options="{{ dropzoneOptions | json_encode }}">
+        {% set image = form.vars.data %}
+        {% if image and image.path and form.vars.valid %}
+            {% set file_url = (image.uploaded ? '/uploads/tmp/' : '/uploads/files/') ~ image.path %}
+            {{ block('tuna_image_preview') | raw }}
+        {% endif %}
+        {{ form_widget(form) }}
     </div>
 {% endblock %}

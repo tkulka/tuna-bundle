@@ -54,7 +54,11 @@ class GalleryItemType extends AbstractType
             } else if ($type === GalleryItem::IMAGE_TYPE) {
                 $form
                     ->add('position', Type\HiddenType::class)
-                    ->add('image', ImageType::class)
+                    ->add('image', ImageType::class, array(
+                        'attr' => array(
+                            'deletable' => false,
+                        )
+                    ))
                     ->add('translations', GedmoTranslationsType::class, array(
                         'translatable_class' => GalleryItem::class,
                         'fields' => array(

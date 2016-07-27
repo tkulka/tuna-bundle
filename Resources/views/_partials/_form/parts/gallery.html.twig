@@ -6,8 +6,6 @@
     <div
             class="form-group thecodeine_admin_gallery"
             data-prototype="{{ form_widget(form.items.vars.prototype)|e }}"
-            data-dropzone-options='{"clickable": "a[data-type=image]", "previewsContainer": ".gallery-items",  "selector": ".admin-gallery-container", "dropoverText": "{% trans %}Drop your gallery images here{% endtrans %}"}'
-
             data-items-id="{{ form.items.vars.id }}"
     >
         {% for type in form.vars.attr.types %}
@@ -36,12 +34,7 @@
                     {% endif %}
 
                     {% if form.image is defined %}
-                        <div class="image">
-                            {% set image = form.vars.value.image %}
-                            <div class="gallery-image"{% if(image is not null) %} style="background-image: url({{ ('uploads/files/' ~ image.path) | imagine_filter('tuna_admin_thumb') }})"{% endif %}>
-                                {{ form_widget(form.image) }}
-                            </div>
-                        </div>
+                        {{ form_widget(form.image, { label: false }) }}
                     {% endif %}
 
                     {% if form.video is defined %}
@@ -62,9 +55,7 @@
                                 {% endif %}
                             </div>
                         </div>
-                    {% endif %}
-
-                    {% if form.image is defined %}
+                    {% elseif form.image is defined %}
                         <div class="item-name">
                             {% if form.translations is defined %}
                                 {{ form_widget(form.translations, {'label': false}) }}
