@@ -4,6 +4,10 @@
             position: relative;
             cursor: pointer;
 
+            .form-group {
+                display: none;
+            }
+
             .preview > div {
                 border: 2px solid $brand-primary;
                 width: 280px;

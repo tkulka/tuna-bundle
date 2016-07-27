@@ -65,7 +65,9 @@
                     );
                     $(selector).addClass('loaded');
 
-                    $(selector).find('.image .gallery-image').css('backgroundImage', 'url('+response.path+')')
+                    $(selector).find('.image .gallery-image').css('backgroundImage', 'url(/uploads/tmp/'+response.path+')')
+                    $(selector).find('input.form--path').val(response.path);
+                    $(selector).find('input.form--filename ').val(response.originalName);
                 }
             });
         },
