@@ -16,7 +16,8 @@
     clickable: '.admin-option-container .btn-main-image',
     selector: '.admin-option-container',
     previewTemplate: block('tuna_image_preview'),
-    previewsContainer: '#' ~ wrapperId ~ ' .preview'
+    previewsContainer: '#' ~ wrapperId ~ ' .preview',
+    dropoverText: 'Drop your cover image here' | trans
     } %}
     <div id="{{ wrapperId }}" class="thecodeine_admin_main_image" data-dropzone-options="{{ dropzoneOptions | json_encode }}">
         {% set image = form.vars.data %}
