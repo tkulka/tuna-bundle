@@ -13,10 +13,4 @@ class FileType extends AbstractFileType
     {
         return File::class;
     }
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $builder
-            ->add('path')
-            ->add('filename');
-    }
 }

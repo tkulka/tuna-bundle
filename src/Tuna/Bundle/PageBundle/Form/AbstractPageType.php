@@ -70,8 +70,7 @@ abstract class AbstractPageType extends AbstractType
                         'required' => true
                     )
                 )
-            ))
-            ->add('save', 'submit');
+            ));
     }
 
     /**
@@ -81,7 +80,6 @@ abstract class AbstractPageType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => $this->getEntityClass(),
-            'cascade_validation' => true,
         ));
     }
 

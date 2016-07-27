@@ -58,6 +58,8 @@ abstract class AbstractPage
     protected $body;
 
     /**
+     * @Assert\Valid
+     *
      * @ORM\OneToOne(targetEntity="TheCodeine\FileBundle\Entity\Image", cascade={"persist", "remove"})
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
@@ -73,7 +75,9 @@ abstract class AbstractPage
     protected $locale;
 
     /**
-     * @ORM\OneToOne(targetEntity="TheCodeine\GalleryBundle\Entity\Gallery",cascade={"persist"})
+     * @Assert\Valid
+     *
+     * @ORM\OneToOne(targetEntity="TheCodeine\GalleryBundle\Entity\Gallery", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="gallery_id", referencedColumnName="id")
      */
     protected $gallery;
@@ -84,6 +88,8 @@ abstract class AbstractPage
     protected $published;
 
     /**
+     * @Assert\Valid
+     *
      * @ORM\ManyToMany(targetEntity="TheCodeine\FileBundle\Entity\Attachment", cascade={"persist", "remove"})
      * @ORM\JoinTable(
      *      joinColumns={@ORM\JoinColumn(name="page_id", referencedColumnName="id")},
@@ -107,7 +113,7 @@ abstract class AbstractPage
      * Set gallery
      *
      * @param \TheCodeine\GalleryBundle\Entity\Gallery $gallery
-     * @return News
+     * @return $this
      */
     public function setGallery(Gallery $gallery = null)
     {

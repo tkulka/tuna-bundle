@@ -23,18 +23,11 @@ class FileListener
     }
 
     /**
-     * save current path to 'old' property to help file manipulations
+     * save current path to 'persisted' property to help file manipulations
      */
     public function postLoad(AbstractFile $file, LifecycleEventArgs $args)
     {
-        $file->saveOldPath();
-    }
-
-    public function prePersist(AbstractFile $file, LifecycleEventArgs $args)
-    {
-        if ($file->getPath() == null) {
-            $args->getEntityManager()->remove($file);
-        }
+        $file->savePersistedPath();
     }
 
     public function postPersist(AbstractFile $file, LifecycleEventArgs $args)
@@ -49,23 +42,21 @@ class FileListener
 
     public function preRemove(AbstractFile $file, LifecycleEventArgs $args)
     {
-        $file->saveOldPath();
+        $args->getEntityManager()->refresh($file);
     }
 
     public function postRemove(AbstractFile $file, LifecycleEventArgs $args)
     {
-        $this->fileManager->removeFile($file->getOldPath());
+        $this->fileManager->removeFile($file->getPersistedPath());
     }
 
     private function handleUpload(AbstractFile $file, EntityManager $em)
     {
-        if ($file->getPath() !== $file->getOldPath()) {
-            if ($file->getPath() == null) {
-                $em->remove($file);
-            } else {
-                $this->fileManager->moveTmpFile($file);
-                $this->fileManager->removeFile($file->getOldPath());
-            }
+        if (!$file->getPath()) {
+            $em->remove($file);
+        } elseif ($file->isUploaded()) {
+            $this->fileManager->moveTmpFile($file);
+            $this->fileManager->removeFile($file->getPersistedPath());
         }
     }
 }

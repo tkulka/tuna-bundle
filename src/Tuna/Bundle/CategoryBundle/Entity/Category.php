@@ -44,6 +44,8 @@ class Category
     protected $slug;
 
     /**
+     * @Assert\Valid
+     *
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="CategoryTranslation", mappedBy="object", cascade={"persist", "remove"})

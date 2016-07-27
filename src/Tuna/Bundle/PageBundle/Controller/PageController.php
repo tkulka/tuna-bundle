@@ -26,7 +26,7 @@ class PageController extends AbstractPageController
 
     public function getRedirectUrl(AbstractPage $page = null)
     {
-        return $this->generateUrl('tuna_page_list');
+        return $this->generateUrl('tuna_page_edit', array('id' => $page->getId()));
     }
 
     public function getRepository()

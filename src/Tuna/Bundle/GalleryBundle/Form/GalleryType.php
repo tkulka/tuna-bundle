@@ -3,9 +3,10 @@
 namespace TheCodeine\GalleryBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use TheCodeine\GalleryBundle\Entity\Gallery;
 use TheCodeine\GalleryBundle\Entity\GalleryItem;
 
 class GalleryType extends AbstractType
@@ -17,28 +18,27 @@ class GalleryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('items', CollectionType::class, array(
-                'type' => new GalleryItemType(),
+            ->add('items', Type\CollectionType::class, array(
+                'entry_type' => GalleryItemType::class,
                 'required' => false,
-                'allow_add' => true,
-                'prototype' => true,
-                'allow_delete' => true,
                 'by_reference' => false,
-                'options' => array(
-                    'data_class' => 'TheCodeine\GalleryBundle\Entity\GalleryItem'
+                'allow_add' => true,
+                'allow_delete' => true,
+                'prototype' => true,
+                'error_bubbling' => false,
+                'entry_options' => array(
+                    'data_class' => GalleryItem::class,
                 )
-            ))
-            ->add('save', 'submit');
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'TheCodeine\GalleryBundle\Entity\Gallery',
+            'data_class' => Gallery::class,
             'attr' => array(
                 'types' => GalleryItem::$TYPES,
             ),
-            'cascade_validation' => true,
         ));
     }
 

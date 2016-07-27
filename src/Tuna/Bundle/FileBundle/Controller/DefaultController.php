@@ -24,18 +24,21 @@ class DefaultController extends Controller
         $form = $this->createForm(UploadedFileType::class);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if (!$form->isValid()) {
+            return $this->getErrorResponse($form);
+        } else {
             $file = $form->get('file')->getData();
             $fileInfo = $this->getFileInfo($file);
 
             try {
                 $this->get('the_codeine_file.manager.file_manager')->moveUploadedFile($file, $fileInfo['path']);
             } catch (FileException $e) {
-                return new JsonResponse(array('messages' => array('Tmp file cannot be moved')));
+                $translator = $this->get('translator.default');
+                $errorMsg = $translator->trans('error.upload.cant_move', 'validators');
+
+                return new JsonResponse(array('messages' => array($errorMsg)));
             }
             return new JsonResponse($fileInfo);
-        } else {
-            return $this->getErrorResponse($form);
         }
     }
 

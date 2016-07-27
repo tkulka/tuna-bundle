@@ -23,10 +23,8 @@ class FileExistsValidator extends ConstraintValidator
 
     public function validate($file, Constraint $constraint)
     {
-        if (
-            $file->getPath() !== $file->getOldPath() // file changed, so we're uploading new
-            && !$this->fileManager->tmpFileExists($file)
-        ) {
+        /* @var $file \TheCodeine\FileBundle\Entity\AbstractFile */
+        if (!$this->fileManager->fileExists($file)) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('%filename%', $file->getPath())
                 ->addViolation();

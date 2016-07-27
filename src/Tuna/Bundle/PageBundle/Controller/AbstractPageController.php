@@ -5,7 +5,6 @@ namespace TheCodeine\PageBundle\Controller;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use TheCodeine\PageBundle\Entity\AbstractPage;
-use TheCodeine\PageBundle\Entity\Page;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -55,6 +54,7 @@ abstract class AbstractPageController extends Controller
     {
         $page = $this->getNewPage();
         $form = $this->createForm($this->getNewFormType($page, !$request->isXmlHttpRequest()), $page);
+        $form->add('save', 'submit');
 
         return $this->handleCreateForm($request, $form, $page);
     }
@@ -67,6 +67,7 @@ abstract class AbstractPageController extends Controller
     {
         $page = $this->getRepository()->find($id);
         $form = $this->createForm($this->getNewFormType($page, !$request->isXmlHttpRequest()), $page);
+        $form->add('save', 'submit');
 
         return $this->handleEditForm($request, $page, $form);
     }

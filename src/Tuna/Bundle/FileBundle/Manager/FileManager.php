@@ -35,10 +35,14 @@ class FileManager
         $this->fs->remove($path);
     }
 
-    public function tmpFileExists(AbstractFile $file)
+    public function fileExists(AbstractFile $file)
     {
         $filename = basename($file->getPath());
-        $fullPath = $this->getFullTmpPath($filename);
+        $fullPath = $this->getFullPath($file->isUploaded() ? 'tmp' : 'upload_files', $filename);
+
+        if (!$fullPath) {
+            return true;
+        }
 
         return $this->fs->exists($fullPath);
     }
@@ -59,7 +63,7 @@ class FileManager
 
     private function removeTmpFile(AbstractFile $file)
     {
-        $path = $this->getFullTmpPath($file);
+        $path = $this->getFullTmpPath($file->getPath());
         $this->fs->remove($path);
     }
 
@@ -91,7 +95,7 @@ class FileManager
 
     private function getFullFilePath($file)
     {
-        return $this->getFullPath('files', $file);
+        return $this->getFullPath('upload_files', $file);
     }
 
     private function getFullPath($type, $file)

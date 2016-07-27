@@ -30,12 +30,15 @@ abstract class AbstractNews extends AbstractPage
     protected $createdAt;
 
     /**
+     * @Assert\Valid
+     *
      * @ORM\OneToMany(targetEntity="NewsTranslation", mappedBy="object", cascade={"persist", "remove"})
      */
     protected $translations;
 
     /**
-     * @var
+     * @Assert\Valid
+     *
      * @ORM\ManyToMany(targetEntity="\TheCodeine\TagBundle\Entity\Tag", cascade={"persist"})
      * @ORM\JoinTable(name="news_tags",
      *      joinColumns={@ORM\JoinColumn(name="news_id", referencedColumnName="id")},

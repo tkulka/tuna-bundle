@@ -40,7 +40,7 @@ class GalleryItemType extends AbstractType
                         )
                     ))
                     ->add('translations', GedmoTranslationsType::class, array(
-                        'translatable_class' => 'TheCodeine\GalleryBundle\Entity\GalleryItem',
+                        'translatable_class' => GalleryItem::class,
                         'fields' => array(
                             'name' => array(
                                 'field_type' => 'text',
@@ -56,7 +56,7 @@ class GalleryItemType extends AbstractType
                     ->add('position', Type\HiddenType::class)
                     ->add('image', ImageType::class)
                     ->add('translations', GedmoTranslationsType::class, array(
-                        'translatable_class' => 'TheCodeine\GalleryBundle\Entity\GalleryItem',
+                        'translatable_class' => GalleryItem::class,
                         'fields' => array(
                             'name' => array(
                                 'attr' => array(
@@ -96,7 +96,8 @@ class GalleryItemType extends AbstractType
     public function setOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'TheCodeine\GalleryBundle\Entity\GalleryItem',
+            'data_class' => GalleryItem::class,
+            'error_bubbling' => false,
         ));
     }
 

@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use TheCodeine\FileBundle\Entity\Attachment;
 
 class AttachmentType extends AbstractType
 {
@@ -35,9 +36,8 @@ class AttachmentType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'TheCodeine\FileBundle\Entity\Attachment',
+            'data_class' => Attachment::class,
             'error_bubbling' => false,
-            'cascade_validation' => true,
         ));
     }
 

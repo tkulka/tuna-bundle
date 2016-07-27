@@ -11,13 +11,13 @@ class AttachmentCollectionType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'type' => AttachmentType::class,
+            'entry_type' => AttachmentType::class,
             'required' => false,
             'by_reference' => false,
             'allow_add' => true,
             'allow_delete' => true,
             'prototype' => true,
-            'cascade_validation' => true,
+            'error_bubbling' => false,
         ));
     }
 
