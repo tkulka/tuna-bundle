@@ -28,10 +28,9 @@
                     <div class="options-container">
                         {{ form_widget(form.file) }}
                         {% set attachment = form.vars.value %}
-                        {% if(attachment is not null) %}
-                            <a href="{{ ('/uploads/files/' ~ attachment.file.path) }}" class="btn btn-secondary"
-                               target="_blank"><span class="fui-eye"></span></a>
-                        {% endif %}
+                        <a href="{% if(attachment is not null) %}{{ ('/uploads/files/' ~ attachment.file.path) }}{% endif %}" class="btn btn-secondary" target="_blank">
+                            <span class="fui-eye"></span>
+                        </a>
                     </div>
 
                     <div class="option handle">

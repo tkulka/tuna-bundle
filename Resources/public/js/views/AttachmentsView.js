@@ -70,8 +70,10 @@
 
             $newForm.find('.form--path input').val(response.path);
             $newForm.find('.form--filename input').val(response.originalName);
+            $newForm.find('.options-container .btn').attr('href', '/uploads/tmp/'+response.path+'');
 
             this.$('.attachments').append($newForm);
+
             this._initSortable();
             this.recalculateItemPositions();
         },
