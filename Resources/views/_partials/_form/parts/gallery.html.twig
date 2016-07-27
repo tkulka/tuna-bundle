@@ -7,6 +7,7 @@
             class="form-group thecodeine_admin_gallery"
             data-prototype="{{ form_widget(form.items.vars.prototype)|e }}"
             data-items-id="{{ form.items.vars.id }}"
+            data-dropzone-options='{"clickable": "a[data-type=image]", "previewsContainer": ".gallery-items",  "selector": ".admin-gallery-container", "dropoverText": "{% trans %}Drop your gallery images here{% endtrans %}"}'
     >
         {% for type in form.vars.attr.types %}
             <a href="#" class="btn btn-border" data-type="{{ type }}" data-action="add-new-item">

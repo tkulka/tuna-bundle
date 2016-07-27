@@ -65,7 +65,9 @@
                     );
                     $(selector).addClass('loaded');
 
-                    $(selector).find('.image .gallery-image').css('backgroundImage', 'url(/uploads/tmp/'+response.path+')');
+                    var options = $(selector).find('.thecodeine_admin_main_image').data('dropzone-options');
+
+                    $(selector).find('.preview').html(options.previewTemplate.replace('__path__', response.path));
                     $(selector).find('input.form--path').val(response.path);
                     $(selector).find('input.form--filename ').val(response.originalName);
                 }

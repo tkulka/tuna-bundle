@@ -5,7 +5,6 @@
             Dropzone.autoDiscover = false;
 
             this.oThis = options.oThis;
-
             this.options = options.options;
             this.setupOptions();
             this.createDropzone();
