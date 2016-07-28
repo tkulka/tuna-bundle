@@ -63,8 +63,8 @@
         },
 
         uploadCallback: function (response) {
-                this.$('input.form--path').val(response.path);
-                this.$('input.form--filename').val(response.originalName);
+                this.$('.input--path').val(response.path);
+                this.$('.input--filename').val(response.originalName);
                 this.$('.preview').html(
                     this.options.previewTemplate.replace("__path__", response.path)
                 );

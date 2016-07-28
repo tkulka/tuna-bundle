@@ -38,7 +38,7 @@
 {% endblock form_row %}
 
 {%- block form_widget_simple -%}
-    {% set attr = attr | merge({class: (attr.class | default('') ~ ' form--' ~ name) | trim}) %}
+    {% set attr = attr | merge({class: (attr.class | default('') ~ ' input--' ~ name) | trim}) %}
     {% if value is not empty %}
         {% set attr = attr | merge({value: value}) %}
     {% endif %}
