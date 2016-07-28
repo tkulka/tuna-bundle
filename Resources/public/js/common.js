@@ -35,7 +35,20 @@ tuna.website = {
         new tuna.view.EditView({el: $('.admin-container'), lang: options.lang});
         new tuna.view.AddableEntitySelectView({el: $('.addable-entity-select')});
         new tuna.view.SortableView({el: $('[data-sortable-url]')});
-        
+
+        $('[data-dropzone-options]').each(function (index, item) {
+            var options = $(item).data('dropzone-options');
+            var $selector = $(options.selector);
+
+            if (!$selector.data('dropover-text')) {
+                new tuna.view.DropzoneView({
+                    el: $selector,
+                    options: options
+                });
+            }
+
+        });
+
         //WYSIWYG EDITOR
         tuna.view.EditorView && new tuna.view.EditorView({
             selector: '.tab-pane.active .thecodeine_admin_editor',

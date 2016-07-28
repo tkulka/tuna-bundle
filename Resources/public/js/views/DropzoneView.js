@@ -1,6 +1,6 @@
 (function () {
     tuna.view.DropzoneView = Backbone.View.extend({
-        
+
         initialize: function (options) {
             Dropzone.autoDiscover = false;
 
@@ -25,7 +25,7 @@
                 this.$el.removeClass('drag-over');
             }, this));
         },
-        
+
         setupOptions: function () {
             var dropzoneView = this;
 
@@ -40,7 +40,12 @@
                 },
                 init: function () {
                     this.on('success', function(file, response) {
-                        dropzoneView.parentView.uploadCallback(response);
+                        if (dropzoneView.parentView) {
+                            dropzoneView.parentView.uploadCallback(response);
+                        }else {
+                            dropzoneView.uploadCallback(response);
+                        }
+
                     });
 
                     this.on("queuecomplete", function () {
@@ -55,6 +60,14 @@
             }, this.options);
 
             this.$el.attr('data-dropover-text', this.options.dropoverText);
+        },
+
+        uploadCallback: function (response) {
+                this.$('input.form--path').val(response.path);
+                this.$('input.form--filename').val(response.originalName);
+                this.$('.preview').html(
+                    this.options.previewTemplate.replace("__path__", response.path)
+                );
         },
 
         onSendingComplate: function () {
