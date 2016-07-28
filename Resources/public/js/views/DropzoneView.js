@@ -7,6 +7,7 @@
             this.oThis = options.oThis;
             this.options = options.options;
             this.setupOptions();
+
             this.createDropzone();
             this.bindEvents();
         },
