@@ -27,9 +27,9 @@
         },
         
         setupOptions: function () {
-            var oThis = this;
+            var dropzoneView = this;
 
-            oThis.defaultOptions = _.extend({
+            this.defaultOptions = _.extend({
                 url: '/admin/file/upload/',
                 acceptedFiles: '.jpg, .jpeg, .gif',
                 paramName: 'file',
@@ -39,20 +39,20 @@
                     alert(response.messages);
                 },
                 init: function () {
-                    this.on('success', _.bind(function(file, response) {
-                        oThis.parentView.uploadCallback(response);
-                    }, this));
+                    this.on('success', function(file, response) {
+                        dropzoneView.parentView.uploadCallback(response);
+                    });
 
-                    this.on("queuecomplete", _.bind(function () {
-                        oThis.onSendingComplate();
+                    this.on("queuecomplete", function () {
+                        dropzoneView.onSendingComplate();
                         this.removeAllFiles();
-                    }, this));
+                    });
 
-                    this.on("sending", _.bind(function () {
-                        oThis.onSending();
-                    }, this));
+                    this.on("sending", function () {
+                        dropzoneView.onSending();
+                    });
                 }
-            }, oThis.options);
+            }, this.options);
 
             this.$el.attr('data-dropover-text', this.options.dropoverText);
         },

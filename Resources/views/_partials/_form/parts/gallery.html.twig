@@ -3,12 +3,16 @@
 {% endblock %}
 
 {% block thecodeine_gallerybundle_gallery_widget %}
-    <div
-            class="form-group thecodeine_admin_gallery"
-            data-prototype="{{ form_widget(form.items.vars.prototype)|e }}"
-            data-items-id="{{ form.items.vars.id }}"
-            data-dropzone-options='{"clickable": "a[data-type=image]", "previewsContainer": ".gallery-items",  "selector": ".admin-gallery-container", "dropoverText": "{% trans %}Drop your gallery images here{% endtrans %}"}'
-    >
+    {% import 'TheCodeineAdminBundle:_partials/_form:_theme.html.twig' as theme %}
+    {% set wrapperId = form.vars.id ~ '_wrapper' %}
+    {% set dropzoneOptions = {
+    clickable: 'a[data-type=image]',
+    selector: '.admin-gallery-container',
+    previewTemplate: theme.tuna_image_preview(tuna_uploadDir('tmp_path')~'/__path__'),
+    previewsContainer: '#' ~ wrapperId ~ ' .gallery-items',
+    dropoverText: 'Drop your gallery images here' | trans
+    } %}
+    <div id="{{ wrapperId }}" class="thecodeine_admin_gallery" data-prototype="{{ form_widget(form.items.vars.prototype)|e }}" data-items-id="{{ form.items.vars.id }}" data-dropzone-options="{{ dropzoneOptions | json_encode }}">
         {% for type in form.vars.attr.types %}
             <a href="#" class="btn btn-border" data-type="{{ type }}" data-action="add-new-item">
                 <i class="fa fa-plus" aria-hidden="true"></i> {{ type | capitalize | trans }}

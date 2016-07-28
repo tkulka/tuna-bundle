@@ -4,7 +4,7 @@
     {% set dropzoneOptions = {
     clickable: '.admin-option-container .btn-main-image',
     selector: '.admin-option-container',
-    previewTemplate: theme.tuna_image_preview('/uploads/tmp/__path__', form.vars.attr.deletable),
+    previewTemplate: theme.tuna_image_preview(tuna_uploadDir('tmp_path')~'/__path__', form.vars.attr.deletable),
     previewsContainer: '#' ~ wrapperId ~ ' .preview',
     dropoverText: 'Drop your cover image here' | trans
     } %}
@@ -13,7 +13,7 @@
 
         <div class="preview">
             {% if image and image.path and form.vars.valid %}
-                {% set fileUrl = (image.uploaded ? '/uploads/tmp/' : '/uploads/files/') ~ image.path %}
+                {% set fileUrl = (image.uploaded ? tuna_uploadDir('tmp_path') : tuna_uploadDir('upload_files_path')) ~ '/' ~ image.path %}
                 {{ theme.tuna_image_preview(fileUrl, form.vars.attr.deletable) | raw }}
             {% endif %}
         </div>

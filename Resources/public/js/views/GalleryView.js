@@ -52,7 +52,7 @@
                 $(this).val(idx);
             });
         },
-        loadItemForm: function (selector, response) {
+        loadItemForm: function (selector, image) {
             var $form = this.$el.closest('form');
 
             $.ajax({
@@ -67,13 +67,13 @@
 
                     var options = $(selector).find('.thecodeine_admin_main_image').data('dropzone-options');
 
-                    $(selector).find('.preview').html(options.previewTemplate.replace('__path__', response.path));
-                    $(selector).find('input.form--path').val(response.path);
-                    $(selector).find('input.form--filename ').val(response.originalName);
+                    $(selector).find('.preview').html(options.previewTemplate.replace('__path__', image.path));
+                    $(selector).find('input.form--path').val(image.path);
+                    $(selector).find('input.form--filename ').val(image.originalName);
                 }
             });
         },
-        addItem: function (type, response) {
+        addItem: function (type, image) {
             var itemsId = this.$wrapper.data('itemsId');
             var prototype = this.$wrapper.data('prototype');
             var index = this.$wrapper.data('index');
@@ -83,7 +83,7 @@
             $newForm.find('input[type="hidden"]').val(type);
 
             this.$('.gallery-items').append($newForm);
-            this.loadItemForm('#' + itemsId + "_" + index, response);
+            this.loadItemForm('#' + itemsId + "_" + index, image);
             tuna.website.enableFancySelect(this.$('select'));
             this.recalculateItemPositions();
         },
