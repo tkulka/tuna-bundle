@@ -9,7 +9,7 @@
             new tuna.view.DropzoneView({
                 el: $(this.options.selector),
                 options: this.options,
-                oThis: this
+                parentView: this
             });
         },
         onRemove: function () {

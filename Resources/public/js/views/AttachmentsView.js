@@ -21,7 +21,7 @@
             new tuna.view.DropzoneView({
                 el: $(options.selector),
                 options: options,
-                oThis: this
+                parentView: this
             });
         },
 

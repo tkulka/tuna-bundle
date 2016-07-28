@@ -4,7 +4,7 @@
         initialize: function (options) {
             Dropzone.autoDiscover = false;
 
-            this.oThis = options.oThis;
+            this.parentView = options.parentView;
             this.options = options.options;
             this.setupOptions();
 
@@ -13,7 +13,7 @@
         },
 
         createDropzone: function () {
-            this.dropzone = this.$el.dropzone(this.defaultOttions);
+            this.dropzone = this.$el.dropzone(this.defaultOptions);
         },
 
         bindEvents: function () {
@@ -29,18 +29,18 @@
         setupOptions: function () {
             var oThis = this;
 
-            oThis.defaultOttions = _.extend({
+            oThis.defaultOptions = _.extend({
                 url: '/admin/file/upload/',
                 acceptedFiles: '.jpg, .jpeg, .gif',
                 paramName: 'file',
                 clickable:'[data-dropzone-clickable]',
                 addedfile: function () {},
-                error: function (file, errorMessage) {
-                    alert(errorMessage);
+                error: function (file, response) {
+                    alert(response.messages);
                 },
                 init: function () {
                     this.on('success', _.bind(function(file, response) {
-                        oThis.oThis.uploadCallback(response);
+                        oThis.parentView.uploadCallback(response);
                     }, this));
 
                     this.on("queuecomplete", _.bind(function () {
