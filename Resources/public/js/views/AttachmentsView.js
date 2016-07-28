@@ -68,10 +68,13 @@
 
             var $newForm = $(prototype.replace(/__name__/g, index));
 
-            $newForm.find('.form--path input').val(response.path);
-            $newForm.find('.form--filename input').val(response.originalName);
-            $newForm.find('.options-container .btn').attr('href', '/uploads/tmp/'+response.path+'');
+            $newForm.find('input.form--path').val(response.path);
+            $newForm.find('input.form--filename').val(response.originalName);
 
+            var options = this.$('.thecodeine_admin_attachments').data('dropzone-options');
+
+            $newForm.find('.options-container .preview').append(options.previewTemplate.replace('__path__', response.path));
+            
             this.$('.attachments').append($newForm);
 
             this._initSortable();

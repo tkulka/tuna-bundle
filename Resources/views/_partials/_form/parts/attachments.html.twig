@@ -4,8 +4,8 @@
     {% set dropzoneOptions = {
     clickable: '[data-action="add-new-attachment"]',
     selector: '.admin-attachments-container',
-    previewTemplate: theme.tuna_file_preview('/uploads/tmp/__path__') | raw }},
-    previewsContainer: '#' ~ wrapperId ~ ' .preview',
+    previewTemplate: theme.tuna_file_preview('/uploads/tmp/__path__') | raw,
+    previewsContainer: '#' ~ wrapperId ~ ' .attachments',
     dropoverText: 'Drop your attachments here' | trans
     } %}
     <div id="{{ wrapperId }}" class="form-group thecodeine_admin_attachments" data-dropzone-options="{{ dropzoneOptions | json_encode }}">
@@ -21,6 +21,7 @@
 {% endblock %}
 
 {% block tuna_attachment_widget %}
+    {% import 'TheCodeineAdminBundle:_partials/_form:_theme.html.twig' as theme %}
     {% spaceless %}
         <li class="item ui-state-default">
             <div class="gallery-table">
@@ -33,6 +34,15 @@
 
                     <div class="options-container">
                         {{ form_widget(form.file) }}
+                        <div class="preview">
+                            {% set attachment = form.vars.data %}
+
+                            {% if attachment and attachment.file.path and form.vars.valid %}
+                                {% set fileUrl = (attachment.file.uploaded ? '/uploads/tmp/' : '/uploads/files/') ~ attachment.file.path %}
+
+                                {{ theme.tuna_file_preview(fileUrl) | raw }}
+                            {% endif %}
+                        </div>
                     </div>
 
                     <div class="option handle">

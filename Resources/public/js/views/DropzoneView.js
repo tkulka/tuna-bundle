@@ -7,9 +7,7 @@
             this.oThis = options.oThis;
             this.options = options.options;
             this.setupOptions();
-        },
 
-        afterRender: function () {
             this.createDropzone();
             this.bindEvents();
         },
