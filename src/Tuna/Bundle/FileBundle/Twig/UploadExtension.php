@@ -1,8 +1,8 @@
 <?php
 
-namespace TheCodeine\AdminBundle\Twig;
+namespace TheCodeine\FileBundle\Twig;
 
-class PathExtension extends \Twig_Extension
+class UploadExtension extends \Twig_Extension
 {
     /**
      * @var array
@@ -17,12 +17,12 @@ class PathExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('tuna_getPath', function ($name) {
+            new \Twig_SimpleFunction('tuna_uploadDir', function ($name) {
                 if (array_key_exists($name, $this->paths)) {
                     return $this->paths[$name];
                 } else {
                     throw new \InvalidArgumentException(sprintf(
-                        'Path "%s" is not defined. Maybe you forgot to add it to thecodeine_admin.paths config?',
+                        'Upload path "%s" is not defined.',
                         $name
                     ));
                 }
@@ -32,6 +32,6 @@ class PathExtension extends \Twig_Extension
 
     public function getName()
     {
-        return 'thecodeine_admin_path_extension';
+        return 'thecodeine_file_extension';
     }
 }
