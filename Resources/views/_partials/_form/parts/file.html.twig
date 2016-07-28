@@ -1,27 +1,19 @@
-{% block tuna_file_preview %}{% spaceless %}
-    <div class="preview">
-        {% if file_url is not null %}
-            <a href="{{ asset(file_url) }}" class="btn btn-secondary" target="_blank">
-                <span class="fui-eye"></span>
-            </a>
-        {% endif %}
-    </div>
-{% endspaceless %}{% endblock %}
-
 {% block tuna_file_widget %}
+    {% import 'TheCodeineAdminBundle:_partials/_form:_theme.html.twig' as theme %}
     {% set wrapperId = form.vars.id ~ '_wrapper' %}
-    {% set file_url = '/uploads/tmp/__path__' %}
     {% set dropzoneOptions = {
     selector: '#' ~ wrapperId,
-    previewTemplate: block('tuna_file_preview'),
+    previewTemplate: theme.tuna_file_preview('/uploads/tmp/__path__'),
     previewSelector: '#' ~ wrapperId ~ ' .preview'
     } %}
     <div id="{{ wrapperId }}" class="thecodeine_admin_file" data-dropzone-options="{{ dropzoneOptions | json_encode }}">
         {% set file = form.vars.data %}
-        {% if file and file.path and form.vars.valid %}
-            {% set file_url = (file.uploaded  ? '/uploads/tmp/' : '/uploads/files/') ~ file.path %}
-            {{ block('tuna_file_preview') | raw }}
-        {% endif %}
-        {{ form_widget(form) }}
+        <div class="preview">
+            {% if file and file.path and form.vars.valid %}
+                {% set fileUrl = (file.uploaded  ? '/uploads/tmp/' : '/uploads/files/') ~ file.path %}
+                {{ theme.tuna_file_preview(fileUrl) | raw }}
+            {% endif %}
+            {{ form_widget(form) }}
+        </div>
     </div>
 {% endblock %}
