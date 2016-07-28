@@ -6,6 +6,7 @@ window.tuna || (window.tuna = {
     view: {
         helpers: {}
     },
+    events: {},
     model: {},
     collection: {},
     router: {},
@@ -25,6 +26,8 @@ window.tuna || (window.tuna = {
 tuna.website = {
     init: function (options) {
         this.options = options;
+
+        tuna.events = _.extend({}, Backbone.Events);
 
         //init main views
         new tuna.view.NavigationView({el: $('nav')});

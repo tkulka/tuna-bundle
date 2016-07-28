@@ -36,7 +36,7 @@
                 clickable:'[data-dropzone-clickable]',
                 addedfile: function () {},
                 error: function (file, response) {
-                    alert(response.messages);
+                    alert(response);
                 },
                 init: function () {
                     this.on('success', function(file, response) {
@@ -49,12 +49,12 @@
                     });
 
                     this.on("queuecomplete", function () {
-                        dropzoneView.onSendingComplate();
+                        tuna.events.trigger("backgroundJobEnd");
                         this.removeAllFiles();
                     });
 
                     this.on("sending", function () {
-                        dropzoneView.onSending();
+                        tuna.events.trigger("backgroundJobStart");
                     });
                 }
             }, this.options);
@@ -68,14 +68,6 @@
                 this.$('.preview').html(
                     this.options.previewTemplate.replace("__path__", response.path)
                 );
-        },
-
-        onSendingComplate: function () {
-            this.$el.removeClass('sending');
-        },
-
-        onSending: function () {
-            this.$el.addClass('sending');
         }
     });
 })();
