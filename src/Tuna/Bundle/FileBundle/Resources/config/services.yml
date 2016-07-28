@@ -15,3 +15,10 @@ services:
         arguments: ['@the_codeine_file.manager.file_manager']
         tags:
             - { name: validator.constraint_validator }
+
+    the_codeine_file.twig.upload_extension:
+        class: TheCodeine\FileBundle\Twig\UploadExtension
+        arguments:
+            - "%the_codeine_file.file_manager%"
+        tags:
+            - { name: twig.extension }

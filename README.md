@@ -98,85 +98,86 @@ JavaScript translations are in `Resources/translations/tuna_admin.pl.yml`. After
 ## Extending Page:
   1. Entity:
   
-        use TheCodeine\PageBundle\Entity\AbstractPage;
-        
+    use TheCodeine\PageBundle\Entity\AbstractPage;
+     
+    /**
+     * Subpage
+     *
+     * @ORM\Table(name="subpage")
+     * @Gedmo\TranslationEntity(class="AppBundle\Entity\SubpageTranslation")
+     * @ORM\Entity(repositoryClass="TheCodeine\PageBundle\Entity\PageRepository") // or extend this one
+     */
+    class Subpage extends AbstractPage
+    {
         /**
-         * Subpage
-         *
-         * @ORM\Table(name="subpage")
-         * @Gedmo\TranslationEntity(class="AppBundle\Entity\SubpageTranslation")
-         * @ORM\Entity(repositoryClass="TheCodeine\PageBundle\Entity\PageRepository") // or extend this one
+         * @ORM\OneToMany(targetEntity="SubpageTranslation", mappedBy="object", cascade={"persist", "remove"})
          */
-        class Subpage extends AbstractPage
-        {
-            /**
-             * @ORM\OneToMany(targetEntity="SubpageTranslation", mappedBy="object", cascade={"persist", "remove"})
-             */
-            protected $translations;
-        }
+        protected $translations;
+    }
 
   2. Form:
   
-        use TheCodeine\PageBundle\Form\AbstractPageType;
-        
-        class SubpageType extends AbstractPageType
+    use TheCodeine\PageBundle\Form\AbstractPageType;
+     
+    class SubpageType extends AbstractPageType
+    {
+        /**
+         * @param FormBuilderInterface $builder
+         * @param array $options
+         */
+        public function buildForm(FormBuilderInterface $builder, array $options)
         {
-            /**
-             * @param FormBuilderInterface $builder
-             * @param array $options
-             */
-            public function buildForm(FormBuilderInterface $builder, array $options)
-            {
-                parent::buildForm($builder, $options);
-                // your additional fields
-            }
-        
-            protected function getEntityClass()
-            {
-                return 'AppBundle\Entity\Subpage';
-            }
-        
-            /**
-             * @return string
-             */
-            public function getName()
-            {
-                return 'appbundle_subpage';
-            }
+            parent::buildForm($builder, $options);
+            // your additional fields
         }
+    
+        protected function getEntityClass()
+        {
+            return 'AppBundle\Entity\Subpage';
+        }
+    
+        /**
+         * @return string
+         */
+        public function getName()
+        {
+            return 'appbundle_subpage';
+        }
+    }
 
   3. Controller:
   
-        use TheCodeine\PageBundle\Controller\AbstractPageController;
-        use TheCodeine\PageBundle\Entity\AbstractPage;
-        
-        /**
-         * Subpage controller.
-         */
-        class SubpageController extends AbstractPageController
+    use TheCodeine\PageBundle\Controller\AbstractPageController;
+    use TheCodeine\PageBundle\Entity\AbstractPage;
+     
+    /**
+     * Subpage controller.
+     */
+    class SubpageController extends AbstractPageController
+    {
+        public function getNewPage()
         {
-            public function getNewPage()
-            {
-                return new Subpage();
-            }
-        
-            public function getNewFormType(BasePage $page = null, $validate = true)
-            {
-                return new SubpageType($validate);
-            }
-        
-            public function getRedirectUrl(BasePage $page = null)
-            {
-                return $this->generateUrl('app_subpage_list');
-            }
-        
-            public function getRepository()
-            {
-                return $this->getDoctrine()->getRepository('AppBundle:Subpage');
-            }
+            return new Subpage();
         }
+    
+        public function getNewFormType(BasePage $page = null, $validate = true)
+        {
+            return new SubpageType($validate);
+        }
+    
+        public function getRedirectUrl(BasePage $page = null)
+        {
+            return $this->generateUrl('app_subpage_list');
+        }
+    
+        public function getRepository()
+        {
+            return $this->getDoctrine()->getRepository('AppBundle:Subpage');
+        }
+    }
    
    4. Routing:
+   
     Routes should be configured as annotations
     
         my_admin:
@@ -242,24 +243,46 @@ Tuna provides two types of files: `File` and `Image`. You can easily add yours b
 You can use these types in entity as:
 
   1. required field:
-  
-        use TheCodeine\FileBundle\Validator\Constraints as FileAssert;
-        
-        /**
-         * @var File
-         *
-         * @FileAssert\FileNotNull
-         * @ORM\ManyToOne(targetEntity="TheCodeine\FileBundle\Entity\File", cascade={"persist", "remove"})
-        **/
-        protected $file;
+    
+    // AppBundle/Entity/Project.php
+     
+    use TheCodeine\FileBundle\Validator\Constraints as FileAssert;  
+     
+    /**
+     * @var File
+     *
+     * @FileAssert\FileNotNull
+     * @ORM\ManyToOne(targetEntity="TheCodeine\FileBundle\Entity\File", cascade={"persist", "remove"})
+    **/
+    protected $file;
+     
+     
+    // AppBundle/Form/ProjectType.php
+     
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder->add('image', ImageType::class);
+    }
         
   2. optional field (you can delete file by setting empty `path`):
   
-        /**
-         * @ORM\OneToOne(targetEntity="TheCodeine\FileBundle\Entity\Image", cascade={"persist", "remove"})
-         * @ORM\JoinColumn(onDelete="SET NULL")
-         */
-        protected $image;
+    // AppBundle/Entity/Project.php
+     
+    /**
+     * @ORM\OneToOne(targetEntity="TheCodeine\FileBundle\Entity\Image", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(onDelete="SET NULL")
+     */
+    protected $image;
+     
+     
+    // AppBundle/Form/ProjectType.php
+     
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder->add('image', ImageType::class, array(
+            'attr' => array('deletable' => false), // defaults to true
+        );
+    }
 
 You can change default file location via `the_codeine_file` config (here's the defaults):
 
