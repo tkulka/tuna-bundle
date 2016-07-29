@@ -1,28 +1,22 @@
-{% block tuna_image_preview %}{% spaceless %}
-    <div class="preview">
-        {% if file_url is not null %}
-            <img src="{{ file_url | imagine_filter('tuna_admin_thumb') }}"/>
-            {% if form.vars.attr.deletable %}
-                <span data-action="remove" class="remove">{% trans %}remove{% endtrans %}</span>
-            {% endif %}
-        {% endif %}
-    </div>
-{% endspaceless %}{% endblock %}
-
 {% block tuna_image_widget %}
+    {% import 'TheCodeineAdminBundle:_partials/_form:_theme.html.twig' as theme %}
     {% set wrapperId = form.vars.id ~ '_wrapper' %}
-    {% set file_url = '/uploads/tmp/__path__' %}
     {% set dropzoneOptions = {
-    selector: '#' ~ wrapperId,
-    previewTemplate: block('tuna_image_preview'),
-    previewSelector: '#' ~ wrapperId ~ ' .preview'
+    clickable: '.admin-option-container .btn-main-image',
+    selector: '.admin-option-container',
+    previewTemplate: theme.tuna_image_preview(tuna_uploadDir('tmp_path')~'/__path__', form.vars.attr.deletable),
+    previewsContainer: '#' ~ wrapperId ~ ' .preview',
+    dropoverText: 'Drop your cover image here' | trans
     } %}
     <div id="{{ wrapperId }}" class="thecodeine_admin_main_image" data-dropzone-options="{{ dropzoneOptions | json_encode }}">
         {% set image = form.vars.data %}
-        {% if image and image.path and form.vars.valid %}
-            {% set file_url = (image.uploaded ? '/uploads/tmp/' : '/uploads/files/') ~ image.path %}
-            {{ block('tuna_image_preview') | raw }}
-        {% endif %}
+
+        <div class="preview">
+            {% if image and image.path and form.vars.valid %}
+                {% set fileUrl = (image.uploaded ? tuna_uploadDir('tmp_path') : tuna_uploadDir('upload_files_path')) ~ '/' ~ image.path %}
+                {{ theme.tuna_image_preview(fileUrl, form.vars.attr.deletable) | raw }}
+            {% endif %}
+        </div>
         {{ form_widget(form) }}
     </div>
 {% endblock %}

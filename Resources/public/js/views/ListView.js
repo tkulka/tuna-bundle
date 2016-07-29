@@ -6,7 +6,7 @@
      */
     tuna.view.ListView = Backbone.View.extend({
         events: {
-            'click [data-action="delete"]': "onDeleteItem"
+            'click [data-action="delete"]': 'onDeleteItem'
         },
 
         onDeleteItem: function (e) {

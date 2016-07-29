@@ -46,6 +46,10 @@
     </section>
 </div>
 
+<div id="upload">
+    <span>{% trans %}Twoje pliki sa przesyłane proszę czekać ...{% endtrans %}</span>
+</div>
+
 {% include 'TheCodeineAdminBundle::_partials/_modal.html.twig' %}
 
 {% javascripts
@@ -62,6 +66,8 @@
 '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.hotkeys.js'
 '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.placeholder.js'
 '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.htmlClean.js'
+'@TheCodeineAdminBundle/Resources/public/js/vendor/dropzone.min.js'
+'@TheCodeineAdminBundle/Resources/public/js/vendor/jquery.dragbetter.min.js'
 '@TheCodeineAdminBundle/Resources/public/js/vendor/underscore-1.6.0.js'
 '@TheCodeineAdminBundle/Resources/public/js/vendor/backbone-1.1.2.js'
 '@TheCodeineAdminBundle/Resources/public/js/vendor/flatUI/respond.min.js'

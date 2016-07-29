@@ -6,7 +6,7 @@
      */
     tuna.view.NavigationView = Backbone.View.extend({
         events: {
-            'change select': "onSelectChange"
+            'change select': 'onSelectChange'
         },
 
         onSelectChange: function (e) {

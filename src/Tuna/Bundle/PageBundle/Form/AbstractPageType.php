@@ -46,7 +46,9 @@ abstract class AbstractPageType extends AbstractType
             }, 900);
         }
         $builder
-            ->add('image', ImageType::class)
+            ->add('image', ImageType::class,  array(
+                'label' => false
+            ))
             ->add('published', Type\CheckboxType::class, array(
                 'required' => false
             ))

@@ -1,7 +1,14 @@
-.thecodeine_admin_main_image {
-    .main-image {
+.admin-option-container .thecodeine_admin_main_image {
+    .preview {
+        img {
+            border: 2px solid $brand-primary;
+            height: 197px;
+            width: 280px;
+        }
+
         .remove {
             position: absolute;
+            cursor: pointer;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
@@ -12,24 +19,13 @@
             color: #fff;
         }
 
-        .image {
-            position: relative;
-            cursor: pointer;
-
+        &:hover {
             img {
-                width: 100%;
-                transition: all ease-out .3s;
-                border: 2px solid $brand-primary;
+                opacity: .5;
             }
 
-            &:hover {
-                img {
-                    opacity: .5;
-                }
-
-                .remove {
-                    opacity: 1;
-                }
+            .remove {
+                opacity: 1;
             }
         }
     }
