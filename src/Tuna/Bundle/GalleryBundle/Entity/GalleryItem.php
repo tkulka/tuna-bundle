@@ -2,14 +2,16 @@
 
 namespace TheCodeine\GalleryBundle\Entity;
 
-use TheCodeine\ImageBundle\Entity\Image;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use TheCodeine\FileBundle\Entity\Image;
 use TheCodeine\VideoBundle\Entity\Video;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use TheCodeine\FileBundle\Validator\Constraints as FileAssert;
+use TheCodeine\GalleryBundle\Validator\Constraints as GalleryAssert;
 
 /**
  * PositionedImage
@@ -17,6 +19,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  * @ORM\Table(name="gallery_items")
  * @ORM\Entity
  * @Gedmo\TranslationEntity(class="TheCodeine\GalleryBundle\Entity\GalleryItemTranslation")
+ * @GalleryAssert\GalleryItemFileNotNull
  *
  * @ORM\HasLifecycleCallbacks
  */
@@ -40,7 +43,6 @@ class GalleryItem
     private $id;
 
     /**
-     * @var
      * @ORM\ManyToOne(targetEntity="TheCodeine\GalleryBundle\Entity\Gallery", inversedBy="items")
      * @ORM\JoinColumn(name="gallery_id", referencedColumnName="id")
      *
@@ -55,13 +57,17 @@ class GalleryItem
     private $position;
 
     /**
+     * @Assert\Valid
+     *
      * @var Image
      *
-     * @ORM\ManyToOne(targetEntity="TheCodeine\ImageBundle\Entity\Image", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="TheCodeine\FileBundle\Entity\Image", cascade={"persist", "remove"})
      **/
     private $image;
 
     /**
+     * @Assert\Valid
+     *
      * @var Video
      *
      * @ORM\ManyToOne(targetEntity="TheCodeine\VideoBundle\Entity\Video", cascade={"persist"})
@@ -84,6 +90,8 @@ class GalleryItem
     private $type;
 
     /**
+     * @Assert\Valid
+     *
      * @ORM\OneToMany(targetEntity="GalleryItemTranslation", mappedBy="object", cascade={"persist", "remove"})
      */
     private $translations;
@@ -101,22 +109,6 @@ class GalleryItem
 
         if ($type !== null) {
             $this->setType($type);
-        }
-    }
-
-    /**
-     * @Assert\Callback
-     */
-    public function validateImage(ExecutionContextInterface $context)
-    {
-        if ($this->getType() !== GalleryItem::IMAGE_TYPE) {
-            return;
-        }
-
-        if (!$this->getImage() || (!$this->getImage()->getFile() && !$this->getImage()->getPath())) {
-            $context->buildViolation('error.image.empty')
-                ->atPath('image.file')
-                ->addViolation();
         }
     }
 

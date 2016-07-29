@@ -1,19 +1,29 @@
 {% block tuna_attachments_widget %}
-    <div class="form-group thecodeine_admin_attachments">
-        <a href="javascript:void(0)" class="btn btn-border add_new_attachment " data-prototype="{{ form_widget(form.vars.prototype)|e }}">
+    {% import 'TheCodeineAdminBundle:_partials/_form:_theme.html.twig' as theme %}
+    {% set wrapperId = form.vars.id ~ '_wrapper' %}
+    {% set dropzoneOptions = {
+    clickable: '[data-action="add-new-attachment"]',
+    selector: '.admin-attachments-container',
+    previewTemplate: theme.tuna_file_preview(tuna_uploadDir('tmp_path')~'/__path__') | raw,
+    previewsContainer: '#' ~ wrapperId ~ ' .attachments',
+    acceptedFiles: '',
+    dropoverText: 'Drop your attachments here' | trans
+    } %}
+    <div id="{{ wrapperId }}" class="form-group thecodeine_admin_attachments" data-dropzone-options="{{ dropzoneOptions | json_encode }}">
+        <a href="javascript:void(0)" class="btn btn-border" data-prototype="{{ form_widget(form.vars.prototype)|e }}" data-action="add-new-attachment">
             <i class="fa fa-plus" aria-hidden="true"></i>
         </a>
         <ul class="attachments clearfix">
             {% for attachment in form %}
-                {{ form_widget(attachment, {'label': false}) }}
+                {{ form_row(attachment, {label: false}) }}
             {% endfor %}
         </ul>
     </div>
 {% endblock %}
 
 {% block tuna_attachment_widget %}
+    {% import 'TheCodeineAdminBundle:_partials/_form:_theme.html.twig' as theme %}
     {% spaceless %}
-        {% set attachment = form.vars.value %}
         <li class="item ui-state-default">
             <div class="gallery-table">
                 <div class="table-row">
@@ -24,30 +34,30 @@
                     </div>
 
                     <div class="options-container">
-                        <div class="upload-container">
-                            <a href="javascript:void(0)" class="btn btn-secondary">
-                                <span class="fa fa-upload" aria-hidden="true"></span>
-                                {{ form_widget(form.file) }}
-                            </a>
-                        </div>
+                        {{ form_widget(form.file) }}
+                        <div class="preview">
+                            {% set attachment = form.vars.data %}
 
-                        {% if(attachment is not null) %}
-                            <a href="{{ vich_uploader_asset(attachment,'file') }}" class="btn btn-secondary"
-                               target="_blank"><span class="fui-eye"></span></a>
-                        {% endif %}
+                            {% if attachment and attachment.file.path and form.vars.valid %}
+                                {% set fileUrl = (attachment.file.uploaded ? tuna_uploadDir('tmp_path') : tuna_uploadDir('upload_files_path')) ~ '/' ~ attachment.file.path %}
+
+                                {{ theme.tuna_file_preview(fileUrl) | raw }}
+                            {% endif %}
+                        </div>
                     </div>
 
                     <div class="option handle">
                         <i class="fa fa-bars" aria-hidden="true"></i>
                     </div>
 
-                    <div class="option delete">
+                    <div class="option delete" data-action="delete">
                         <i class="fa fa-trash-o" aria-hidden="true"></i>
                     </div>
                 </div>
                 {% if not form.vars.valid %}
                     <div class="table-row">
                         {{ form_errors(form) }}
+                        {{ form_errors(form.file) }}
                     </div>
                 {% endif %}
             </div>

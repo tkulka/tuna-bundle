@@ -4,6 +4,7 @@ namespace TheCodeine\PageBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Page
@@ -18,6 +19,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
 class Page extends AbstractPage
 {
     /**
+     * @Assert\Valid
+     *
      * @ORM\OneToMany(targetEntity="PageTranslation", mappedBy="object", cascade={"persist", "remove"})
      */
     protected $translations;

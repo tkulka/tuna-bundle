@@ -4,9 +4,7 @@ namespace TheCodeine\GalleryBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-
-use TheCodeine\GalleryBundle\Entity\GalleryItem;
-
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Gallery
@@ -32,8 +30,11 @@ class Gallery
     private $title;
 
     /**
-     * @var GalleryItem
-     * @ORM\OneToMany(targetEntity="TheCodeine\GalleryBundle\Entity\GalleryItem", mappedBy="gallery", cascade={"persist"})
+     * @Assert\Valid
+     *
+     * @var ArrayCollection|GalleryItem[]
+     *
+     * @ORM\OneToMany(targetEntity="TheCodeine\GalleryBundle\Entity\GalleryItem", mappedBy="gallery", cascade={"persist", "remove"})
      * @ORM\OrderBy({"position" = "ASC"})
      **/
     private $items;
@@ -74,28 +75,17 @@ class Gallery
     }
 
     /**
-     * Add item
-     *
-     * @param GalleryItem $item
-     *
      * @return $this
+     * @param mixed $items
      */
-    public function addItem(GalleryItem $item)
+    public function setItems($items)
     {
-        $item->setGallery($this);
-        $this->items[] = $item;
+        foreach ($items as $item) {
+            $item->setGallery($this);
+        }
+        $this->items = $items;
 
         return $this;
-    }
-
-    /**
-     * Remove item
-     *
-     * @param GalleryItem $item
-     */
-    public function removeItem(GalleryItem $item)
-    {
-        $this->items->removeElement($item);
     }
 
     /**

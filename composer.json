@@ -37,6 +37,7 @@
     "replace": {
         "thecodeine/tuna-categorybundle": "self.version",
         "thecodeine/tuna-editorbundle": "self.version",
+        "thecodeine/tuna-filebundle": "self.version",
         "thecodeine/tuna-gallerybundle": "self.version",
         "thecodeine/tuna-imagebundle": "self.version",
         "thecodeine/tuna-newsbundle": "self.version",
@@ -62,6 +63,7 @@
             "TheCodeine\\AdminBundle\\": "",
             "TheCodeine\\CategoryBundle\\": "src/Tuna/Bundle/CategoryBundle",
             "TheCodeine\\EditorBundle\\": "src/Tuna/Bundle/EditorBundle",
+            "TheCodeine\\FileBundle\\": "src/Tuna/Bundle/FileBundle",
             "TheCodeine\\GalleryBundle\\": "src/Tuna/Bundle/GalleryBundle",
             "TheCodeine\\ImageBundle\\": "src/Tuna/Bundle/ImageBundle",
             "TheCodeine\\NewsBundle\\": "src/Tuna/Bundle/NewsBundle",

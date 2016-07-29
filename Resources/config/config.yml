@@ -97,5 +97,5 @@ assetic:
         sass:
             load_paths:
                 - "%the_codeine_admin.components.editor.wysiwyg_style_dir%"
-            apply_to: "\.s[ac]ss$"
+            apply_to: "\\.s[ac]ss$"
             bin: "%sass_bin%"

@@ -59,6 +59,7 @@ class NewsController extends AbstractPageController
         $validate = !$request->isXmlHttpRequest();
         $news = $this->get('tuna.news.factory')->getInstance($newsType);
         $form = $this->createForm($this->get('tuna.news.factory')->getFormInstance($news, $validate), $news);
+        $form->add('save', 'submit');
 
         $result = $this->handleCreateForm($request, $form, $news);
 

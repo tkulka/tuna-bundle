@@ -9,7 +9,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 
 use TheCodeine\GalleryBundle\Entity\Gallery;
-use TheCodeine\NewsBundle\Entity\Attachment;
+use TheCodeine\FileBundle\Entity\Attachment;
 
 /**
  * Page
@@ -58,10 +58,13 @@ abstract class AbstractPage
     protected $body;
 
     /**
-     * @ORM\OneToOne(targetEntity="\TheCodeine\ImageBundle\Entity\Image", cascade={"persist"})
-     * @ORM\JoinColumn(name="image_id", referencedColumnName="id")
+     * @Assert\Valid
+     *
+     * @ORM\OneToOne(targetEntity="TheCodeine\FileBundle\Entity\Image", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(onDelete="SET NULL")
      */
     protected $image;
+
     protected $translations;
 
     /**
@@ -72,7 +75,9 @@ abstract class AbstractPage
     protected $locale;
 
     /**
-     * @ORM\OneToOne(targetEntity="TheCodeine\GalleryBundle\Entity\Gallery",cascade={"persist"})
+     * @Assert\Valid
+     *
+     * @ORM\OneToOne(targetEntity="TheCodeine\GalleryBundle\Entity\Gallery", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="gallery_id", referencedColumnName="id")
      */
     protected $gallery;
@@ -83,7 +88,9 @@ abstract class AbstractPage
     protected $published;
 
     /**
-     * @ORM\ManyToMany(targetEntity="TheCodeine\NewsBundle\Entity\Attachment", cascade={"persist"})
+     * @Assert\Valid
+     *
+     * @ORM\ManyToMany(targetEntity="TheCodeine\FileBundle\Entity\Attachment", cascade={"persist", "remove"})
      * @ORM\JoinTable(
      *      joinColumns={@ORM\JoinColumn(name="page_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="attachment_id", referencedColumnName="id", unique=true)}
@@ -106,7 +113,7 @@ abstract class AbstractPage
      * Set gallery
      *
      * @param \TheCodeine\GalleryBundle\Entity\Gallery $gallery
-     * @return News
+     * @return $this
      */
     public function setGallery(Gallery $gallery = null)
     {
@@ -271,28 +278,16 @@ abstract class AbstractPage
     }
 
     /**
-     * Add attachments
-     *
-     * @param \TheCodeine\NewsBundle\Entity\Attachment $attachment
-     * @return News
+     * @return $this
+     * @param mixed $attachments
      */
-    public function addAttachment(\TheCodeine\NewsBundle\Entity\Attachment $attachment)
+    public function setAttachments($attachments)
     {
-
-        $this->attachments[] = $attachment;
+        $this->attachments = $attachments;
 
         return $this;
     }
 
-    /**
-     * Remove attachments
-     *
-     * @param \TheCodeine\NewsBundle\Entity\Attachment $attachment
-     */
-    public function removeAttachment(Attachment $attachment)
-    {
-        $this->attachments->removeElement($attachment);
-    }
 
     /**
      * Get attachments

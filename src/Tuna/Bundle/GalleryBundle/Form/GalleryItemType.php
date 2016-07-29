@@ -2,15 +2,18 @@
 
 namespace TheCodeine\GalleryBundle\Form;
 
+use A2lix\TranslationFormBundle\Form\Type\GedmoTranslationsType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 
+use TheCodeine\FileBundle\Form\ImageType;
 use TheCodeine\GalleryBundle\Entity\GalleryItem;
-use TheCodeine\ImageBundle\Form\ImageRequestThumbnailType;
+use TheCodeine\VideoBundle\Form\VideoUrlType;
 
 class GalleryItemType extends AbstractType
 {
@@ -21,7 +24,7 @@ class GalleryItemType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('type', 'hidden');
+            ->add('type', Type\HiddenType::class);
 
         $formModifier = function (FormInterface $form, $type) {
             if (empty($type)) {
@@ -30,14 +33,14 @@ class GalleryItemType extends AbstractType
 
             if ($type === GalleryItem::VIDEO_TYPE) {
                 $form
-                    ->add('position', 'hidden')
-                    ->add('video', 'thecodeine_videobundle_url', array(
+                    ->add('position', Type\HiddenType::class)
+                    ->add('video', VideoUrlType::class, array(
                         'attr' => array(
                             'placeholder' => 'Video URL'
                         )
                     ))
-                    ->add('translations', 'a2lix_translations_gedmo', array(
-                        'translatable_class' => 'TheCodeine\GalleryBundle\Entity\GalleryItem',
+                    ->add('translations', GedmoTranslationsType::class, array(
+                        'translatable_class' => GalleryItem::class,
                         'fields' => array(
                             'name' => array(
                                 'field_type' => 'text',
@@ -50,12 +53,14 @@ class GalleryItemType extends AbstractType
                     ));
             } else if ($type === GalleryItem::IMAGE_TYPE) {
                 $form
-                    ->add('position', 'hidden')
-                    ->add('image', new ImageRequestThumbnailType(), array(
-                        'data_class' => 'TheCodeine\ImageBundle\Entity\Image'
+                    ->add('position', Type\HiddenType::class)
+                    ->add('image', ImageType::class, array(
+                        'attr' => array(
+                            'deletable' => false,
+                        )
                     ))
-                    ->add('translations', 'a2lix_translations_gedmo', array(
-                        'translatable_class' => 'TheCodeine\GalleryBundle\Entity\GalleryItem',
+                    ->add('translations', GedmoTranslationsType::class, array(
+                        'translatable_class' => GalleryItem::class,
                         'fields' => array(
                             'name' => array(
                                 'attr' => array(
@@ -95,7 +100,8 @@ class GalleryItemType extends AbstractType
     public function setOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'TheCodeine\GalleryBundle\Entity\GalleryItem'
+            'data_class' => GalleryItem::class,
+            'error_bubbling' => false,
         ));
     }
 

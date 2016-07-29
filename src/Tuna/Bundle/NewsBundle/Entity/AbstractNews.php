@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use TheCodeine\PageBundle\Entity\AbstractPage;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * AbstractNews
@@ -30,12 +31,15 @@ abstract class AbstractNews extends AbstractPage
     protected $createdAt;
 
     /**
+     * @Assert\Valid
+     *
      * @ORM\OneToMany(targetEntity="NewsTranslation", mappedBy="object", cascade={"persist", "remove"})
      */
     protected $translations;
 
     /**
-     * @var
+     * @Assert\Valid
+     *
      * @ORM\ManyToMany(targetEntity="\TheCodeine\TagBundle\Entity\Tag", cascade={"persist"})
      * @ORM\JoinTable(name="news_tags",
      *      joinColumns={@ORM\JoinColumn(name="news_id", referencedColumnName="id")},

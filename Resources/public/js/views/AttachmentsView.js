@@ -1,14 +1,13 @@
 (function () {
     tuna.view.AttachmentsView = Backbone.View.extend({
         events: {
-            "click .add_new_attachment": "_onAddNewAttachment",
-            "click .delete": "_onClickDelete",
-            "change input[type='file']": "_onInputFileChange",
-            'click .close': "_onClose",
-            'close': "_onClose",
-            'open': "_onOpen",
-            'click': "_onClick",
-            'click .a2lix_translationsLocales li a': "_onLanguageChange"
+            'click [data-action="delete"]': '_onClickDelete',
+            'change input[type="file"]': '_onInputFileChange',
+            'click .close': '_onClose',
+            'close': '_onClose',
+            'open': '_onOpen',
+            'click': '_onClick',
+            'click .a2lix_translationsLocales li a': '_onLanguageChange'
         },
 
         initialize: function () {
@@ -16,6 +15,15 @@
             this._initSortable();
             this.$wrapper = this.$('.thecodeine_admin_attachments');
             this.$wrapper.data('index', this.$('li.item').length);
+
+            var options = this.$('[data-dropzone-options]').data('dropzone-options');
+            if (options) {
+                new tuna.view.DropzoneView({
+                    el: $(options.selector),
+                    options: options,
+                    parentView: this
+                });
+            }
         },
 
         _onClose: function () {
@@ -53,16 +61,22 @@
             e.stopPropagation();
         },
 
-        _onAddNewAttachment: function (e) {
+        addItem: function (file) {
             this._destroySortable();
-            var $a = $(e.currentTarget);
-            var prototype = $a.data('prototype');
+            var prototype = this.$('.thecodeine_admin_attachments a').data('prototype');
             var index = this.$wrapper.data('index') + 1;
             this.$wrapper.data('index', index);
 
-            var newForm = prototype.replace(/__name__/g, index);
+            var $newForm = $(prototype.replace(/__name__/g, index));
 
-            this.$('.attachments').append($(newForm));
+            $newForm.find('.input--path').val(file.path);
+            $newForm.find('.input--filename, input[type="text"]').val(file.originalName);
+
+            var options = this.$('.thecodeine_admin_attachments').data('dropzone-options');
+
+            $newForm.find('.options-container .preview').append(options.previewTemplate.replace('__path__', file.path));
+            this.$('.attachments').append($newForm);
+
             this._initSortable();
             this.recalculateItemPositions();
         },
@@ -80,6 +94,9 @@
             var container = $(e.target.closest('.item')).find('.item-name .tab-content');
             container.find('.attachment-name').remove();
             container.append('<p class="attachment-name">' + Translator.trans('Added') + ': ' + fileName + '</p>')
+        },
+        uploadCallback: function (response) {
+            this.addItem(response);
         }
     });
 })();

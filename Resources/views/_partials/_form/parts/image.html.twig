@@ -1,41 +1,22 @@
-{% block imagefile_widget %}
-    {% spaceless %}
-        {% set image =  form.parent.vars.value %}
-        {% if image %}
-            <p>
-                <img src="{{ ('/uploads/' ~ image.path) | imagine_filter('tuna_admin_thumb') }}"/>
-            </p>
-        {% endif %}
-        <input type="file" {{ block('widget_attributes') }} />
-    {% endspaceless %}
-{% endblock %}
+{% block tuna_image_widget %}
+    {% import 'TheCodeineAdminBundle:_partials/_form:_theme.html.twig' as theme %}
+    {% set wrapperId = form.vars.id ~ '_wrapper' %}
+    {% set dropzoneOptions = {
+    clickable: '.admin-option-container .btn-main-image',
+    selector: '.admin-option-container',
+    previewTemplate: theme.tuna_image_preview(tuna_uploadDir('tmp_path')~'/__path__', form.vars.attr.deletable),
+    previewsContainer: '#' ~ wrapperId ~ ' .preview',
+    dropoverText: 'Drop your cover image here' | trans
+    } %}
+    <div id="{{ wrapperId }}" class="thecodeine_admin_main_image" data-dropzone-options="{{ dropzoneOptions | json_encode }}">
+        {% set image = form.vars.data %}
 
-{% block main_image_widget %}
-    {% set attr = attr | merge({class: (attr.class is defined ? attr.class ~ ' ') ~ 'thecodeine_admin_main_image'}) %}
-    <div {{ block('widget_container_attributes') }}>
-        {%- if form.parent is empty -%}
-            {{ form_errors(form) }}
-        {%- endif -%}
-        {{- block('form_rows') -}}
-        {{- form_rest(form) -}}
-    </div>
-{% endblock %}
-
-{% block main_imagefile_widget %}
-    {% spaceless %}
-        {% set image = form.parent.vars.value %}
-        <div class="form-group main-image">
-            <div class="image" data-action="remove">
-                {% if image and image.path %}
-                    <img src="{{ ('/uploads/' ~ image.path) | imagine_filter('tuna_admin_thumb') }}"/>
-                    <span class="remove">{% trans %}Usuń{% endtrans %}</span>
-                {% endif %}
-            </div>
-            <div class="btn btn-mini btn-primary btn-block input-wrapper">
-                <input type="file" {{ block('widget_attributes') }} />
-                {% trans %}Choose main picture{% endtrans %}
-                <i class="fui-arrow-right pull-right"></i>
-            </div>
+        <div class="preview">
+            {% if image and image.path and form.vars.valid %}
+                {% set fileUrl = (image.uploaded ? tuna_uploadDir('tmp_path') : tuna_uploadDir('upload_files_path')) ~ '/' ~ image.path %}
+                {{ theme.tuna_image_preview(fileUrl, form.vars.attr.deletable) | raw }}
+            {% endif %}
         </div>
-    {% endspaceless %}
+        {{ form_widget(form) }}
+    </div>
 {% endblock %}

@@ -14,8 +14,13 @@
     {% endif %}
 
     {% if form.image is defined %}
-        {{ form_widget(form.image) }}
+        {{ form_row(form.image, { label: false }) }}
     {% endif %}
+
+    <div class="btn btn-mini btn-primary btn-block btn-main-image">
+        {% trans %}Choose main picture{% endtrans %}
+        <i class="fui-arrow-right pull-right"></i>
+    </div>
 
     {{ extraFields | raw }}
 

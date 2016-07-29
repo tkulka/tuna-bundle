@@ -9,6 +9,6 @@ class AttachmentSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('TheCodeine\NewsBundle\Entity\Attachment');
+        $this->shouldHaveType('TheCodeine\FileBundle\Entity\Attachment');
     }
 }

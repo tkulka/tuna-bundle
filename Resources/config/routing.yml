@@ -19,11 +19,16 @@ fos_user_change_password:
     path: /admin/change-password
     defaults: { _controller: TheCodeineUserBundle:ChangePassword:changePassword }
 
-tuna_image:
-    resource: "@TheCodeineImageBundle/Resources/config/routing.yml"
+#tuna_image:
+#    resource: "@TheCodeineImageBundle/Resources/config/routing.yml"
 
 tuna_page:
     resource: "@TheCodeineAdminBundle/Controller/PageController.php"
+    type:     annotation
+    prefix:   /admin/
+
+tuna_file:
+    resource: "@TheCodeineFileBundle/Controller/DefaultController.php"
     type:     annotation
     prefix:   /admin/
 

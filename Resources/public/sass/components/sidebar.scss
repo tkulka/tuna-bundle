@@ -3,6 +3,7 @@
     background: $brand-secondary;
     height: 100%;
     display: none;
+    z-index: 11;
 
     @media all and (min-width: $desktopSmallScreen) {
         display: block;
