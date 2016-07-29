@@ -2,7 +2,7 @@
     tuna.view.GalleryView = Backbone.View.extend({
         events: {
             'click [data-type="video"]': 'onAddItemClick',
-            'click .delete': 'onDeleteClick',
+            'click [data-action="delete"]': 'onDeleteClick',
             'keyup input[type="url"]': 'onVideoUrlInputChange',
             'click .close': 'onClose',
             'close': 'onClose',

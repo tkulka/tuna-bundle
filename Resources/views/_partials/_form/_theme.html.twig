@@ -12,12 +12,10 @@
 
 {% macro tuna_image_preview(fileUrl, deletable) %}{% spaceless %}
     {% if fileUrl %}
-        <div>
-            <img src="{{ fileUrl | imagine_filter('tuna_admin_thumb') }}"/>
-            {% if deletable %}
-                <span data-action="remove" class="remove">{% trans %}remove{% endtrans %}</span>
-            {% endif %}
-        </div>
+        <img src="{{ fileUrl | imagine_filter('tuna_admin_thumb') }}"/>
+        {% if deletable %}
+            <span data-action="remove" class="remove">{% trans %}remove{% endtrans %}</span>
+        {% endif %}
     {% endif %}
 {% endspaceless %}{% endmacro %}
 

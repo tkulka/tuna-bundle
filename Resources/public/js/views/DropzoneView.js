@@ -17,11 +17,11 @@
         },
 
         bindEvents: function () {
-            this.dropzone.on('dragbetterenter', _.bind(function() {
+            this.dropzone.on('dragbetterenter', _.bind(function () {
                 this.$el.addClass('drag-over');
             }, this));
 
-            this.dropzone.on('dragbetterleave', _.bind(function() {
+            this.dropzone.on('dragbetterleave', _.bind(function () {
                 this.$el.removeClass('drag-over');
             }, this));
         },
@@ -33,27 +33,26 @@
                 url: '/admin/file/upload/',
                 acceptedFiles: '.jpg, .jpeg, .gif',
                 paramName: 'file',
-                clickable:'[data-dropzone-clickable]',
+                clickable: '[data-dropzone-clickable]',
                 addedfile: function () {},
                 error: function (file, response) {
                     alert(response);
                 },
                 init: function () {
-                    this.on('success', function(file, response) {
+                    this.on('success', function (file, response) {
                         if (dropzoneView.parentView) {
                             dropzoneView.parentView.uploadCallback(response);
-                        }else {
+                        } else {
                             dropzoneView.uploadCallback(response);
                         }
-
                     });
 
-                    this.on("queuecomplete", function () {
+                    this.on('queuecomplete', function () {
                         tuna.events.trigger("backgroundJobEnd");
                         this.removeAllFiles();
                     });
 
-                    this.on("sending", function () {
+                    this.on('sending', function () {
                         tuna.events.trigger("backgroundJobStart");
                     });
                 }
@@ -63,11 +62,11 @@
         },
 
         uploadCallback: function (response) {
-                this.$('.input--path').val(response.path);
-                this.$('.input--filename').val(response.originalName);
-                this.$('.preview').html(
-                    this.options.previewTemplate.replace("__path__", response.path)
-                );
+            this.$('.input--path').val(response.path);
+            this.$('.input--filename').val(response.originalName);
+            this.$('.preview').html(
+                this.options.previewTemplate.replace("__path__", response.path)
+            );
         }
     });
 })();
