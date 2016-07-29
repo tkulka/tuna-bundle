@@ -2,7 +2,7 @@
     width: 100%;
     display: none;
     position: fixed;
-    z-index: 90;
+    z-index: 9;
     left: 0px;
     padding: 40px 60px 60px 60px;
     top: 50px;
@@ -19,7 +19,6 @@
     @media all and (min-width: $desktopSmallScreen) {
         @include calc(width, "100% - #{$sidebarOptionsWidth + $sidebarNavWidth}");
         left: $sidebarOptionsWidth + $sidebarNavWidth;
-        z-index: -1;
     }
 
     .close {

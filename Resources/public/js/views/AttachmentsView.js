@@ -70,12 +70,11 @@
             var $newForm = $(prototype.replace(/__name__/g, index));
 
             $newForm.find('.input--path').val(response.path);
-            $newForm.find('.input--filename').val(response.originalName);
+            $newForm.find('.input--filename, input[type="text"]').val(response.originalName);
 
             var options = this.$('.thecodeine_admin_attachments').data('dropzone-options');
 
             $newForm.find('.options-container .preview').append(options.previewTemplate.replace('__path__', response.path));
-
             this.$('.attachments').append($newForm);
 
             this._initSortable();
