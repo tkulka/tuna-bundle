@@ -6,7 +6,7 @@
      */
     tuna.view.EditView = Backbone.View.extend({
         events: {
-            'click .a2lix_translationsLocales li a': "_onLanguageChange"
+            'click .a2lix_translationsLocales li a': '_onLanguageChange'
         },
 
         initialize: function (options) {

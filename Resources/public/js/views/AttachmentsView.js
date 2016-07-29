@@ -1,13 +1,13 @@
 (function () {
     tuna.view.AttachmentsView = Backbone.View.extend({
         events: {
-            "click .delete": "_onClickDelete",
-            "change input[type='file']": "_onInputFileChange",
-            'click .close': "_onClose",
-            'close': "_onClose",
-            'open': "_onOpen",
-            'click': "_onClick",
-            'click .a2lix_translationsLocales li a': "_onLanguageChange"
+            'click [data-action="delete"]': '_onClickDelete',
+            'change input[type="file"]': '_onInputFileChange',
+            'click .close': '_onClose',
+            'close': '_onClose',
+            'open': '_onOpen',
+            'click': '_onClick',
+            'click .a2lix_translationsLocales li a': '_onLanguageChange'
         },
 
         initialize: function () {

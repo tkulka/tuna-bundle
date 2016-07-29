@@ -65,7 +65,7 @@
             this.$('.input--path').val(response.path);
             this.$('.input--filename').val(response.originalName);
             this.$('.preview').html(
-                this.options.previewTemplate.replace("__path__", response.path)
+                this.options.previewTemplate.replace('__path__', response.path)
             );
         }
     });

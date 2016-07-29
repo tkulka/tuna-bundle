@@ -15,12 +15,12 @@
         },
 
         bindEvents: function () {
-            tuna.events.on("backgroundJobStart", _.bind(function(){
+            tuna.events.on('backgroundJobStart', _.bind(function(){
                 $('body').addClass('sending');
                 this.$('button[type="submit"]').attr('disabled', true);
             }, this));
 
-            tuna.events.on("backgroundJobEnd", _.bind(function(){
+            tuna.events.on('backgroundJobEnd', _.bind(function(){
                 $('body').removeClass('sending');
                 this.$('button[type="submit"]').attr('disabled', false);
             }, this));
