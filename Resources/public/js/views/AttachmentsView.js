@@ -61,7 +61,7 @@
             e.stopPropagation();
         },
 
-        addItem: function (response) {
+        addItem: function (file) {
             this._destroySortable();
             var prototype = this.$('.thecodeine_admin_attachments a').data('prototype');
             var index = this.$wrapper.data('index') + 1;
@@ -69,12 +69,12 @@
 
             var $newForm = $(prototype.replace(/__name__/g, index));
 
-            $newForm.find('.input--path').val(response.path);
-            $newForm.find('.input--filename, input[type="text"]').val(response.originalName);
+            $newForm.find('.input--path').val(file.path);
+            $newForm.find('.input--filename, input[type="text"]').val(file.originalName);
 
             var options = this.$('.thecodeine_admin_attachments').data('dropzone-options');
 
-            $newForm.find('.options-container .preview').append(options.previewTemplate.replace('__path__', response.path));
+            $newForm.find('.options-container .preview').append(options.previewTemplate.replace('__path__', file.path));
             this.$('.attachments').append($newForm);
 
             this._initSortable();
