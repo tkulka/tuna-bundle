@@ -18,12 +18,13 @@
             this.$wrapper.data('index', this.$('li.item').length);
 
             var options = this.$('[data-dropzone-options]').data('dropzone-options');
-            new tuna.view.DropzoneView({
-                el: $(options.selector),
-                options: options,
-                parentView: this
-            });
-
+            if (options) {
+                new tuna.view.DropzoneView({
+                    el: $(options.selector),
+                    options: options,
+                    parentView: this
+                });
+            }
         },
         onClick: function (e) {
             e.stopPropagation();
