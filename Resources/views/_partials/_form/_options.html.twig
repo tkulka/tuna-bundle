@@ -15,12 +15,13 @@
 
     {% if form.image is defined %}
         {{ form_row(form.image, { label: false }) }}
+        <div class="form-group form--image--btn">
+            <div class="btn btn-mini btn-primary btn-block btn-main-image">
+                {% trans %}Choose main picture{% endtrans %}
+                <i class="fui-arrow-right pull-right"></i>
+            </div>
+        </div>
     {% endif %}
-
-    <div class="btn btn-mini btn-primary btn-block btn-main-image">
-        {% trans %}Choose main picture{% endtrans %}
-        <i class="fui-arrow-right pull-right"></i>
-    </div>
 
     {{ extraFields | raw }}
 
