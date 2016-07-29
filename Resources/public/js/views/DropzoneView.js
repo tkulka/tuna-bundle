@@ -48,12 +48,12 @@
                     });
 
                     this.on('queuecomplete', function () {
-                        tuna.events.trigger("backgroundJobEnd");
+                        tuna.events.trigger('backgroundJobEnd');
                         this.removeAllFiles();
                     });
 
                     this.on('sending', function () {
-                        tuna.events.trigger("backgroundJobStart");
+                        tuna.events.trigger('backgroundJobStart');
                     });
                 }
             }, this.options);
