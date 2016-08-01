@@ -37,6 +37,7 @@
                 acceptedFiles: '.jpg, .jpeg, .gif',
                 paramName: 'file',
                 dictInvalidFileType: Translator.trans('You can\'t upload files of this type.'),
+                dictMaxFilesExceeded: Translator.trans('You can not upload any more files.'),
                 clickable: '[data-dropzone-clickable]',
                 addedfile: function () {},
                 error: function (file, error, xhr) {
@@ -44,9 +45,7 @@
                     if (xhr) error = error.messages;
 
                     if (!dropzoneView.$errorModal.is(':visible')) {
-                        dropzoneView.$errorModal.modal({
-                            keyboard: true
-                        });
+                        dropzoneView.$errorModal.modal();
                     }
 
                     dropzoneView.$errorModalBody.append('<p><strong>'+ file.name +'</strong> - '+ error +'</p>');

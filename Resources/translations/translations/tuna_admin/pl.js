@@ -10,4 +10,5 @@
     Translator.add("Couldn't refresh translations.", "Nie uda\u0142o si\u0119 od\u015bwie\u017cy\u0107 t\u0142umacze\u0144.", "tuna_admin", "pl");
     Translator.add("Translations refreshed.", "Od\u015bwie\u017cono t\u0142umaczenia na stronie.", "tuna_admin", "pl");
     Translator.add("You can't upload files of this type.", "Nie mo\u017cesz wgra\u0107 pliku z tym rozszerzeniem.", "tuna_admin", "pl");
+    Translator.add("You can not upload any more files.", "Nie mo\u017cesz wgra\u0107 a\u017c tylu plik\u00f3w.", "tuna_admin", "pl");
 })(Translator);
