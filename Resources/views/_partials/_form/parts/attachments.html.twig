@@ -38,7 +38,7 @@
                         <div class="preview">
                             {% set attachment = form.vars.data %}
 
-                            {% if attachment and attachment.file.path and form.vars.valid %}
+                            {% if attachment and attachment.file and attachment.file.path and form.vars.valid %}
                                 {% set fileUrl = (attachment.file.uploaded ? tuna_uploadDir('tmp_path') : tuna_uploadDir('upload_files_path')) ~ '/' ~ attachment.file.path %}
 
                                 {{ theme.tuna_file_preview(fileUrl) | raw }}
