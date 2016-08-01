@@ -13,8 +13,7 @@
 
         <div class="preview">
             {% if image and image.path and form.vars.valid %}
-                {% set fileUrl = (image.uploaded ? tuna_uploadDir('tmp_path') : tuna_uploadDir('upload_files_path')) ~ '/' ~ image.path %}
-                {{ theme.tuna_image_preview(fileUrl, form.vars.attr.deletable) | raw }}
+                {{ theme.tuna_image_preview(tuna_file(image), form.vars.attr.deletable) | raw }}
             {% endif %}
         </div>
         {{ form_widget(form) }}
