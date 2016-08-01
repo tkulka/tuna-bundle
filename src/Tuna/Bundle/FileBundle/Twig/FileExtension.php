@@ -40,16 +40,22 @@ class FileExtension extends \Twig_Extension
         );
     }
 
-    public function getFileWebPath(AbstractFile $file)
+    public function getFileWebPath(AbstractFile $file = null)
     {
+        if (!$file) {
+            return '';
+        }
         return $this->assetsHelper->getUrl(sprintf('%s/%s',
             $this->getUploadDir($file->isUploaded() ? 'tmp_path' : 'upload_files_path'),
             $file->getPath()
         ));
     }
 
-    public function getImageWebPath(AbstractFile $file, $filter = null)
+    public function getImageWebPath(AbstractFile $file = null, $filter = null)
     {
+        if (!$file) {
+            return '';
+        }
         $webPath = $this->getFileWebPath($file);
 
         return $filter ?
