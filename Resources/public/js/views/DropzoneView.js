@@ -4,6 +4,9 @@
         initialize: function (options) {
             Dropzone.autoDiscover = false;
 
+            this.$errorModal = $('#modalError');
+            this.$errorModalBody = this.$errorModal.find('.modal-body');
+
             this.parentView = options.parentView;
             this.options = options.options;
             this.setupOptions();
@@ -33,10 +36,23 @@
                 url: '/admin/file/upload/',
                 acceptedFiles: '.jpg, .jpeg, .gif',
                 paramName: 'file',
+                dictInvalidFileType: Translator.trans('You can\'t upload files of this type.'),
                 clickable: '[data-dropzone-clickable]',
                 addedfile: function () {},
-                error: function (file, response) {
-                    alert(response);
+                error: function (file, error, xhr) {
+
+                    if (xhr) error = error.messages;
+
+                    if (!dropzoneView.$errorModal.is(':visible')) {
+                        dropzoneView.$errorModal.modal({
+                            keyboard: true
+                        });
+                    }
+
+                    dropzoneView.$errorModalBody.append('<p><strong>'+ file.name +'</strong> - '+ error +'</p>');
+                    dropzoneView.$errorModal.on('hide.bs.modal', function (event) {
+                        dropzoneView.$errorModalBody.html('')
+                    });
                 },
                 init: function () {
                     this.on('success', function (file, response) {
