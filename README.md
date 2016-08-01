@@ -238,6 +238,8 @@ To override default editor styles, add `typography.scss` and `fonts.scss` to dir
 
 ## File type
 
+### Using and extending
+
 Tuna provides two types of files: `File` and `Image`. You can easily add yours by extending `AbstractFile` entity and `AbstractFileType` form.
 
 You can use these types in entity as:
@@ -291,3 +293,18 @@ You can change default file location via `the_codeine_file` config (here's the d
             web_root_dir: '%kernel.root_dir%/../web'
             tmp_path: uploads/tmp
             upload_files_path: uploads/files
+
+#### Rendering
+
+FileBundle provides three twig helpers for easy file rendering:
+  * `tuna_image(AbstractFile, filter = null)` - generates assets path to image, additionally you can apply imagine filter:
+  
+        <img src="{{ tuna_image(news.image, 'news_thumb') }}">`
+        
+  * `tuna_file(AbstractFile)` - generates assets path to file:
+  
+        <a href="{{ tuna_file(attachment.file) }}"></a>`
+    
+  * `tuna_uploadDir(type)` - returns path to upload dir of given file (where type is `tmp_path|upload_files_path`), useful for placeholders:
+  
+        previewTemplate: theme.tuna_image_preview(tuna_uploadDir('tmp_path')~'/__path__', form.vars.attr.deletable),
