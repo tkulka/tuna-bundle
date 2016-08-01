@@ -54,6 +54,7 @@
         },
         loadItemForm: function (selector, image) {
             var $form = this.$el.closest('form');
+            var oThis = this;
 
             $.ajax({
                 url: $form.attr('action'),
@@ -70,6 +71,8 @@
                     $(selector).find('.preview').html(options.previewTemplate.replace('__path__', image.path));
                     $(selector).find('.input--path').val(image.path);
                     $(selector).find('.input--filename ').val(image.originalName);
+
+                    oThis.recalculateItemPositions();
                 }
             });
         },
@@ -85,7 +88,6 @@
             this.$('.gallery-items').append($newForm);
             this.loadItemForm('#' + itemsId + "_" + index, image);
             tuna.website.enableFancySelect(this.$('select'));
-            this.recalculateItemPositions();
         },
         onAddItemClick: function (event) {
             event.preventDefault();
