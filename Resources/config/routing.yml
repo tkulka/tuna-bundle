@@ -1,26 +1,8 @@
 _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"
 
-# SECURITY
-fos_user_security_login:
-    path: /login
-    defaults: { _controller: TheCodeineUserBundle:Security:login }
-
-fos_user_security_check:
-    path: /login_check
-    defaults: { _controller: TheCodeineUserBundle:Security:check }
-    methods:  [POST]
-
-fos_user_security_logout:
-    path: /logout
-    defaults: { _controller: TheCodeineUserBundle:Security:logout }
-
-fos_user_change_password:
-    path: /admin/change-password
-    defaults: { _controller: FOSUserBundle:ChangePassword:changePassword }
-
-#tuna_image:
-#    resource: "@TheCodeineImageBundle/Resources/config/routing.yml"
+tuna_user:
+    resource: "@TheCodeineUserBundle/Resources/config/routing.yml"
 
 tuna_page:
     resource: "@TheCodeineAdminBundle/Controller/PageController.php"
