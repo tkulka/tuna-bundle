@@ -14,11 +14,16 @@ class FileNotNullValidator extends ConstraintValidator
         self::doValidate($this->context, $constraint, $value);
     }
 
-    public static function doValidate(ExecutionContextInterface $context, Constraint $constraint, AbstractFile $value = null)
+    public static function doValidate(ExecutionContextInterface $context, Constraint $constraint, AbstractFile $value = null, $atPath = null)
     {
         if ($value == null || $value->getPath() == null) {
-            $context->buildViolation($constraint->message)
-                ->addViolation();
+            $violationBuilder = $context->buildViolation($constraint->message);
+
+            if ($atPath) {
+                $violationBuilder->atPath($atPath);
+            }
+
+            $violationBuilder->addViolation();
         }
     }
 }

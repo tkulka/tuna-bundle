@@ -13,7 +13,7 @@ class GalleryItemFileNotNullValidator extends ConstraintValidator
     {
         /* @var $galleryItem \TheCodeine\GalleryBundle\Entity\GalleryItem */
         if ($galleryItem->getType() == GalleryItem::IMAGE_TYPE) {
-            FileNotNullValidator::doValidate($this->context, $constraint, $galleryItem->getImage());
+            FileNotNullValidator::doValidate($this->context, $constraint, $galleryItem->getImage(), 'image');
         }
     }
 }

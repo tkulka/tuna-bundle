@@ -67,9 +67,11 @@
 
                     var options = $(selector).find('.thecodeine_admin_main_image').data('dropzone-options');
 
-                    $(selector).find('.preview').html(options.previewTemplate.replace('__path__', image.path));
-                    $(selector).find('.input--path').val(image.path);
-                    $(selector).find('.input--filename ').val(image.originalName);
+                    if (image) {
+                        $(selector).find('.preview').html(options.previewTemplate.replace('__path__', image.path));
+                        $(selector).find('.input--path').val(image.path);
+                        $(selector).find('.input--filename ').val(image.originalName);
+                    }
                 }
             });
         },

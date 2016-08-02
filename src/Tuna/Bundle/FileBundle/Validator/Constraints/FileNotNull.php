@@ -9,5 +9,5 @@ use Symfony\Component\Validator\Constraint;
  */
 class FileNotNull extends Constraint
 {
-    public $message = 'You have to provide file.';
+    public $message = 'error.file.empty';
 }

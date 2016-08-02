@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraint;
  */
 class GalleryItemFileNotNull extends Constraint
 {
-    public $message = 'Provide a file dude.';
+    public $message = 'error.file.empty';
 
     public function validatedBy()
     {
