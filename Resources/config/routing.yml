@@ -4,24 +4,20 @@ _liip_imagine:
 # SECURITY
 fos_user_security_login:
     path: /login
-    defaults: { _controller: TheCodeineAdminBundle:Security:login }
+    defaults: { _controller: TheCodeineUserBundle:Security:login }
 
 fos_user_security_check:
     path: /login_check
-    defaults: { _controller: TheCodeineAdminBundle:Security:check }
+    defaults: { _controller: TheCodeineUserBundle:Security:check }
     methods:  [POST]
 
 fos_user_security_logout:
     path: /logout
-    defaults: { _controller: TheCodeineAdminBundle:Security:logout }
+    defaults: { _controller: TheCodeineUserBundle:Security:logout }
 
 fos_user_change_password:
     path: /admin/change-password
     defaults: { _controller: FOSUserBundle:ChangePassword:changePassword }
-
-# dirrty hack to change redirect after password change.. FIXME please
-fos_user_profile_show:
-    path: /admin/change-password
 
 #tuna_image:
 #    resource: "@TheCodeineImageBundle/Resources/config/routing.yml"

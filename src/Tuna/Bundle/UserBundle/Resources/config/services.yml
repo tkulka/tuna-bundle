@@ -1,0 +1,6 @@
+services:
+    tuna_user.password_resetting:
+        class: TheCodeine\UserBundle\EventListener\PasswordChangingListener
+        arguments: ["@router"]
+        tags:
+            - { name: kernel.event_subscriber }
