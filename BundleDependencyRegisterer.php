@@ -29,6 +29,9 @@ class BundleDependencyRegisterer
             new \Vich\UploaderBundle\VichUploaderBundle(),
             new \Liip\ImagineBundle\LiipImagineBundle(),
             new \Symfony\Bundle\AsseticBundle\AsseticBundle(),
+            new \Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
+            new \Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
+            new \FOS\UserBundle\FOSUserBundle(),
         );
 
         foreach ($bundles as $bundle) {
