@@ -76,6 +76,14 @@ class FileManager
         );
     }
 
+    public function generateFile($file)
+    {
+        $filename = $this->generateTmpFilename($file);
+        $this->fs->copy($file->getRealPath(), $this->getFullTmpPath($filename));
+
+        return $filename;
+    }
+
     public function moveUploadedFile(UploadedFile $file, $filename)
     {
         $file->move(
