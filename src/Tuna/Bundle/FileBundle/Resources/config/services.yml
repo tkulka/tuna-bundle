@@ -17,8 +17,10 @@ services:
             - { name: validator.constraint_validator }
 
     the_codeine_file.twig.upload_extension:
-        class: TheCodeine\FileBundle\Twig\UploadExtension
+        class: TheCodeine\FileBundle\Twig\FileExtension
         arguments:
             - "%the_codeine_file.file_manager%"
+            - "@templating.helper.assets"
+            - "@liip_imagine.cache.manager"
         tags:
             - { name: twig.extension }

@@ -2,20 +2,10 @@
 
 namespace TheCodeine\NewsBundle\Form;
 
-use Doctrine\ORM\EntityRepository;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-use TheCodeine\GalleryBundle\Form\GalleryType;
 use TheCodeine\NewsBundle\Entity\Category;
-use TheCodeine\NewsBundle\Entity\News;
-use TheCodeine\ImageBundle\Form\ImageRequestThumbnailType;
-use TheCodeine\PageBundle\Form\PageType;
-use TheCodeine\TagBundle\Form\TagCollectionType;
-use TheCodeine\TagBundle\Doctrine\TagManager;
 
 class EventType extends NewsType
 {
@@ -32,7 +22,7 @@ class EventType extends NewsType
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd HH:mm:ss'
             ))
-            ->add('endDate', DataTimeType::class, array(
+            ->add('endDate', DateTimeType::class, array(
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd HH:mm:ss',
                 'required' => false

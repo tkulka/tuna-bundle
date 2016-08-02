@@ -15,10 +15,8 @@ use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;
  */
 class NewsTranslation extends AbstractPersonalTranslation
 {
-
-
     /**
-     * @ORM\ManyToOne(targetEntity="News", inversedBy="translations")
+     * @ORM\ManyToOne(targetEntity="AbstractNews", inversedBy="translations")
      * @ORM\JoinColumn(name="object_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $object;
