@@ -4,9 +4,6 @@
         initialize: function (options) {
             Dropzone.autoDiscover = false;
 
-            this.$errorModal = $('#modalError');
-            this.$errorModalBody = this.$errorModal.find('.modal-body');
-
             this.parentView = options.parentView;
             this.options = options.options;
             this.setupOptions();
@@ -44,13 +41,9 @@
 
                     if (xhr) error = error.messages;
 
-                    if (!dropzoneView.$errorModal.is(':visible')) {
-                        dropzoneView.$errorModal.modal();
-                    }
-
-                    dropzoneView.$errorModalBody.append('<p><strong>'+ file.name +'</strong> - '+ error +'</p>');
-                    dropzoneView.$errorModal.on('hide.bs.modal', function (event) {
-                        dropzoneView.$errorModalBody.html('')
+                    new tuna.view.ModalError({
+                        title: Translator.trans('File upload error'),
+                        message: file.name +' - '+ error
                     });
                 },
                 init: function () {
