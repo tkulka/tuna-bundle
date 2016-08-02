@@ -8,7 +8,7 @@
         },
         onRemove: function () {
             this.$('.preview').empty();
-            this.$('input.form--path, input.form--filename').val('');
+            this.$('.input--path, .input--filename').val('');
         }
     });
 })();
