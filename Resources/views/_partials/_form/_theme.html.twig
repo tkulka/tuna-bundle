@@ -14,7 +14,7 @@
     {% if fileUrl %}
         <img src="{{ fileUrl | imagine_filter('tuna_admin_thumb') }}"/>
         {% if deletable %}
-            <span data-action="remove" class="remove">{% trans %}remove{% endtrans %}</span>
+            <span data-action="remove" class="remove">{% trans %}Remove{% endtrans %}</span>
         {% endif %}
     {% endif %}
 {% endspaceless %}{% endmacro %}

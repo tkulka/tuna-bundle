@@ -1,7 +1,5 @@
 error:
     category:
         not_empty: You cannot delete category <strong>%name%</strong> as it is not empty.
-    image:
-        empty: You have to upload image
-    attachment:
-        empty: You have to upload attachment file
+    file:
+        empty: You have to upload file.

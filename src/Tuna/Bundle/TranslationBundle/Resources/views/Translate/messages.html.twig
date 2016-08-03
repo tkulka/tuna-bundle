@@ -9,6 +9,7 @@
     {% for id, message in messages %}
         <tr>
             <td>
+                <h6 class="translation-key">{{ id | cut(50) }}</h6>
                 <textarea data-id="{{ id }}" class="span6 form-control"{% if isWriteable is sameas(false) %} readonly="readonly"{% endif %}>{{ message.localeString }}</textarea>
                 <a class="jms-translation-anchor" id="{{ id }}" />
             </td>
@@ -22,7 +23,8 @@
                     <h6>{% trans %}Alternative Translations{% endtrans %}</h6>
                     {% for locale, altMessage in alternativeMessages[id] %}
                         <p>
-                            <strong>{{ locale }}:</strong> <pre>{{ altMessage.localeString }}</pre>
+                            <strong>{{ locale }}:</strong>
+                        <div class="preview">{{ altMessage.localeString }}</div>
                         </p>
                     {% endfor %}
                 {% endif %}

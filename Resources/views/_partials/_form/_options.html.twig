@@ -2,15 +2,15 @@
     <h6 class="text-inverse">{% trans %}Options{% endtrans %}</h6>
 
     {% if form.important is defined %}
-        {{ form_widget(form.important, {'label': 'Featured'|trans}) }}
+        {{ form_widget(form.important, {'label': 'Featured'}) }}
     {% endif %}
 
     {% if form.published is defined %}
-        {{ form_widget(form.published, {'label': 'Published'|trans}) }}
+        {{ form_widget(form.published, {'label': 'Published'}) }}
     {% endif %}
 
     {% if form.createdAt is defined %}
-        {{ form_row(form.createdAt, {'label': 'Create date'|trans}) }}
+        {{ form_row(form.createdAt, {'label': 'Create date'}) }}
     {% endif %}
 
     {% if form.image is defined %}

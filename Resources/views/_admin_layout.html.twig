@@ -47,12 +47,12 @@
 </div>
 
 <div id="upload">
-    <span>{% trans %}file.uploading.info{% endtrans %}</span>
+    <span>{% trans %}Your files are uploading. Please wait..{% endtrans %}</span>
 </div>
 
 {% include 'TheCodeineAdminBundle::_partials/_modal.html.twig' %}
 
-{% javascripts
+{% javascripts output='bundles/thecodeineadmin/js/tuna_admin.js'
 '@BazingaJsTranslationBundle/Resources/js/translator.js'
 '@TheCodeineAdminBundle/Resources/translations/translations/config.js'
 '@TheCodeineAdminBundle/Resources/translations/translations/*/*.js'
