@@ -30,15 +30,14 @@
             e.stopPropagation();
         },
         initSortable: function () {
-            var oThis = this;
             this.$('.gallery-items')
                 .sortable({
                     handle: '.handle'
                 })
                 .disableSelection()
-                .bind('sortupdate', function () {
-                    oThis.recalculateItemPositions();
-                });
+                .bind('sortupdate', _.bind(function () {
+                    this.recalculateItemPositions();
+                }, this));
         },
         onClose: function () {
             this.$el.removeClass('slideLeftRetourn').addClass('holeOut');
@@ -59,7 +58,7 @@
                 url: $form.attr('action'),
                 type: $form.attr('method'),
                 data: $form.serialize(),
-                success: function (html) {
+                success: _.bind(function (html) {
                     $(selector).replaceWith(
                         $(html).find(selector)
                     );
@@ -70,7 +69,9 @@
                     $(selector).find('.preview').html(options.previewTemplate.replace('__path__', image.path));
                     $(selector).find('.input--path').val(image.path);
                     $(selector).find('.input--filename ').val(image.originalName);
-                }
+
+                    this.recalculateItemPositions();
+                }, this)
             });
         },
         addItem: function (type, image) {
@@ -85,7 +86,6 @@
             this.$('.gallery-items').append($newForm);
             this.loadItemForm('#' + itemsId + "_" + index, image);
             tuna.website.enableFancySelect(this.$('select'));
-            this.recalculateItemPositions();
         },
         onAddItemClick: function (event) {
             event.preventDefault();
