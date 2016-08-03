@@ -34,7 +34,7 @@
                 acceptedFiles: '.jpg, .jpeg, .gif',
                 paramName: 'file',
                 dictInvalidFileType: Translator.trans('You can\'t upload files of this type.'),
-                dictMaxFilesExceeded: Translator.trans('You can not upload any more files.'),
+                dictMaxFilesExceeded: Translator.trans('You can\'t upload any more files.'),
                 clickable: '[data-dropzone-clickable]',
                 addedfile: function () {},
                 error: function (file, error, xhr) {
