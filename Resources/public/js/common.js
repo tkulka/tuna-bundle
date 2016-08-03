@@ -38,6 +38,7 @@ tuna.website = {
         new tuna.view.EditView({el: $('.admin-container'), lang: options.lang});
         new tuna.view.AddableEntitySelectView({el: $('.addable-entity-select')});
         new tuna.view.SortableView({el: $('[data-sortable-url]')});
+        new tuna.view.ModalError({el: $('#modalError')});
 
         $('[data-dropzone-options]').each(function (index, item) {
             var options = $(item).data('dropzone-options');

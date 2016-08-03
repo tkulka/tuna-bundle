@@ -38,12 +38,10 @@
                 clickable: '[data-dropzone-clickable]',
                 addedfile: function () {},
                 error: function (file, error, xhr) {
-
                     if (xhr) error = error.messages;
-
-                    new tuna.view.ModalError({
+                    tuna.events.trigger('errorOccurred', {
                         title: Translator.trans('File upload error'),
-                        message: file.name +' - '+ error
+                        message: file.name + ' - ' + error
                     });
                 },
                 init: function () {

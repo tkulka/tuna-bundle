@@ -1,15 +1,17 @@
 (function () {
     tuna.view.ModalError = Backbone.View.extend({
-        el: '#modalError',
-        initialize: function (options) {
+        initialize: function () {
             this.bindEvents();
-            this.appendMessages(options.title, options.message);
-            this.show();
         },
 
         bindEvents: function () {
+            tuna.events.on('errorOccurred', _.bind(function(error){
+                this.appendMessages(error.title, error.message);
+                this.show();
+            }, this));
+
             this.$el.on('hide.bs.modal', _.bind(function () {
-                this.$el.find('.modal-body').html('')
+                this.$el.find('.modal-body').html('');
             }, this));
         },
 
