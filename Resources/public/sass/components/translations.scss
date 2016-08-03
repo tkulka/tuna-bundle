@@ -21,3 +21,14 @@
         }
     }
 }
+
+.translation-container {
+    .preview {
+        @extend pre;
+        white-space: normal;
+    }
+
+    .translation-key {
+        font-weight: bold;
+    }
+}
