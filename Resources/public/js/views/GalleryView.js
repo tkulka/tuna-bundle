@@ -30,15 +30,14 @@
             e.stopPropagation();
         },
         initSortable: function () {
-            var oThis = this;
             this.$('.gallery-items')
                 .sortable({
                     handle: '.handle'
                 })
                 .disableSelection()
-                .bind('sortupdate', function () {
-                    oThis.recalculateItemPositions();
-                });
+                .bind('sortupdate', _.bind(function () {
+                    this.recalculateItemPositions();
+                }, this));
         },
         onClose: function () {
             this.$el.removeClass('slideLeftRetourn').addClass('holeOut');
@@ -54,13 +53,12 @@
         },
         loadItemForm: function (selector, image) {
             var $form = this.$el.closest('form');
-            var oThis = this;
 
             $.ajax({
                 url: $form.attr('action'),
                 type: $form.attr('method'),
                 data: $form.serialize(),
-                success: function (html) {
+                success: _.bind(function (html) {
                     $(selector).replaceWith(
                         $(html).find(selector)
                     );
@@ -72,8 +70,8 @@
                     $(selector).find('.input--path').val(image.path);
                     $(selector).find('.input--filename ').val(image.originalName);
 
-                    oThis.recalculateItemPositions();
-                }
+                    this.recalculateItemPositions();
+                }, this)
             });
         },
         addItem: function (type, image) {
