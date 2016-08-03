@@ -77,15 +77,22 @@ class FileManager
         );
     }
 
+    public function generateFile(HttpFile $file)
+    {
+        return $this->generateAbstractFile($file, new TunaFile());
+    }
+
     public function generateImage(HttpFile $file)
+    {
+        return $this->generateAbstractFile($file, new TunaImage());
+    }
+
+    private function generateAbstractFile(HttpFile $file, AbstractFile $tunaFile)
     {
         $filename = $this->generateTmpFilename($file);
         $this->fs->copy($file->getRealPath(), $this->getFullTmpPath($filename));
 
-        $tunaImage = new TunaImage();
-        $tunaImage->setPath($filename);
-
-        return $tunaImage;
+        return $tunaFile->setPath($filename);
     }
 
     public function moveUploadedFile(UploadedFile $file, $filename)
