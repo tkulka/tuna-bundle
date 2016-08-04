@@ -7,7 +7,7 @@
 
         initialize: function (options) {
 
-            this.events = options.events;
+            this.tunaEvents = options.tunaEvents;
             this.$el.addClass('magictime');
             this.bindEvents();
 
@@ -17,12 +17,12 @@
         },
 
         bindEvents: function () {
-            this.events.on('backgroundJobStart', _.bind(function(){
+            this.tunaEvents.on('backgroundJobStart', _.bind(function(){
                 $('body').addClass('sending');
                 this.$('button[type="submit"]').attr('disabled', true);
             }, this));
 
-            this.events.on('backgroundJobEnd', _.bind(function(){
+            this.tunaEvents.on('backgroundJobEnd', _.bind(function(){
                 $('body').removeClass('sending');
                 this.$('button[type="submit"]').attr('disabled', false);
             }, this));

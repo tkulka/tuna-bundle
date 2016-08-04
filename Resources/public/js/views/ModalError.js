@@ -1,12 +1,12 @@
 (function () {
     tuna.view.ModalError = Backbone.View.extend({
         initialize: function (options) {
-            this.events = options.events;
+            this.tunaEvents = options.tunaEvents;
             this.bindEvents();
         },
 
         bindEvents: function () {
-            this.events.on('errorOccurred', _.bind(function(error){
+            this.tunaEvents.on('errorOccurred', _.bind(function(error){
                 this.appendMessages(error.title, error.message);
                 this.show();
             }, this));

@@ -4,7 +4,7 @@
         initialize: function (options) {
             Dropzone.autoDiscover = false;
 
-            this.events = options.events;
+            this.tunaEvents = options.tunaEvents;
             this.parentView = options.parentView;
             this.options = options.options;
             this.setupOptions();
@@ -40,7 +40,7 @@
                 addedfile: function () {},
                 error: function (file, error, xhr) {
                     if (xhr) error = error.messages;
-                    dropzoneView.events.trigger('errorOccurred', {
+                    dropzoneView.tunaEvents.trigger('errorOccurred', {
                         title: Translator.trans('File upload error'),
                         message: file.name + ' - ' + error
                     });
@@ -55,12 +55,12 @@
                     });
 
                     this.on('queuecomplete', function () {
-                        dropzoneView.events.trigger('backgroundJobEnd');
+                        dropzoneView.tunaEvents.trigger('backgroundJobEnd');
                         this.removeAllFiles();
                     });
 
                     this.on('sending', function () {
-                        dropzoneView.events.trigger('backgroundJobStart');
+                        dropzoneView.tunaEvents.trigger('backgroundJobStart');
                     });
                 }
             }, this.options);
