@@ -7,6 +7,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\File as HttpFile;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use TheCodeine\FileBundle\Entity\AbstractFile;
+use TheCodeine\FileBundle\Entity\Image as TunaImage;
 
 class FileManager
 {
@@ -74,6 +75,24 @@ class FileManager
             md5(uniqid()),
             $file->guessExtension()
         );
+    }
+
+    public function generateFile(HttpFile $file)
+    {
+        return $this->generateAbstractFile($file, new TunaFile());
+    }
+
+    public function generateImage(HttpFile $file)
+    {
+        return $this->generateAbstractFile($file, new TunaImage());
+    }
+
+    private function generateAbstractFile(HttpFile $file, AbstractFile $tunaFile)
+    {
+        $filename = $this->generateTmpFilename($file);
+        $this->fs->copy($file->getRealPath(), $this->getFullTmpPath($filename));
+
+        return $tunaFile->setPath($filename);
     }
 
     public function moveUploadedFile(UploadedFile $file, $filename)
