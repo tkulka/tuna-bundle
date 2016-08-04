@@ -27,17 +27,18 @@ tuna.website = {
     init: function (options) {
         this.options = options;
 
-        tuna.events = _.extend({}, Backbone.Events);
+        var tunaEvents = _.extend({}, Backbone.Events);
 
         //init main views
         new tuna.view.NavigationView({el: $('nav')});
         new tuna.view.ListView({el: $('.admin-list')});
-        new tuna.view.OptionsView({el: $('.admin-option-container')});
-        new tuna.view.GalleryView({el: $('.admin-gallery-container')});
-        new tuna.view.AttachmentsView({el: $('.admin-attachments-container')});
+        new tuna.view.OptionsView({el: $('.admin-option-container'), tunaEvents: tunaEvents});
+        new tuna.view.GalleryView({el: $('.admin-gallery-container'), tunaEvents: tunaEvents});
+        new tuna.view.AttachmentsView({el: $('.admin-attachments-container'), tunaEvents: tunaEvents});
         new tuna.view.EditView({el: $('.admin-container'), lang: options.lang});
         new tuna.view.AddableEntitySelectView({el: $('.addable-entity-select')});
         new tuna.view.SortableView({el: $('[data-sortable-url]')});
+        new tuna.view.ModalError({el: $('#modalError'), tunaEvents: tunaEvents});
 
         $('[data-dropzone-options]').each(function (index, item) {
             var options = $(item).data('dropzone-options');
@@ -46,7 +47,8 @@ tuna.website = {
             if (!$selector.data('dropover-text')) {
                 new tuna.view.DropzoneView({
                     el: $selector,
-                    options: options
+                    options: options,
+                    tunaEvents: tunaEvents
                 });
             }
 

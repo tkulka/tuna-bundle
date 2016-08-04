@@ -4,6 +4,7 @@
         initialize: function (options) {
             Dropzone.autoDiscover = false;
 
+            this.tunaEvents = options.tunaEvents;
             this.parentView = options.parentView;
             this.options = options.options;
             this.setupOptions();
@@ -33,10 +34,16 @@
                 url: '/admin/file/upload/',
                 acceptedFiles: '.jpg, .jpeg, .gif',
                 paramName: 'file',
+                dictInvalidFileType: Translator.trans('You can\'t upload files of this type.'),
+                dictMaxFilesExceeded: Translator.trans('You can\'t upload any more files.'),
                 clickable: '[data-dropzone-clickable]',
                 addedfile: function () {},
-                error: function (file, response) {
-                    alert(response);
+                error: function (file, error, xhr) {
+                    if (xhr) error = error.messages;
+                    dropzoneView.tunaEvents.trigger('errorOccurred', {
+                        title: Translator.trans('File upload error'),
+                        message: file.name + ' - ' + error
+                    });
                 },
                 init: function () {
                     this.on('success', function (file, response) {
@@ -48,12 +55,12 @@
                     });
 
                     this.on('queuecomplete', function () {
-                        tuna.events.trigger('backgroundJobEnd');
+                        dropzoneView.tunaEvents.trigger('backgroundJobEnd');
                         this.removeAllFiles();
                     });
 
                     this.on('sending', function () {
-                        tuna.events.trigger('backgroundJobStart');
+                        dropzoneView.tunaEvents.trigger('backgroundJobStart');
                     });
                 }
             }, this.options);

@@ -6,6 +6,7 @@
     selector: '.admin-option-container',
     previewTemplate: theme.tuna_image_preview(tuna_uploadDir('tmp_path')~'/__path__', form.vars.attr.deletable),
     previewsContainer: '#' ~ wrapperId ~ ' .preview',
+    maxFiles: 1,
     dropoverText: 'Drop your cover image here' | trans
     } %}
     <div id="{{ wrapperId }}" class="thecodeine_admin_main_image" data-dropzone-options="{{ dropzoneOptions | json_encode }}">

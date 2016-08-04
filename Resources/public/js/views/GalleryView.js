@@ -11,18 +11,20 @@
             'click .a2lix_translationsLocales li a': 'onLanguageChange',
             'showError': 'onShowError'
         },
-        initialize: function () {
+        initialize: function (options) {
+            this.tunaEvents = options.tunaEvents;
             this.$el.addClass('magictime');
             this.initSortable();
             this.$wrapper = this.$('.thecodeine_admin_gallery');
             this.$wrapper.data('index', this.$('li.item').length);
 
-            var options = this.$('[data-dropzone-options]').data('dropzone-options');
-            if (options) {
+            var dropzoneOptions = this.$('[data-dropzone-options]').data('dropzone-options');
+            if (dropzoneOptions) {
                 new tuna.view.DropzoneView({
-                    el: $(options.selector),
-                    options: options,
-                    parentView: this
+                    el: $(dropzoneOptions.selector),
+                    options: dropzoneOptions,
+                    parentView: this,
+                    tunaEvents: this.tunaEvents
                 });
             }
         },
