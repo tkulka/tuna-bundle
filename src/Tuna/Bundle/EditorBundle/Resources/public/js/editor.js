@@ -10,6 +10,7 @@ tuna.view.EditorView = Backbone.View.extend({
 
     summernoteOptions: {
         dialogsInBody: true,
+        disableDragAndDrop: true,
         callbacks: {
             onPaste: function (e) {
                 e.preventDefault();
@@ -36,15 +37,37 @@ tuna.view.EditorView = Backbone.View.extend({
             toolbar: [
                 ['style', ['style', 'bold', 'italic', 'underline', 'clear']],
                 ['para', ['ul', 'paragraph']],
-                ['insert', ['link', 'picture']],
-                ['misc', ['codeview']]
-            ]
+                ['insert', ['link']],
+                ['misc', ['codeview']],
+                ['image-button', ['image']]
+            ],
+            callbacks: {
+                onInit: function() {
+                    new tuna.view.DropzoneView({
+                        el: $(this).siblings('.note-editor'),
+                        options: {
+                            clickable: '.note-image-button',
+                            selector: '.note-editor',
+                            previewTemplate: '',
+                            previewsContainer: '.note-editing-area',
+                            acceptedFiles: '.jpg, .jpeg, .png, .gif',
+                            dropoverText: Translator.trans('Drop your images here'),
+                            success: _.bind(function(file, response) {
+                                var $el = $(this);
+                                $el.summernote('insertImage', $el.data('image-url') + '/' + response.path);
+                            }, this)
+                        },
+                        tunaEvents: tuna.website.events
+                    });
+                }
+            }
         },
         basic: {
             toolbar: [
                 ['style', ['bold', 'italic', 'underline', 'clear']],
                 ['misc', ['codeview']]
-            ]
+            ],
+            callbacks: {}
         }
     },
 
@@ -67,9 +90,29 @@ tuna.view.EditorView = Backbone.View.extend({
 
     initEditor: function ($element, language) {
         $('.main_container').addClass('editor_container');
+
+        var imageButton = function() {
+            var ui = $.summernote.ui;
+            var button = ui.button({
+                contents: '<i class="note-icon-picture"></i>',
+                tooltip: Translator.trans('Picture')
+            });
+
+            return button.render();
+        };
+
+        var customButtons = {
+            buttons: {
+                image: imageButton
+            }
+        };
+
+        _.extend(this.types.default, customButtons);
+
         _.each($element, function (item) {
             var $item = $(item);
             var type = $item.data('type') || 'default';
+            _.extend(this.types[type].callbacks, this.summernoteOptions.callbacks);
             var options = _.extend(this.summernoteOptions, this.types[type]);
             options.lang = language;
 

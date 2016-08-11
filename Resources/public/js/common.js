@@ -26,8 +26,9 @@ window.tuna || (window.tuna = {
 tuna.website = {
     init: function (options) {
         this.options = options;
+        this.events = _.extend({}, Backbone.Events);
 
-        var tunaEvents = _.extend({}, Backbone.Events);
+        var tunaEvents = this.events;
 
         //init main views
         new tuna.view.NavigationView({el: $('nav')});
