@@ -1,3 +1,4 @@
+{% trans_default_domain 'tuna_admin' %}
 {% block video_player %}
     <iframe width="180" height="85" src="{{ video_url | default('__url__') }}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 {% endblock %}

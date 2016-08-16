@@ -116,7 +116,7 @@ class Builder
      */
     protected function addChild($menu, $request, $label, $route, $position = null, callable $activeTest = null, $routeParameters = array())
     {
-        $menu->addChild($this->createChild($request, $label, $route, $position, $activeTest, $routeParameters));
+        $menu->addChild($this->createChild($request, $label, $route, $position, $activeTest, $routeParameters))->setExtra('translation_domain', 'tuna_admin');
 
         return $menu;
     }
