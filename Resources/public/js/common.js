@@ -26,9 +26,8 @@ window.tuna || (window.tuna = {
 tuna.website = {
     init: function (options) {
         this.options = options;
-        this.events = _.extend({}, Backbone.Events);
 
-        var tunaEvents = this.events;
+        var tunaEvents = _.extend({}, Backbone.Events);
 
         //init main views
         new tuna.view.NavigationView({el: $('nav')});
@@ -58,7 +57,28 @@ tuna.website = {
         //WYSIWYG EDITOR
         tuna.view.EditorView && new tuna.view.EditorView({
             selector: '.tab-pane.active .thecodeine_admin_editor',
-            lang: options.lang
+            lang: options.lang,
+            tunaEvents: tunaEvents,
+            callbacks: {
+                onInit: function() {
+                    new tuna.view.DropzoneView({
+                        el: $(this).siblings('.note-editor'),
+                        options: {
+                            clickable: '.note-image-button',
+                            selector: '.note-editor',
+                            previewTemplate: '',
+                            previewsContainer: '.note-editing-area',
+                            acceptedFiles: '.jpg, .jpeg, .png, .gif',
+                            dropoverText: Translator.trans('Drop your images here'),
+                            success: _.bind(function(file, response) {
+                                var $el = $(this);
+                                $el.summernote('insertImage', $el.data('image-url') + '/' + response.path);
+                            }, this)
+                        },
+                        tunaEvents: tunaEvents
+                    });
+                }
+            }
         });
 
         $(':checkbox').radiocheck();

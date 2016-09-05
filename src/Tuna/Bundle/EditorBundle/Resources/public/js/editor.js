@@ -41,26 +41,7 @@ tuna.view.EditorView = Backbone.View.extend({
                 ['misc', ['codeview']],
                 ['image-button', ['image']]
             ],
-            callbacks: {
-                onInit: function() {
-                    new tuna.view.DropzoneView({
-                        el: $(this).siblings('.note-editor'),
-                        options: {
-                            clickable: '.note-image-button',
-                            selector: '.note-editor',
-                            previewTemplate: '',
-                            previewsContainer: '.note-editing-area',
-                            acceptedFiles: '.jpg, .jpeg, .png, .gif',
-                            dropoverText: Translator.trans('Drop your images here'),
-                            success: _.bind(function(file, response) {
-                                var $el = $(this);
-                                $el.summernote('insertImage', $el.data('image-url') + '/' + response.path);
-                            }, this)
-                        },
-                        tunaEvents: tuna.website.events
-                    });
-                }
-            }
+            callbacks: {}
         },
         basic: {
             toolbar: [
@@ -75,6 +56,7 @@ tuna.view.EditorView = Backbone.View.extend({
 
     initialize: function (options) {
         this.options = options;
+        this.callbacks = this.options.callbacks || {};
         var oThis = this;
 
         $('.nav-tabs [data-toggle="tab"]').click(function (e) {
@@ -108,6 +90,7 @@ tuna.view.EditorView = Backbone.View.extend({
         };
 
         _.extend(this.types.default, customButtons);
+        _.extend(this.types.default.callbacks, this.callbacks);
 
         _.each($element, function (item) {
             var $item = $(item);
