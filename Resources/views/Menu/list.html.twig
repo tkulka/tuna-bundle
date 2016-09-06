@@ -1,0 +1,7 @@
+{% extends 'TheCodeineAdminBundle::_admin_layout.html.twig' %}
+
+{% block content %}
+    {% for menu in tree %}
+        {% include('TheCodeineAdminBundle:Menu:menu_item.html.twig') with { item: menu } %}
+    {% endfor %}
+{% endblock %}

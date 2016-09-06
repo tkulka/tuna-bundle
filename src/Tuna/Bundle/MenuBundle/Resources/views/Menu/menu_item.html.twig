@@ -1,0 +1,10 @@
+<a href="{{ path('thecodeine_menu_menu_edit', { id: item.id }) }}">{{ item.label }}</a>
+{% if item.__children | length %}
+    <ul>
+        {% for child in item.__children %}
+            <li>
+                {% include('TheCodeineMenuBundle:Menu:menu_item.html.twig') with { item: child } %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}

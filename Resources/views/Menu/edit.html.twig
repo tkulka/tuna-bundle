@@ -1,0 +1,12 @@
+{% extends 'TheCodeineAdminBundle::_admin_layout.html.twig' %}
+
+{% block content %}
+    {% embed 'TheCodeineAdminBundle::_partials/_form/_main.html.twig' with { title: menu.label, slug: menu.slug } %}
+        {% block extraFields %}
+            {{ form_row(form.clickable, { label: 'Clickable' }) }}
+            {{ form_row(form.published, { label: 'Published' }) }}
+            {{ form_row(form.parent) }}
+            {{ form_row(form.page) }}
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

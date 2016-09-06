@@ -22,6 +22,7 @@ stof_doctrine_extensions:
             timestampable: true
             sluggable: true
             translatable: true
+            tree: true
 
 knp_paginator:
     page_range: 5
@@ -99,3 +100,12 @@ assetic:
                 - "%the_codeine_admin.components.editor.wysiwyg_style_dir%"
             apply_to: "\\.s[ac]ss$"
             bin: "%sass_bin%"
+
+#doctrine:
+#    orm:
+#        mappings:
+#            gedmo_tree:
+#                type: annotation
+#                prefix: Gedmo\Tree\Entity
+#                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Tree/Entity"
+#                is_bundle: false
