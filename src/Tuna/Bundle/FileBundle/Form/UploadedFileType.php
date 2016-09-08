@@ -25,6 +25,7 @@ class UploadedFileType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
+            'translation_domain' => 'tuna_admin',
             'csrf_protection' => false,
         ));
     }

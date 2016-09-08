@@ -1,3 +1,4 @@
+{% trans_default_domain 'tuna_admin' %}
 <ul class="a2lix_translationsLocales nav nav-tabs">
     {% for translationsLocales in form.translations.children %}
         {% set isDefaultLocale = 'defaultLocale' == translationsLocales.vars.name %}
