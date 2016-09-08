@@ -8,7 +8,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;
 
-use TheCodeine\PageBundle\Entity\AbstractPage;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use TheCodeine\PageBundle\Entity\Page;
 
 /**
@@ -40,8 +40,6 @@ class Menu
     /**
      * @var string
      *
-     * @Assert\NotBlank
-     * @Gedmo\Translatable
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $path;
@@ -49,14 +47,21 @@ class Menu
     /**
      * @var string
      *
+     * @Gedmo\Translatable
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $externalUrl;
+
+    /**
+     * @var string
+     *
      * @Gedmo\Slug(handlers={
-     *      @Gedmo\SlugHandler(class="Gedmo\Sluggable\Handler\TreeSlugHandler", options={
+     *      @Gedmo\SlugHandler(class="TheCodeine\MenuBundle\Sluggable\Handler\TreeSlugHandler", options={
      *          @Gedmo\SlugHandlerOption(name="parentRelationField", value="parent"),
      *          @Gedmo\SlugHandlerOption(name="separator", value="/")
      *      })
      * }, fields={"path"})
-     * @Gedmo\Translatable
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $slug;
 
@@ -138,20 +143,48 @@ class Menu
      * @param bool $clickable
      * @param \DateTime $publishDate
      */
-    public function __construct($label = null, Menu $parent = null, $clickable = true, \DateTime $publishDate = null, Page $page = null)
+    public function __construct($label = null)
     {
         $this->setLabel($label);
-        $this->setParent($parent);
-        $this->setClickable($clickable);
-        $this->setPublishDate($publishDate);
-        $this->setPage($page);
+        $this->setClickable(false);
+        $this->setPublished(false);
 
         $this->translations = new ArrayCollection();
+    }
+
+    /**
+     * @Assert\Callback
+     */
+    public function validate(ExecutionContextInterface $context)
+    {
+        if ($this->isClickable() && !$this->getPath() && !$this->getExternalUrl()) {
+            $context->buildViolation('You must provide path or external url.')
+                ->atPath('path')
+                ->addViolation();
+        }
+    }
+
+    public function setTreeData($lft, $rgt, $lvl, Menu $parent = null)
+    {
+        $this->lft = $lft;
+        $this->rgt = $rgt;
+        $this->lvl = $lvl;
+        $this->parent = $parent;
+    }
+
+    public function setTranslatableLocale($locale)
+    {
+        $this->locale = $locale;
     }
 
     public function getIndentedName()
     {
         return str_repeat("--", $this->lvl) . ' ' . $this->getLabel();
+    }
+
+    public function getParentId()
+    {
+        return $this->getParent() ? $this->getParent()->getId() : null;
     }
 
     /**
@@ -167,11 +200,17 @@ class Menu
         return $this->root;
     }
 
+    /**
+     * @param Menu|null $parent
+     */
     public function setParent(Menu $parent = null)
     {
         $this->parent = $parent;
     }
 
+    /**
+     * @return Menu|null
+     */
     public function getParent()
     {
         return $this->parent;
@@ -191,7 +230,6 @@ class Menu
      */
     public function setLabel($label)
     {
-        $this->setPath($label);
         $this->label = $label;
 
         return $this;
@@ -304,7 +342,7 @@ class Menu
      */
     public function setPath($path)
     {
-        $this->path = $path;
+        $this->path = trim($path);
 
         return $this;
     }
@@ -339,5 +377,40 @@ class Menu
         }
 
         $this->translations = $translations;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLocale()
+    {
+        return $this->locale;
+    }
+
+    /**
+     * @return string
+     */
+    public function getExternalUrl()
+    {
+        return $this->externalUrl;
+    }
+
+    /**
+     * @return $this
+     * @param string $externalUrl
+     */
+    public function setExternalUrl($externalUrl)
+    {
+        $this->externalUrl = trim($externalUrl);
+
+        return $this;
     }
 }

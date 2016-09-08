@@ -1,1 +1,8 @@
 services:
+    the_codeine_menu.twig.menu_extension:
+        class: TheCodeine\MenuBundle\Twig\MenuExtension
+        calls:
+            - [initRuntime, ['@twig']]
+        arguments: ['@twig', "@doctrine.orm.default_entity_manager"]
+        tags:
+            - { name: twig.extension }

@@ -17,11 +17,29 @@ class MenuType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $pageId = $builder->getData()->getId();
+        $parentId = $builder->getData()->getParentId();
 
         $builder
             ->add('clickable')
             ->add('published', CheckboxType::class)
-            ->add('parent', null,
+            ->add('page', EntityType::class, array(
+                'class' => Page::class,
+                'property' => 'title',
+                'empty_value' => 'No Page',
+                'attr' => array(
+                    'class' => 'filtered',
+                )
+            ))
+            ->add('path')
+            ->add('translations', GedmoTranslationsType::class, array(
+                'translatable_class' => Menu::class,
+                'fields' => array(
+                    'label' => array(),
+                )
+            ));
+
+        if ($parentId !== null || $pageId === null) {
+            $builder->add('parent', null,
                 array(
                     'query_builder' => function (
                         EntityRepository $er) use (
@@ -33,24 +51,10 @@ class MenuType extends AbstractType
                             ->where("p.id != '$pageId'");
                     },
                     'property' => 'indentedName',
-                    'placeholder' => '-',
+                    'required' => true,
                 )
-            )
-            ->add('page', EntityType::class, array(
-                'class' => Page::class,
-                'property' => 'title',
-                'empty_value' => 'No Page',
-                'attr' => array(
-                    'class' => 'filtered',
-                )
-            ))
-            ->add('translations', GedmoTranslationsType::class, array(
-                'translatable_class' => Menu::class,
-                'fields' => array(
-                    'label' => array(),
-                    'path' => array(),
-                )
-            ));
+            );
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver)

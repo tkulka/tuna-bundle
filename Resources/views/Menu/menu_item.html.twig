@@ -1,10 +1,16 @@
-<a href="{{ path('thecodeine_admin_menu_edit', { id: item.id }) }}">{{ item.label }}</a>
-{% if item.__children | length %}
-    <ul>
-        {% for child in item.__children %}
-            <li>
+<li id="menu_{{ item.id }}" {% if item.lvl == 0 %}class="disabled"{% endif %}>
+    {% if item.lvl == 0 %}
+        <div class="title">{{ item.label }}</div>
+    {% else %}
+        <div>
+            <a href="{{ path('tuna_menu_edit', { id: item.id }) }}">{{ item.label }}</a>
+        </div>
+    {% endif %}
+    {% if item.__children | length %}
+        <ul>
+            {% for child in item.__children %}
                 {% include('TheCodeineAdminBundle:Menu:menu_item.html.twig') with { item: child } %}
-            </li>
-        {% endfor %}
-    </ul>
-{% endif %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+</li>

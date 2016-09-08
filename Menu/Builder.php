@@ -64,6 +64,12 @@ class Builder
             'childrenAttributes' => array('class' => 'nav')
         ));
 
+        if ($this->componentsConfig['menu']['enabled']) {
+            $this->addChild($menu, $request, 'Menu', 'tuna_menu_list', 100, function ($request, $route) {
+                return preg_match_all('/tuna_menu_/i', $request->get('_route'));
+            });
+        }
+
         if ($this->componentsConfig['pages']['enabled']) {
             $this->addChild($menu, $request, 'Pages', 'tuna_page_list', 100, function ($request, $route) {
                 return preg_match_all('/tuna_page/i', $request->get('_route'));

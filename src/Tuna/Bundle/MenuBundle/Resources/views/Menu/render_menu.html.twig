@@ -1,0 +1,5 @@
+<ul class="menu-{{ name }}">
+    {% for item in menu %}
+        {% include 'TheCodeineMenuBundle:Menu:render_menu_item.html.twig' with { item: item } %}
+    {% endfor %}
+</ul>

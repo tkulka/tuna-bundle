@@ -1,7 +1,24 @@
-{% extends 'TheCodeineAdminBundle::_admin_layout.html.twig' %}
+{% extends "TheCodeineAdminBundle::_layout.html.twig" %}
+{% block main_class %}bg-lightgray{% endblock %}
 
 {% block content %}
-    {% for menu in tree %}
-        {% include('TheCodeineAdminBundle:Menu:menu_item.html.twig') with { item: menu } %}
-    {% endfor %}
+    <div class="row admin-container" data-nestedsortableurl="{{ path('tuna_menu_saveorder') }}">
+        <div class="col-sm-12">
+            {% for menu in menus %}
+                <div class="admin-list">
+                    <div class="action-buttons">
+                        <a href="{{ path('tuna_menu_create') }}" class="btn btn-primary btn-wide">
+                            <i class="fui-plus"></i> {% trans %}Add item{% endtrans %}
+                        </a>
+                        <a href="#" data-action="save-order" class="btn btn-primary btn-wide inactive">
+                            <i class="fa fa-save" aria-hidden="true"></i> {% trans %}Save order{% endtrans %}
+                        </a>
+                    </div>
+                    <ul data-nested-sortable>
+                        {% include 'TheCodeineAdminBundle:Menu:menu_item.html.twig' with { item: menu } %}
+                    </ul>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

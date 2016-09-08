@@ -77,6 +77,7 @@ class Configuration implements ConfigurationInterface
             ->end()
         ;
 
+        $this->addEnabledConfig($sections, 'menu', true);
         $this->addEnabledConfig($sections, 'news', true);
         $this->addEnabledConfig($sections, 'events', false);
         $this->addEnabledConfig($sections, 'translations', true);

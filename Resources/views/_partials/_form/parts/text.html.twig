@@ -4,6 +4,6 @@
         {% set attr = attr | merge({value: value}) %}
     {% endif %}
     <div class="form-group form--{{ name }}">
-        <input type='{{ type|default('text') }}' {{ block('widget_attributes') }} placeholder="{{ name | capitalize | trans }}">
+        <input type='{{ type|default('text') }}' {{ block('widget_attributes') }} placeholder="{{ name | humanize | capitalize | trans }}">
     </div>
 {% endblock %}
