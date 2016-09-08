@@ -42,6 +42,7 @@ class AddableCategoryType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
+            'translation_domain' => 'tuna_admin',
             'compound' => true,
             'class' => '',
             'error_bubbling' => false,
