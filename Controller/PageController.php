@@ -20,13 +20,16 @@ class PageController extends \TheCodeine\PageBundle\Controller\PageController
      */
     public function listAction(Request $request)
     {
-        $query = $this->getDoctrine()->getManager()->getRepository('TheCodeinePageBundle:Page')->getListQuery();
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->getRepository('TheCodeinePageBundle:Page')->getListQuery();
+        $menuMap = $em->getRepository('TheCodeineMenuBundle:Menu')->getPageMap();
         $page = $request->get('page', 1);
         $limit = 10;
 
         return array(
             'pagination' => $this->get('knp_paginator')->paginate($query, $page, $limit),
             'offset' => ($page - 1) * $limit,
+            'menuMap' => $menuMap,
         );
     }
 

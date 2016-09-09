@@ -14,7 +14,7 @@ tuna_file:
     type:     annotation
     prefix:   /admin/
 
-tuna_menu:
+tuna_menu_admin:
     resource: "@TheCodeineAdminBundle/Controller/MenuController.php"
     type:     annotation
     prefix:   /admin/

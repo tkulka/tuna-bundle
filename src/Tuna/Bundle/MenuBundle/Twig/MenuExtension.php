@@ -3,6 +3,10 @@
 namespace TheCodeine\MenuBundle\Twig;
 
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Routing\Router;
+use TheCodeine\MenuBundle\Entity\Menu;
 
 class MenuExtension extends \Twig_Extension
 {
@@ -17,12 +21,18 @@ class MenuExtension extends \Twig_Extension
     private $em;
 
     /**
+     * @var Router
+     */
+    private $router;
+
+    /**
      * MenuExtension constructor.
      */
-    public function __construct(\Twig_Environment $twig, EntityManager $em)
+    public function __construct(\Twig_Environment $twig, EntityManager $em, Router $router)
     {
         $this->twig = $twig;
         $this->em = $em;
+        $this->router = $router;
     }
 
     public function getFunctions()
@@ -35,10 +45,23 @@ class MenuExtension extends \Twig_Extension
                     'is_safe' => array('html' => true)
                 )
             ),
+            new \Twig_SimpleFunction(
+                'tuna_menu_getLink',
+                array($this, 'getLink')
+            ),
         );
     }
 
-    public function renderMenu($menuName = 'Menu')
+    public function getLink($menu)
+    {
+        if ($menu['externalUrl']) {
+            return $menu['externalUrl'];
+        } else {
+            return $this->router->generate('tuna_menu_item', array('slug' => $menu['slug']));
+        }
+    }
+
+    public function renderMenu($menuName = 'Menu', array $options = array())
     {
         $repository = $this->em->getRepository('TheCodeineMenuBundle:Menu');
         $root = $repository->findOneBy(array(
@@ -52,11 +75,16 @@ class MenuExtension extends \Twig_Extension
         $nodes = $repository->getNodesHierarchy($root);
         $tree = $repository->buildTree($nodes);
 
+        if (!key_exists('wrap', $options)) {
+            $options['wrap'] = true;
+        }
+
         return $this->twig->render(
             'TheCodeineMenuBundle:Menu:render_menu.html.twig',
             array(
                 'menu' => $tree,
                 'name' => $menuName,
+                'options' => $options,
             )
         );
     }

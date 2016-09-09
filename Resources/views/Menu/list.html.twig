@@ -2,7 +2,7 @@
 {% block main_class %}bg-lightgray{% endblock %}
 
 {% block content %}
-    <div class="row admin-container" data-nestedsortableurl="{{ path('tuna_menu_saveorder') }}">
+    <div class="row admin-container edit-menu-tree" data-nestedsortableurl="{{ path('tuna_menu_saveorder') }}">
         <div class="col-sm-12">
             {% for menu in menus %}
                 <div class="admin-list">

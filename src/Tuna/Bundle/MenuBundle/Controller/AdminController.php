@@ -10,10 +10,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use TheCodeine\MenuBundle\Entity\Menu;
+use TheCodeine\MenuBundle\EventListener\PageSubscriber;
 use TheCodeine\MenuBundle\Form\MenuType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
-class MenuController extends Controller
+class AdminController extends Controller
 {
     protected function getRedirect(Menu $menu)
     {
@@ -40,16 +41,28 @@ class MenuController extends Controller
     public function createAction(Request $request)
     {
         $menu = new Menu();
+        $em = $this->getDoctrine()->getManager();
+
+        if (($parentId = $request->query->get('parentId'))) {
+            $menu->setParent($em->getReference('TheCodeineMenuBundle:Menu', $parentId));
+        }
+        if (($pageId = $request->query->get('pageId'))) {
+            $page = $em->find('TheCodeinePageBundle:Page', $pageId);
+            $menu
+                ->setPage($page)
+                ->setLabel($page->getTitle());
+
+            PageSubscriber::overrideTranslations($page, $menu);
+        }
+
         $form = $this->createForm(MenuType::class, $menu);
         $form->add('save', SubmitType::class);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
             $em->persist($menu);
             $em->flush();
 
-            return $this->redirectToRoute('tuna_menu_create');
             return $this->getRedirect($menu);
         }
 
@@ -99,6 +112,18 @@ class MenuController extends Controller
         $em->flush();
 
         return $this->redirectToRoute('tuna_menu_create');
+    }
+
+    /**
+     * @Route("/{id}/delete")
+     */
+    public function deleteAction(Request $request, Menu $menu)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($menu);
+        $em->flush();
+
+        return $this->getRedirect($menu);
     }
 
     /**

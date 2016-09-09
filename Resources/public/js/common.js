@@ -40,6 +40,7 @@ tuna.website = {
         new tuna.view.SortableView({el: $('[data-sortable-url]')});
         new tuna.view.NestedSortableView({el: $('[data-nestedSortableUrl]')});
         new tuna.view.ModalError({el: $('#modalError'), tunaEvents: tunaEvents});
+        new tuna.view.MenuItemEditView({el: $('form[name="menu"]'), tunaEvents: tunaEvents});
 
         $('[data-dropzone-options]').each(function (index, item) {
             var options = $(item).data('dropzone-options');

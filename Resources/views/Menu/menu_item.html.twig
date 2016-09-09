@@ -4,6 +4,17 @@
     {% else %}
         <div>
             <a href="{{ path('tuna_menu_edit', { id: item.id }) }}">{{ item.label }}</a>
+            <span class="item-options">
+                <a href="{{ path('tuna_menu_create', { parentId: item.id }) }}">
+                    <i class="fa fa-plus"></i>
+                </a>
+                <a href="{{ path('tuna_menu_edit', { id: item.id }) }}">
+                    <i class="fa fa-edit"></i>
+                </a>
+                <a href="{{ path('tuna_menu_delete', { id: item.id }) }}">
+                    <i class="fa fa-trash"></i>
+                </a>
+            </span>
         </div>
     {% endif %}
     {% if item.__children | length %}

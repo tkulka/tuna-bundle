@@ -5,13 +5,14 @@ namespace TheCodeine\AdminBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use TheCodeine\MenuBundle\Controller\AdminController as MenuAdminController;
 use TheCodeine\MenuBundle\Entity\Menu;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
  * @Route("menu")
  */
-class MenuController extends \TheCodeine\MenuBundle\Controller\MenuController
+class MenuController extends MenuAdminController
 {
     protected function getRedirect(Menu $menu)
     {
@@ -52,5 +53,13 @@ class MenuController extends \TheCodeine\MenuBundle\Controller\MenuController
     public function saveOrderAction(Request $request)
     {
         return parent::saveOrderAction($request);
+    }
+
+    /**
+     * @Route("/{id}/delete", name="tuna_menu_delete")
+     */
+    public function deleteAction(Request $request, Menu $menu)
+    {
+        return parent::deleteAction($request, $menu);
     }
 }

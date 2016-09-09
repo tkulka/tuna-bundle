@@ -1,0 +1,26 @@
+.edit-menu-tree {
+    .ui-sortable {
+        max-width: 500px;
+    }
+
+    li {
+        clear: both;
+        list-style: square;
+
+        &.disabled {
+            list-style: none;
+        }
+    }
+
+    .item-options {
+        float: right;
+        transition: opacity ease-out .3s;
+        opacity: .1;
+    }
+
+    .ui-sortable-handle {
+        &:hover .item-options {
+            opacity: 1;
+        }
+    }
+}

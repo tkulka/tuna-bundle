@@ -15,6 +15,8 @@ use TheCodeine\PageBundle\Entity\Page;
  * @Gedmo\Tree(type="nested")
  * @ORM\Table(name="menu")
  * @ORM\Entity(repositoryClass="MenuRepository")
+ * @ORM\HasLifecycleCallbacks
+ * @ORM\EntityListeners({"TheCodeine\MenuBundle\EventListener\MenuListener"})
  * @Gedmo\TranslationEntity(class="TheCodeine\MenuBundle\Entity\MenuTranslation")
  */
 class Menu
@@ -157,7 +159,7 @@ class Menu
      */
     public function validate(ExecutionContextInterface $context)
     {
-        if ($this->isClickable() && !$this->getPath() && !$this->getExternalUrl()) {
+        if (!$this->getPage() && $this->isClickable() && !$this->getPath() && !$this->getExternalUrl()) {
             $context->buildViolation('You must provide path or external url.')
                 ->atPath('path')
                 ->addViolation();

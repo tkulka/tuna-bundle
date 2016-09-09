@@ -3,6 +3,11 @@ services:
         class: TheCodeine\MenuBundle\Twig\MenuExtension
         calls:
             - [initRuntime, ['@twig']]
-        arguments: ['@twig', "@doctrine.orm.default_entity_manager"]
+        arguments: ['@twig', "@doctrine.orm.default_entity_manager", "@router"]
         tags:
             - { name: twig.extension }
+
+    the_codeine_menu.event_listener.page_subscriber:
+        class: TheCodeine\MenuBundle\EventListener\PageSubscriber
+        tags:
+            - { name: doctrine.event_subscriber }

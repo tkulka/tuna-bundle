@@ -20,4 +20,14 @@ class MenuTranslation extends AbstractPersonalTranslation
      * @ORM\JoinColumn(name="object_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $object;
+
+    /**
+     * MenuTranslation constructor.
+     */
+    public function __construct($field = null, $locale = null, $content = null)
+    {
+        $this->setField($field);
+        $this->setLocale($locale);
+        $this->setContent($content);
+    }
 }
