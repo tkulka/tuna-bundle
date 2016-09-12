@@ -1,3 +1,5 @@
+{% trans_default_domain 'tuna_admin' %}
+
 <li id="menu_{{ item.id }}" {% if item.lvl == 0 %}class="root"{% endif %} data-root-id="{{ item.id }}">
     {% if item.lvl == 0 %}
         <div class="title">{{ item.label }}</div>

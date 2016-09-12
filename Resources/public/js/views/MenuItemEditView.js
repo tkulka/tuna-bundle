@@ -1,23 +1,19 @@
 (function () {
     tuna.view.MenuItemEditView = Backbone.View.extend({
         events: {
-            'change .form--page select': 'onPageChange'
+            'change .form--page select': 'onLinkedPageChange'
         },
 
         initialize: function () {
-            this.changePage(this.$('.form--page select').val());
+            this.changeLinkedPage(this.$('.form--page select').val());
         },
 
-        onPageChange: function (event) {
-            this.changePage($(event.currentTarget).val());
+        onLinkedPageChange: function (event) {
+            this.changeLinkedPage($(event.currentTarget).val());
         },
 
-        changePage: function (value) {
-            if (value != '') {
-                this.$('.form--path, .form--externalUrl').slideUp();
-            } else {
-                this.$('.form--path, .form--externalUrl').slideDown();
-            }
+        changeLinkedPage: function (value) {
+            this.$('.form--path, .form--externalUrl').toggleClass('hide', value != '');
         }
     });
 })();

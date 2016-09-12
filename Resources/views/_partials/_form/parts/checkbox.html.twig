@@ -2,9 +2,8 @@
 {% block checkbox_widget %}
     <label class="checkbox" for="{{ id }}">
         <input
-            type="checkbox" {{ block('widget_attributes') }}  {% if value is not empty %}value="{{ value }}" {% endif %} {% if checked %} checked="checked"{% endif %}
-            data-toggle="checkbox">
-        {{ label }}
+            type="checkbox" {{ block('widget_attributes') }}  {% if value is not empty %}value="{{ value }}" {% endif %} {% if checked %} checked="checked"{% endif %} data-toggle="checkbox">
+        {{ label | trans }}
     </label>
 {% endblock %}
 

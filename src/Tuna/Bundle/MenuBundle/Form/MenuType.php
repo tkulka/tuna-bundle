@@ -25,7 +25,7 @@ class MenuType extends AbstractType
             ->add('page', EntityType::class, array(
                 'class' => Page::class,
                 'property' => 'title',
-                'empty_value' => 'No Page',
+                'empty_value' => 'Not linked to a Page',
                 'attr' => array(
                     'class' => 'filtered',
                 )
@@ -61,6 +61,7 @@ class MenuType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => Menu::class,
+            'translation_domain' => 'tuna_admin',
         ));
     }
 }
