@@ -17,9 +17,12 @@ class MenuRepository extends NestedTreeRepository
 
     public function getPageMap()
     {
-        $results = $this->findAll();
-        $items = array();
+        $results = $this->createQueryBuilder('m')
+            ->where('m.page IS NOT NULL')
+            ->getQuery()
+            ->getResult();
 
+        $items = array();
         foreach ($results as $result) {
             if ($result->getPage()) {
                 $items[$result->getPage()->getId()] = $result;

@@ -14,7 +14,7 @@
                 <a href="{{ tuna_menu_getLink(item) }}" target="_blank">
                     <i class="fa fa-external-link"></i>
                 </a>
-                <a href="{{ path('tuna_menu_delete', { id: item.id }) }}">
+                <a data-url="{{ path('tuna_menu_delete', { id: item.id }) }}" data-title="{{ item.label }}" data-target="#modal-confirm" data-action="delete">
                     <i class="fa fa-trash"></i>
                 </a>
             </span>
