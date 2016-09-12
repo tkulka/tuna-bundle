@@ -1,5 +1,5 @@
 (function () {
-    tuna.view.NestedSortableView = Backbone.View.extend({
+    tuna.view.MenuTreeView = Backbone.View.extend({
         events: {
             'click [data-action="save-order"]': 'onSaveOrderClick'
         },
