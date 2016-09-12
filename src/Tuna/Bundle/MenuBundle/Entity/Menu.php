@@ -323,6 +323,8 @@ class Menu
         } else {
             $this->setPublishDate(null);
         }
+
+        return $this;
     }
 
     public function isPublished()
@@ -414,5 +416,47 @@ class Menu
         $this->externalUrl = trim($externalUrl);
 
         return $this;
+    }
+
+    public function synchronizeWithPage(Page $page = null)
+    {
+        if ($page == null && ($page = $this->getPage()) == null) {
+            return;
+        }
+
+        $this
+            ->setLabel($page->getTitle())
+            ->setPath($page->getSlug())
+            ->setPublished($page->isPublished())
+            ->setExternalUrl(null);
+
+        $titleTranslations = array();
+        foreach ($page->getTranslations() as $t) {
+            if ($t->getField() == 'title') {
+                $titleTranslations[$t->getLocale()] = $t->getContent();
+            }
+        }
+
+        foreach ($this->getTranslations() as $t) {
+            if ($t->getField() == 'label' && key_exists($t->getLocale(), $titleTranslations)) {
+                $t->setContent($titleTranslations[$t->getLocale()]);
+                unset($titleTranslations[$t->getLocale()]);
+            }
+        }
+
+        foreach ($titleTranslations as $locale => $title) {
+            $this->addTranslation(new MenuTranslation(
+                'label',
+                $locale,
+                $title
+            ));
+        }
+    }
+
+    public function overridePagePublishedState()
+    {
+        if ($this->getPage()) {
+            $this->getPage()->setPublished($this->isPublished());
+        }
     }
 }

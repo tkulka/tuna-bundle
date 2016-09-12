@@ -5,8 +5,8 @@
         },
 
         initialize: function () {
-            this.saveOrderUrl = this.$el.data('nestedsortableurl');
-            this.$list = this.$('[data-nested-sortable] .root > ul');
+            this.saveOrderUrl = this.$el.data('save-order-url');
+            this.$list = this.$('[data-menu-tree] .root > ul');
             this.bindEvents();
         },
 

@@ -36,39 +36,9 @@ class PageSubscriber implements EventSubscriber
         }
 
         foreach ($menus as $menu) {
-            $menu
-                ->setLabel($page->getTitle())
-                ->setPath($page->getSlug())
-                ->setPublished($page->isPublished());
-
-            $this::overrideTranslations($page, $menu);
+            $menu->synchronizeWithPage($page);
         }
 
         $em->flush();
-    }
-
-    public static function overrideTranslations(Page $page, Menu $menu)
-    {
-        $titleTranslations = array();
-        foreach ($page->getTranslations() as $t) {
-            if ($t->getField() == 'title') {
-                $titleTranslations[$t->getLocale()] = $t->getContent();
-            }
-        }
-
-        foreach ($menu->getTranslations() as $t) {
-            if ($t->getField() == 'label' && key_exists($t->getLocale(), $titleTranslations)) {
-                $t->setContent($titleTranslations[$t->getLocale()]);
-                unset($titleTranslations[$t->getLocale()]);
-            }
-        }
-
-        foreach ($titleTranslations as $locale => $title) {
-            $menu->addTranslation(new MenuTranslation(
-                'label',
-                $locale,
-                $title
-            ));
-        }
     }
 }

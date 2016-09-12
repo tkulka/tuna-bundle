@@ -24,9 +24,7 @@ class MenuRepository extends NestedTreeRepository
 
         $items = array();
         foreach ($results as $result) {
-            if ($result->getPage()) {
-                $items[$result->getPage()->getId()] = $result;
-            }
+            $items[$result->getPage()->getId()] = $result;
         }
 
         return $items;

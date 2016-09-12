@@ -5,6 +5,7 @@ namespace TheCodeine\AdminBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use TheCodeine\MenuBundle\Entity\Menu;
@@ -45,9 +46,7 @@ class MenuController extends Controller
             $page = $em->find('TheCodeinePageBundle:Page', $pageId);
             $menu
                 ->setPage($page)
-                ->setLabel($page->getTitle());
-
-            PageSubscriber::overrideTranslations($page, $menu);
+                ->synchronizeWithPage($page);
         }
 
         $form = $this->createForm(MenuType::class, $menu);

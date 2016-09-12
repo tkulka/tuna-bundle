@@ -38,7 +38,7 @@ tuna.website = {
         new tuna.view.EditView({el: $('.admin-container'), lang: options.lang});
         new tuna.view.AddableEntitySelectView({el: $('.addable-entity-select')});
         new tuna.view.SortableView({el: $('[data-sortable-url]')});
-        new tuna.view.MenuTreeView({el: $('[data-nestedSortableUrl]')});
+        new tuna.view.MenuTreeView({el: $('.edit-menu-tree')});
         new tuna.view.ModalError({el: $('#modalError'), tunaEvents: tunaEvents});
         new tuna.view.MenuItemEditView({el: $('form[name="menu"]'), tunaEvents: tunaEvents});
 
