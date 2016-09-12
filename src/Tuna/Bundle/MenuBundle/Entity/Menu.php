@@ -148,8 +148,8 @@ class Menu
     public function __construct($label = null)
     {
         $this->setLabel($label);
-        $this->setClickable(false);
-        $this->setPublished(false);
+        $this->setClickable(true);
+        $this->setPublished(true);
 
         $this->translations = new ArrayCollection();
     }

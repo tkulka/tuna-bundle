@@ -3,6 +3,7 @@
 namespace TheCodeine\AdminBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use TheCodeine\MenuBundle\Controller\AdminController as MenuAdminController;
@@ -16,7 +17,7 @@ class MenuController extends MenuAdminController
 {
     protected function getRedirect(Menu $menu)
     {
-        return $this->redirectToRoute('tuna_menu_edit', array('id' => $menu->getId()));
+        return $this->redirectToRoute('tuna_menu_list');
     }
 
     /**
@@ -61,5 +62,24 @@ class MenuController extends MenuAdminController
     public function deleteAction(Request $request, Menu $menu)
     {
         return parent::deleteAction($request, $menu);
+    }
+
+    /**
+     * @Route("/reset", name="tuna_menu_reset")
+     */
+    public function resetAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+//        $menu = $em->getRepository('TheCodeineMenuBundle:Menu')->findAll();
+//        foreach ($menu as $item) {
+//            $em->remove($item);
+//        }
+//        $em->flush();
+
+        $root = new Menu('Czwarte menu');
+        $em->persist($root);
+        $em->flush();
+
+        return $this->redirectToRoute('tuna_menu_list');
     }
 }

@@ -55,7 +55,6 @@ class PageSubscriber implements EventSubscriber
                 $titleTranslations[$t->getLocale()] = $t->getContent();
             }
         }
-        dump($titleTranslations);
 
         foreach ($menu->getTranslations() as $t) {
             if ($t->getField() == 'label' && key_exists($t->getLocale(), $titleTranslations)) {

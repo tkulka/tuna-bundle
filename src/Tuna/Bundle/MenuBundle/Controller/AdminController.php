@@ -96,25 +96,6 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/reset", name="tuna_menu_reset")
-     */
-    public function resetAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-        $menu = $em->getRepository('TheCodeineMenuBundle:Menu')->findAll();
-        foreach ($menu as $item) {
-            $em->remove($item);
-        }
-        $em->flush();
-
-        $root = new Menu('Menu');
-        $em->persist($root);
-        $em->flush();
-
-        return $this->redirectToRoute('tuna_menu_create');
-    }
-
-    /**
      * @Route("/{id}/delete")
      */
     public function deleteAction(Request $request, Menu $menu)

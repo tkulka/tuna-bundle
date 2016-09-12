@@ -5,7 +5,7 @@
     {% else %}
         <span>{{ item.label }}</span>
     {% endif %}
-    {% if hasChildren | length > 0 %}
+    {% if hasChildren %}
         <ul class="subnav">
             {% for child in item.__children %}
                 {% include 'TheCodeineMenuBundle:Menu:render_menu_item.html.twig' with { item: child } %}

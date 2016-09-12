@@ -132,7 +132,7 @@ abstract class AbstractPageController extends Controller
                 $em->persist($page);
                 $em->flush();
 
-//                return $this->redirect($this->getRedirectUrl($page));
+                return $this->redirect($this->getRedirectUrl($page));
             }
         }
 

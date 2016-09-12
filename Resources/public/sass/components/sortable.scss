@@ -3,6 +3,10 @@
 }
 
 [data-nested-sortable] > li {
+    &.root {
+        list-style: none;
+    }
+
     div.title {
         font-size: 2em;
     }

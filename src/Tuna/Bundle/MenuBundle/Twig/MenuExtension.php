@@ -3,8 +3,6 @@
 namespace TheCodeine\MenuBundle\Twig;
 
 use Doctrine\ORM\EntityManager;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Router;
 use TheCodeine\MenuBundle\Entity\Menu;
 
@@ -52,8 +50,18 @@ class MenuExtension extends \Twig_Extension
         );
     }
 
+    /**
+     * @param Menu|array $menu Menu object or array containing 'externalUrl', 'slug', keys
+     * @return string
+     */
     public function getLink($menu)
     {
+        if ($menu instanceof Menu) {
+            $menu = array(
+                'externalUrl' => $menu->getExternalUrl(),
+                'slug' => $menu->getSlug(),
+            );
+        }
         if ($menu['externalUrl']) {
             return $menu['externalUrl'];
         } else {
@@ -72,17 +80,25 @@ class MenuExtension extends \Twig_Extension
             throw new \Exception('There\'s no menu like this');
         }
 
-        $nodes = $repository->getNodesHierarchy($root);
+        // FIXME: why this doesn't work with ->getNodesHierarchy($root)?
+        $nodes = $repository->getNodesHierarchy();
         $tree = $repository->buildTree($nodes);
 
         if (!key_exists('wrap', $options)) {
             $options['wrap'] = true;
         }
 
+        foreach ($tree as $item) {
+            if ($item['label'] == $root->getLabel()) {
+                $menu = $item['__children'];
+                break;
+            }
+        }
+
         return $this->twig->render(
             'TheCodeineMenuBundle:Menu:render_menu.html.twig',
             array(
-                'menu' => $tree,
+                'menu' => $menu,
                 'name' => $menuName,
                 'options' => $options,
             )
