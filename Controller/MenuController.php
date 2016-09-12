@@ -6,6 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use TheCodeine\MenuBundle\Entity\Menu;
@@ -72,6 +73,9 @@ class MenuController extends Controller
      */
     public function editAction(Request $request, Menu $menu)
     {
+        if ($menu->getParent() == null) {
+            throw new AccessDeniedHttpException();
+        }
         $form = $this->createForm(MenuType::class, $menu);
         $form->add('save', SubmitType::class);
         $form->handleRequest($request);
