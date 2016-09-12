@@ -17,7 +17,6 @@ class MenuType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $pageId = $builder->getData()->getId();
-        $parentId = $builder->getData()->getParentId();
 
         $builder
             ->add('clickable')
@@ -36,10 +35,8 @@ class MenuType extends AbstractType
                 'fields' => array(
                     'label' => array(),
                 )
-            ));
-
-        if ($parentId !== null || $pageId === null) {
-            $builder->add('parent', null,
+            ))
+            ->add('parent', null,
                 array(
                     'query_builder' => function (
                         EntityRepository $er) use (
@@ -54,7 +51,6 @@ class MenuType extends AbstractType
                     'required' => true,
                 )
             );
-        }
     }
 
     public function configureOptions(OptionsResolver $resolver)
