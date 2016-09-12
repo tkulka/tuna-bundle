@@ -1,5 +1,0 @@
-error:
-    category:
-        not_empty: Nie można usunąć kategorii <strong>%name%</strong>, ponieważ jest ona niepusta.
-    file:
-        empty: Proszę wgrać plik.

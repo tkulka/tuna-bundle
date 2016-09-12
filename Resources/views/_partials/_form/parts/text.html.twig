@@ -1,3 +1,4 @@
+{% trans_default_domain 'tuna_admin' %}
 {% block text_widget %}
     {% set attr = attr | merge({class: (attr.class | default('') ~ ' form-control input-lg') | trim}) %}
     {% if value is not empty %}

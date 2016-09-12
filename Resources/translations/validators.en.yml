@@ -1,5 +1,0 @@
-error:
-    category:
-        not_empty: You cannot delete category <strong>%name%</strong> as it is not empty.
-    file:
-        empty: You have to upload file.

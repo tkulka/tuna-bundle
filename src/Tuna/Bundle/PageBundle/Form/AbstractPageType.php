@@ -82,6 +82,7 @@ abstract class AbstractPageType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => $this->getEntityClass(),
+            'translation_domain' => 'tuna_admin',
         ));
     }
 
