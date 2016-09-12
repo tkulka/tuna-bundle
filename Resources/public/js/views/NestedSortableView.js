@@ -3,11 +3,13 @@
         events: {
             'click [data-action="save-order"]': 'onSaveOrderClick'
         },
+
         initialize: function () {
             this.saveOrderUrl = this.$el.data('nestedsortableurl');
             this.$list = this.$('[data-nested-sortable] .root > ul');
             this.bindEvents();
         },
+
         bindEvents: function () {
             var rootID = this.$('.root').data('root-id');
             this.$list.nestedSortable({
@@ -23,11 +25,13 @@
                 }, this)
             });
         },
+
         onSaveOrderClick: function (event) {
             event.preventDefault();
             var order = this.$list.sortable('toArray');
             order = _.map(order, function (item) {
                 item.depth = item.depth + 1;
+
                 return item;
             });
             $.ajax({

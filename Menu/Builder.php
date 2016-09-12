@@ -65,7 +65,7 @@ class Builder
         ));
 
         if ($this->componentsConfig['menu']['enabled']) {
-            $this->addChild($menu, $request, 'Menu', 'tuna_menu_list', 100, function ($request, $route) {
+            $this->addChild($menu, $request, 'Menu', 'tuna_menu_list', 50, function ($request, $route) {
                 return preg_match_all('/tuna_menu_/i', $request->get('_route'));
             });
         }

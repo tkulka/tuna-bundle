@@ -63,23 +63,4 @@ class MenuController extends MenuAdminController
     {
         return parent::deleteAction($request, $menu);
     }
-
-    /**
-     * @Route("/reset", name="tuna_menu_reset")
-     */
-    public function resetAction(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-//        $menu = $em->getRepository('TheCodeineMenuBundle:Menu')->findAll();
-//        foreach ($menu as $item) {
-//            $em->remove($item);
-//        }
-//        $em->flush();
-
-        $root = new Menu('Czwarte menu');
-        $em->persist($root);
-        $em->flush();
-
-        return $this->redirectToRoute('tuna_menu_list');
-    }
 }
