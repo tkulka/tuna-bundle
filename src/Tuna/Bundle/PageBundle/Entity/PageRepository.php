@@ -46,7 +46,7 @@ class PageRepository extends EntityRepository
         $result = $this->_em->createQueryBuilder()
             ->select('p.id, p.title originalTitle, t.content title, t.locale')
             ->from('TheCodeinePageBundle:Page', 'p')
-            ->join('p.translations', 't', Query\Expr\Join::WITH, 't.field = \'title\'')
+            ->leftJoin('p.translations', 't', Query\Expr\Join::WITH, 't.field = \'title\'')
             ->getQuery()->getArrayResult();
 
         $map = array();
@@ -57,7 +57,9 @@ class PageRepository extends EntityRepository
                 );
             }
 
-            $map[$item['id']][$item['locale']] = $item['title'];
+            if ($item['locale'] !== null) {
+                $map[$item['id']][$item['locale']] = $item['title'];
+            }
         }
 
         return $map;

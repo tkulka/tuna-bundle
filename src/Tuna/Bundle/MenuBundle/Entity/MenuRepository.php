@@ -2,7 +2,6 @@
 
 namespace TheCodeine\MenuBundle\Entity;
 
-use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query;
 use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 
@@ -33,15 +32,17 @@ class MenuRepository extends NestedTreeRepository
 
     public function getMenuTree($name = null)
     {
-        $qb = $this->createQueryBuilder('m');
+        $qb = $this->createQueryBuilder('m')
+            ->orderBy('m.root, m.lft', 'ASC');
 
-//        FIXME part1: don't know why this isn't working like this:
-//        if ($name) {
-//            $root = $this->findOneByLabel($name);
-//            $qb->where($qb->expr()->lt('m.rgt', $this->getFieldValue($root, 'rgt')));
-//            $qb->andWhere($qb->expr()->gt('m.lft', $this->getFieldValue($root, 'lft')));
-//            $treeNodes[] = $this->nodeToArray($root);
-//        }
+        if ($name) {
+            $root = $this->findOneByLabel($name);
+            if (!$root) {
+                throw new \Exception('There\'s no menu like this');
+            }
+            $qb->where($qb->expr()->lte('m.rgt', $this->getFieldValue($root, 'rgt')));
+            $qb->andWhere($qb->expr()->gte('m.lft', $this->getFieldValue($root, 'lft')));
+        }
 
         $nodes = $qb->getQuery()->getResult();
         array_walk($nodes, function (&$item) {
@@ -50,16 +51,7 @@ class MenuRepository extends NestedTreeRepository
 
         $tree = $this->buildTree($nodes);
 
-        if (!$name) {
-            return $tree;
-        }
-
-        // FIXME part2: why this doesn't work with filtered nodes in buildTree($nodes)?
-        foreach ($tree as $item) {
-            if ($item['__object']->getLabel() == $name) {
-                return $item['__children'];
-            }
-        }
+        return $name ? $tree[0]['__children'] : $tree;
     }
 
     public function getPageMap()
