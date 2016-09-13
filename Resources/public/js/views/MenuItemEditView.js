@@ -5,15 +5,21 @@
         },
 
         initialize: function () {
-            this.changeLinkedPage(this.$('.form--page select').val());
+            this.changeLinkedPage(this.$('.form--page select').val(), false);
         },
 
         onLinkedPageChange: function (event) {
-            this.changeLinkedPage($(event.currentTarget).val());
+            this.changeLinkedPage($(event.currentTarget).val(), true);
         },
 
-        changeLinkedPage: function (value) {
+        changeLinkedPage: function (value, updateTitles) {
             this.$('.form--path, .form--externalUrl').toggleClass('hide', value != '');
+
+            if (updateTitles && pageTitlesMap[value]) {
+                _.each(pageTitlesMap[value], function (title, locale) {
+                    this.$('.a2lix_translations [data-lang="' + locale + '"] .form--label input').val(title);
+                }, this);
+            }
         }
     });
 })();

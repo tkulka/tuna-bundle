@@ -1,9 +1,9 @@
 {% set hasChildren = item.__children | length > 0 %}
 <li class="{% if hasChildren %}dropdown{% endif %}">
-    {% if item.clickable %}
-        <a href="{{ tuna_menu_getLink(item) }}">{{ item.label }}</a>
+    {% if item.__object.clickable %}
+        <a href="{{ tuna_menu_getLink(item.__object) }}">{{ item.__object.label }}</a>
     {% else %}
-        <span>{{ item.label }}</span>
+        <span>{{ item.__object.label }}</span>
     {% endif %}
     {% if hasChildren %}
         <ul class="subnav">

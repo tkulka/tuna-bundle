@@ -54,51 +54,25 @@ class MenuExtension extends \Twig_Extension
      * @param Menu|array $menu Menu object or array containing 'externalUrl', 'slug', keys
      * @return string
      */
-    public function getLink($menu)
+    public function getLink(Menu $menu)
     {
-        if ($menu instanceof Menu) {
-            $menu = array(
-                'externalUrl' => $menu->getExternalUrl(),
-                'slug' => $menu->getSlug(),
-            );
-        }
-        if ($menu['externalUrl']) {
-            return $menu['externalUrl'];
+        if ($menu->getExternalUrl()) {
+            return $menu->getExternalUrl();
         } else {
-            return $this->router->generate('tuna_menu_item', array('slug' => $menu['slug']));
+            return $this->router->generate('tuna_menu_item', array('slug' => $menu->getSlug()));
         }
     }
 
     public function renderMenu($menuName = 'Menu', array $options = array())
     {
-        $repository = $this->em->getRepository('TheCodeineMenuBundle:Menu');
-        $root = $repository->findOneBy(array(
-            'label' => $menuName,
-            'lvl' => 0,
-        ));
-        if (!$root) {
-            throw new \Exception('There\'s no menu like this');
-        }
-
-        // FIXME: why this doesn't work with ->getNodesHierarchy($root)?
-        $nodes = $repository->getNodesHierarchy();
-        $tree = $repository->buildTree($nodes);
-
         if (!key_exists('wrap', $options)) {
             $options['wrap'] = true;
-        }
-
-        foreach ($tree as $item) {
-            if ($item['label'] == $root->getLabel()) {
-                $menu = $item['__children'];
-                break;
-            }
         }
 
         return $this->twig->render(
             'TheCodeineMenuBundle:Menu:render_menu.html.twig',
             array(
-                'menu' => $menu,
+                'menu' => $this->em->getRepository('TheCodeineMenuBundle:Menu')->getMenuTree($menuName),
                 'name' => $menuName,
                 'options' => $options,
             )

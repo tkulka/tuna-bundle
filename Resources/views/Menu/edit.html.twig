@@ -14,4 +14,7 @@
             {{ form_row(form.path) }}
         {% endblock %}
     {% endembed %}
+    <script>
+        var pageTitlesMap = {{ pageTitlesMap | json_encode | raw }};
+    </script>
 {% endblock %}

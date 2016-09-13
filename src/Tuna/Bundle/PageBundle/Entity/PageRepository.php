@@ -19,7 +19,7 @@ class PageRepository extends EntityRepository
     {
         return $this->findBy(array('published' => true));
     }
-    
+
     public function getListQuery($published = null)
     {
         $query = $this->createQueryBuilder('p');
@@ -39,6 +39,28 @@ class PageRepository extends EntityRepository
             ->setMaxResults(1);
 
         return $this->addTranslationWalker($qb)->getResult();
+    }
+
+    public function getTitlesMap($defaultLocale)
+    {
+        $result = $this->_em->createQueryBuilder()
+            ->select('p.id, p.title originalTitle, t.content title, t.locale')
+            ->from('TheCodeinePageBundle:Page', 'p')
+            ->join('p.translations', 't', Query\Expr\Join::WITH, 't.field = \'title\'')
+            ->getQuery()->getArrayResult();
+
+        $map = array();
+        foreach ($result as $item) {
+            if (!array_key_exists($item['id'], $map)) {
+                $map[$item['id']] = array(
+                    $defaultLocale => $item['originalTitle'],
+                );
+            }
+
+            $map[$item['id']][$item['locale']] = $item['title'];
+        }
+
+        return $map;
     }
 
     protected function addTranslationWalker(QueryBuilder $qb)

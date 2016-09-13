@@ -36,7 +36,7 @@ class PageSubscriber implements EventSubscriber
         }
 
         foreach ($menus as $menu) {
-            $menu->synchronizeWithPage($page);
+            MenuListener::synchronizeWithPage($menu, $page);
         }
 
         $em->flush();

@@ -1,0 +1,59 @@
+.edit-menu-tree {
+    li {
+        clear: both;
+        border: 1px dashed transparent;
+
+        a {
+            color: #fff;
+
+            &:hover {
+                color: $brand-primary;
+            }
+        }
+
+        &.unpublished {
+            opacity: .5;
+        }
+
+        &.root {
+            list-style: none;
+
+            li {
+                color: lighten($brand-tertiary, 40%);
+
+                .ui-sortable-handle {
+                    padding: 0 8px;
+
+                    &:hover {
+                        color: #fff;
+                        background: $brand-secondary;
+                    }
+                }
+
+                &.sortable-placeholder {
+                    border-color: #fff;
+                }
+
+                &.ui-sortable-helper {
+                    background: transparent;
+                }
+            }
+        }
+    }
+
+    div.title {
+        font-size: 2em;
+    }
+
+    .item-options {
+        float: right;
+        transition: opacity ease-out .3s;
+        opacity: .1;
+    }
+
+    .ui-sortable-handle {
+        &:hover .item-options {
+            opacity: 1;
+        }
+    }
+}

@@ -11,6 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use TheCodeine\MenuBundle\Entity\Menu;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use TheCodeine\MenuBundle\EventListener\MenuListener;
 use TheCodeine\MenuBundle\Form\MenuType;
 
 /**
@@ -24,11 +25,9 @@ class MenuController extends Controller
      */
     public function listAction(Request $request)
     {
-        $repository = $this->getDoctrine()->getRepository('TheCodeineMenuBundle:Menu');
-        $nodes = $repository->getNodesHierarchy();
-        $tree = $repository->buildTree($nodes);
-
-        return array('menus' => $tree);
+        return array(
+            'menus' => $this->getDoctrine()->getRepository('TheCodeineMenuBundle:Menu')->getMenuTree(),
+        );
     }
 
     /**
@@ -45,9 +44,8 @@ class MenuController extends Controller
         }
         if (($pageId = $request->query->get('pageId'))) {
             $page = $em->find('TheCodeinePageBundle:Page', $pageId);
-            $menu
-                ->setPage($page)
-                ->synchronizeWithPage($page);
+            $menu->setPage($page);
+            MenuListener::synchronizeWithPage($menu, $page);
         }
 
         $form = $this->createForm(MenuType::class, $menu);
@@ -64,6 +62,7 @@ class MenuController extends Controller
         return array(
             'form' => $form->createView(),
             'menu' => $menu,
+            'pageTitlesMap' => $em->getRepository('TheCodeinePageBundle:Page')->getTitlesMap($this->getParameter('locale')),
         );
     }
 
@@ -79,9 +78,9 @@ class MenuController extends Controller
         $form = $this->createForm(MenuType::class, $menu);
         $form->add('save', SubmitType::class);
         $form->handleRequest($request);
+        $em = $this->getDoctrine()->getManager();
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
             $em->flush();
 
             return $this->redirectToRoute('tuna_menu_list');
@@ -90,6 +89,7 @@ class MenuController extends Controller
         return array(
             'form' => $form->createView(),
             'menu' => $menu,
+            'pageTitlesMap' => $em->getRepository('TheCodeinePageBundle:Page')->getTitlesMap($this->getParameter('locale')),
         );
     }
 
