@@ -8,6 +8,7 @@
         initialize: function (options) {
 
             this.tunaEvents = options.tunaEvents;
+            this.uploadQueue = 0;
             this.$el.addClass('magictime');
             this.bindEvents();
 
@@ -20,12 +21,20 @@
             this.tunaEvents.on('backgroundJobStart', _.bind(function(){
                 $('body').addClass('sending');
                 this.$('button[type="submit"]').attr('disabled', true);
+                this.uploadQueue += 1;
             }, this));
 
             this.tunaEvents.on('backgroundJobEnd', _.bind(function(){
-                $('body').removeClass('sending');
-                this.$('button[type="submit"]').attr('disabled', false);
+                this.uploadQueue -= 1;
+                if (this.uploadQueue == 0) {
+                    this.finishSending();
+                }
             }, this));
+        },
+
+        finishSending: function() {
+            $('body').removeClass('sending');
+            this.$('button[type="submit"]').attr('disabled', false);
         },
 
         _onGalleryOpen: function () {

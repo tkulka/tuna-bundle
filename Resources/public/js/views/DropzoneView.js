@@ -55,13 +55,16 @@
                     });
 
                     this.on('queuecomplete', function () {
-                        dropzoneView.tunaEvents.trigger('backgroundJobEnd');
                         this.removeAllFiles();
                     });
 
                     this.on('sending', function () {
                         dropzoneView.tunaEvents.trigger('backgroundJobStart');
                     });
+
+                    this.on('complete', function() {
+                        dropzoneView.tunaEvents.trigger('backgroundJobEnd');
+                    })
                 }
             }, this.options);
 
