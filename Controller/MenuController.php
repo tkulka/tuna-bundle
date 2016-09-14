@@ -26,7 +26,7 @@ class MenuController extends Controller
     public function listAction(Request $request)
     {
         return array(
-            'menus' => $this->getDoctrine()->getRepository('TheCodeineMenuBundle:Menu')->getMenuTree(),
+            'menus' => $this->getDoctrine()->getRepository('TheCodeineMenuBundle:Menu')->getMenuTree(null, false),
         );
     }
 
@@ -112,25 +112,25 @@ class MenuController extends Controller
     public function saveOrderAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('TheCodeineMenuBundle:Menu');
 
         $order = $request->request->get('order', array());
-        $entities = $em->getRepository('TheCodeineMenuBundle:Menu')->findAll();
-        $pages = array();
+        $entities = $repository->findAll();
+        $nodes = array();
 
         foreach ($entities as $entity) {
-            $pages[$entity->getId()] = $entity;
+            $nodes[$entity->getId()] = $entity;
         }
 
-        foreach ($order as $pageTreeData) {
-            if (isset($pages[$pageTreeData['id']])) {
-                $pages[$pageTreeData['id']]->setTreeData(
-                    $pageTreeData['left'],
-                    $pageTreeData['right'],
-                    $pageTreeData['depth'],
-                    isset($pages[$pageTreeData['parent_id']]) ? $pages[$pageTreeData['parent_id']] : null
-                );
-            }
+        foreach ($order as $nodeTreeData) {
+            $nodes[(int)$nodeTreeData['id']]->setTreeData(
+                (int)$nodeTreeData['left'],
+                (int)$nodeTreeData['right'],
+                (int)$nodeTreeData['depth'],
+                isset($nodes[$nodeTreeData['parent_id']]) ? $nodes[$nodeTreeData['parent_id']] : null
+            );
         }
+
         $em->flush();
 
         return new JsonResponse('ok');

@@ -11,14 +11,13 @@
         },
 
         bindEvents: function () {
-            var rootID = this.$('.root').data('root-id');
             this.$list.nestedSortable({
                 listType: 'ul',
                 handle: 'div',
                 items: 'li',
                 toleranceElement: '> div',
                 excludeRoot: true,
-                rootID: rootID,
+                rootID: this.$('.root').data('id'),
                 placeholder: 'sortable-placeholder',
                 update: _.bind(function (event, ui) {
                     this.$('[data-action="save-order"]').removeClass('inactive');
@@ -30,7 +29,12 @@
             event.preventDefault();
             var order = this.$list.sortable('toArray');
             order = _.map(order, function (item) {
-                item.depth = item.depth + 1;
+                if (item.item_id) {
+                    item.id = item.item_id;
+                    delete item.item_id;
+                } else {
+                    item.depth = item.depth + 1;
+                }
 
                 return item;
             });

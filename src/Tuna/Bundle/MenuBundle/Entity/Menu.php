@@ -160,7 +160,8 @@ class Menu
     public function validate(ExecutionContextInterface $context)
     {
         if (!$this->getPage() && $this->isClickable() && !$this->getPath() && !$this->getExternalUrl()) {
-            $context->buildViolation('You must provide path or external url.')
+            $context->buildViolation('error.menu.path_or_url')
+                ->setTranslationDomain('tuna_admin')
                 ->atPath('path')
                 ->addViolation();
         }

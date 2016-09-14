@@ -30,7 +30,7 @@ class MenuRepository extends NestedTreeRepository
         );
     }
 
-    public function getMenuTree($name = null)
+    public function getMenuTree($name = null, $filterUnpublished = true)
     {
         $qb = $this->createQueryBuilder('m')
             ->orderBy('m.root, m.lft', 'ASC');
@@ -45,9 +45,29 @@ class MenuRepository extends NestedTreeRepository
         }
 
         $nodes = $qb->getQuery()->getResult();
-        array_walk($nodes, function (&$item) {
-            $item = $this->nodeToArray($item);
-        });
+
+        if (!$filterUnpublished) {
+            array_walk($nodes, function (&$item) {
+                $item = $this->nodeToArray($item);
+            });
+        } else {
+            $filteredNodes = array();
+            $unpublishedRgt = 0;
+
+            foreach ($nodes as $node) {
+
+                $nodeRgt = $this->getFieldValue($node, 'rgt');
+                if (!$node->isPublished()) {
+                    $unpublishedRgt = $nodeRgt;
+                }
+
+                if ($unpublishedRgt < $nodeRgt) {
+                    $filteredNodes[] = $this->nodeToArray($node);
+                }
+            }
+
+            $nodes = $filteredNodes;
+        }
 
         $tree = $this->buildTree($nodes);
 
