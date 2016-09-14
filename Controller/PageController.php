@@ -2,15 +2,27 @@
 
 namespace TheCodeine\AdminBundle\Controller;
 
+use Doctrine\ORM\EntityRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use TheCodeine\MenuBundle\Entity\Menu;
+use TheCodeine\PageBundle\Entity\AbstractPage;
 
 /**
  * @Route("/page")
  */
 class PageController extends \TheCodeine\PageBundle\Controller\PageController
 {
+    public function getRedirectUrl(AbstractPage $page = null, Request $request = null)
+    {
+        if ($request && $request->query->get('redirect') == 'dashboard') {
+            return $this->generateUrl('tuna_admin_dashboard');
+        }
+        return parent::getRedirectUrl($page);
+    }
+
     /**
      *
      * @Route("/list", name="tuna_page_list")
@@ -41,7 +53,49 @@ class PageController extends \TheCodeine\PageBundle\Controller\PageController
     {
         $this->denyAccessUnlessGranted('create', 'pages');
 
-        return parent::createAction($request);
+        $page = $this->getNewPage();
+        $form = $this->createForm($this->getNewFormType($page, !$request->isXmlHttpRequest()), $page);
+        $form->add('save', 'submit');
+        if ($request->query->get('menu') == 'add') {
+            $form->add('menuParent', EntityType::class, array(
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('p')
+                            ->orderBy('p.root', 'ASC')
+                            ->addOrderBy('p.lft', 'ASC');
+                    },
+                    'class' => Menu::class,
+                    'property' => 'indentedName',
+                    'required' => true,
+                    'mapped' => false,
+                )
+            );
+        }
+
+        $form->handleRequest($request);
+        $menuParent = $form->get('menuParent')->getData();
+        $em = $this->getDoctrine()->getManager();
+
+        if ($form->isValid()) {
+            if (!$request->isXmlHttpRequest()) {
+                $em->persist($page);
+                $em->flush();
+
+                if ($menuParent) {
+                    $menu = new Menu('tmp');
+                    $menu->setPage($page);
+                    $menu->setParent($menuParent);
+                    $em->persist($menu);
+                    $em->flush();
+                }
+
+                return $this->redirect($this->getRedirectUrl($page, $request));
+            }
+        }
+
+        return array(
+            'page' => $page,
+            'form' => $form->createView(),
+        );
     }
 
     /**

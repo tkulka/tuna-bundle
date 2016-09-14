@@ -1,0 +1,31 @@
+{% trans_default_domain 'tuna_admin' %}
+
+{% set menuObject = item.__object %}
+<li id="menu_{{ menuObject.id }}" class="{% if item.lvl == 0 %} root{% endif %}{% if not menuObject.published %} unpublished{% endif %}" data-id="{{ menuObject.id }}">
+    {% if item.lvl == 0 %}
+        <div class="title">{{ menuObject.label }}</div>
+    {% else %}
+        <div>
+            {{ menuObject.label }}
+            <span class="item-options">
+                {% if menuObject.page %}
+                    <a href="{{ path('tuna_page_edit', { id: menuObject.page.id, redirect: 'dashboard' }) }}">
+                    <i class="fa fa-edit"></i>
+                </a>
+                {% endif %}
+                {% if menuObject.clickable %}
+                    <a href="{{ tuna_menu_getLink(menuObject) }}" target="_blank">
+                    <i class="fa fa-external-link"></i>
+                </a>
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}
+    {% if item.__children | length %}
+        <ul>
+            {% for child in item.__children %}
+                {% include('TheCodeineAdminBundle:Dashboard:menu_item.html.twig') with { item: child } %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+</li>

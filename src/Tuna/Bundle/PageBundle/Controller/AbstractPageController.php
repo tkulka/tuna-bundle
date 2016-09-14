@@ -4,6 +4,7 @@ namespace TheCodeine\PageBundle\Controller;
 
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
+use TheCodeine\MenuBundle\Entity\Menu;
 use TheCodeine\PageBundle\Entity\AbstractPage;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -12,6 +13,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Routing\Annotation\Route;
+use TheCodeine\PageBundle\Entity\Page;
 
 abstract class AbstractPageController extends Controller
 {
@@ -28,7 +30,7 @@ abstract class AbstractPageController extends Controller
     /**
      * @return string
      */
-    abstract public function getRedirectUrl(AbstractPage $page = null);
+    abstract public function getRedirectUrl(AbstractPage $page = null, Request $request = null);
 
     /**
      * @return EntityRepository
@@ -80,10 +82,10 @@ abstract class AbstractPageController extends Controller
     {
         $page = $this->getRepository()->find($id);
 
-        return $this->handleDeletion($page);
+        return $this->handleDeletion($page, $request);
     }
 
-    protected function handleDeletion($page)
+    protected function handleDeletion($page, Request $request = null)
     {
         $em = $this->getDoctrine()->getManager();
         $em->remove($page);
@@ -132,7 +134,7 @@ abstract class AbstractPageController extends Controller
                 $em->persist($page);
                 $em->flush();
 
-                return $this->redirect($this->getRedirectUrl($page));
+                return $this->redirect($this->getRedirectUrl($page, $request));
             }
         }
 
@@ -158,7 +160,7 @@ abstract class AbstractPageController extends Controller
                 $em->persist($page);
                 $em->flush();
 
-                return $this->redirect($this->getRedirectUrl($page));
+                return $this->redirect($this->getRedirectUrl($page, $request));
             }
         }
 
