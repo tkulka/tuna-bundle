@@ -1,5 +1,5 @@
 (function () {
-    tuna.view.DropzoneView = Backbone.View.extend({
+    tuna.file.view.DropzoneView = Backbone.View.extend({
 
         initialize: function (options) {
             Dropzone.autoDiscover = false;

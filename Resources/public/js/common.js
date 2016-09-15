@@ -11,6 +11,9 @@ window.tuna || (window.tuna = {
     collection: {},
     router: {},
     features: {},
+    file: {
+        view: {}
+    },
     config: {
         localeMap: {
             'en': 'en-US',
@@ -40,19 +43,7 @@ tuna.website = {
         new tuna.view.SortableView({el: $('[data-sortable-url]')});
         new tuna.view.ModalError({el: $('#modalError'), tunaEvents: tunaEvents});
 
-        $('[data-dropzone-options]').each(function (index, item) {
-            var options = $(item).data('dropzone-options');
-            var $selector = $(options.selector);
-
-            if (!$selector.data('dropover-text')) {
-                new tuna.view.DropzoneView({
-                    el: $selector,
-                    options: options,
-                    tunaEvents: tunaEvents
-                });
-            }
-
-        });
+        tuna.file.init(tunaEvents);
 
         //WYSIWYG EDITOR
         tuna.view.EditorView && new tuna.view.EditorView({
@@ -61,7 +52,7 @@ tuna.website = {
             tunaEvents: tunaEvents,
             callbacks: {
                 onInit: function() {
-                    new tuna.view.DropzoneView({
+                    new tuna.file.view.DropzoneView({
                         el: $(this).siblings('.note-editor'),
                         options: {
                             clickable: '.note-image-button',
