@@ -4,7 +4,7 @@
 {% block content %}
     {% embed 'TheCodeineAdminBundle::_partials/_form/_main.html.twig' with { title: 'Create page'|trans } %}
         {% block extraFields %}
-            {% if form.menuParent %}
+            {% if form.menuParent is defined %}
                 {{ form_row(form.menuParent) }}
             {% endif %}
         {% endblock %}

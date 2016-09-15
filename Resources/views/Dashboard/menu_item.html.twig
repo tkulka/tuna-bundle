@@ -8,16 +8,22 @@
         <div>
             {{ menuObject.label }}
             <span class="item-options">
+                    <a href="{{ path('tuna_page_create', { menu: 'add', redirect: 'dashboard', menuParentId: menuObject.id }) }}">
+                        <i class="fa fa-plus"></i>
+                    </a>
                 {% if menuObject.page %}
                     <a href="{{ path('tuna_page_edit', { id: menuObject.page.id, redirect: 'dashboard' }) }}">
-                    <i class="fa fa-edit"></i>
-                </a>
+                        <i class="fa fa-edit"></i>
+                    </a>
                 {% endif %}
                 {% if menuObject.clickable %}
                     <a href="{{ tuna_menu_getLink(menuObject) }}" target="_blank">
-                    <i class="fa fa-external-link"></i>
-                </a>
+                        <i class="fa fa-external-link"></i>
+                    </a>
                 {% endif %}
+                <a data-url="{{ path('tuna_menu_delete', { id: menuObject.id, redirect: 'dashboard' }) }}" data-title="pozycję menu {{ menuObject.label }}" data-target="#modal-confirm" data-action="delete">
+                    <i class="fa fa-trash"></i>
+                </a>
             </span>
         </div>
     {% endif %}

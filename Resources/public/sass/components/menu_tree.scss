@@ -3,6 +3,16 @@
         clear: both;
         border: 1px dashed transparent;
 
+        > div {
+            border: 1px dashed transparent;
+            margin: -1px;
+            padding: 0 8px;
+        }
+
+        .sortable-placeholder {
+            border: 1px dashed #fff;
+        }
+
         a {
             color: #fff;
 
@@ -22,16 +32,10 @@
                 color: lighten($brand-tertiary, 40%);
 
                 .ui-sortable-handle {
-                    padding: 0 8px;
-
                     &:hover {
                         color: #fff;
                         background: $brand-secondary;
                     }
-                }
-
-                &.sortable-placeholder {
-                    border-color: #fff;
                 }
 
                 &.ui-sortable-helper {

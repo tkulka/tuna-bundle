@@ -1,0 +1,33 @@
+<table class="table table-hover standalone-pages" data-add-menu-item-url="{{ path('tuna_page_add_to_menu') }}">
+    <thead>
+    <tr>
+        <th>{{ knp_pagination_sortable(pagination, 'No'|trans, 'p.id') }}</th>
+        <th>{{ knp_pagination_sortable(pagination, 'Title'|trans, 'p.title') }}</th>
+        <th>{{ knp_pagination_sortable(pagination, 'Slug'|trans, 'p.slug') }}</th>
+        <th class="center">{{ knp_pagination_sortable(pagination, 'Published'|trans, 'p.published') }}</th>
+        <th class="text-right">{% trans %}Options{% endtrans %}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for item in pagination %}
+        <tr data-enabled="{{ item.published|round }}" class="{% if not item.published %}unpublished{% endif %}" data-id="{{ item.id }}">
+            <td>{{ loop.index + offset }}</td>
+            <td>{{ item.title }}</td>
+            <td>{{ item.slug }}</td>
+            <td class="center">
+                {% if item.published %}
+                    <i class="fa fa-check-circle" aria-hidden="true"></i>
+                {% else %}
+                    <i class="fa fa-times-circle" aria-hidden="true"></i>
+                {% endif %}
+            </td>
+            <td class="options">
+                <a href="{{ path('tuna_page_edit', {'id' : item.id, redirect: 'dashboard' }) }}" class="fa fa-pencil-square-o" aria-hidden="true"></a>
+                {% if is_granted('delete', 'pages') %}
+                    <a href="#" data-title="{{ item.title }}" data-url="{{ path('tuna_page_delete', {'id' : item.id, redirect: 'dashboard'}) }}" data-target="#modal-confirm" data-action="delete" class="fa fa-trash" aria-hidden="true"></a>
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

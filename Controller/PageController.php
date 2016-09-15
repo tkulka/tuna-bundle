@@ -5,10 +5,13 @@ namespace TheCodeine\AdminBundle\Controller;
 use Doctrine\ORM\EntityRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use TheCodeine\MenuBundle\Entity\Menu;
 use TheCodeine\PageBundle\Entity\AbstractPage;
+use TheCodeine\PageBundle\Entity\Page;
 
 /**
  * @Route("/page")
@@ -57,6 +60,9 @@ class PageController extends \TheCodeine\PageBundle\Controller\PageController
         $form = $this->createForm($this->getNewFormType($page, !$request->isXmlHttpRequest()), $page);
         $form->add('save', 'submit');
         if ($request->query->get('menu') == 'add') {
+            if (($parentId = $request->query->get('menuParentId'))) {
+                $parent = $this->getDoctrine()->getManager()->getReference('TheCodeineMenuBundle:Menu', $parentId);
+            }
             $form->add('menuParent', EntityType::class, array(
                     'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('p')
@@ -67,35 +73,15 @@ class PageController extends \TheCodeine\PageBundle\Controller\PageController
                     'property' => 'indentedName',
                     'required' => true,
                     'mapped' => false,
+                    'data' => isset($parent) ? $parent : null,
                 )
             );
         }
 
-        $form->handleRequest($request);
-        $menuParent = $form->get('menuParent')->getData();
-        $em = $this->getDoctrine()->getManager();
+        $return = $this->handleCreateForm($request, $form, $page);
+        $this->handleMenuParent($request, $form, $page);
 
-        if ($form->isValid()) {
-            if (!$request->isXmlHttpRequest()) {
-                $em->persist($page);
-                $em->flush();
-
-                if ($menuParent) {
-                    $menu = new Menu('tmp');
-                    $menu->setPage($page);
-                    $menu->setParent($menuParent);
-                    $em->persist($menu);
-                    $em->flush();
-                }
-
-                return $this->redirect($this->getRedirectUrl($page, $request));
-            }
-        }
-
-        return array(
-            'page' => $page,
-            'form' => $form->createView(),
-        );
+        return $return;
     }
 
     /**
@@ -117,5 +103,46 @@ class PageController extends \TheCodeine\PageBundle\Controller\PageController
         $this->denyAccessUnlessGranted('delete', 'pages');
 
         return parent::deleteAction($request, $id);
+    }
+
+    /**
+     * @Route("/add-to-menu", name="tuna_page_add_to_menu")
+     */
+    public function createMenuItemAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $page = $em->find('TheCodeinePageBundle:Page', $request->request->get('pageId'));
+        $menuParent = $em->getReference('TheCodeineMenuBundle:Menu', $request->request->get('menuParentId'));
+
+        $menu = new Menu('tmp');
+        $menu->setPage($page);
+        $menu->setParent($menuParent);
+
+        $em->persist($menu);
+        $em->flush();
+
+        return new JsonResponse('ok');
+    }
+
+    /**
+     * @param Request $request
+     * @param FormInterface $form
+     * @param Page $page
+     */
+    private function handleMenuParent(Request $request, FormInterface $form, Page $page)
+    {
+        if (
+            $form->isValid()
+            && !$request->isXmlHttpRequest()
+            && $form->has('menuParent')
+        ) {
+            $menuParent = $form->get('menuParent')->getData();
+            $em = $this->getDoctrine()->getManager();
+            $menu = new Menu('tmp');
+            $menu->setPage($page);
+            $menu->setParent($menuParent);
+            $em->persist($menu);
+            $em->flush();
+        }
     }
 }
