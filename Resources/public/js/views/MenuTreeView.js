@@ -34,6 +34,7 @@
                 })
                 .on('dragenter', function () {
                     $(this).addClass('sortable-placeholder');
+
                     return false;
                 })
                 .on('dragleave', function () {
