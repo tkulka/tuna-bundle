@@ -59,32 +59,17 @@ class PageController extends \TheCodeine\PageBundle\Controller\PageController
         $page = $this->getNewPage();
         $form = $this->createForm($this->getNewFormType($page, !$request->isXmlHttpRequest()), $page);
         $form->add('save', 'submit');
-        if ($request->query->get('menu') == 'add') {
-            if (($parentId = $request->query->get('menuParentId'))) {
-                $parent = $this->getDoctrine()->getManager()->getReference('TheCodeineMenuBundle:Menu', $parentId);
-            }
-            $form->add('menuParent', EntityType::class, array(
-                    'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('p')
-                            ->orderBy('p.root', 'ASC')
-                            ->addOrderBy('p.lft', 'ASC');
-                    },
-                    'class' => Menu::class,
-                    'property' => 'indentedName',
-                    'required' => true,
-                    'mapped' => false,
-                    'data' => isset($parent) ? $parent : null,
-                )
-            );
+        if (($parentId = $request->query->get('menuParentId'))) {
+            $menuParent = $this->getDoctrine()->getManager()->getReference('TheCodeineMenuBundle:Menu', $parentId);
         }
 
         $return = $this->handleCreateForm($request, $form, $page);
         if (
             $form->isValid()
             && !$request->isXmlHttpRequest()
-            && $form->has('menuParent')
+            && isset($menuParent)
         ) {
-            $this->createMenuForPage($form->get('menuParent')->getData(), $page);
+            $this->createMenuForPage($menuParent, $page);
         }
 
         return $return;

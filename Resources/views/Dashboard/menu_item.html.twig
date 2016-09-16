@@ -3,14 +3,21 @@
 {% set menuObject = item.__object %}
 <li id="menu_{{ menuObject.id }}" class="{% if item.lvl == 0 %} root{% endif %}{% if not menuObject.published %} unpublished{% endif %}" data-id="{{ menuObject.id }}">
     {% if item.lvl == 0 %}
-        <div class="title">{{ menuObject.label }}</div>
+        <div class="title">
+            <span class="item-options">
+                <a href="{{ path('tuna_page_create', { redirect: 'dashboard', menuParentId: menuObject.id }) }}">
+                    <i class="fa fa-plus"></i>
+                </a>
+            </span>
+            {{ menuObject.label }}
+        </div>
     {% else %}
         <div>
             {{ menuObject.label }}
             <span class="item-options">
-                    <a href="{{ path('tuna_page_create', { menu: 'add', redirect: 'dashboard', menuParentId: menuObject.id }) }}">
-                        <i class="fa fa-plus"></i>
-                    </a>
+                <a href="{{ path('tuna_page_create', { redirect: 'dashboard', menuParentId: menuObject.id }) }}">
+                    <i class="fa fa-plus"></i>
+                </a>
                 {% if menuObject.page %}
                     <a href="{{ path('tuna_page_edit', { id: menuObject.page.id, redirect: 'dashboard' }) }}">
                         <i class="fa fa-edit"></i>

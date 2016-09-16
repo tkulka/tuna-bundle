@@ -18,7 +18,7 @@
                 handle: 'div',
                 items: 'li',
                 toleranceElement: '> div',
-                excludeRoot: true,
+                excludeRoot: false,
                 rootID: this.$('.root').data('id'),
                 placeholder: 'sortable-placeholder',
                 update: _.bind(function (event, ui) {

@@ -8,9 +8,6 @@
             {% for menu in menus %}
                 <div class="admin-list">
                     <div class="action-buttons">
-                        <a href="{{ path('tuna_page_create', { menu: 'add', redirect: 'dashboard' }) }}" class="btn btn-primary btn-wide">
-                            <i class="fui-plus" draggable="true"></i> {% trans %}Add item{% endtrans %}
-                        </a>
                         <a href="#" data-action="save-order" class="btn btn-primary btn-wide inactive">
                             <i class="fa fa-save" aria-hidden="true"></i> {% trans %}Save order{% endtrans %}
                         </a>
@@ -18,13 +15,12 @@
                     <ul data-menu-tree>
                         {% include 'TheCodeineAdminBundle:Dashboard:menu_item.html.twig' with { item: menu } %}
                     </ul>
-
-                    {% if pagination.totalItemCount > 0 %}
-                        <hr>
-                        {% include('TheCodeineAdminBundle:Dashboard:pages_list.html.twig') %}
-                    {% endif %}
                 </div>
             {% endfor %}
+            {% if pagination.totalItemCount > 0 %}
+                <hr>
+                {% include('TheCodeineAdminBundle:Dashboard:pages_list.html.twig') %}
+            {% endif %}
         </div>
     </div>
 {% endblock %}

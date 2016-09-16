@@ -55,9 +55,7 @@
         opacity: .1;
     }
 
-    .ui-sortable-handle {
-        &:hover .item-options {
-            opacity: 1;
-        }
+    div:hover > .item-options {
+        opacity: 1;
     }
 }
