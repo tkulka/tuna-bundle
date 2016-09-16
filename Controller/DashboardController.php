@@ -27,9 +27,7 @@ class DashboardController extends Controller
         return array(
             'menus' => $menuRepository->getMenuTree(null, false),
             'offset' => ($page - 1) * $limit,
-            'pagination' => $this->get('knp_paginator')->paginate($query, $page, $limit, array(
-                'distinct' => false
-            )),
+            'pagination' => $this->get('knp_paginator')->paginate($query, $page, $limit),
         );
     }
 }

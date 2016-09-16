@@ -79,7 +79,13 @@ class PageController extends \TheCodeine\PageBundle\Controller\PageController
         }
 
         $return = $this->handleCreateForm($request, $form, $page);
-        $this->handleMenuParent($request, $form, $page);
+        if (
+            $form->isValid()
+            && !$request->isXmlHttpRequest()
+            && $form->has('menuParent')
+        ) {
+            $this->createMenuForPage($form->get('menuParent')->getData(), $page);
+        }
 
         return $return;
     }
@@ -111,38 +117,25 @@ class PageController extends \TheCodeine\PageBundle\Controller\PageController
     public function createMenuItemAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $page = $em->find('TheCodeinePageBundle:Page', $request->request->get('pageId'));
+        $page = $em->getReference('TheCodeinePageBundle:Page', $request->request->get('pageId'));
         $menuParent = $em->getReference('TheCodeineMenuBundle:Menu', $request->request->get('menuParentId'));
 
-        $menu = new Menu('tmp');
-        $menu->setPage($page);
-        $menu->setParent($menuParent);
-
-        $em->persist($menu);
-        $em->flush();
+        $this->createMenuForPage($menuParent, $page);
 
         return new JsonResponse('ok');
     }
 
     /**
-     * @param Request $request
-     * @param FormInterface $form
+     * @param Menu $menuParent
      * @param Page $page
      */
-    private function handleMenuParent(Request $request, FormInterface $form, Page $page)
+    private function createMenuForPage(Menu $menuParent, Page $page)
     {
-        if (
-            $form->isValid()
-            && !$request->isXmlHttpRequest()
-            && $form->has('menuParent')
-        ) {
-            $menuParent = $form->get('menuParent')->getData();
-            $em = $this->getDoctrine()->getManager();
-            $menu = new Menu('tmp');
-            $menu->setPage($page);
-            $menu->setParent($menuParent);
-            $em->persist($menu);
-            $em->flush();
-        }
+        $em = $this->getDoctrine()->getManager();
+        $menu = new Menu('tmp');
+        $menu->setPage($page);
+        $menu->setParent($menuParent);
+        $em->persist($menu);
+        $em->flush();
     }
 }

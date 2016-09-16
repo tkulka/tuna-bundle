@@ -15,7 +15,7 @@
 
             this.$list.nestedSortable({
                 listType: 'ul',
-                handle: 'div:not(.sortable-placeholder)',
+                handle: 'div',
                 items: 'li',
                 toleranceElement: '> div',
                 excludeRoot: true,
