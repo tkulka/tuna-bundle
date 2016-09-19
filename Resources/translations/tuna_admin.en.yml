@@ -6,3 +6,6 @@ error:
         not_empty: You cannot delete category <strong>%name%</strong> as it is not empty.
     file:
         empty: You have to upload file.
+        not_exists: Cannot find "%filename%" file.
+    menu:
+        path_or_url: You must provide path or external url.

@@ -27,7 +27,7 @@ class NewsController extends AbstractPageController
         return $this->get('tuna.news.factory')->getFormInstance($news, $validate);
     }
 
-    public function getRedirectUrl(AbstractPage $page = null)
+    public function getRedirectUrl(AbstractPage $page = null, Request $request = null)
     {
         return $this->generateUrl('tuna_news_list', array('newsType' => $page->getType()));
     }

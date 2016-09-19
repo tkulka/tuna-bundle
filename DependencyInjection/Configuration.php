@@ -60,8 +60,8 @@ class Configuration implements ConfigurationInterface
                 ->addDefaultsIfNotSet()
                 ->children()
                     ->booleanNode('enabled')->defaultValue(true)->end()
-                    ->booleanNode('create')->defaultValue(false)->end()
-                    ->booleanNode('delete')->defaultValue(false)->end()
+                    ->booleanNode('create')->defaultValue(true)->end()
+                    ->booleanNode('delete')->defaultValue(true)->end()
                 ->end()
             ->end()
         ;
@@ -77,6 +77,7 @@ class Configuration implements ConfigurationInterface
             ->end()
         ;
 
+        $this->addEnabledConfig($sections, 'menu', true);
         $this->addEnabledConfig($sections, 'news', true);
         $this->addEnabledConfig($sections, 'events', false);
         $this->addEnabledConfig($sections, 'translations', true);

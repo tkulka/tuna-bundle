@@ -17,7 +17,8 @@ class FileNotNullValidator extends ConstraintValidator
     public static function doValidate(ExecutionContextInterface $context, Constraint $constraint, AbstractFile $value = null, $atPath = null)
     {
         if ($value == null || $value->getPath() == null) {
-            $violationBuilder = $context->buildViolation($constraint->message);
+            $violationBuilder = $context->buildViolation($constraint->message)
+                ->setTranslationDomain('tuna_admin');
 
             if ($atPath) {
                 $violationBuilder->atPath($atPath);
