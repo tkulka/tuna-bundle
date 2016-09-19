@@ -6,24 +6,26 @@
 
         initialize: function () {
             this.saveOrderUrl = this.$el.data('save-order-url');
-            this.$list = this.$('[data-menu-tree] .root > ul');
             this.bindEvents();
         },
 
         bindEvents: function () {
             var menuTreeView = this;
 
-            this.$list.nestedSortable({
-                listType: 'ul',
-                handle: 'div',
-                items: 'li',
-                toleranceElement: '> div',
-                excludeRoot: false,
-                rootID: this.$('.root').data('id'),
-                placeholder: 'sortable-placeholder',
-                update: _.bind(function (event, ui) {
-                    this.$('[data-action="save-order"]').removeClass('inactive');
-                }, this)
+            _.each(this.$('[data-menu-tree] .root > ul'), function (menu) {
+                var $menu = $(menu);
+                $menu.nestedSortable({
+                    listType: 'ul',
+                    handle: 'div',
+                    items: 'li',
+                    toleranceElement: '> div',
+                    excludeRoot: false,
+                    rootID: $menu.closest('.root').data('id'),
+                    placeholder: 'sortable-placeholder',
+                    update: _.bind(function (event, ui) {
+                        this.$('[data-action="save-order"]').removeClass('inactive');
+                    }, this)
+                });
             });
 
             this.$('li[data-id] > div')
@@ -66,7 +68,8 @@
 
         onSaveOrderClick: function (event) {
             event.preventDefault();
-            var order = this.$list.sortable('toArray');
+            var $list = $(event.currentTarget).closest('.admin-list').find('[data-menu-tree] .root > ul');
+            var order = $list.sortable('toArray');
             order = _.map(order, function (item) {
                 // weird ifology due to weird behavior of nestedSortable plugin
                 if (item.item_id) {
