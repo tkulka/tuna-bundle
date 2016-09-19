@@ -71,6 +71,7 @@ class Menu
      * @var Page
      *
      * @ORM\ManyToOne(targetEntity="TheCodeine\PageBundle\Entity\Page")
+     * @ORM\JoinColumn(onDelete="SET NULL")
      */
     protected $page;
 

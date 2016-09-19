@@ -2,15 +2,30 @@
 
 namespace TheCodeine\AdminBundle\Controller;
 
+use Doctrine\ORM\EntityRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use TheCodeine\MenuBundle\Entity\Menu;
+use TheCodeine\PageBundle\Entity\AbstractPage;
+use TheCodeine\PageBundle\Entity\Page;
 
 /**
  * @Route("/page")
  */
 class PageController extends \TheCodeine\PageBundle\Controller\PageController
 {
+    public function getRedirectUrl(AbstractPage $page = null, Request $request = null)
+    {
+        if ($request && $request->query->get('redirect') == 'dashboard') {
+            return $this->generateUrl('tuna_admin_dashboard');
+        }
+        return parent::getRedirectUrl($page);
+    }
+
     /**
      *
      * @Route("/list", name="tuna_page_list")
@@ -41,7 +56,23 @@ class PageController extends \TheCodeine\PageBundle\Controller\PageController
     {
         $this->denyAccessUnlessGranted('create', 'pages');
 
-        return parent::createAction($request);
+        $page = $this->getNewPage();
+        $form = $this->createForm($this->getNewFormType($page, !$request->isXmlHttpRequest()), $page);
+        $form->add('save', 'submit');
+        if (($parentId = $request->query->get('menuParentId'))) {
+            $menuParent = $this->getDoctrine()->getManager()->getReference('TheCodeineMenuBundle:Menu', $parentId);
+        }
+
+        $return = $this->handleCreateForm($request, $form, $page);
+        if (
+            $form->isValid()
+            && !$request->isXmlHttpRequest()
+            && isset($menuParent)
+        ) {
+            $this->createMenuForPage($menuParent, $page);
+        }
+
+        return $return;
     }
 
     /**
@@ -63,5 +94,33 @@ class PageController extends \TheCodeine\PageBundle\Controller\PageController
         $this->denyAccessUnlessGranted('delete', 'pages');
 
         return parent::deleteAction($request, $id);
+    }
+
+    /**
+     * @Route("/add-to-menu", name="tuna_page_add_to_menu")
+     */
+    public function createMenuItemAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $page = $em->getReference('TheCodeinePageBundle:Page', $request->request->get('pageId'));
+        $menuParent = $em->getReference('TheCodeineMenuBundle:Menu', $request->request->get('menuParentId'));
+
+        $this->createMenuForPage($menuParent, $page);
+
+        return new JsonResponse('ok');
+    }
+
+    /**
+     * @param Menu $menuParent
+     * @param Page $page
+     */
+    private function createMenuForPage(Menu $menuParent, Page $page)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $menu = new Menu('tmp');
+        $menu->setPage($page);
+        $menu->setParent($menuParent);
+        $em->persist($menu);
+        $em->flush();
     }
 }

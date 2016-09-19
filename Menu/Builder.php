@@ -64,15 +64,13 @@ class Builder
             'childrenAttributes' => array('class' => 'nav')
         ));
 
+        $this->addChild($menu, $request, 'Dashboard', 'tuna_admin_dashboard', 0, function ($request, $route) {
+            return preg_match_all('/tuna_admin_dashboard/i', $request->get('_route'));
+        });
+
         if ($this->componentsConfig['menu']['enabled']) {
             $this->addChild($menu, $request, 'Menu', 'tuna_menu_list', 50, function ($request, $route) {
                 return preg_match_all('/tuna_menu_/i', $request->get('_route'));
-            });
-        }
-
-        if ($this->componentsConfig['pages']['enabled']) {
-            $this->addChild($menu, $request, 'Pages', 'tuna_page_list', 100, function ($request, $route) {
-                return preg_match_all('/tuna_page/i', $request->get('_route'));
             });
         }
 

@@ -42,27 +42,27 @@
     Here is full option config with defaults:
     
         the_codeine_admin:
-            menu_builder: TheCodeine\AdminBundle\Menu\Builder
-            paths:
-                admin_logo: bundles/thecodeineadmin/images/logo.png
-            host: null
-            components:
-                menu:
-                    enabled: true
-                pages:
-                    enabled: true
-                    create: false
-                    delete: false
-                news:
-                    enabled: true
-                events:
-                    enabled: false
-                translations:
-                    enabled: true
-                categories:
-                    enabled: false
-                editor:
-                    wysiwyg_style_dir: "vendor/thecodeine/tuna-adminbundle/Resources/public/sass/editor/"
+             paths:
+                 admin_logo: bundles/thecodeineadmin/images/logo.png
+             host: null
+             menu_builder: TheCodeine\AdminBundle\Menu\Builder
+             components:
+                 pages:
+                     enabled: true
+                     create: true
+                     delete: true
+                 editor:
+                     wysiwyg_style_dir: '%kernel.root_dir%/../vendor/thecodeine/tuna-adminbundle/Resources/public/sass/editor'
+                 menu:
+                     enabled: true
+                 news:
+                     enabled: true
+                 events:
+                     enabled: false
+                 translations:
+                     enabled: true
+                 categories:
+                     enabled: false
 
     You can also use shorter component syntax:
     

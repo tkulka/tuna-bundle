@@ -16,7 +16,7 @@ class MenuType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $pageId = $builder->getData()->getId();
+        $nodeId = $builder->getData()->getId();
 
         $builder
             ->add('clickable')
@@ -40,12 +40,12 @@ class MenuType extends AbstractType
                 array(
                     'query_builder' => function (
                         EntityRepository $er) use (
-                        $pageId
+                        $nodeId
                     ) {
                         return $er->createQueryBuilder('p')
                             ->orderBy('p.root', 'ASC')
                             ->addOrderBy('p.lft', 'ASC')
-                            ->where("p.id != '$pageId'");
+                            ->where("p.id != '$nodeId'");
                     },
                     'property' => 'indentedName',
                     'required' => true,

@@ -88,4 +88,24 @@ class MenuRepository extends NestedTreeRepository
 
         return $items;
     }
+
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function getStandalonePagesPaginationQuery()
+    {
+        return $this->_em->createQuery('
+        SELECT
+            p
+        FROM
+            TheCodeinePageBundle:Page p
+        WHERE p.id NOT IN (
+            SELECT
+                p2.id
+            FROM
+                TheCodeineMenuBundle:Menu m
+            JOIN TheCodeinePageBundle:Page p2 WITH
+                p2 = m.page
+        )');
+    }
 }

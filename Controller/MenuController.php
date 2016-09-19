@@ -102,7 +102,11 @@ class MenuController extends Controller
         $em->remove($menu);
         $em->flush();
 
-        return $this->redirectToRoute('tuna_menu_list');
+        return $this->redirectToRoute(
+            $request->query->get('redirect') == 'dashboard' ?
+                'tuna_admin_dashboard' :
+                'tuna_menu_list'
+        );
     }
 
     /**
