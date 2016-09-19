@@ -60,8 +60,8 @@ class Configuration implements ConfigurationInterface
                 ->addDefaultsIfNotSet()
                 ->children()
                     ->booleanNode('enabled')->defaultValue(true)->end()
-                    ->booleanNode('create')->defaultValue(false)->end()
-                    ->booleanNode('delete')->defaultValue(false)->end()
+                    ->booleanNode('create')->defaultValue(true)->end()
+                    ->booleanNode('delete')->defaultValue(true)->end()
                 ->end()
             ->end()
         ;
