@@ -139,4 +139,19 @@ class MenuController extends Controller
 
         return new JsonResponse('ok');
     }
+
+    /**
+     * @Route("/override-this/{slug}", requirements={"slug"=".+"}, name="tuna_menu_item")
+     * @Template()
+     */
+    public function pageAction(Menu $menu)
+    {
+        if (!$menu->isPublished() || !$menu->getPage()) {
+            throw new NotFoundHttpException();
+        }
+
+        return array(
+            'page' => $menu->getPage(),
+        );
+    }
 }
