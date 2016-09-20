@@ -316,7 +316,7 @@ FileBundle provides three twig helpers for easy file rendering:
 
   1. Add root menu item to migration/fixture:  
 
-        $this->addSql('INSERT INTO menu (id, root_id, label, clickable, publish_date, lft) VALUES(1, 1, "Menu", 1, "2016-09-12 13:00:00", -1)');
+        $this->addSql('INSERT INTO menu (id, root_id, label, clickable, publish_date, lft, rgt) VALUES(1, 1, "Menu", 1, "2016-09-12 13:00:00", 1, 2)');
 
   2. Add action to your frontend controller (remember to add this route at the end):
   
