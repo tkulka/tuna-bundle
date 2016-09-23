@@ -57,7 +57,32 @@ tuna.website = {
         //WYSIWYG EDITOR
         tuna.view.EditorView && new tuna.view.EditorView({
             selector: '.tab-pane.active .thecodeine_admin_editor',
-            lang: options.lang
+            lang: options.lang,
+            tunaEvents: tunaEvents
+        });
+
+        tunaEvents.on('editorLoaded', function(element) {
+
+            if ($(element).data('type') != 'basic') {
+                var $el = $(element).siblings('.cke');
+                new tuna.view.DropzoneView({
+                    el: $el,
+                    options: {
+                        clickable: '.cke_button__image',
+                        selector: '.cke',
+                        previewTemplate: '',
+                        previewsContainer: '.cke',
+                        acceptedFiles: '.jpg, .jpeg, .png, .gif',
+                        dropoverText: Translator.trans('Drop your images here'),
+                        success: function(file, response) {
+                            var $el = $(this.element).siblings('textarea');
+                            var editor = CKEDITOR.instances[$el.attr('id')];
+                            editor.insertHtml('<img src="' + $el.data('image-url') + response.path + '">');
+                        }
+                    },
+                    tunaEvents: tunaEvents
+                });
+            }
         });
 
         $(':checkbox').radiocheck();

@@ -31,20 +31,8 @@ tuna.view.EditorView = Backbone.View.extend({
     },
 
     types: {
-        default: {
-            styleTags: ['h1', 'h2', 'p', 'blockquote'],
-            toolbar: [
-                ['style', ['style', 'bold', 'italic', 'underline', 'clear']],
-                ['para', ['ul', 'paragraph']],
-                ['insert', ['link', 'picture']],
-                ['misc', ['codeview']]
-            ]
-        },
         basic: {
-            toolbar: [
-                ['style', ['bold', 'italic', 'underline', 'clear']],
-                ['misc', ['codeview']]
-            ]
+            toolbar: 'basic'
         }
     },
 
@@ -56,7 +44,6 @@ tuna.view.EditorView = Backbone.View.extend({
 
         $('.nav-tabs [data-toggle="tab"]').click(function (e) {
             var $tabbable = $('.tabbable');
-            $tabbable.find('.tab-pane:not(.active)' + oThis.options.selector).summernote('destroy');
 
             _.defer(function () {
                 oThis.initEditor($tabbable.find('.tab-pane.active' + oThis.options.selector), tuna.config.localeMap[options.lang]);
@@ -66,14 +53,51 @@ tuna.view.EditorView = Backbone.View.extend({
     },
 
     initEditor: function ($element, language) {
-        $('.main_container').addClass('editor_container');
-        _.each($element, function (item) {
-            var $item = $(item);
-            var type = $item.data('type') || 'default';
-            var options = _.extend(this.summernoteOptions, this.types[type]);
-            options.lang = language;
+        var editorLang = language.split('_');
 
-            $item.summernote(options);
-        }, this);
+        CKEDITOR.config.language = editorLang[0];
+        CKEDITOR.config.customConfig = '/bundles/thecodeineadmin/js/editorConfig.js';
+
+        $element.each(_.bind(function (index, item) {
+            var $item = $(item);
+            var config = $item.data('type') == 'basic' ? this.types.basic : {};
+            var editor = CKEDITOR.instances[$item.attr('id')];
+
+            if (!editor) {
+                CKEDITOR.replace($item.attr('id'), config);
+            }
+        }, this));
+
+        CKEDITOR.on('instanceReady', _.bind(function(e) {
+            var editor = e.editor;
+            var element = editor.element.$;
+            this.options.tunaEvents.trigger('editorLoaded', element);
+
+            if ($(editor.container.$).attr('data-dropover-text')) {
+                var imageOld = editor.commands.image.exec;
+
+                var imageCmd = new CKEDITOR.command(editor, {
+                    exec: function(e) {
+                        var $el = $(editor.getSelection().getNative().anchorNode.firstElementChild);
+
+                        if ($el.prop('tagName') == 'IMG') {
+                            imageOld.apply(this, arguments);
+                        }
+                    }
+                });
+
+                editor.commands.image.exec = imageCmd.exec;
+            }
+
+            editor.on('mode', function() {
+                if (this.mode == 'source') {
+                    var $textarea = $(editor.container.$).find('.cke_source');
+                    $textarea.height($textarea[0].scrollHeight);
+                }
+            })
+
+        }, this));
+
+
     }
 });
