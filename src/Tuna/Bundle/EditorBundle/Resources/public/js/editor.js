@@ -8,35 +8,11 @@ window.tuna.view = window.tuna.view || {};
  */
 tuna.view.EditorView = Backbone.View.extend({
 
-    summernoteOptions: {
-        dialogsInBody: true,
-        callbacks: {
-            onPaste: function (e) {
-                e.preventDefault();
-                var html = (e.originalEvent || e).clipboardData.getData('text/html') || (e.originalEvent || e).clipboardData.getData('text/plain');
-                html = cleanHTML(html);
-                document.execCommand('insertHTML', false, $.htmlClean(html, {
-                    format: false,
-                    replace: [['h1'], 'h2'],
-                    removeAttrs: ['class', 'style', 'font'],
-                    allowedAttributes: ['width', 'height', 'src', 'frameborder', 'allowfullscreen'],
-                    allowedTags: ['h1', 'h2', 'p', 'i', 'b', 'u', 'strong', 'iframe', 'ul', 'li'],
-                    removeTags: ['span', 'basefont', 'center', 'dir', 'font', 'frame', 'frameset', 'isindex', 'menu', 'noframes', 's', 'strike', 'br', 'canvas', 'hr', 'img'],
-                    allowEmpty: [],
-                    tagAllowEmpty: [],
-                    allowComments: false
-                }));
-            }
-        }
-    },
-
     types: {
         basic: {
             toolbar: 'basic'
         }
     },
-
-    summernote: null,
 
     initialize: function (options) {
         this.options = options;
