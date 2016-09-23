@@ -24,7 +24,7 @@ class PageController extends AbstractPageController
         return new PageType($validate);
     }
 
-    public function getRedirectUrl(AbstractPage $page = null)
+    public function getRedirectUrl(AbstractPage $page = null, Request $request = null)
     {
         return $this->generateUrl('tuna_page_list');
     }

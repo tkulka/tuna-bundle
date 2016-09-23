@@ -96,3 +96,15 @@ error:
         not_empty: Nie można usunąć kategorii <strong>%name%</strong>, ponieważ jest ona niepusta.
     file:
         empty: Proszę wgrać plik.
+        not_exists: Nie znaleziono pliku "%filename%".
+    menu:
+        path_or_url: Proszę podać ścieżkę lub zewnętrzny url.
+
+Not linked to a Page: Nie połączone ze Stroną
+Clickable: Klikalny
+Parent: Nadrzędny element
+Page: Strona
+Path: Ścieżka
+External url: Zewnętrzny url
+Label: Etykieta
+Dashboard: Kokpit

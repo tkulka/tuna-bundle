@@ -1,0 +1,65 @@
+.edit-menu-tree {
+    li {
+        clear: both;
+        border: 1px dashed transparent;
+
+        > div {
+            border: 1px dashed transparent;
+            margin: -1px;
+            padding: 0 8px;
+        }
+
+        .sortable-placeholder {
+            border: 1px dashed #fff;
+        }
+
+        a {
+            color: #fff;
+
+            &:hover {
+                color: $brand-primary;
+            }
+        }
+
+        &.unpublished {
+            opacity: .5;
+        }
+
+        &.root {
+            list-style: none;
+
+            li {
+                color: lighten($brand-tertiary, 40%);
+
+                .ui-sortable-handle {
+                    &:hover {
+                        color: #fff;
+                        background: $brand-secondary;
+                    }
+                }
+
+                &.ui-sortable-helper {
+                    background: transparent;
+                }
+            }
+        }
+    }
+
+    div.title {
+        font-size: 2em;
+    }
+
+    .item-options {
+        float: right;
+        transition: opacity ease-out .3s;
+        opacity: .1;
+    }
+
+    div:hover > .item-options {
+        opacity: 1;
+    }
+}
+
+.page-preview {
+    padding: 0 60px 60px;
+}

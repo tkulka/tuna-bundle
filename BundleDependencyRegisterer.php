@@ -16,6 +16,7 @@ class BundleDependencyRegisterer
             new \TheCodeine\GalleryBundle\TheCodeineGalleryBundle(),
             new \TheCodeine\TagBundle\TheCodeineTagBundle(),
             new \TheCodeine\NewsBundle\TheCodeineNewsBundle(),
+            new \TheCodeine\MenuBundle\TheCodeineMenuBundle(),
             new \TheCodeine\UserBundle\TheCodeineUserBundle(),
             new \TheCodeine\TranslationBundle\TheCodeineTranslationBundle(),
             new \SmartCore\Bundle\AcceleratorCacheBundle\AcceleratorCacheBundle(),
