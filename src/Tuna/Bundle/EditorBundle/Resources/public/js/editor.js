@@ -16,6 +16,7 @@ tuna.view.EditorView = Backbone.View.extend({
 
     initialize: function (options) {
         this.options = options;
+        this.events = options.events || _.extend({}, Backbone.Events);
         var oThis = this;
 
         $('.nav-tabs [data-toggle="tab"]').click(function (e) {
@@ -32,7 +33,7 @@ tuna.view.EditorView = Backbone.View.extend({
         var editorLang = language.split('_');
 
         CKEDITOR.config.language = editorLang[0];
-        CKEDITOR.config.customConfig = '/bundles/thecodeineadmin/js/editorConfig.js';
+        CKEDITOR.config.customConfig = '/bundles/thecodeineeditor/js/editorConfig.js';
 
         $element.each(_.bind(function (index, item) {
             var $item = $(item);
@@ -47,7 +48,7 @@ tuna.view.EditorView = Backbone.View.extend({
         CKEDITOR.on('instanceReady', _.bind(function(e) {
             var editor = e.editor;
             var element = editor.element.$;
-            this.options.tunaEvents.trigger('editorLoaded', element);
+            this.events.trigger('editorLoaded', element);
 
             if ($(editor.container.$).attr('data-dropover-text')) {
                 var imageOld = editor.commands.image.exec;

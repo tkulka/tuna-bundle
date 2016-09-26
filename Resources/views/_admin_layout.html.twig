@@ -13,7 +13,6 @@
         '@TheCodeineAdminBundle/Resources/public/css/vendor/bootstrap.css'
         '@TheCodeineAdminBundle/Resources/public/css/vendor/font-awesome.css'
         '@TheCodeineAdminBundle/Resources/public/css/vendor/magic.css'
-        '@TheCodeineAdminBundle/Resources/public/css/vendor/summernote.css'
         '@TheCodeineAdminBundle/Resources/public/sass/admin.scss' %}
         <link rel="stylesheet" href="{{ asset_url }}"/>
         {% endstylesheets %}
@@ -79,10 +78,11 @@
 '@TheCodeineAdminBundle/Resources/public/js/vendor/flatUI/respond.min.js'
 '@TheCodeineAdminBundle/Resources/public/js/vendor/flatUI/html5shiv.js'
 '@TheCodeineAdminBundle/Resources/public/js/vendor/flatUI/flat-ui.js'
-'@TheCodeineAdminBundle/Resources/public/js/vendor/ckeditor/ckeditor.js'
+'@TheCodeineEditorBundle/Resources/public/js/vendor/ckeditor/ckeditor.js'
 '@TheCodeineAdminBundle/Resources/public/js/vendor/cleanHtml.js'
 '@TheCodeineAdminBundle/Resources/public/js/common.js'
-'@TheCodeineAdminBundle/Resources/public/js/views/*.js' %}
+'@TheCodeineAdminBundle/Resources/public/js/views/*.js'
+'@TheCodeineEditorBundle/Resources/public/js/editor.js' %}
 <script src="{{ asset_url }}" type="text/javascript"></script>
 {% endjavascripts %}
 
@@ -95,6 +95,6 @@
         });
     })();
 </script>
-{#{% include "TheCodeineAdminBundle::_livereload.html.twig" %}#}
+{% include "TheCodeineAdminBundle::_livereload.html.twig" %}
 </body>
 </html>

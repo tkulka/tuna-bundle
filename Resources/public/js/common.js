@@ -57,8 +57,7 @@ tuna.website = {
         //WYSIWYG EDITOR
         tuna.view.EditorView && new tuna.view.EditorView({
             selector: '.tab-pane.active .thecodeine_admin_editor',
-            lang: options.lang,
-            tunaEvents: tunaEvents
+            lang: options.lang
         });
 
         tunaEvents.on('editorLoaded', function(element) {
