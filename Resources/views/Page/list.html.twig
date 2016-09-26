@@ -30,6 +30,7 @@
                             <th>{{ knp_pagination_sortable(pagination, 'Title'|trans, 'p.title') }}</th>
                             <th>{{ knp_pagination_sortable(pagination, 'Slug'|trans, 'p.slug') }}</th>
                             <th class="center">{{ knp_pagination_sortable(pagination, 'Published'|trans, 'p.published') }}</th>
+                            <th class="center">{% trans %}Menu{% endtrans %}</th>
                             <th class="text-right">{% trans %}Options{% endtrans %}</th>
                         </tr>
                         </thead>
@@ -44,6 +45,20 @@
                                         <i class="fa fa-check-circle" aria-hidden="true"></i>
                                     {% else %}
                                         <i class="fa fa-times-circle" aria-hidden="true"></i>
+                                    {% endif %}
+                                </td>
+                                <td class="center">
+                                    {% if menuMap[item.id] is defined %}
+                                        <a href="{{ path('tuna_menu_edit', { id: menuMap[item.id].id }) }}">
+                                            <i class="fa fa-link"></i>
+                                        </a>
+                                        <a href="{{ tuna_menu_getLink(menuMap[item.id]) }}" target="_blank">
+                                            <i class="fa fa-external-link"></i>
+                                        </a>
+                                    {% else %}
+                                        <a href="{{ path('tuna_menu_create', { pageId: item.id }) }}">
+                                            <i class="fa fa-plus"></i>
+                                        </a>
                                     {% endif %}
                                 </td>
                                 <td class="options">

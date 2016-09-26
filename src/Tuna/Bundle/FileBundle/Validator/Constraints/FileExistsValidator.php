@@ -26,6 +26,7 @@ class FileExistsValidator extends ConstraintValidator
         /* @var $file \TheCodeine\FileBundle\Entity\AbstractFile */
         if (!$this->fileManager->fileExists($file)) {
             $this->context->buildViolation($constraint->message)
+                ->setTranslationDomain('tuna_admin')
                 ->setParameter('%filename%', $file->getPath())
                 ->addViolation();
         }

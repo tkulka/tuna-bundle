@@ -1,0 +1,20 @@
+{% trans_default_domain 'tuna_admin' %}
+
+{% extends 'TheCodeineAdminBundle::_admin_layout.html.twig' %}
+
+{% block content %}
+    {% embed 'TheCodeineAdminBundle::_partials/_form/_main.html.twig' with { title: menu.label, slug: menu.externalUrl ?: menu.slug } %}
+        {% block extraFields %}
+            {{ form_row(form.clickable, { label: 'Clickable' }) }}
+            {{ form_row(form.published, { label: 'Published' }) }}
+            {% if form.parent %}
+                {{ form_row(form.parent) }}
+            {% endif %}
+            {{ form_row(form.page) }}
+            {{ form_row(form.path) }}
+        {% endblock %}
+    {% endembed %}
+    <script>
+        var pageTitlesMap = {{ pageTitlesMap | json_encode | raw }};
+    </script>
+{% endblock %}
