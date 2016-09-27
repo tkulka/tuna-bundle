@@ -1,0 +1,38 @@
+.image-toolbar {
+    position: absolute;
+    background: #ffffff;
+    color: #252324;
+    display: none;
+}
+
+.image-toolbar__button {
+    float: left;
+    padding: 10px 12px 8px 12px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.image-toolbar__button:hover {
+    background-color: #297fd2;
+    color: #ffffff;
+}
+
+.image-toolbar__button--float:before {
+    display: inline-block;
+    font-family: "Summernote";
+    font-size: inherit;
+    -webkit-font-smoothing: antialiased;
+    text-decoration: inherit;
+    text-rendering: auto;
+    text-transform: none;
+    vertical-align: middle;
+    margin-top: -4px;
+}
+
+.image-toolbar__button--left:before {
+    content: "\f104";
+}
+
+.image-toolbar__button--right:before {
+    content: "\f106";
+}

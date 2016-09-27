@@ -25,7 +25,7 @@ CKEDITOR.editorConfig = function (config) {
         { name: 'document', items: ['Source'] }
     ];
 
-    config.extraPlugins = 'divarea,autogrow,fixedUI';
+    config.extraPlugins = 'divarea,autogrow,fixedUI,imageToolbar';
 
     config.fixedUI = {
         el: '.admin-container .inside',

@@ -51,34 +51,13 @@ tuna.website = {
         tuna.view.EditorView && new tuna.view.EditorView({
             selector: '.tab-pane.active .thecodeine_admin_editor',
             lang: options.lang,
-            tunaEvents: tunaEvents,
-            callbacks: {
-                onInit: function() {
-                    new tuna.file.view.DropzoneView({
-                        el: $(this).siblings('.note-editor'),
-                        options: {
-                            clickable: '.note-image-button',
-                            selector: '.note-editor',
-                            previewTemplate: '',
-                            previewsContainer: '.note-editing-area',
-                            acceptedFiles: '.jpg, .jpeg, .png, .gif',
-                            dropoverText: Translator.trans('Drop your images here'),
-                            success: _.bind(function(file, response) {
-                                var $el = $(this);
-                                $el.summernote('insertImage', $el.data('image-url') + '/' + response.path);
-                            }, this)
-                        },
-                        tunaEvents: tunaEvents
-                    });
-                }
-            }
+            events: tunaEvents
         });
 
         tunaEvents.on('editorLoaded', function(element) {
-
             if ($(element).data('type') != 'basic') {
                 var $el = $(element).siblings('.cke');
-                new tuna.view.DropzoneView({
+                new tuna.file.view.DropzoneView({
                     el: $el,
                     options: {
                         clickable: '.cke_button__image',
