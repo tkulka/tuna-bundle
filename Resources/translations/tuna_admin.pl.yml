@@ -1,3 +1,84 @@
+Tuna Admin Bundle: Pakiet Tuńczyków Administratora
+Save: Zapisz
+Options: Opcje
+Published: Opublikowany
+Gallery: Galeria
+Attachments: Załączniki
+Tags: Tagi
+Title: Tytuł
+Teaser: Krótkie podsumowanie
+Body: Treść
+Slug: Slug
+Name: Nazwa
+"Edit page:": "Edytuj stronę:"
+"Edit news:": "Edytuj newsa:"
+"Edit event:": "Edytuj wydarzenie:"
+Featured: Przypięty
+Create date: Data utworzenia
+Choose gallery item type: Wybierz typ elementu galerii
+Choose main picture: Wybierz zdjęcie główne
+Logout: Wyloguj się
+Pages: Strony
+News: Aktualności
+Events: Wydarzenia
+List of pages: Lista stron
+Create page: Stwórz stronę
+List of news: Lista newsów
+Create news: Stwórz newsa
+Create category: Stwórz kategorię
+Manage categories: Zarządzaj kategoriami
+Categories: Kategorie
+Category: Kategoria
+category.new: Nowa kategoria
+Oops there is nothing here!: Ups! Jeszcze nic tutaj nie ma
+The Codeine - Admin Bundle: The Codeine - Admin Bundle
+Woops!: Ups!
+Attention: Uwaga
+Do you really want to remove this element?: Czy na pewno chcesz usunąć ten element?
+Cancel: Anuluj
+Remove: Usuń
+Panel: Panel
+Add first item: Dodaj pierwszy wpis
+Add item: Dodaj wpis
+Enter your name: Podaj swoje imię
+Password: Hasło
+Remember me: Zapamiętaj mnie
+Log in: Zaloguj się
+Event: Wydarzenia
+Video URL: URL do filmu
+Video title: Tytuł filmu
+Image title: Tytuł obrazka
+Attachment title: Tytuł załącznika
+Video URL: URL do filmu
+Video title: Tytuł filmu
+Image title: Tytuł obrazka
+Attachment title: Tytuł załącznika
+Select file: Wybierz plik
+Select language: Wybierz język
+Translations: Tłumaczenia
+The translation file is not writable.: Nie można zapisać pliku z tłumaczeniem.
+Translation: Tłumaczenie
+Additional Information: Dodatkowe informacje
+Alternative Translations: Pozostałe tłumaczenia
+Meaning: Znaczenie
+Sources: Źródła
+Save order: Zapisz kolejność
+Start date: Data początkowa
+End date: Data końcowa
+Create News: Utwórz aktualność
+Create Event: Utwórz wydarzenie
+Video: Film
+Image: Obrazek
+Paste url to YouTube or Vimeo.: Proszę wkleić link do YouTube lub Vimeo.
+Change password: Zmień hasło
+Refesh: Odśwież
+translations.refresh_info: Aby nowe tłumaczenia pokazały się na stronie, należy je odswieżyć tym przyciskiem.
+Drop your cover image here: Upuść główny obrazek tutaj
+Drop your attachments here: Upuść załączniki tutaj
+Drop your gallery images here: Upuść zdjęcia galerii tutaj
+Your files are uploading. Please wait..: Twoje pliki są przesyłane. Proszę czekać..
+Ahoy! Let's log in: Ahoj! Zaloguj się
+Bad credentials.: Niepoprawne dane logowania.
 Paste url to YouTube or Vimeo.: Proszę wkleić link do YouTube lub Vimeo
 Added: Dodano
 Are you sure you want to delete: Czy napewno chcesz usunąć
@@ -10,3 +91,20 @@ Translations refreshed.: Odświeżono tłumaczenia na stronie.
 You can't upload files of this type.:  Nie możesz wgrać pliku z tym rozszerzeniem.
 You can't upload any more files.:  Nie możesz wgrać aż tylu plików.
 File upload error: Błąd podczas wysyłania pliku
+error:
+    category:
+        not_empty: Nie można usunąć kategorii <strong>%name%</strong>, ponieważ jest ona niepusta.
+    file:
+        empty: Proszę wgrać plik.
+        not_exists: Nie znaleziono pliku "%filename%".
+    menu:
+        path_or_url: Proszę podać ścieżkę lub zewnętrzny url.
+
+Not linked to a Page: Nie połączone ze Stroną
+Clickable: Klikalny
+Parent: Nadrzędny element
+Page: Strona
+Path: Ścieżka
+External url: Zewnętrzny url
+Label: Etykieta
+Dashboard: Kokpit

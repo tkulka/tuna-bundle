@@ -101,6 +101,7 @@ class GalleryItemType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => GalleryItem::class,
+            'translation_domain' => 'tuna_admin',
             'error_bubbling' => false,
         ));
     }

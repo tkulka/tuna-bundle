@@ -1,3 +1,4 @@
+{% trans_default_domain 'tuna_admin' %}
 {% block tag_collection_widget %}
     <div class="form-group">
         <input type="text" {% if value is not empty %}value="{{ value }}" {% endif %} {{ block('widget_attributes') }}

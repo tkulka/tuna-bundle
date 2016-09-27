@@ -30,6 +30,9 @@ class VideoUrlType extends AbstractType
 
     public function setOptions(OptionsResolver $resolver)
     {
+        $resolver->setDefaults(array(
+             'translation_domain' => 'tuna_admin',
+        ));
     }
 
     public function getParent()

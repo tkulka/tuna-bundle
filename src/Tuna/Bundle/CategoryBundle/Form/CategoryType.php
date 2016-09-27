@@ -27,6 +27,7 @@ class CategoryType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => $this->dataClass,
+            'translation_domain' => 'tuna_admin',
             'error_bubbling' => false
         ));
     }

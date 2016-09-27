@@ -36,6 +36,7 @@ class GalleryType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => Gallery::class,
+            'translation_domain' => 'tuna_admin',
             'attr' => array(
                 'types' => GalleryItem::$TYPES,
             ),

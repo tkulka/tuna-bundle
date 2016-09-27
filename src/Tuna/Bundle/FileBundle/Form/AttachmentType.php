@@ -36,6 +36,7 @@ class AttachmentType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
+            'translation_domain' => 'tuna_admin',
             'data_class' => Attachment::class,
             'error_bubbling' => false,
         ));

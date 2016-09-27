@@ -41,7 +41,9 @@ tuna.website = {
         new tuna.view.EditView({el: $('.admin-container'), lang: options.lang});
         new tuna.view.AddableEntitySelectView({el: $('.addable-entity-select')});
         new tuna.view.SortableView({el: $('[data-sortable-url]')});
+        new tuna.view.MenuTreeView({el: $('.edit-menu-tree')});
         new tuna.view.ModalError({el: $('#modalError'), tunaEvents: tunaEvents});
+        new tuna.view.MenuItemEditView({el: $('form[name="menu"]'), tunaEvents: tunaEvents});
 
         tuna.file.init(tunaEvents);
 
@@ -69,6 +71,30 @@ tuna.website = {
                         tunaEvents: tunaEvents
                     });
                 }
+            }
+        });
+
+        tunaEvents.on('editorLoaded', function(element) {
+
+            if ($(element).data('type') != 'basic') {
+                var $el = $(element).siblings('.cke');
+                new tuna.view.DropzoneView({
+                    el: $el,
+                    options: {
+                        clickable: '.cke_button__image',
+                        selector: '.cke',
+                        previewTemplate: '',
+                        previewsContainer: '.cke',
+                        acceptedFiles: '.jpg, .jpeg, .png, .gif',
+                        dropoverText: Translator.trans('Drop your images here'),
+                        success: function(file, response) {
+                            var $el = $(this.element).siblings('textarea');
+                            var editor = CKEDITOR.instances[$el.attr('id')];
+                            editor.insertHtml('<img src="' + $el.data('image-url') + response.path + '">');
+                        }
+                    },
+                    tunaEvents: tunaEvents
+                });
             }
         });
 

@@ -24,6 +24,7 @@ abstract class AbstractFileType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
+            'translation_domain' => 'tuna_admin',
             'data_class' => $this->getEntityClass(),
             'error_bubbling' => false,
             'attr' => array(

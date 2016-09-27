@@ -1,3 +1,5 @@
+{% trans_default_domain 'tuna_admin' %}
+
 <!DOCTYPE html>
 <html lang="{{ app.request.defaultLocale }}">
 <head>
@@ -12,8 +14,12 @@
         '@TheCodeineAdminBundle/Resources/public/css/vendor/bootstrap.css'
         '@TheCodeineAdminBundle/Resources/public/css/vendor/font-awesome.css'
         '@TheCodeineAdminBundle/Resources/public/css/vendor/magic.css'
-        '@TheCodeineAdminBundle/Resources/public/css/vendor/summernote.css'
         '@TheCodeineAdminBundle/Resources/public/sass/admin.scss' %}
+        <link rel="stylesheet" href="{{ asset_url }}"/>
+        {% endstylesheets %}
+
+        {% stylesheets output='bundles/thecodeineadmin/css/wysiwyg-styles.css'
+        '@TheCodeineAdminBundle/Resources/public/sass/wysiwyg-styles.scss' %}
         <link rel="stylesheet" href="{{ asset_url }}"/>
         {% endstylesheets %}
     {% endblock %}
@@ -66,6 +72,7 @@
 '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.hotkeys.js'
 '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.placeholder.js'
 '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.htmlClean.js'
+'@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.mjs.nestedSortable.js'
 '@TheCodeineAdminBundle/Resources/public/js/vendor/dropzone.min.js'
 '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery.dragbetter.min.js'
 '@TheCodeineAdminBundle/Resources/public/js/vendor/underscore-1.6.0.js'
@@ -73,10 +80,8 @@
 '@TheCodeineAdminBundle/Resources/public/js/vendor/flatUI/respond.min.js'
 '@TheCodeineAdminBundle/Resources/public/js/vendor/flatUI/html5shiv.js'
 '@TheCodeineAdminBundle/Resources/public/js/vendor/flatUI/flat-ui.js'
-'@TheCodeineAdminBundle/Resources/public/js/vendor/summernote.js'
-'@TheCodeineAdminBundle/Resources/public/js/vendor/summernote-pl-PL.js'
+'@TheCodeineEditorBundle/Resources/public/js/vendor/ckeditor/ckeditor.js'
 '@TheCodeineAdminBundle/Resources/public/js/vendor/cleanHtml.js'
-'@TheCodeineAdminBundle/Resources/public/js/sumernote-fixedtoolbar.js'
 '@TheCodeineAdminBundle/Resources/public/js/common.js'
 '@TheCodeineAdminBundle/Resources/public/js/views/*.js'
 '@TheCodeineFileBundle/Resources/public/js/DropzoneView.js'
