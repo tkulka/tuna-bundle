@@ -4,7 +4,3 @@
 {% block content %}
     {% include 'TheCodeineAdminBundle::_partials/_form/_main.html.twig' with {'title': page.title, 'slug': page.slug } %}
 {% endblock %}
-
-{% block extra_javascript %}
-    {{ include_the_codeine_editor() }}
-{% endblock %}

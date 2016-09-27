@@ -6,6 +6,8 @@ Behat/Fixtures/app/logs/
 Behat/Fixtures/web/files/
 Behat/Fixtures/web/bundles/
 
+!Resources/public/js/vendor/
+
 Behat/Fixtures/app/test.db
 nohup.out
 composer.lock
