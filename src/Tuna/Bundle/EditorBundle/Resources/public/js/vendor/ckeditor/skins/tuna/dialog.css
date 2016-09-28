@@ -410,6 +410,12 @@ The following is the visual representation of a H-Box:
 It is possible to have nested V/H-Boxes.
 */
 
+.cke_dialog_ui_vbox_child table, .cke_dialog_ui_vbox_child tr {
+	display: inline-block;
+	vertical-align: top;
+	margin-right: 20px;
+}
+
 .cke_dialog_ui_vbox table,
 .cke_dialog_ui_hbox table
 {

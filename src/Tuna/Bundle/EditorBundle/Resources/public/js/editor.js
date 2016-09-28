@@ -86,6 +86,10 @@ tuna.view.EditorView = Backbone.View.extend({
             if (dialogName == 'image') {
                 var tab = dialogDefinition.getContents('info');
                 tab.remove('htmlPreview');
+                tab.remove('txtBorder');
+                tab.remove('txtHSpace');
+                tab.remove('txtVSpace');
+                tab.get('ratioLock').style += 'margin-left:-20px;';
             }
         });
 
