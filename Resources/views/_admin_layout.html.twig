@@ -58,6 +58,9 @@
 
 {% include 'TheCodeineAdminBundle::_partials/_modal.html.twig' %}
 
+<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+
 {% javascripts output='bundles/thecodeineadmin/js/tuna_admin.js'
 '@BazingaJsTranslationBundle/Resources/js/translator.js'
 '@TheCodeineAdminBundle/Resources/translations/translations/config.js'

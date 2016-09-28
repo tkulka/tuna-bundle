@@ -31,7 +31,7 @@
             var dropzoneView = this;
 
             this.defaultOptions = _.extend({
-                url: '/admin/file/upload/',
+                url: Routing.generate('tuna_file_upload'),
                 acceptedFiles: '.jpg, .jpeg, .gif',
                 paramName: 'file',
                 dictInvalidFileType: Translator.trans('You can\'t upload files of this type.'),
