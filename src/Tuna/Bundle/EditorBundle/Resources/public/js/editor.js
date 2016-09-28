@@ -75,6 +75,20 @@ tuna.view.EditorView = Backbone.View.extend({
 
         }, this));
 
+        CKEDITOR.on('dialogDefinition', function(e) {
+            var dialogName = e.data.name;
+            var dialogDefinition = e.data.definition;
 
+            if (dialogName == 'link' || dialogName == 'image') {
+                dialogDefinition.removeContents('advanced');
+            }
+
+            if (dialogName == 'image') {
+                var tab = dialogDefinition.getContents('info');
+                tab.remove('htmlPreview');
+            }
+        });
+
+        console.log(CKEDITOR);
     }
 });

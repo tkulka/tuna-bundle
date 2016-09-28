@@ -39,12 +39,18 @@ as follows:
 Comments in this file will give more details about each of the above blocks.
 */
 
+.cke_dialog_background_cover {
+	background-color: #000000 !important;
+}
+
 /* The outer container of the dialog. */
 .cke_dialog
 {
 	/* Mandatory: Because the dialog.css file is loaded on demand, we avoid
 		showing an unstyled dialog by hidding it. Here, we restore its visibility. */
 	visibility: visible;
+	width: 100%;
+	max-width: 700px;
 }
 
 /* The inner boundary container. */
@@ -52,8 +58,13 @@ Comments in this file will give more details about each of the above blocks.
 {
 	z-index: 1;
 	background: #ffffff;
-	border: 2px solid #757173;
 	color: #343233;
+	-webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+	border: 1px solid #999999;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	border-radius: 6px;
+	font-family: "Open Sans", sans-serif;
 }
 
 /* Due to our reset we have to recover the styles of some elements. */
@@ -65,13 +76,15 @@ Comments in this file will give more details about each of the above blocks.
 /* The dialog title. */
 .cke_dialog_title
 {
-	font-weight: bold;
-	font-size: 13px;
+	font-weight: normal;
+	font-family: "Open Sans", sans-serif;
+	font-size: 29px;
 	cursor: move;
 	position: relative;
-
-	border-bottom: 1px solid #757173;
-	padding: 6px 10px;
+	padding: 15px;
+	border-bottom: 1px solid #e5e5e5;
+	line-height: 1.428571429;
+	color: #343233;
 }
 
 .cke_dialog_spinner
@@ -133,18 +146,18 @@ Comments in this file will give more details about each of the above blocks.
 {
 	background-color: #fff;
 	overflow: auto;
-	padding: 15px 10px 5px 10px;
 	margin-top: 30px;
 	border-top: 1px solid #757173;
 	border-radius: 0 0 3px 3px;
+	width: 100%;
 }
 
 /* The contents body part, which will hold all elements available in the dialog. */
 .cke_dialog_contents_body
 {
 	overflow: auto;
-	padding: 17px 10px 5px 10px;
 	margin-top: 22px;
+	padding: 20px;
 }
 
 /* The dialog footer, which usually contains the "Ok" and "Cancel" buttons as
@@ -154,7 +167,9 @@ Comments in this file will give more details about each of the above blocks.
 	text-align: right;
 	position: relative;
 	border: none;
-	outline: 1px solid #757173;
+	padding: 20px;
+	margin-top: 15px;
+	border-top: 1px solid #e5e5e5;
 }
 
 .cke_rtl .cke_dialog_footer
@@ -453,6 +468,10 @@ It is possible to have nested V/H-Boxes.
 	border: 1px solid;
 }
 
+.cke_dialog_ui_html {
+	/*display: none;*/
+}
+
 /*
 Text Input
 ------------
@@ -555,17 +574,18 @@ a.cke_dialog_ui_button
 	display: inline-block;
 	*display: inline;
 	*zoom: 1;
-
-	padding: 4px 0;
 	margin: 0;
-
 	text-align: center;
 	color: #ffffff;
 	vertical-align: middle;
 	cursor: pointer;
-
-	background: #757173;
-
+	background-color: #e74c3c;
+	border: none;
+	font-size: 15px;
+	font-weight: normal;
+	line-height: 1.4;
+	border-radius: 0px;
+	padding: 10px 15px;
 }
 
 span.cke_dialog_ui_button
@@ -575,7 +595,7 @@ span.cke_dialog_ui_button
 
 a.cke_dialog_ui_button:hover
 {
-	background: #252324;
+	background-color: #ec7063;
 }
 
 /*
@@ -589,10 +609,9 @@ a.cke_dialog_ui_button[style*="width"]
 .cke_dialog_footer_buttons a.cke_dialog_ui_button span
 {
 	color: inherit;
-	font-size: 12px;
-	font-weight: bold;
-	line-height: 18px;
-	padding: 0 12px;
+	font-size: 15px;
+	font-weight: normal;
+	line-height: 1.4;
 }
 
 /* Special class appended to the Ok button. */
@@ -600,6 +619,11 @@ a.cke_dialog_ui_button_ok
 {
 	color: #fff;
 	background: #297fd2;
+}
+
+a.cke_dialog_ui_button_ok:hover {
+	background: #ffffff;
+	color: #297fd2;
 }
 
 a.cke_dialog_ui_button_ok.cke_disabled {
