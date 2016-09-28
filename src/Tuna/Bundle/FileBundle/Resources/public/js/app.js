@@ -1,3 +1,7 @@
+window.tuna.file = {
+    view: {}
+};
+
 tuna.file.init = function(tunaEvents) {
     $('[data-dropzone-options]').each(function (index, item) {
         var options = $(item).data('dropzone-options');
@@ -10,6 +14,5 @@ tuna.file.init = function(tunaEvents) {
                 tunaEvents: tunaEvents
             });
         }
-
     });
 };

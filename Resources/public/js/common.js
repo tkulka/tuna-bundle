@@ -11,9 +11,6 @@ window.tuna || (window.tuna = {
     collection: {},
     router: {},
     features: {},
-    file: {
-        view: {}
-    },
     config: {
         localeMap: {
             'en': 'en-US',
