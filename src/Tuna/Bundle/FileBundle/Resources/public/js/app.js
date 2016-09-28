@@ -2,7 +2,7 @@ window.tuna.file = {
     view: {}
 };
 
-tuna.file.init = function(tunaEvents) {
+tuna.file.initFileBundle = function(tunaEvents) {
     $('[data-dropzone-options]').each(function (index, item) {
         var options = $(item).data('dropzone-options');
         var $selector = $(options.selector);

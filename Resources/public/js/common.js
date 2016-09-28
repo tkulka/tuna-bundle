@@ -42,7 +42,7 @@ tuna.website = {
         new tuna.view.ModalError({el: $('#modalError'), tunaEvents: tunaEvents});
         new tuna.view.MenuItemEditView({el: $('form[name="menu"]'), tunaEvents: tunaEvents});
 
-        tuna.file.init(tunaEvents);
+        tuna.file.initFileBundle(tunaEvents);
 
         //WYSIWYG EDITOR
         tuna.view.EditorView && new tuna.view.EditorView({
