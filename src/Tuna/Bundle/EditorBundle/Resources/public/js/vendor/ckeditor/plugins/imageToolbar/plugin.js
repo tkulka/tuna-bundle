@@ -25,6 +25,7 @@ CKEDITOR.plugins.add('imageToolbar', {
                 '<div class="image-toolbar__button image-toolbar__button--float image-toolbar__button--left" data-float="left"></div>' +
                 '<div class="image-toolbar__button image-toolbar__button--float image-toolbar__button--center" data-center="center"></div>' +
                 '<div class="image-toolbar__button image-toolbar__button--float image-toolbar__button--right" data-float="right"></div>' +
+                '<div class="image-toolbar__button image-toolbar__button--float image-toolbar__button--delete" data-delete="delete"></div>' +
             '</div>');
 
         this.$container.append(this.$imageToolbar);
@@ -54,17 +55,22 @@ CKEDITOR.plugins.add('imageToolbar', {
             self.floatImg(e);
         });
 
-        this.$imageToolbar.find('[data-center]').on('click', function(e) {
-            self.centerImg(e);
+        this.$imageToolbar.find('[data-center]').on('click', function() {
+            self.centerImg();
         });
+
+        this.$imageToolbar.find('[data-delete]').on('click', function() {
+            self.deleteImg();
+        })
     },
 
     showToolbar: function($target) {
-        var offset = this.$container.find('.cke_top').outerHeight() + parseInt(this.$contents.css('margin-top').replace('px', ''));
+        var offsetTop = this.$container.find('.cke_top').outerHeight() + parseInt(this.$contents.css('margin-top').replace('px', ''));
+        var offsetLeft =  parseInt($target.css('margin-left').replace('px', ''));
 
         this.$imageToolbar.show().css({
-            top: $target.position().top + offset,
-            left: $target.position().left
+            top: $target.position().top + offsetTop,
+            left: $target.position().left + offsetLeft
         });
     },
 
@@ -84,5 +90,10 @@ CKEDITOR.plugins.add('imageToolbar', {
 
     centerImg: function() {
         this.$selectedImage.css('float', 'none').addClass('centered');
+    },
+
+    deleteImg: function() {
+        this.$selectedImage.remove();
+        this.hideToolbar();
     }
 });
