@@ -91,10 +91,13 @@ tuna.view.EditorView = Backbone.View.extend({
                 tab.remove('txtBorder');
                 tab.remove('txtHSpace');
                 tab.remove('txtVSpace');
+                tab.remove('browse');
                 tab.get('ratioLock').style += 'margin-left:-20px;';
+                tab.get('txtWidth').width = '100px';
+                tab.get('txtHeight').width = '100px';
+                tab.get('cmbAlign').style = 'width:150px;margin-right:-70px;';
+                tab.get('txtUrl').style = 'width:465px;margin-right:-50px;';
             }
         });
-
-        console.log(CKEDITOR);
     }
 });
