@@ -33,6 +33,7 @@ class BundleDependencyRegisterer
             new \Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new \Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new \FOS\UserBundle\FOSUserBundle(),
+            new \FOS\JsRoutingBundle\FOSJsRoutingBundle(),
         );
 
         foreach ($bundles as $bundle) {

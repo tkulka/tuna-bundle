@@ -174,9 +174,9 @@ a.cke_button_disabled:active
 	background-image: none !important;
 	cursor: inherit;
 	background-repeat: no-repeat;
-	margin-top: 1px;
-	width: 16px;
 	height: 16px;
+	width: 16px;
+	margin-top: 1px;
 	float: left;
 	display: inline-block;
 	color: inherit;

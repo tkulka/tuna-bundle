@@ -53,6 +53,7 @@ Special outer level classes used in this file:
 	border: 2px solid #757173;
 	padding: 0;
 	background-color: #ffffff;
+	position: relative;
 }
 
 .cke_chrome.drag-over:before {
