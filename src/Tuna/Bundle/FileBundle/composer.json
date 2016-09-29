@@ -1,0 +1,14 @@
+{
+    "name": "thecodeine/tuna-filebundle",
+    "type": "symfony-bundle",
+    "description": "FileBundle",
+    "homepage": "http://tuna-cms.herokuapp.com/",
+    "require": {
+        "friendsofsymfony/jsrouting-bundle": "^1.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "TheCodeine\\FileBundle\\": ""
+        }
+    }
+}

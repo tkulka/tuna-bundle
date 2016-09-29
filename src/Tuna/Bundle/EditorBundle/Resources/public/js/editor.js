@@ -55,10 +55,12 @@ tuna.view.EditorView = Backbone.View.extend({
 
                 var imageCmd = new CKEDITOR.command(editor, {
                     exec: function(e) {
-                        var $el = $(editor.getSelection().getNative().anchorNode.firstElementChild);
+                        var el = editor.getSelection().getSelectedElement();
 
-                        if ($el.prop('tagName') == 'IMG') {
+                        if (el && $(el.$).prop('tagName') == 'IMG') {
                             imageOld.apply(this, arguments);
+                        } else {
+                            $('.hidden-dropzone-button').click();
                         }
                     }
                 });

@@ -19,7 +19,7 @@
 
             var dropzoneOptions = this.$('[data-dropzone-options]').data('dropzone-options');
             if (dropzoneOptions) {
-                new tuna.view.DropzoneView({
+                new tuna.file.view.DropzoneView({
                     el: $(dropzoneOptions.selector),
                     options: dropzoneOptions,
                     parentView: this,

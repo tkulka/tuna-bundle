@@ -42,34 +42,23 @@ tuna.website = {
         new tuna.view.ModalError({el: $('#modalError'), tunaEvents: tunaEvents});
         new tuna.view.MenuItemEditView({el: $('form[name="menu"]'), tunaEvents: tunaEvents});
 
-        $('[data-dropzone-options]').each(function (index, item) {
-            var options = $(item).data('dropzone-options');
-            var $selector = $(options.selector);
-
-            if (!$selector.data('dropover-text')) {
-                new tuna.view.DropzoneView({
-                    el: $selector,
-                    options: options,
-                    tunaEvents: tunaEvents
-                });
-            }
-
-        });
+        tuna.file.initFileBundle(tunaEvents);
 
         //WYSIWYG EDITOR
         tuna.view.EditorView && new tuna.view.EditorView({
             selector: '.tab-pane.active .thecodeine_admin_editor',
-            lang: options.lang
+            lang: options.lang,
+            events: tunaEvents,
         });
 
         tunaEvents.on('editorLoaded', function(element) {
-
             if ($(element).data('type') != 'basic') {
                 var $el = $(element).siblings('.cke');
-                new tuna.view.DropzoneView({
+                $el.append('<div class="hidden-dropzone-button" style="display:none;"></div>');
+                new tuna.file.view.DropzoneView({
                     el: $el,
                     options: {
-                        clickable: '.cke_button__image',
+                        clickable: '.hidden-dropzone-button',
                         selector: '.cke',
                         previewTemplate: '',
                         previewsContainer: '.cke',
