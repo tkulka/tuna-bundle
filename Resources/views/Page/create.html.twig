@@ -2,9 +2,11 @@
 {% extends app.request.isXmlHttpRequest ? 'TheCodeineAdminBundle::_embed.html.twig' : "TheCodeineAdminBundle::_layout.html.twig" %}
 
 {% block content %}
-    {% include 'TheCodeineAdminBundle::_partials/_form/_main.html.twig' with {'title': 'Create page'|trans } %}
-{% endblock %}
-
-{% block extra_javascript %}
-    {{ include_the_codeine_editor() }}
+    {% embed 'TheCodeineAdminBundle::_partials/_form/_main.html.twig' with { title: 'Create page'|trans } %}
+        {% block extraFields %}
+            {% if form.menuParent is defined %}
+                {{ form_row(form.menuParent) }}
+            {% endif %}
+        {% endblock %}
+    {% endembed %}
 {% endblock %}

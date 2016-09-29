@@ -1,2 +1,9 @@
 {% trans_default_domain 'tuna_admin' %}
-{{ form_widget(form.translations) }}
+
+{% if form.translations is defined %}
+    {{ form_widget(form.translations) }}
+{% endif %}
+
+<script>
+    var CKEDITOR_BASEPATH = '{{ asset('bundles/thecodeineeditor/js/vendor/ckeditor/') }}';
+</script>

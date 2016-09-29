@@ -17,7 +17,7 @@ use TheCodeine\FileBundle\Form\UploadedFileType;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/upload/")
+     * @Route("/upload/", options={"expose"=true}, name="tuna_file_upload")
      */
     public function uploadAction(Request $request)
     {

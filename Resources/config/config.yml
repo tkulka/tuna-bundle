@@ -13,16 +13,6 @@ a2lix_translation_form:
 the_codeine_editor:
     autoinclude: true
 
-stof_doctrine_extensions:
-    default_locale: pl
-    persist_default_translation: false
-    translation_fallback: true
-    orm:
-        default:
-            timestampable: true
-            sluggable: true
-            translatable: true
-
 knp_paginator:
     page_range: 5
     template:
@@ -99,3 +89,35 @@ assetic:
                 - "%the_codeine_admin.components.editor.wysiwyg_style_dir%"
             apply_to: "\\.s[ac]ss$"
             bin: "%sass_bin%"
+
+doctrine:
+    orm:
+        mappings:
+            gedmo_translatable:
+                type: annotation
+                prefix: Gedmo\Translatable\Entity
+                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translatable/Entity"
+                alias: GedmoTranslatable # (optional) it will default to the name set for the mapping
+                is_bundle: false
+            gedmo_translator:
+                type: annotation
+                prefix: Gedmo\Translator\Entity
+                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translator/Entity"
+                alias: GedmoTranslator # (optional) it will default to the name set for the mapping
+                is_bundle: false
+            gedmo_tree:
+                type: annotation
+                prefix: Gedmo\Tree\Entity
+                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Tree/Entity"
+                is_bundle: false
+
+stof_doctrine_extensions:
+    default_locale: "%locale%"
+    persist_default_translation: false
+    translation_fallback: true
+    orm:
+        default:
+            timestampable: true
+            sluggable: true
+            translatable: true
+            tree: true
