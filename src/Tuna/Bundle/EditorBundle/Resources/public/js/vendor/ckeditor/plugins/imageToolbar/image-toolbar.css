@@ -36,3 +36,7 @@
 .image-toolbar__button--right:before {
     content: "\f106";
 }
+
+.image-toolbar__button--center:before {
+    content: "\f101";
+}

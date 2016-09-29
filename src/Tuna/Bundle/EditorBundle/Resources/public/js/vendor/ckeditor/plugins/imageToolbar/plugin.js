@@ -23,6 +23,7 @@ CKEDITOR.plugins.add('imageToolbar', {
                 '<div class="image-toolbar__button image-toolbar__button--resize" data-resize="75">75%</div>' +
                 '<div class="image-toolbar__button image-toolbar__button--resize" data-resize="100">100%</div>' +
                 '<div class="image-toolbar__button image-toolbar__button--float image-toolbar__button--left" data-float="left"></div>' +
+                '<div class="image-toolbar__button image-toolbar__button--float image-toolbar__button--center" data-center="center"></div>' +
                 '<div class="image-toolbar__button image-toolbar__button--float image-toolbar__button--right" data-float="right"></div>' +
             '</div>');
 
@@ -48,8 +49,13 @@ CKEDITOR.plugins.add('imageToolbar', {
         this.$imageToolbar.find('[data-resize]').on('click', function(e) {
             self.resizeImg(e);
         });
+
         this.$imageToolbar.find('[data-float]').on('click', function(e) {
             self.floatImg(e);
+        });
+
+        this.$imageToolbar.find('[data-center]').on('click', function(e) {
+            self.centerImg(e);
         });
     },
 
@@ -73,6 +79,10 @@ CKEDITOR.plugins.add('imageToolbar', {
 
     floatImg: function(e) {
         var value = $(e.target).data('float');
-        this.$selectedImage.css('float', value).addClass('image--' + value);
+        this.$selectedImage.css('float', value).removeClass('centered');
+    },
+
+    centerImg: function() {
+        this.$selectedImage.css('float', 'none').addClass('centered');
     }
 });

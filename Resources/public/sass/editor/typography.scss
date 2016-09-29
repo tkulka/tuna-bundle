@@ -105,6 +105,7 @@ a {
 img {
     width: 100%;
     height: auto;
+    display: block;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -118,5 +119,18 @@ img {
 
     &::-moz-selection {
         background: transparent;
+    }
+
+    &[style*="float: left"] {
+        margin-right: 20px;
+    }
+
+    &[style*="float: right"] {
+        margin-left: 20px;
+    }
+
+    &.centered {
+        margin-left: auto;
+        margin-right: auto;
     }
 }
