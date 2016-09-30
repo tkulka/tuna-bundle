@@ -27,8 +27,8 @@
         },
 
         toggleSubmit: function () {
-            var btn = this.$('button[type="submit"]')[0];
-            btn.disabled = btn.disabled ? false : true;
+            var $btn = this.$('button[type="submit"]');
+            $btn.prop('disabled', $btn.prop('disabled') ? false : true);
         },
 
         _onGalleryOpen: function () {
