@@ -74,7 +74,7 @@
     Translator.add("Drop your cover image here", "Upu\u015b\u0107 g\u0142\u00f3wny obrazek tutaj", "tuna_admin", "pl");
     Translator.add("Drop your attachments here", "Upu\u015b\u0107 za\u0142\u0105czniki tutaj", "tuna_admin", "pl");
     Translator.add("Drop your gallery images here", "Upu\u015b\u0107 zdj\u0119cia galerii tutaj", "tuna_admin", "pl");
-    Translator.add("Your files are uploading. Please wait..", "Twoje pliki s\u0105 przesy\u0142ane. Prosz\u0119 czeka\u0107..", "tuna_admin", "pl");
+    Translator.add("Your files are uploading. Please wait...", "Twoje pliki s\u0105 przesy\u0142ane. Prosz\u0119 czeka\u0107...", "tuna_admin", "pl");
     Translator.add("Ahoy! Let's log in", "Ahoj! Zaloguj si\u0119", "tuna_admin", "pl");
     Translator.add("Bad credentials.", "Niepoprawne dane logowania.", "tuna_admin", "pl");
     Translator.add("Added", "Dodano", "tuna_admin", "pl");
@@ -87,6 +87,16 @@
     Translator.add("You can't upload files of this type.", "Nie mo\u017cesz wgra\u0107 pliku z tym rozszerzeniem.", "tuna_admin", "pl");
     Translator.add("You can't upload any more files.", "Nie mo\u017cesz wgra\u0107 a\u017c tylu plik\u00f3w.", "tuna_admin", "pl");
     Translator.add("File upload error", "B\u0142\u0105d podczas wysy\u0142ania pliku", "tuna_admin", "pl");
+    Translator.add("Not linked to a Page", "Nie po\u0142\u0105czone ze Stron\u0105", "tuna_admin", "pl");
+    Translator.add("Clickable", "Klikalny", "tuna_admin", "pl");
+    Translator.add("Parent", "Nadrz\u0119dny element", "tuna_admin", "pl");
+    Translator.add("Page", "Strona", "tuna_admin", "pl");
+    Translator.add("Path", "\u015acie\u017cka", "tuna_admin", "pl");
+    Translator.add("External url", "Zewn\u0119trzny url", "tuna_admin", "pl");
+    Translator.add("Label", "Etykieta", "tuna_admin", "pl");
+    Translator.add("Dashboard", "Kokpit", "tuna_admin", "pl");
     Translator.add("error.category.not_empty", "Nie mo\u017cna usun\u0105\u0107 kategorii <strong>%name%<\/strong>, poniewa\u017c jest ona niepusta.", "tuna_admin", "pl");
     Translator.add("error.file.empty", "Prosz\u0119 wgra\u0107 plik.", "tuna_admin", "pl");
+    Translator.add("error.file.not_exists", "Nie znaleziono pliku \"%filename%\".", "tuna_admin", "pl");
+    Translator.add("error.menu.path_or_url", "Prosz\u0119 poda\u0107 \u015bcie\u017ck\u0119 lub zewn\u0119trzny url.", "tuna_admin", "pl");
 })(Translator);

@@ -5,4 +5,6 @@
     Translator.add("file.uploading.info", "Please wait while your files are uploaded and ready to save ...", "tuna_admin", "en");
     Translator.add("error.category.not_empty", "You cannot delete category <strong>%name%<\/strong> as it is not empty.", "tuna_admin", "en");
     Translator.add("error.file.empty", "You have to upload file.", "tuna_admin", "en");
+    Translator.add("error.file.not_exists", "Cannot find \"%filename%\" file.", "tuna_admin", "en");
+    Translator.add("error.menu.path_or_url", "You must provide path or external url.", "tuna_admin", "en");
 })(Translator);

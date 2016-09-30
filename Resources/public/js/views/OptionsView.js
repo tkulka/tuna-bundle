@@ -17,18 +17,19 @@
         },
 
         bindEvents: function () {
-            this.tunaEvents.on('uploadStart', _.bind(function(){
-                this.toggleSubmit();
+            this.tunaEvents.on('file.uploadStart', _.bind(function(){
+                $('body').addClass('sending');
+                this.disableSubmit(true);
             }, this));
 
-            this.tunaEvents.on('uploadEnd', _.bind(function(){
-                this.toggleSubmit();
+            this.tunaEvents.on('file.uploadEnd', _.bind(function(){
+                $('body').removeClass('sending');
+                this.disableSubmit(false);
             }, this));
         },
 
-        toggleSubmit: function () {
-            var $btn = this.$('button[type="submit"]');
-            $btn.prop('disabled', $btn.prop('disabled') ? false : true);
+        disableSubmit: function (value) {
+            this.$('button[type="submit"]').prop('disabled', value);
         },
 
         _onGalleryOpen: function () {

@@ -52,9 +52,7 @@
     </section>
 </div>
 
-<div id="upload">
-    <span>{% trans %}Your files are uploading. Please wait..{% endtrans %}</span>
-</div>
+<div id="upload"></div>
 
 {% include 'TheCodeineAdminBundle::_partials/_modal.html.twig' %}
 
@@ -63,8 +61,8 @@
 
 {% javascripts output='bundles/thecodeineadmin/js/tuna_admin.js'
 '@BazingaJsTranslationBundle/Resources/js/translator.js'
-'@TheCodeineAdminBundle/Resources/translations/translations/config.js'
-'@TheCodeineAdminBundle/Resources/translations/translations/*/*.js'
+'@TheCodeineAdminBundle/Resources/translations/admin/translations/config.js'
+'@TheCodeineAdminBundle/Resources/translations/admin/translations/*/*.js'
 '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery-2.0.3.min.js'
 '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery-ui-1.11.4.js'
 '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.ui.touch-punch.min.js'

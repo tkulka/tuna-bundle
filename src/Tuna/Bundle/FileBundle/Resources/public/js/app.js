@@ -1,11 +1,10 @@
 window.tuna.file = {
-    events: _.extend({}, Backbone.Events),
     view: {}
 };
 
 tuna.file.initFileBundle = function(tunaEvents) {
     new tuna.file.view.QueueView({
-        el: $('body'),
+        el: $('#upload'),
         tunaEvents: tunaEvents
     });
 

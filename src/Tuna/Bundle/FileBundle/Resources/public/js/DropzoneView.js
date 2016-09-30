@@ -5,7 +5,6 @@
             Dropzone.autoDiscover = false;
 
             this.tunaEvents = options.tunaEvents;
-            this.fileEvents = tuna.file.events;
             this.parentView = options.parentView;
             this.options = options.options;
 
@@ -60,11 +59,11 @@
                     });
 
                     this.on('addedfile', function () {
-                        dropzoneView.fileEvents.trigger('fileAdded');
+                        dropzoneView.tunaEvents.trigger('file.fileAdded');
                     });
 
                     this.on('complete', function() {
-                        dropzoneView.fileEvents.trigger('fileCompleted');
+                        dropzoneView.tunaEvents.trigger('file.fileCompleted');
                     })
                 }
             }, this.options);
