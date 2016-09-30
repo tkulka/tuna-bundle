@@ -5,10 +5,11 @@
             Dropzone.autoDiscover = false;
 
             this.tunaEvents = options.tunaEvents;
+            this.fileEvents = tuna.file.events;
             this.parentView = options.parentView;
             this.options = options.options;
-            this.setupOptions();
 
+            this.setupOptions();
             this.createDropzone();
             this.bindEvents();
         },
@@ -58,12 +59,12 @@
                         this.removeAllFiles();
                     });
 
-                    this.on('sending', function () {
-                        dropzoneView.tunaEvents.trigger('backgroundJobStart');
+                    this.on('addedfile', function () {
+                        dropzoneView.fileEvents.trigger('fileAdded');
                     });
 
                     this.on('complete', function() {
-                        dropzoneView.tunaEvents.trigger('backgroundJobEnd');
+                        dropzoneView.fileEvents.trigger('fileCompleted');
                     })
                 }
             }, this.options);
