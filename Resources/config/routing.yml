@@ -44,3 +44,7 @@ tuna_admin_homepage:
 
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+bazinga_jstranslation_js:
+    resource: "@BazingaJsTranslationBundle/Resources/config/routing/routing.yml"
+    prefix: /
