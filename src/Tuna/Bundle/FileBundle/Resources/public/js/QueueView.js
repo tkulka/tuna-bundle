@@ -1,11 +1,12 @@
 (function() {
     tuna.file.view.QueueView = Backbone.View.extend({
+        template: _.template('<div class="upload-text">' + Translator.trans('Your files are uploading. Please wait...') + '</div>'),
+
         initialize: function (options) {
             this.tunaEvents = options.tunaEvents;
             this.queueCounter = 0;
 
             this.bindEvents();
-            this.setView();
         },
 
         bindEvents: function () {
@@ -20,7 +21,7 @@
 
         increaseQueue: function () {
             if (this.queueCounter == 0) {
-                this.tunaEvents.trigger('file.uploadStart');
+                this.startQueue();
             }
             this.queueCounter += 1;
         },
@@ -28,12 +29,26 @@
         decreaseQueue: function () {
             this.queueCounter -= 1;
             if (this.queueCounter == 0) {
-                this.tunaEvents.trigger('file.uploadEnd');
+                this.endQueue();
             }
         },
 
-        setView: function () {
-            this.$el.append('<span>' + Translator.trans('Your files are uploading. Please wait...') + '</span>');
+        startQueue: function () {
+            this.tunaEvents.trigger('file.uploadStart');
+            this.render();
+        },
+
+        endQueue: function () {
+            this.tunaEvents.trigger('file.uploadEnd');
+            this.unrender();
+        },
+
+        render: function () {
+            this.$el.html(this.template);
+        },
+
+        unrender: function() {
+            this.$el.html('');
         }
     })
 })();
