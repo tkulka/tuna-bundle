@@ -3,7 +3,7 @@
         template: _.template(
             '<% if (filesCount > 0) { %>' +
                 '<div class="upload-text">' +
-                    Translator.trans('file.uploading.info') +
+                    "<%= Translator.trans('file.uploading.info', { 'count': filesCount }) %>" +
                 '</div>' +
             '<% } %>'
         ),
