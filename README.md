@@ -93,9 +93,9 @@ Replace `[language]` with any language you want to generate translations for (e.
 
 ## Admin JS translations:
 
-JavaScript translations are in `Resources/translations/tuna_admin.pl.yml`. After editing the file you have to dump translations:
+JavaScript translations are in `Resources/translations/tuna_admin.pl.yml`. To cache translations, run this command:
 
-    php app/console bazinga:js-translation:dump vendor/thecodeine/tuna-adminbundle/Resources/translations
+    php app/console bazinga:js-translation:dump
 
 ## Extending Page:
   1. Entity:
