@@ -52,19 +52,16 @@
     </section>
 </div>
 
-<div id="upload">
-    <span>{% trans %}Your files are uploading. Please wait..{% endtrans %}</span>
-</div>
+<div id="upload"></div>
 
 {% include 'TheCodeineAdminBundle::_partials/_modal.html.twig' %}
 
 <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
 <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+<script src="{{ asset('bundles/bazingajstranslation/js/translator.min.js') }}"></script>
+<script src="{{ url('bazinga_jstranslation_js', {'domain': 'tuna_admin'}) }}?locales={{ app.request.defaultLocale }}"></script>
 
 {% javascripts output='bundles/thecodeineadmin/js/tuna_admin.js'
-'@BazingaJsTranslationBundle/Resources/js/translator.js'
-'@TheCodeineAdminBundle/Resources/translations/translations/config.js'
-'@TheCodeineAdminBundle/Resources/translations/translations/*/*.js'
 '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery-2.0.3.min.js'
 '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery-ui-1.11.4.js'
 '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.ui.touch-punch.min.js'
@@ -89,6 +86,7 @@
 '@TheCodeineFileBundle/Resources/public/js/app.js'
 '@TheCodeineAdminBundle/Resources/public/js/views/*.js'
 '@TheCodeineFileBundle/Resources/public/js/DropzoneView.js'
+'@TheCodeineFileBundle/Resources/public/js/QueueView.js'
 '@TheCodeineEditorBundle/Resources/public/js/editor.js' %}
 <script src="{{ asset_url }}" type="text/javascript"></script>
 {% endjavascripts %}

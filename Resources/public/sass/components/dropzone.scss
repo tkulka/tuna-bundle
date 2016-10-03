@@ -7,22 +7,21 @@ body {
                 color: $brand-content;
             }
         }
+    }
 
-        #upload {
+    #upload {
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        z-index: 500;
+
+        .upload-text {
             display: block;
-            position: fixed;
-            bottom: 10px;
-            right: 10px;
             background: $brand-primary;
             color: $brand-content;
             padding: 10px 30px;
             font-size: 20px;
-            z-index: 500;
         }
-    }
-
-    #upload {
-        display: none;
     }
 }
 

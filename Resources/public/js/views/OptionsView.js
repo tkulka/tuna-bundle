@@ -17,15 +17,19 @@
         },
 
         bindEvents: function () {
-            this.tunaEvents.on('backgroundJobStart', _.bind(function(){
+            this.tunaEvents.on('file.uploadStart', _.bind(function(){
                 $('body').addClass('sending');
-                this.$('button[type="submit"]').attr('disabled', true);
+                this.disableSubmit(true);
             }, this));
 
-            this.tunaEvents.on('backgroundJobEnd', _.bind(function(){
+            this.tunaEvents.on('file.uploadEnd', _.bind(function(){
                 $('body').removeClass('sending');
-                this.$('button[type="submit"]').attr('disabled', false);
+                this.disableSubmit(false);
             }, this));
+        },
+
+        disableSubmit: function (value) {
+            this.$('button[type="submit"]').prop('disabled', value);
         },
 
         _onGalleryOpen: function () {

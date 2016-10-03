@@ -7,8 +7,8 @@
             this.tunaEvents = options.tunaEvents;
             this.parentView = options.parentView;
             this.options = options.options;
-            this.setupOptions();
 
+            this.setupOptions();
             this.createDropzone();
             this.bindEvents();
         },
@@ -55,13 +55,16 @@
                     });
 
                     this.on('queuecomplete', function () {
-                        dropzoneView.tunaEvents.trigger('backgroundJobEnd');
                         this.removeAllFiles();
                     });
 
-                    this.on('sending', function () {
-                        dropzoneView.tunaEvents.trigger('backgroundJobStart');
+                    this.on('addedfile', function () {
+                        dropzoneView.tunaEvents.trigger('file.fileAdded');
                     });
+
+                    this.on('complete', function() {
+                        dropzoneView.tunaEvents.trigger('file.fileCompleted');
+                    })
                 }
             }, this.options);
 
