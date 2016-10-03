@@ -1,6 +1,12 @@
 (function() {
     tuna.file.view.QueueView = Backbone.View.extend({
-        template: _.template('<% if (filesCount > 0) %><div class="upload-text">' + Translator.trans('Your files are uploading (<%= filesCount %>). Please wait...') + '</div>'),
+        template: _.template(
+            '<% if (filesCount > 0) { %>' +
+                '<div class="upload-text">' +
+                    Translator.trans('file.uploading.info') +
+                '</div>' +
+            '<% } %>'
+        ),
 
         initialize: function (options) {
             this.tunaEvents = options.tunaEvents;

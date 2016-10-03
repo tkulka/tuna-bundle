@@ -47,4 +47,3 @@ fos_js_routing:
 
 bazinga_jstranslation_js:
     resource: "@BazingaJsTranslationBundle/Resources/config/routing/routing.yml"
-    prefix: /
