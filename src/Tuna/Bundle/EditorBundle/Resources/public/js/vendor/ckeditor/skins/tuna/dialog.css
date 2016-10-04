@@ -49,8 +49,6 @@ Comments in this file will give more details about each of the above blocks.
 	/* Mandatory: Because the dialog.css file is loaded on demand, we avoid
 		showing an unstyled dialog by hidding it. Here, we restore its visibility. */
 	visibility: visible;
-	width: 100%;
-	max-width: 508px;
 }
 
 /* The inner boundary container. */
@@ -148,7 +146,6 @@ Comments in this file will give more details about each of the above blocks.
 	overflow: auto;
 	margin-top: 30px;
 	border-radius: 0 0 3px 3px;
-	width: 100%;
 }
 
 /* The contents body part, which will hold all elements available in the dialog. */
@@ -185,6 +182,7 @@ Comments in this file will give more details about each of the above blocks.
 .cke_dialog .cke_resizer
 {
 	margin-top: 22px;
+	display: none;
 }
 
 .cke_dialog .cke_resizer_rtl
@@ -399,12 +397,6 @@ The following is the visual representation of a H-Box:
 It is possible to have nested V/H-Boxes.
 */
 
-.cke_dialog_ui_vbox_child table, .cke_dialog_ui_vbox_child tr {
-	display: inline-block;
-	vertical-align: top;
-	margin-right: 20px;
-}
-
 .cke_dialog_ui_vbox table,
 .cke_dialog_ui_hbox table
 {
@@ -461,10 +453,6 @@ It is possible to have nested V/H-Boxes.
 .cke_hc div.cke_dialog_ui_input_file
 {
 	border: 1px solid;
-}
-
-.cke_dialog_ui_html {
-	/*display: none;*/
 }
 
 /*
