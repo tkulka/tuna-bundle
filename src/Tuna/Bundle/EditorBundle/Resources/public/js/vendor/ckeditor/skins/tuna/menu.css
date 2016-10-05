@@ -53,6 +53,7 @@ Special outer level classes used in this file:
 	/* The "button" inside a menu item is a <a> element.
 	   Transforms it into a block. */
 	display: block;
+	color: #000;
 }
 
 .cke_menuitem span
