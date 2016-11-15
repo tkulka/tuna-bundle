@@ -3,7 +3,7 @@
 namespace TheCodeine\MenuBundle\Twig;
 
 use Doctrine\ORM\EntityManager;
-use Symfony\Component\Routing\Router;
+use Symfony\Component\Routing\RouterInterface;
 use TheCodeine\MenuBundle\Entity\Menu;
 
 class MenuExtension extends \Twig_Extension
@@ -19,14 +19,14 @@ class MenuExtension extends \Twig_Extension
     private $em;
 
     /**
-     * @var Router
+     * @var RouterInterface
      */
     private $router;
 
     /**
      * MenuExtension constructor.
      */
-    public function __construct(\Twig_Environment $twig, EntityManager $em, Router $router)
+    public function __construct(\Twig_Environment $twig, EntityManager $em, RouterInterface $router)
     {
         $this->twig = $twig;
         $this->em = $em;
