@@ -8,30 +8,32 @@
         {{ form_widget(form._token) }}
 
         <aside class="aside aside-2">
-            {% include 'TheCodeineAdminBundle::_partials/_form/_options.html.twig' with { extraFields: block('extraFields') } %}
+            {% block form_options %}
+                {% include 'TheCodeineAdminBundle::_partials/_form/_options.html.twig' with { extraFields: block('extraFields') } %}
+            {% endblock %}
         </aside>
 
         <div class="inside">
             <div class="body">
+                {% block form_body %}
+                    {% include 'TheCodeineAdminBundle::_partials/_form/_translations.menu.html.twig' %}
 
-                {% include 'TheCodeineAdminBundle::_partials/_form/_translations.menu.html.twig' %}
-
-                <h3>
-                    {% if title is defined %}
-                        {{ title }}
-                    {% endif %}
-                    <br>
-                        <span>
-                            {% if slug is defined %}
+                    <h3>
+                        {% if title is defined %}
+                            {{ title }}
+                        {% endif %}
+                        {% if slug is defined %}
+                            <br>
+                            <span>
                                 {{ slug }}
-                            {% endif %}
                         </span>
-                </h3>
+                        {% endif %}
+                    </h3>
 
-                {% include 'TheCodeineAdminBundle::_partials/_form/_content.html.twig' %}
+                    {% include 'TheCodeineAdminBundle::_partials/_form/_content.html.twig' %}
+                {% endblock %}
             </div>
         </div>
-        {{ form_end(form, {'render_rest': false}) }}
-
+        {{ form_end(form, { render_rest: true }) }}
     </div>
 {% endblock content %}

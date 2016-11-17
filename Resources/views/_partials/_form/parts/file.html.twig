@@ -4,6 +4,7 @@
     {% set wrapperId = form.vars.id ~ '_wrapper' %}
     {% set dropzoneOptions = {
     selector: '#' ~ wrapperId,
+    acceptedFiles: accepted_files,
     previewTemplate: theme.tuna_file_preview('/uploads/tmp/__path__'),
     previewSelector: '#' ~ wrapperId ~ ' .preview'
     } %}

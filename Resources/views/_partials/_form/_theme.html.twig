@@ -11,9 +11,12 @@
 {% use "TheCodeineAdminBundle:_partials/_form/parts:text.html.twig" %}
 {% use "TheCodeineAdminBundle:_partials/_form/parts:translations.html.twig" %}
 
-{% macro tuna_image_preview(fileUrl, deletable) %}{% spaceless %}
+{% macro tuna_image_preview(fileUrl, deletable, scalePreviewThumbnail = true) %}{% spaceless %}
     {% if fileUrl %}
-        <img src="{{ fileUrl | imagine_filter('tuna_admin_thumb') }}"/>
+        {% if scalePreviewThumbnail %}
+            {% set fileUrl = fileUrl | imagine_filter('tuna_admin_thumb') %}
+        {% endif %}
+        <img src="{{ fileUrl }}"/>
         {% if deletable %}
             <span data-action="remove" class="remove">{% trans %}Remove{% endtrans %}</span>
         {% endif %}
@@ -37,10 +40,12 @@
 {% endblock form_row %}
 
 {%- block form_widget_simple -%}
-    {% set attr = attr | merge({class: (attr.class | default('') ~ ' input--' ~ name) | trim}) %}
+    {% set attr = attr | merge({class: (attr.class | default('') ~ ' form-control input-lg input--' ~ name) | trim}) %}
     {% if value is not empty %}
         {% set attr = attr | merge({value: value}) %}
     {% endif %}
     {%- set type = type|default('text') -%}
-    <input type="{{ type }}" {{ block('widget_attributes') }}/>
+    <div class="{% if type != 'hidden' %}form-group {% endif %}form--{{ name }}">
+        <input type="{{ type }}" {{ block('widget_attributes') }}{% if type != 'hidden' %} placeholder="{{ name | humanize | capitalize | trans }}"{% endif %}>
+    </div>
 {%- endblock form_widget_simple -%}
