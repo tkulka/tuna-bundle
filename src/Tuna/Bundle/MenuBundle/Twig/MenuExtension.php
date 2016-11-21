@@ -69,8 +69,12 @@ class MenuExtension extends \Twig_Extension
             $options['wrap'] = true;
         }
 
+        if (!key_exists('template', $options)) {
+            $options['template'] = 'TheCodeineMenuBundle:Menu:render_menu.html.twig';
+        }
+
         return $this->twig->render(
-            'TheCodeineMenuBundle:Menu:render_menu.html.twig',
+            $options['template'],
             array(
                 'menu' => $this->em->getRepository('TheCodeineMenuBundle:Menu')->getMenuTree($menuName),
                 'name' => $menuName,
