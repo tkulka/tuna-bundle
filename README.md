@@ -341,7 +341,11 @@ FileBundle provides three twig helpers for easy file rendering:
         
     You can also use full syntax:
     
-        {{ tuna_menu_render('Label', { wrap: false }) }}
+        {{ tuna_menu_render('Label', {
+            template: ':default/partials:render_menu.html.twig',
+            wrap: false 
+        }) }}
     
     * `Label` - label of the root menu item (defaults to `Menu`) 
+    * `template` - custom menu template (defaults to `'TheCodeineMenuBundle:Menu:render_menu.html.twig'`)
     * `wrap` - whether wrap menu in `<ul>` tags or not (defaults to true)
