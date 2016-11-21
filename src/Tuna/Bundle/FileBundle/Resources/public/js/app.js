@@ -10,11 +10,11 @@ tuna.file.initFileBundle = function(tunaEvents) {
 
     $('[data-dropzone-options]').each(function (index, item) {
         var options = $(item).data('dropzone-options');
-        var $selector = $(options.selector);
+        var $dropzonable = $(options.selector);
 
-        if (!$selector.data('dropover-text')) {
+        if (!$dropzonable.data('dropover-text')) {
             new tuna.file.view.DropzoneView({
-                el: $selector,
+                el: $dropzonable,
                 options: options,
                 tunaEvents: tunaEvents
             });

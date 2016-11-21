@@ -29,9 +29,13 @@ tuna.website = {
         this.events = _.extend({}, Backbone.Events);
 
         this.initBaseViews();
+        this.beforeFileBundle();
         tuna.file.initFileBundle(this.events);
         this.initEditor();
         this.initInputPlugins();
+    },
+
+    beforeFileBundle: function () {
     },
 
     initBaseViews: function () {
