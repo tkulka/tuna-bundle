@@ -24,13 +24,19 @@ class MenuExtension extends \Twig_Extension
     private $router;
 
     /**
+     * @var String
+     */
+    private $defaultTemplate;
+
+    /**
      * MenuExtension constructor.
      */
-    public function __construct(\Twig_Environment $twig, EntityManager $em, Router $router)
+    public function __construct(\Twig_Environment $twig, EntityManager $em, Router $router, $defaultTemplate)
     {
         $this->twig = $twig;
         $this->em = $em;
         $this->router = $router;
+        $this->defaultTemplate = $defaultTemplate;
     }
 
     public function getFunctions()
@@ -65,12 +71,10 @@ class MenuExtension extends \Twig_Extension
 
     public function renderMenu($menuName = 'Menu', array $options = array())
     {
-        if (!key_exists('wrap', $options)) {
-            $options['wrap'] = true;
-        }
+        $options += array('wrap' => true, 'template' => $this->defaultTemplate);
 
         return $this->twig->render(
-            'TheCodeineMenuBundle:Menu:render_menu.html.twig',
+            $options['template'],
             array(
                 'menu' => $this->em->getRepository('TheCodeineMenuBundle:Menu')->getMenuTree($menuName),
                 'name' => $menuName,
