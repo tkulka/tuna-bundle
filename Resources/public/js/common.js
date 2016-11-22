@@ -60,27 +60,29 @@ tuna.website = {
         });
 
         this.events.on('editorLoaded', _.bind(function (element) {
-            if ($(element).data('type') != 'basic') {
-                var $el = $(element).siblings('.cke');
-                $el.append('<div class="hidden-dropzone-button" style="display:none;"></div>');
-                new tuna.file.view.DropzoneView({
-                    el: $el,
-                    options: {
-                        clickable: '.hidden-dropzone-button',
-                        selector: '.cke',
-                        previewTemplate: '',
-                        previewsContainer: '.cke',
-                        acceptedFiles: '.jpg, .jpeg, .png, .gif',
-                        dropoverText: Translator.trans('Drop your images here'),
-                        success: function (file, response) {
-                            var $el = $(this.element).siblings('textarea');
-                            var editor = CKEDITOR.instances[$el.attr('id')];
-                            editor.insertHtml('<img src="' + $el.data('image-url') + response.path + '">');
-                        }
-                    },
-                    tunaEvents: this.events
-                });
-            }
+            var $element = $(element);
+            var $el = $element.siblings('.cke');
+
+            if ($element.data('type') == 'basic') return;
+
+            $el.append('<div class="hidden-dropzone-button" style="display:none;"></div>');
+            new tuna.file.view.DropzoneView({
+                el: $el,
+                options: {
+                    clickable: '.hidden-dropzone-button',
+                    selector: '.cke',
+                    previewTemplate: '',
+                    previewsContainer: '.cke',
+                    acceptedFiles: '.jpg, .jpeg, .png, .gif',
+                    dropoverText: Translator.trans('Drop your images here'),
+                    success: function (file, response) {
+                        var $el = $(this.element).siblings('textarea');
+                        var editor = CKEDITOR.instances[$el.attr('id')];
+                        editor.insertHtml('<img src="' + $el.data('image-url') + response.path + '">');
+                    }
+                },
+                tunaEvents: this.events
+            });
         }, this));
     },
 
