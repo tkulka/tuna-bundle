@@ -32,7 +32,7 @@ class Configuration implements ConfigurationInterface
                     ->end()
                 ->end()
                 ->scalarNode('host')
-                    ->defaultValue(null)
+                    ->defaultNull()
                 ->end()
                 ->scalarNode('menu_builder')
                     ->defaultValue('TheCodeine\AdminBundle\Menu\Builder')
@@ -59,9 +59,9 @@ class Configuration implements ConfigurationInterface
                 ->end()
                 ->addDefaultsIfNotSet()
                 ->children()
-                    ->booleanNode('enabled')->defaultValue(true)->end()
-                    ->booleanNode('create')->defaultValue(true)->end()
-                    ->booleanNode('delete')->defaultValue(true)->end()
+                    ->booleanNode('enabled')->defaultTrue()->end()
+                    ->booleanNode('create')->defaultTrue()->end()
+                    ->booleanNode('delete')->defaultTrue()->end()
                 ->end()
             ->end()
         ;
@@ -85,6 +85,16 @@ class Configuration implements ConfigurationInterface
                     ->scalarNode('default_template')
                         ->defaultValue('TheCodeineMenuBundle:Menu:render_menu.html.twig')
                     ->end()
+                ->end()
+            ->end()
+        ;
+
+        $sections->children()
+            ->arrayNode('security')
+                ->addDefaultsIfNotSet()
+                ->children()
+                    ->booleanNode('enabled')->defaultTrue()->end()
+                    ->booleanNode('use_access_control')->defaultTrue()->end()
                 ->end()
             ->end()
         ;

@@ -32,7 +32,7 @@
 
             this.defaultOptions = _.extend({
                 url: Routing.generate('tuna_file_upload'),
-                acceptedFiles: '.jpg, .jpeg, .gif',
+                acceptedFiles: '.jpg, .jpeg, .png, .gif',
                 paramName: 'file',
                 dictInvalidFileType: Translator.trans('You can\'t upload files of this type.'),
                 dictMaxFilesExceeded: Translator.trans('You can\'t upload any more files.'),
