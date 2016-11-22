@@ -4,6 +4,7 @@ namespace TheCodeine\MenuBundle\Twig;
 
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Routing\Router;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use TheCodeine\MenuBundle\Entity\Menu;
 
 class MenuExtension extends \Twig_Extension
@@ -24,13 +25,19 @@ class MenuExtension extends \Twig_Extension
     private $router;
 
     /**
+     * @var Container
+     */
+    private $container;
+
+    /**
      * MenuExtension constructor.
      */
-    public function __construct(\Twig_Environment $twig, EntityManager $em, Router $router)
+    public function __construct(\Twig_Environment $twig, EntityManager $em, Router $router, ContainerInterface $container)
     {
         $this->twig = $twig;
         $this->em = $em;
         $this->router = $router;
+        $this->container = $container;
     }
 
     public function getFunctions()
@@ -70,7 +77,7 @@ class MenuExtension extends \Twig_Extension
         }
 
         if (!key_exists('template', $options)) {
-            $options['template'] = 'TheCodeineMenuBundle:Menu:render_menu.html.twig';
+            $options['template'] = $this->container->getParameter('the_codeine_admin.components.menu.default_template');
         }
 
         return $this->twig->render(

@@ -77,7 +77,18 @@ class Configuration implements ConfigurationInterface
             ->end()
         ;
 
-        $this->addEnabledConfig($sections, 'menu', true);
+        $sections->children()
+            ->arrayNode('menu')
+                ->addDefaultsIfNotSet()
+                ->children()
+                    ->booleanNode('enabled')->defaultValue(true)->end()
+                    ->scalarNode('default_template')
+                        ->defaultValue('TheCodeineMenuBundle:Menu:render_menu.html.twig')
+                    ->end()
+                ->end()
+            ->end()
+        ;
+
         $this->addEnabledConfig($sections, 'news', true);
         $this->addEnabledConfig($sections, 'events', false);
         $this->addEnabledConfig($sections, 'translations', true);

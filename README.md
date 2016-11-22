@@ -55,6 +55,7 @@
                      wysiwyg_style_dir: '%kernel.root_dir%/../vendor/thecodeine/tuna-adminbundle/Resources/public/sass/editor'
                  menu:
                      enabled: true
+                     default_template: 'TheCodeineMenuBundle:Menu:render_menu.html.twig'
                  news:
                      enabled: true
                  events:
@@ -342,10 +343,10 @@ FileBundle provides three twig helpers for easy file rendering:
     You can also use full syntax:
     
         {{ tuna_menu_render('Label', {
-            template: ':default/partials:render_menu.html.twig',
+            template: 'default/partials/render_menu.html.twig',
             wrap: false 
         }) }}
     
     * `Label` - label of the root menu item (defaults to `Menu`) 
-    * `template` - custom menu template (defaults to `'TheCodeineMenuBundle:Menu:render_menu.html.twig'`)
+    * `template` - custom menu template (defaults to `'TheCodeineMenuBundle:Menu:render_menu.html.twig'`). You can also set default template in config.
     * `wrap` - whether wrap menu in `<ul>` tags or not (defaults to true)
