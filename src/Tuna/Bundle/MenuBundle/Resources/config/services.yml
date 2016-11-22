@@ -3,7 +3,7 @@ services:
         class: TheCodeine\MenuBundle\Twig\MenuExtension
         calls:
             - [initRuntime, ['@twig']]
-        arguments: ['@twig', "@doctrine.orm.default_entity_manager", "@router", "@service_container"]
+        arguments: ['@twig', "@doctrine.orm.default_entity_manager", "@router", "%the_codeine_admin.components.menu.default_template%"]
         tags:
             - { name: twig.extension }
 

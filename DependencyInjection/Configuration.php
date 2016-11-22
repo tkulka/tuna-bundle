@@ -81,7 +81,7 @@ class Configuration implements ConfigurationInterface
             ->arrayNode('menu')
                 ->addDefaultsIfNotSet()
                 ->children()
-                    ->booleanNode('enabled')->defaultValue(true)->end()
+                    ->booleanNode('enabled')->defaultTrue()->end()
                     ->scalarNode('default_template')
                         ->defaultValue('TheCodeineMenuBundle:Menu:render_menu.html.twig')
                     ->end()
