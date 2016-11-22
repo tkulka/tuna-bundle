@@ -53,10 +53,6 @@ class Configuration implements ConfigurationInterface
 
         $sections->children()
             ->arrayNode('pages')
-                ->beforeNormalization()
-                    ->ifTrue(function ($v) { return is_bool($v); })
-                    ->then(function ($v) { return array('enabled' => $v); })
-                ->end()
                 ->addDefaultsIfNotSet()
                 ->children()
                     ->booleanNode('enabled')->defaultTrue()->end()
@@ -109,10 +105,6 @@ class Configuration implements ConfigurationInterface
     {
         $node->children()
             ->arrayNode($name)
-                ->beforeNormalization()
-                    ->ifTrue(function ($v) { return is_bool($v); })
-                    ->then(function ($v) { return array('enabled' => $v); })
-                ->end()
                 ->addDefaultsIfNotSet()
                 ->children()
                     ->booleanNode('enabled')->defaultValue($defaultValue)->end()
