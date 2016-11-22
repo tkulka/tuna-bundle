@@ -1,0 +1,30 @@
+parameters:
+    the_codeine_admin.menu.item.class: Knp\Menu\MenuItem
+
+services:
+    the_codeine_admin.menu_builder:
+        class: %the_codeine_admin.menu_builder.class%
+        arguments: ['@knp_menu.factory', '%the_codeine_admin.components%']
+    the_codeine_admin.menu.top:
+        class: %the_codeine_admin.menu.item.class%
+        tags:
+            - { name: knp_menu.menu, alias: menu.top }
+        factory_method: getTopMenu
+        factory_service: the_codeine_admin.menu_builder
+        arguments: ['@request']
+        scope: request
+    the_codeine_admin.twig.twig_extension:
+        class: TheCodeine\AdminBundle\Twig\TwigExtension
+        tags:
+            - { name: twig.extension }
+    the_codeine_admin.twig.path_extension:
+        class: TheCodeine\AdminBundle\Twig\PathExtension
+        tags:
+            - { name: twig.extension }
+        arguments: ['%the_codeine_admin.paths%']
+    app.post_voter:
+        class: TheCodeine\AdminBundle\Security\ComponentVoter
+        public: false
+        tags:
+            - { name: security.voter }
+        arguments: ['@security.access.decision_manager', '%the_codeine_admin.components%']
