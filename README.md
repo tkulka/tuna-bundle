@@ -65,27 +65,14 @@
                  categories:
                      enabled: false
 
-    You can also use shorter component syntax:
-    
-        the_codeine_admin:
-            components:
-                pages: false
-        
-        # above config is equal to:
-        
-        the_codeine_admin:
-            components:
-                pages:
-                    enabled: false
-
-
 ## Frontend translations:
 
 Translations are enabled by default. You can turn them off by setting:
 
         the_codeine_admin:
             components:
-                translations: false
+                translations: 
+                    enabled: false
 
 Dump translation files:
 
