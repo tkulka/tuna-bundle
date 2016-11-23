@@ -53,10 +53,6 @@ class Configuration implements ConfigurationInterface
 
         $sections->children()
             ->arrayNode('pages')
-                ->beforeNormalization()
-                    ->ifTrue(function ($v) { return is_bool($v); })
-                    ->then(function ($v) { return array('enabled' => $v); })
-                ->end()
                 ->addDefaultsIfNotSet()
                 ->children()
                     ->booleanNode('enabled')->defaultTrue()->end()
@@ -78,6 +74,18 @@ class Configuration implements ConfigurationInterface
         ;
 
         $sections->children()
+            ->arrayNode('menu')
+                ->addDefaultsIfNotSet()
+                ->children()
+                    ->booleanNode('enabled')->defaultTrue()->end()
+                    ->scalarNode('default_template')
+                        ->defaultValue('TheCodeineMenuBundle:Menu:render_menu.html.twig')
+                    ->end()
+                ->end()
+            ->end()
+        ;
+
+        $sections->children()
             ->arrayNode('security')
                 ->addDefaultsIfNotSet()
                 ->children()
@@ -87,7 +95,6 @@ class Configuration implements ConfigurationInterface
             ->end()
         ;
 
-        $this->addEnabledConfig($sections, 'menu', true);
         $this->addEnabledConfig($sections, 'news', true);
         $this->addEnabledConfig($sections, 'events', false);
         $this->addEnabledConfig($sections, 'translations', true);
@@ -98,10 +105,6 @@ class Configuration implements ConfigurationInterface
     {
         $node->children()
             ->arrayNode($name)
-                ->beforeNormalization()
-                    ->ifTrue(function ($v) { return is_bool($v); })
-                    ->then(function ($v) { return array('enabled' => $v); })
-                ->end()
                 ->addDefaultsIfNotSet()
                 ->children()
                     ->booleanNode('enabled')->defaultValue($defaultValue)->end()

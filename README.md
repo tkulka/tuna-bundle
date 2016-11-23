@@ -55,6 +55,7 @@
                      wysiwyg_style_dir: '%kernel.root_dir%/../vendor/thecodeine/tuna-adminbundle/Resources/public/sass/editor'
                  menu:
                      enabled: true
+                     default_template: 'TheCodeineMenuBundle:Menu:render_menu.html.twig'
                  news:
                      enabled: true
                  events:
@@ -64,27 +65,14 @@
                  categories:
                      enabled: false
 
-    You can also use shorter component syntax:
-    
-        the_codeine_admin:
-            components:
-                pages: false
-        
-        # above config is equal to:
-        
-        the_codeine_admin:
-            components:
-                pages:
-                    enabled: false
-
-
 ## Frontend translations:
 
 Translations are enabled by default. You can turn them off by setting:
 
         the_codeine_admin:
             components:
-                translations: false
+                translations: 
+                    enabled: false
 
 Dump translation files:
 
@@ -341,7 +329,11 @@ FileBundle provides three twig helpers for easy file rendering:
         
     You can also use full syntax:
     
-        {{ tuna_menu_render('Label', { wrap: false }) }}
+        {{ tuna_menu_render('Label', {
+            template: 'default/partials/render_menu.html.twig',
+            wrap: false 
+        }) }}
     
     * `Label` - label of the root menu item (defaults to `Menu`) 
+    * `template` - custom menu template (defaults to `'TheCodeineMenuBundle:Menu:render_menu.html.twig'`). You can also set default template in config.
     * `wrap` - whether wrap menu in `<ul>` tags or not (defaults to true)
