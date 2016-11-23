@@ -59,32 +59,34 @@ tuna.website = {
             events: this.events
         });
 
-        this.events.on('editorLoaded', _.bind(function (element) {
-            var $element = $(element);
-            var $el = $element.siblings('.cke');
-            var id = $el.attr('id');
+        this.events.on('editorLoaded', this.onEditorLoaded, this);
+    },
 
-            if ($element.data('type') == 'basic') return;
+    onEditorLoaded: function (element) {
+        var $element = $(element);
+        var $el = $element.siblings('.cke');
+        var id = $el.attr('id');
 
-            $el.append('<div class="hidden-dropzone-button" data-editor="' + id + '" style="display:none;"></div>');
-            new tuna.file.view.DropzoneView({
-                el: $el,
-                options: {
-                    clickable: '.hidden-dropzone-button[data-editor="' + id + '"]',
-                    selector: '.cke',
-                    previewTemplate: '',
-                    previewsContainer: '.cke',
-                    acceptedFiles: '.jpg, .jpeg, .png, .gif',
-                    dropoverText: Translator.trans('Drop your images here'),
-                    success: function (file, response) {
-                        var $el = $(this.element).siblings('textarea');
-                        var editor = CKEDITOR.instances[$el.attr('id')];
-                        editor.insertHtml('<img src="' + $el.data('image-url') + response.path + '">');
-                    }
-                },
-                tunaEvents: this.events
-            });
-        }, this));
+        if ($element.data('type') == 'basic') return;
+
+        $el.append('<div class="hidden-dropzone-button" data-editor="' + id + '" style="display:none;"></div>');
+        new tuna.file.view.DropzoneView({
+            el: $el,
+            options: {
+                clickable: '.hidden-dropzone-button[data-editor="' + id + '"]',
+                selector: '.cke',
+                previewTemplate: '',
+                previewsContainer: '.cke',
+                acceptedFiles: '.jpg, .jpeg, .png, .gif',
+                dropoverText: Translator.trans('Drop your images here'),
+                success: function (file, response) {
+                    var $el = $(this.element).siblings('textarea');
+                    var editor = CKEDITOR.instances[$el.attr('id')];
+                    editor.insertHtml('<img src="' + $el.data('image-url') + response.path + '">');
+                }
+            },
+            tunaEvents: this.events
+        });
     },
 
     initInputPlugins: function () {
