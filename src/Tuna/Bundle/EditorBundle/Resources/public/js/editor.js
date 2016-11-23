@@ -23,16 +23,16 @@ tuna.view.EditorView = Backbone.View.extend({
             var $tabbable = $('.tabbable');
 
             _.defer(function () {
-                oThis.initEditor($tabbable.find('.tab-pane.active' + oThis.options.selector), tuna.config.localeMap[options.lang]);
+                oThis.initEditor($tabbable.find('.tab-pane.active' + oThis.options.selector), options.lang);
             });
         })
             .filter(':first').trigger('click');
     },
 
     initEditor: function ($element, language) {
-        var editorLang = language.split('_');
+        var editorLang = language.split(/[-_]/g)[0];
 
-        CKEDITOR.config.language = editorLang[0];
+        CKEDITOR.config.language = editorLang;
         CKEDITOR.config.customConfig = '/bundles/thecodeineeditor/js/editorConfig.js';
 
         $element.each(_.bind(function (index, item) {

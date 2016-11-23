@@ -11,12 +11,7 @@ window.tuna || (window.tuna = {
     collection: {},
     router: {},
     features: {},
-    config: {
-        localeMap: {
-            'en': 'en-US',
-            'pl': 'pl-PL'
-        }
-    }
+    config: {}
 });
 
 /**
