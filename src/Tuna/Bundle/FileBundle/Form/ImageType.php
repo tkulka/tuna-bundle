@@ -23,7 +23,7 @@ class ImageType extends AbstractFileType
     public function configureOptions(OptionsResolver $resolver)
     {
         parent::configureOptions($resolver);
-        $resolver->setDefault('accepted_files', 'image/*');
+        $resolver->setDefault('accepted_files', '.png,.jpg,.gif,.jpeg');
         $resolver->setDefault('scale_preview_thumbnail', true);
     }
 
