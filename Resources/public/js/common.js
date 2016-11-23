@@ -103,21 +103,21 @@ tuna.website = {
     },
 
     confirmModal: function (msg) {
-        var dfd = $.Deferred();
         $('#modalConfirm').modal('hide'); // don't allow multiple modals
         $('#modalConfirm .modal-body p').html(msg);
         $('#modalConfirm').modal({
             keyboard: true
         });
-        $('#modalConfirm [data-action="accept"]').on('click', function () {
-            $('#modalConfirm').off('hide.bs.modal').modal('hide');
-            dfd.resolve();
-        });
-        $('#modalConfirm').on('hide.bs.modal', function (event) {
-            dfd.reject();
-        });
 
-        return dfd.promise();
+        return new Promise(function (resolve, reject) {
+            $('#modalConfirm [data-action="accept"]').on('click', function () {
+                $('#modalConfirm').off('hide.bs.modal').modal('hide');
+                resolve();
+            });
+            $('#modalConfirm').on('hide.bs.modal', function (event) {
+                reject();
+            });
+        });
     },
 
     goToUri: function (uri) {
