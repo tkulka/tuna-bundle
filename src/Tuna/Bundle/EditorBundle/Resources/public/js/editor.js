@@ -30,9 +30,7 @@ tuna.view.EditorView = Backbone.View.extend({
     },
 
     initEditor: function ($element, language) {
-        var editorLang = language.split(/[-_]/g)[0];
-
-        CKEDITOR.config.language = editorLang;
+        CKEDITOR.config.language = language;
         CKEDITOR.config.customConfig = '/bundles/thecodeineeditor/js/editorConfig.js';
 
         $element.each(_.bind(function (index, item) {

@@ -11,10 +11,6 @@
 
         initialize: function (options) {
             this.options = options;
-            var langMatches = {
-                'en': '',
-                'pl': 'pl'
-            };
 
             Backbone.on('LanguageChange', this._onLanguageChange, this);
 
@@ -38,9 +34,9 @@
                         $(this).closest('.form-group').append($dp);
                     }
                 })
-                .datetimepicker('option', $.datepicker.regional[langMatches[options.lang]])
+                .datetimepicker('option', $.datepicker.regional[options.lang])
                 .datetimepicker('option', 'dateFormat', 'yy-mm-dd')
-                .datetimepicker('option', $.timepicker.regional[langMatches[options.lang]]);
+                .datetimepicker('option', $.timepicker.regional[options.lang]);
 
         },
 
