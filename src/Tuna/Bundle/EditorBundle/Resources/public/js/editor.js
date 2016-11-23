@@ -66,7 +66,7 @@ tuna.view.EditorView = Backbone.View.extend({
                         if (el && $(el.$).prop('tagName') == 'IMG') {
                             imageOld.apply(this, arguments);
                         } else {
-                            $('.hidden-dropzone-button').click();
+                            $('.hidden-dropzone-button[data-editor="' + $(editor.container).attr('id') + '"]').click();
                         }
                     }
                 });
