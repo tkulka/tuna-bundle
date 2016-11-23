@@ -62,14 +62,15 @@ tuna.website = {
         this.events.on('editorLoaded', _.bind(function (element) {
             var $element = $(element);
             var $el = $element.siblings('.cke');
+            var id = $el.attr('id');
 
             if ($element.data('type') == 'basic') return;
 
-            $el.append('<div class="hidden-dropzone-button" style="display:none;"></div>');
+            $el.append('<div class="hidden-dropzone-button" data-editor="' + id + '" style="display:none;"></div>');
             new tuna.file.view.DropzoneView({
                 el: $el,
                 options: {
-                    clickable: '.hidden-dropzone-button',
+                    clickable: '.hidden-dropzone-button[data-editor="' + id + '"]',
                     selector: '.cke',
                     previewTemplate: '',
                     previewsContainer: '.cke',
