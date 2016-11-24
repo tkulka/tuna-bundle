@@ -66,7 +66,6 @@ class TheCodeineAdminExtension extends Extension implements PrependExtensionInte
             $container->setParameter("the_codeine_admin.$key", $value);
         }
         $container->setParameter('the_codeine_admin.menu_builder.class', $config['menu_builder']);
-        $container->setParameter('the_codeine_admin.locales', $config['locales']);
     }
 
     private function flattenArray($array, $prefix = '')

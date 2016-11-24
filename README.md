@@ -46,7 +46,7 @@
                  admin_logo: bundles/thecodeineadmin/images/logo.png
              host: null
              menu_builder: TheCodeine\AdminBundle\Menu\Builder
-             locales: [en_GB,pl_PL]
+             locales: [en,pl]
              components:
                  pages:
                      enabled: true
