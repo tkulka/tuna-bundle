@@ -38,9 +38,8 @@ class Configuration implements ConfigurationInterface
                     ->defaultValue('TheCodeine\AdminBundle\Menu\Builder')
                 ->end()
                 ->arrayNode('locales')
-                    ->prototype('scalar')
-                        ->defaultValue(['en', 'pl'])
-                    ->end()
+                    ->prototype('scalar')->end()
+                    ->defaultValue(['en', 'pl'])
                 ->end()
             ->end();
 
