@@ -18,13 +18,6 @@ tuna.view.EditorView = Backbone.View.extend({
         this.options = options;
         this.events = options.events || _.extend({}, Backbone.Events);
 
-        $('.nav-tabs [data-toggle="tab"]').click(function (e) {
-            var $tabbable = $('.tabbable');
-
-            _.defer(function () {
-                oThis.initEditor($tabbable.find('.tab-pane.active' + oThis.options.selector), options.lang);
-            });
-        })
         $('.nav-tabs [data-toggle="tab"]')
             .click(_.bind(this.loadEditors, this))
             .filter(':first').trigger('click');
