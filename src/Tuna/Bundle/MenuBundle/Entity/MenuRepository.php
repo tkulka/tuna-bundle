@@ -40,8 +40,11 @@ class MenuRepository extends NestedTreeRepository
             if (!$root) {
                 throw new \Exception('There\'s no menu like this');
             }
-            $qb->where($qb->expr()->lte('m.rgt', $this->getFieldValue($root, 'rgt')));
-            $qb->andWhere($qb->expr()->gte('m.lft', $this->getFieldValue($root, 'lft')));
+            $qb
+                ->where($qb->expr()->lte('m.rgt', $this->getFieldValue($root, 'rgt')))
+                ->andWhere($qb->expr()->gte('m.lft', $this->getFieldValue($root, 'lft')))
+                ->andWhere('m.root = :root')
+                ->setParameter('root', $root);
         }
 
         $nodes = $qb->getQuery()->getResult();
