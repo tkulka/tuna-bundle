@@ -46,6 +46,7 @@
                  admin_logo: bundles/thecodeineadmin/images/logo.png
              host: null
              menu_builder: TheCodeine\AdminBundle\Menu\Builder
+             locales: [en,pl]
              components:
                  pages:
                      enabled: true
@@ -64,6 +65,10 @@
                      enabled: true
                  categories:
                      enabled: false
+                 security:
+                     enabled: true
+                     use_access_control: true
+                 
 
 ## Frontend translations:
 

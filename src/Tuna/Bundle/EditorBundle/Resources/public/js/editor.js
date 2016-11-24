@@ -27,15 +27,13 @@ tuna.view.EditorView = Backbone.View.extend({
 
     loadEditors: function () {
         _.defer(_.bind(function () {
-                this.initEditor($('.tabbable').find('.tab-pane.active' + this.options.selector), tuna.config.localeMap[this.options.lang]);
+                this.initEditor($('.tabbable').find('.tab-pane.active' + this.options.selector), this.options.lang);
             }, this)
         );
     },
 
     initEditor: function ($element, language) {
-        var editorLang = language.split('_');
-
-        CKEDITOR.config.language = editorLang[0];
+        CKEDITOR.config.language = language;
         CKEDITOR.config.customConfig = '/bundles/thecodeineeditor/js/editorConfig.js';
 
         $element.each(_.bind(function (index, item) {

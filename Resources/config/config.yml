@@ -4,7 +4,7 @@ fos_user:
     user_class: TheCodeine\UserBundle\Entity\User
 
 a2lix_translation_form:
-    locales: [pl, en]
+    locales: "%the_codeine_admin.locales%"
     templating: "TheCodeineAdminBundle::_partials/_form/_theme.html.twig"
 
 the_codeine_editor:
