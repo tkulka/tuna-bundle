@@ -42,7 +42,7 @@
 
 {% block form_row %}
     <div
-        class="form-group form--{{ name }} {% if form.vars.errors | length > 0 %}has-errors{% endif %}"
+        class="form-group form--{{ name }}{% if form.vars.errors | length > 0 %} has-errors{% endif %}"
         {% if form.parent.vars.allow_add | default(false) %}
             data-collection-item="{{ name }}"
         {% endif %}

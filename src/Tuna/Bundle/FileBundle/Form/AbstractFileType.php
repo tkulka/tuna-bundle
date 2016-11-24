@@ -25,7 +25,6 @@ abstract class AbstractFileType extends AbstractType
 
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        parent::buildView($view, $form, $options);
         $view->vars['accepted_files'] = $options['accepted_files'];
     }
 
