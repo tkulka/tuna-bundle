@@ -17,7 +17,6 @@ tuna.view.EditorView = Backbone.View.extend({
     initialize: function (options) {
         this.options = options;
         this.events = options.events || _.extend({}, Backbone.Events);
-        var oThis = this;
 
         $('.nav-tabs [data-toggle="tab"]').click(function (e) {
             var $tabbable = $('.tabbable');
@@ -26,7 +25,18 @@ tuna.view.EditorView = Backbone.View.extend({
                 oThis.initEditor($tabbable.find('.tab-pane.active' + oThis.options.selector), options.lang);
             });
         })
+        $('.nav-tabs [data-toggle="tab"]')
+            .click(_.bind(this.loadEditors, this))
             .filter(':first').trigger('click');
+
+        this.events.on('editor.loadEditors', _.bind(this.loadEditors, this));
+    },
+
+    loadEditors: function () {
+        _.defer(_.bind(function () {
+                this.initEditor($('.tabbable').find('.tab-pane.active' + this.options.selector), this.options.lang);
+            }, this)
+        );
     },
 
     initEditor: function ($element, language) {
@@ -43,7 +53,10 @@ tuna.view.EditorView = Backbone.View.extend({
             }
         }, this));
 
-        CKEDITOR.on('instanceReady', _.bind(function(e) {
+        if (CKEDITOR.isInstanceReadyBound) return;
+
+        CKEDITOR.isInstanceReadyBound = true;
+        CKEDITOR.on('instanceReady', _.bind(function (e) {
             var editor = e.editor;
             var element = editor.element.$;
             this.events.trigger('editorLoaded', element);
@@ -52,13 +65,13 @@ tuna.view.EditorView = Backbone.View.extend({
                 var imageOld = editor.commands.image.exec;
 
                 var imageCmd = new CKEDITOR.command(editor, {
-                    exec: function(e) {
+                    exec: function (e) {
                         var el = editor.getSelection().getSelectedElement();
 
                         if (el && $(el.$).prop('tagName') == 'IMG') {
                             imageOld.apply(this, arguments);
                         } else {
-                            $('.hidden-dropzone-button').click();
+                            $('.hidden-dropzone-button[data-editor="' + $(editor.container).attr('id') + '"]').click();
                         }
                     }
                 });
@@ -66,7 +79,7 @@ tuna.view.EditorView = Backbone.View.extend({
                 editor.commands.image.exec = imageCmd.exec;
             }
 
-            editor.on('mode', function() {
+            editor.on('mode', function () {
                 if (this.mode == 'source') {
                     var $textarea = $(editor.container.$).find('.cke_source');
                     $textarea.height($textarea[0].scrollHeight);
