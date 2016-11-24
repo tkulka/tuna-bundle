@@ -37,6 +37,11 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('menu_builder')
                     ->defaultValue('TheCodeine\AdminBundle\Menu\Builder')
                 ->end()
+                ->arrayNode('locales')
+                    ->prototype('scalar')
+                        ->defaultValue(['en', 'pl'])
+                    ->end()
+                ->end()
             ->end();
 
         $this->addComponentsSection($rootNode);
