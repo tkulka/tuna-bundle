@@ -34,7 +34,7 @@ tuna.view.EditorView = Backbone.View.extend({
 
     initEditor: function ($element, language) {
         CKEDITOR.config.language = language;
-        CKEDITOR.config.customConfig = '/bundles/thecodeineeditor/js/editorConfig.js';
+        CKEDITOR.config.customConfig = this.options.config;
 
         $element.each(_.bind(function (index, item) {
             var $item = $(item);

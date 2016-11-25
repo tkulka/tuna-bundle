@@ -100,7 +100,8 @@
 <script type="text/javascript">
     (function () {
         tuna.website.init({
-            lang: '{{ app.request.defaultLocale }}'.split(/[-_]/g)[0]
+            lang: '{{ app.request.defaultLocale }}'.split(/[-_]/g)[0],
+            ckeConfig: "{{ tuna_getPath('cke_config') }}"
         });
     })();
 </script>
