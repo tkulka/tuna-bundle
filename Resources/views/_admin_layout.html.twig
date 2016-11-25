@@ -101,7 +101,9 @@
     (function () {
         tuna.website.init({
             lang: '{{ app.request.defaultLocale }}'.split(/[-_]/g)[0],
-            ckeConfig: "{{ tuna_getPath('cke_config') }}"
+            editor: {
+                config: "{{ tuna_getPath('editor_config') }}"
+            }
         });
     })();
 </script>

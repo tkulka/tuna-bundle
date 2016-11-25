@@ -44,7 +44,7 @@
         the_codeine_admin:
              paths:
                  admin_logo: bundles/thecodeineadmin/images/logo.png
-                 cke_config: bundles/thecodeineeditor/js/editorConfig.js
+                 editor_config: bundles/thecodeineeditor/js/editorConfig.js
              host: null
              menu_builder: TheCodeine\AdminBundle\Menu\Builder
              locales: [en,pl]

@@ -52,7 +52,7 @@ tuna.website = {
             selector: '.tab-pane.active .thecodeine_admin_editor',
             lang: this.options.lang,
             events: this.events,
-            config: this.options.ckeConfig
+            config: this.options.editor.config
         });
 
         this.events.on('editorLoaded', this.onEditorLoaded, this);

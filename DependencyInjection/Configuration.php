@@ -29,7 +29,7 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('admin_logo')
                             ->defaultValue('bundles/thecodeineadmin/images/logo.png')
                         ->end()
-                        ->scalarNode('cke_config')
+                        ->scalarNode('editor_config')
                             ->defaultValue('bundles/thecodeineeditor/js/editorConfig.js')
                         ->end()
                     ->end()
