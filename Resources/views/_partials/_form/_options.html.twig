@@ -18,7 +18,7 @@
         {{ form_row(form.image, { label: false }) }}
         <div class="form-group form--image--btn">
             <div class="btn btn-mini btn-primary btn-block btn-main-image">
-                {% trans %}Choose main picture{% endtrans %}
+                {{ mainImageLabel | default('Choose main picture') | trans }}
                 <i class="fui-arrow-right pull-right"></i>
             </div>
         </div>

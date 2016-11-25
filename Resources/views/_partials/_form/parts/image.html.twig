@@ -5,9 +5,10 @@
     {% set dropzoneOptions = {
     clickable: '.admin-option-container .btn-main-image',
     selector: '.admin-option-container',
-    previewTemplate: theme.tuna_image_preview(tuna_uploadDir('tmp_path')~'/__path__', form.vars.attr.deletable),
+    previewTemplate: theme.tuna_image_preview('/' ~ tuna_uploadDir('tmp_path') ~ '/__path__', form.vars.attr.deletable, scale_preview_thumbnail),
     previewsContainer: '#' ~ wrapperId ~ ' .preview',
     maxFiles: 1,
+    acceptedFiles: accepted_files,
     dropoverText: 'Drop your cover image here' | trans
     } %}
     <div id="{{ wrapperId }}" class="thecodeine_admin_main_image" data-dropzone-options="{{ dropzoneOptions | json_encode }}">
@@ -15,7 +16,7 @@
 
         <div class="preview">
             {% if image and image.path and form.vars.valid %}
-                {{ theme.tuna_image_preview(tuna_file(image), form.vars.attr.deletable) | raw }}
+                {{ theme.tuna_image_preview(tuna_file(image), form.vars.attr.deletable, scale_preview_thumbnail) | raw }}
             {% endif %}
         </div>
         {{ form_widget(form) }}

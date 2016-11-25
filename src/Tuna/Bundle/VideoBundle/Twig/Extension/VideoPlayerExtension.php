@@ -7,7 +7,9 @@ class VideoPlayerExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            'video_url' => new \Twig_Function_Method($this, 'videoPlayer', array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('video_url', [$this, 'videoPlayer'], [
+                'is_safe' => ['html']
+            ]),
         );
     }
 
@@ -16,13 +18,10 @@ class VideoPlayerExtension extends \Twig_Extension
         switch ($videoType) {
             case 'youtube':
                 return 'https://www.youtube.com/embed/' . $videoId;
-                break;
             case 'vimeo':
                 return 'https://player.vimeo.com/video/' . $videoId;
-                break;
             default:
                 return;
-                break;
         }
     }
 
