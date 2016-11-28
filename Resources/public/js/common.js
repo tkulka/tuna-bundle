@@ -51,7 +51,8 @@ tuna.website = {
         tuna.view.EditorView && new tuna.view.EditorView({
             selector: '.tab-pane.active .thecodeine_admin_editor',
             lang: this.options.lang,
-            events: this.events
+            events: this.events,
+            config: this.options.editor.config
         });
 
         this.events.on('editorLoaded', this.onEditorLoaded, this);

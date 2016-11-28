@@ -100,7 +100,10 @@
 <script type="text/javascript">
     (function () {
         tuna.website.init({
-            lang: '{{ app.request.defaultLocale }}'.split(/[-_]/g)[0]
+            lang: '{{ app.request.defaultLocale }}'.split(/[-_]/g)[0],
+            editor: {
+                config: "{{ tuna_getPath('editor_config') }}"
+            }
         });
     })();
 </script>
