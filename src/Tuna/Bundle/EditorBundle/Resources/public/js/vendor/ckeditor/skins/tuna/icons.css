@@ -70,6 +70,10 @@
     content: "\f119";
 }
 
+.cke_button__table_icon:before {
+    content: "\f122";
+}
+
 .cke_combo__styles .cke_combo_button {
     padding: 10px 15px;
     height: 18px;
