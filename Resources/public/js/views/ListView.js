@@ -9,11 +9,11 @@
             'click [data-action="delete"]': 'onDeleteItem'
         },
 
-        onDeleteItem: function (e) {
-            e.preventDefault();
-            var $a = $(e.currentTarget);
+        onDeleteItem: function (event) {
+            event.preventDefault();
+            var $a = $(event.currentTarget);
 
-            tuna.website.confirmModal(Translator.trans('Are you sure you want to delete') + ' <b>' + $a.data('title') + '</b>?').done(function () {
+            tuna.website.confirmModal(Translator.trans('Are you sure you want to delete') + ' <b>' + $a.data('title') + '</b>?').then(function () {
                 window.location.href = $a.data('url');
             });
         }
