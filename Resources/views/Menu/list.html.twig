@@ -1,6 +1,6 @@
 {% trans_default_domain 'tuna_admin' %}
+{% extends '@TheCodeineAdmin/_layout.html.twig' %}
 
-{% extends "TheCodeineAdminBundle::_layout.html.twig" %}
 {% block main_class %}bg-lightgray{% endblock %}
 
 {% block content %}
@@ -17,7 +17,7 @@
                         </a>
                     </div>
                     <ul data-menu-tree>
-                        {% include 'TheCodeineAdminBundle:Menu:menu_item.html.twig' with { item: menu } %}
+                        {% include '@TheCodeineAdmin/Menu/menu_item.html.twig' with { item: menu } %}
                     </ul>
                 </div>
             {% endfor %}

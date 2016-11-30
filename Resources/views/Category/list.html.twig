@@ -1,6 +1,6 @@
 {% trans_default_domain 'tuna_admin' %}
+{% extends '@TheCodeineAdmin/_layout.html.twig' %}
 
-{% extends 'TheCodeineAdminBundle::_layout.html.twig' %}
 {% block main_class %}bg-lightgray{% endblock %}
 
 {% block content %}
@@ -13,8 +13,8 @@
             <div class="col-sm-12">
                 <div class="admin-list">
                     {% for categoryType, categories in groupedCategories %}
-                        <h2>{{ categoryType | trans({}, 'categories') }}</h2>
-                        {% include 'TheCodeineAdminBundle:Category:_list.html.twig' with { entities: categories} %}
+                        <h2>{{ categoryType|trans({}, 'categories') }}</h2>
+                        {% include '@TheCodeineAdmin/Category/_list.html.twig' with { entities: categories} %}
                     {% endfor %}
                 </div>
             </div>

@@ -30,10 +30,10 @@
             </span>
         </div>
     {% endif %}
-    {% if item.__children | length %}
+    {% if item.__children|length %}
         <ul>
             {% for child in item.__children %}
-                {% include('TheCodeineAdminBundle:Menu:menu_item.html.twig') with { item: child } %}
+                {% include '@TheCodeineAdmin/Menu/menu_item.html.twig' with { item: child } %}
             {% endfor %}
         </ul>
     {% endif %}

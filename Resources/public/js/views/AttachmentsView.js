@@ -1,13 +1,13 @@
 (function () {
     tuna.view.AttachmentsView = Backbone.View.extend({
         events: {
-            'click [data-action="delete"]': '_onClickDelete',
-            'change input[type="file"]': '_onInputFileChange',
-            'click .close': '_onClose',
-            'close': '_onClose',
-            'open': '_onOpen',
-            'click': '_onClick',
-            'click .a2lix_translationsLocales li a': '_onLanguageChange'
+            'click [data-action="delete"]': 'onDeleteClick',
+            'change input[type="file"]': 'onInputFileChange',
+            'click .close': 'onClose',
+            'close': 'onClose',
+            'open': 'onOpen',
+            'click': 'onClick',
+            'click .a2lix_translationsLocales li a': 'onLanguageChange'
         },
 
         initialize: function (options) {
@@ -28,11 +28,11 @@
             }
         },
 
-        _onClose: function () {
+        onClose: function () {
             this.$el.removeClass('slideLeftRetourn').addClass('holeOut');
         },
 
-        _onOpen: function () {
+        onOpen: function () {
             $('.admin-gallery-container').trigger('close');
             this.$el.removeClass('holeOut').show().addClass('slideLeftRetourn');
         },
@@ -59,7 +59,7 @@
             this.$('.attachments').sortable('destroy');
         },
 
-        _onClick: function (e) {
+        onClick: function (e) {
             e.stopPropagation();
         },
 
@@ -83,15 +83,15 @@
             this.recalculateItemPositions();
         },
 
-        _onClickDelete: function (e) {
+        onDeleteClick: function (e) {
             $(e.currentTarget).closest('.item').remove()
         },
 
-        _onLanguageChange: function (e) {
+        onLanguageChange: function (e) {
             Backbone.trigger('LanguageChange', e);
         },
 
-        _onInputFileChange: function (e) {
+        onInputFileChange: function (e) {
             var fileName = e.target.value.split(/(\\|\/)/g).pop();
             var container = $(e.target.closest('.item')).find('.item-name .tab-content');
             container.find('.attachment-name').remove();

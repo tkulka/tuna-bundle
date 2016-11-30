@@ -1,4 +1,5 @@
 {% trans_default_domain 'tuna_admin' %}
+
 {% block tuna_addable_category_widget %}
     <div class="addable-entity-select">
         {{ form_widget(form.choice, { attr: { 'data-addable-entity-select': null }}) }}
@@ -18,6 +19,6 @@
 {%- endblock choice_widget -%}
 
 {%- block tuna_choice_widget_collapsed -%}
-    {% set attr = attr | merge({class: (attr.class | default('') ~ ' form-control select select-default select-block') | trim}) %}
+    {% set attr = attr|merge({class: (attr.class|default ~ ' form-control select select-default select-block')|trim}) %}
     {{ block('choice_widget_collapsed') }}
 {%- endblock -%}

@@ -1,5 +1,6 @@
 {% trans_default_domain 'tuna_admin' %}
-{% extends "TheCodeineAdminBundle::_layout.html.twig" %}
+{% extends '@TheCodeineAdmin/_layout.html.twig' %}
+
 {% block main_class %}bg-lightgray{% endblock %}
 
 {% block content %}
@@ -41,11 +42,7 @@
                                 <td>{{ item.title }}</td>
                                 <td>{{ item.slug }}</td>
                                 <td class="center">
-                                    {% if item.published %}
-                                        <i class="fa fa-check-circle" aria-hidden="true"></i>
-                                    {% else %}
-                                        <i class="fa fa-times-circle" aria-hidden="true"></i>
-                                    {% endif %}
+                                    <i class="fa fa-{{ item.published ? 'check' : 'times' }}-circle" aria-hidden="true"></i>
                                 </td>
                                 <td class="center">
                                     {% if menuMap[item.id] is defined %}
@@ -62,16 +59,16 @@
                                     {% endif %}
                                 </td>
                                 <td class="options">
-                                    <a href="{{ path('tuna_page_edit',{'id' : item.id}) }}" class="fa fa-pencil-square-o" aria-hidden="true"></a>
+                                    <a href="{{ path('tuna_page_edit', { id: item.id}) }}" class="fa fa-pencil-square-o" aria-hidden="true"></a>
                                     {% if is_granted('delete', 'pages') %}
-                                        <a href="#" data-title="{{ item.title }}" data-url="{{ path('tuna_page_delete',{'id' : item.id}) }}" data-target="#modal-confirm" data-action="delete" class="fa fa-trash" aria-hidden="true"></a>
+                                        <a href="#" data-title="{{ item.title }}" data-url="{{ path('tuna_page_delete', { id: item.id}) }}" data-target="#modal-confirm" data-action="delete" class="fa fa-trash" aria-hidden="true"></a>
                                     {% endif %}
                                 </td>
                             </tr>
                         {% endfor %}
                         </tbody>
                     </table>
-                    {{ knp_pagination_render(pagination, 'TheCodeineAdminBundle::_partials/_pagination.html.twig') }}
+                    {{ knp_pagination_render(pagination, '@TheCodeineAdmin/_partials/_pagination.html.twig') }}
                 </div>
             </div>
         </div>

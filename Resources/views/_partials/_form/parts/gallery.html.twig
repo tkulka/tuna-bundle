@@ -1,10 +1,11 @@
 {% trans_default_domain 'tuna_admin' %}
+
 {% block video_player %}
-    <iframe width="180" height="85" src="{{ video_url | default('__url__') }}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+    <iframe width="180" height="85" src="{{ video_url|default('__url__') }}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 {% endblock %}
 
 {% block thecodeine_gallerybundle_gallery_widget %}
-    {% import 'TheCodeineAdminBundle:_partials/_form:_theme.html.twig' as theme %}
+    {% import '@TheCodeineAdmin/_partials/_form/_theme.html.twig' as theme %}
     {% set wrapperId = form.vars.id ~ '_wrapper' %}
     {% set dropzoneOptions = {
     clickable: 'a[data-type=image]',
@@ -12,7 +13,7 @@
     acceptedFiles: '.png,.jpg,.gif,.jpeg',
     previewTemplate: theme.tuna_image_preview(tuna_uploadDir('tmp_path')~'/__path__'),
     previewsContainer: '#' ~ wrapperId ~ ' .gallery-items',
-    dropoverText: 'Drop your gallery images here' | trans
+    dropoverText: 'Drop your gallery images here'|trans
     } %}
     <div
         id="{{ wrapperId }}"
@@ -23,7 +24,7 @@
     >
         {% for type in form.vars.attr.types %}
             <a class="btn btn-border" data-type="{{ type }}" data-action="add-new-item">
-                <i class="fa fa-plus" aria-hidden="true"></i> {{ type | capitalize | trans }}
+                <i class="fa fa-plus" aria-hidden="true"></i> {{ type|capitalize|trans }}
             </a>
         {% endfor %}
         {{ form_errors(form) }}
@@ -43,7 +44,7 @@
                     {{ form_widget(form.type) }}
 
                     {% if form.position is defined %}
-                        {{ form_widget(form.position, {'attr': {'class': 'position'} }) }}
+                        {{ form_widget(form.position, { attr: { class: 'position'} }) }}
                     {% endif %}
 
                     {% if form.image is defined %}
@@ -60,18 +61,18 @@
                         </div>
                         <div>
                             <div class="video">
-                                {{ form_widget(form.video, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_widget(form.video, { attr: { class: 'form-control'}}) }}
                             </div>
                             <div class="item-name video">
                                 {% if form.translations is defined %}
-                                    {{ form_widget(form.translations, {'label': false}) }}
+                                    {{ form_widget(form.translations, { label: false}) }}
                                 {% endif %}
                             </div>
                         </div>
                     {% elseif form.image is defined %}
                         <div class="item-name">
                             {% if form.translations is defined %}
-                                {{ form_widget(form.translations, {'label': false}) }}
+                                {{ form_widget(form.translations, { label: false}) }}
                             {% endif %}
                         </div>
                     {% endif %}

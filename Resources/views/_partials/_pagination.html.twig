@@ -1,10 +1,11 @@
 {% trans_default_domain 'tuna_admin' %}
+
 {% if pageCount > 1 %}
     <nav class="text-center">
         <ul class="pagination">
             {% if previous is defined %}
                 <li>
-                    <a href="{{ path(route, query|merge({(pageParameterName): previous})) }}" ><span aria-hidden="true">&laquo;</span></a>
+                    <a href="{{ path(route, query|merge({(pageParameterName): previous})) }}"><span aria-hidden="true">&laquo;</span></a>
                 </li>
             {% endif %}
 
@@ -21,7 +22,7 @@
                 </li>
             {% endfor %}
 
-            {% if pagesInRange | last < pageCount %}
+            {% if pagesInRange|last < pageCount %}
                 <li>
                     <span>&hellip;</span>
                 </li>

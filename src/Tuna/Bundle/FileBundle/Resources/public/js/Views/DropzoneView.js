@@ -8,7 +8,7 @@
             this.options = options.options;
 
             this.setupOptions();
-            this.doSomething();
+            this.elaborateClickableSelector();
             this.createDropzone();
             this.bindEvents();
         },
@@ -27,7 +27,7 @@
             }, this));
         },
 
-        doSomething: function () {
+        elaborateClickableSelector: function () {
             if (this.options.clickableExternal) return;
 
             this.$el.addClass(this.cid);
@@ -39,7 +39,7 @@
 
             this.options = _.extend({
                 url: Routing.generate('tuna_file_upload'),
-                acceptedFiles: '*',
+                acceptedFiles: '',
                 paramName: 'file',
                 dictInvalidFileType: Translator.trans('You can\'t upload files of this type.'),
                 dictMaxFilesExceeded: Translator.trans('You can\'t upload any more files.'),

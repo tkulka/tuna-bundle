@@ -1,13 +1,13 @@
 {% trans_default_domain 'tuna_admin' %}
+{% extends '@TheCodeineAdmin/_layout.html.twig' %}
 
-{% extends "TheCodeineAdminBundle::_layout.html.twig" %}
 {% block main_class %}bg-lightgray{% endblock %}
 
 {% block content %}
-    {% if pagination|length == 0 %}
+    {% if not pagination|length %}
         <div class="admin-alert alert text-center">
             <h3>{% trans %}Oops there is nothing here!{% endtrans %}</h3>
-            <a href="{{ path('tuna_news_create', { 'newsType': newsType }) }}" class="btn btn-primary btn-wide">
+            <a href="{{ path('tuna_news_create', { newsType: newsType }) }}" class="btn btn-primary btn-wide">
                 <i class="fui-plus"></i> {% trans %}Add first item{% endtrans %}
             </a>
         </div>
@@ -16,7 +16,7 @@
             <div class="col-sm-12">
                 <div class="admin-list">
                     <div class="action-buttons">
-                        <a href="{{ path('tuna_news_create', { 'newsType': newsType }) }}" class="btn btn-primary btn-wide">
+                        <a href="{{ path('tuna_news_create', { newsType: newsType }) }}" class="btn btn-primary btn-wide">
                             <i class="fui-plus"></i> {% trans %}Add item{% endtrans %}
                         </a>
                     </div>
@@ -38,28 +38,20 @@
                                 <td>{{ item.title }}</td>
                                 <td>{{ item.createdAt|date('d/m/Y H:m:s') }}</td>
                                 <td class="center">
-                                    {% if item.published %}
-                                        <i class="fa fa-check-circle" aria-hidden="true"></i>
-                                    {% else %}
-                                        <i class="fa fa-times-circle" aria-hidden="true"></i>
-                                    {% endif %}
+                                    <i class="fa fa-{{ item.published ? 'check' : 'times' }}-circle" aria-hidden="true"></i>
                                 </td>
                                 <td class="center">
-                                    {% if item.important %}
-                                        <i class="fa fa-check-circle" aria-hidden="true"></i>
-                                    {% else %}
-                                        <i class="fa fa-times-circle" aria-hidden="true"></i>
-                                    {% endif %}
+                                    <i class="fa fa-{{ item.important ? 'check' : 'times' }}-circle" aria-hidden="true"></i>
                                 </td>
                                 <td class="options">
                                     <a href="{{ path('tuna_news_edit', { id: item.id }) }}" class="fa fa-pencil-square-o"></a>
-                                    <a href="#" data-title="{{ item.title }}" data-url="{{ path('tuna_news_delete',{ id: item.id }) }}" data-target="#modal-confirm" data-action="delete" class="fa fa-trash"></a>
+                                    <a href="#" data-title="{{ item.title }}" data-url="{{ path('tuna_news_delete', { id: item.id }) }}" data-target="#modal-confirm" data-action="delete" class="fa fa-trash"></a>
                                 </td>
                             </tr>
                         {% endfor %}
                         </tbody>
                     </table>
-                    {{ knp_pagination_render(pagination, 'TheCodeineAdminBundle::_partials/_pagination.html.twig') }}
+                    {{ knp_pagination_render(pagination, '@TheCodeineAdmin/_partials/_pagination.html.twig') }}
                 </div>
             </div>
         </div>

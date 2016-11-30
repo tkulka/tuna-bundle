@@ -1,17 +1,19 @@
 {% trans_default_domain 'tuna_admin' %}
+
 {% block tuna_image_widget %}
-    {% import 'TheCodeineAdminBundle:_partials/_form:_theme.html.twig' as theme %}
+    {% import '@TheCodeineAdmin/_partials/_form/_theme.html.twig' as theme %}
     {% set wrapperId = form.vars.id ~ '_wrapper' %}
     {% set dropzoneOptions = {
     previewTemplate: theme.tuna_image_preview('/' ~ tuna_uploadDir('tmp_path') ~ '/__path__', form.vars.attr.deletable, scale_preview_thumbnail),
-    dropoverText: 'Drop your image here' | trans
+    dropoverText: 'Drop your image here'|trans
     } %}
+
     <div id="{{ wrapperId }}" class="thecodeine_admin_main_image" data-dropzone-options="{{ dropzoneOptions|merge(dropzone_options)|json_encode }}">
         {% set image = form.vars.data %}
 
         <div class="preview">
             {% if image and image.path and form.vars.valid %}
-                {{ theme.tuna_image_preview(tuna_file(image), form.vars.attr.deletable, scale_preview_thumbnail) | raw }}
+                {{ theme.tuna_image_preview(tuna_file(image), form.vars.attr.deletable, scale_preview_thumbnail)|raw }}
             {% endif %}
         </div>
         {{ form_widget(form) }}
@@ -29,8 +31,8 @@
 
 {% block tuna_image_row %}
     <div
-        class="form-group form--{{ name }}{% if form.vars.errors | length > 0 %} has-errors{% endif %} tuna-image"
-        {% if form.parent.vars.allow_add | default(false) %} data-collection-item="{{ name }}"{% endif %}
+        class="form-group form--{{ name }}{% if form.vars.errors|length %} has-errors{% endif %} tuna-image"
+        {% if form.parent.vars.allow_add|default(false) %} data-collection-item="{{ name }}"{% endif %}
     >
         {{ form_errors(form) }}
         {{ form_widget(form) }}

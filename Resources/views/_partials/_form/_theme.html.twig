@@ -1,19 +1,20 @@
 {% trans_default_domain 'tuna_admin' %}
-{% use "TheCodeineAdminBundle:_partials/_form/parts:attachments.html.twig" %}
-{% use "TheCodeineAdminBundle:_partials/_form/parts:checkbox.html.twig" %}
-{% use "TheCodeineAdminBundle:_partials/_form/parts:choice.html.twig" %}
-{% use "TheCodeineAdminBundle:_partials/_form/parts:date.html.twig" %}
-{% use "TheCodeineAdminBundle:_partials/_form/parts:editor.html.twig" %}
-{% use "TheCodeineAdminBundle:_partials/_form/parts:errors.html.twig" %}
-{% use "TheCodeineAdminBundle:_partials/_form/parts:gallery.html.twig" %}
-{% use "TheCodeineAdminBundle:_partials/_form/parts:image.html.twig" %}
-{% use "TheCodeineAdminBundle:_partials/_form/parts:tags.html.twig" %}
-{% use "TheCodeineAdminBundle:_partials/_form/parts:translations.html.twig" %}
+
+{% use '@TheCodeineAdmin/_partials/_form/parts/attachments.html.twig' %}
+{% use '@TheCodeineAdmin/_partials/_form/parts/checkbox.html.twig' %}
+{% use '@TheCodeineAdmin/_partials/_form/parts/choice.html.twig' %}
+{% use '@TheCodeineAdmin/_partials/_form/parts/date.html.twig' %}
+{% use '@TheCodeineAdmin/_partials/_form/parts/editor.html.twig' %}
+{% use '@TheCodeineAdmin/_partials/_form/parts/errors.html.twig' %}
+{% use '@TheCodeineAdmin/_partials/_form/parts/gallery.html.twig' %}
+{% use '@TheCodeineAdmin/_partials/_form/parts/image.html.twig' %}
+{% use '@TheCodeineAdmin/_partials/_form/parts/tags.html.twig' %}
+{% use '@TheCodeineAdmin/_partials/_form/parts/translations.html.twig' %}
 
 {% macro tuna_image_preview(fileUrl, deletable, scalePreviewThumbnail = true) %}{% spaceless %}
     {% if fileUrl %}
         {% if scalePreviewThumbnail %}
-            {% set fileUrl = fileUrl | imagine_filter('tuna_admin_thumb') %}
+            {% set fileUrl = fileUrl|imagine_filter('tuna_admin_thumb') %}
         {% endif %}
         <img src="{{ fileUrl }}"/>
         {% if deletable %}
@@ -42,8 +43,8 @@
 
 {% block form_row %}
     <div
-        class="form-group form--{{ name }}{% if form.vars.errors | length > 0 %} has-errors{% endif %}"
-        {% if form.parent.vars.allow_add | default(false) %} data-collection-item="{{ name }}"{% endif %}
+        class="form-group form--{{ name }}{% if form.vars.errors|length %} has-errors{% endif %}"
+        {% if form.parent.vars.allow_add|default(false) %} data-collection-item="{{ name }}"{% endif %}
     >
         {{ form_label(form) }}
         {{ form_errors(form) }}
@@ -52,12 +53,14 @@
 {% endblock form_row %}
 
 {%- block form_widget_simple -%}
-    {% set attr = attr | merge({class: (attr.class | default('') ~ " form-control input-lg input--#{name}") | trim}) %}
+    {% set attr = attr|merge({
+    class: (attr.class|default ~ " form-control input-lg input--#{name}")|trim
+    }) %}
     {% if value is not empty %}
-        {% set attr = attr | merge({value: value}) %}
+        {% set attr = attr|merge({value: value}) %}
     {% endif %}
     {%- set type = type|default('text') -%}
     <div class="form-{{ type == 'hidden' ? 'hidden' : 'group' }} form--{{ name }}">
-        <input type="{{ type }}" {{ block('widget_attributes') }}{% if type != 'hidden' %} placeholder="{{ name | humanize | capitalize | trans }}"{% endif %}>
+        <input type="{{ type }}" {{ block('widget_attributes') }}{% if type != 'hidden' %} placeholder="{{ name|humanize|capitalize|trans }}"{% endif %}>
     </div>
 {%- endblock form_widget_simple -%}
