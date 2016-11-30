@@ -9,20 +9,27 @@
     {% set dropzoneOptions = {
     clickable: 'a[data-type=image]',
     selector: '.admin-gallery-container',
+    acceptedFiles: '.png,.jpg,.gif,.jpeg',
     previewTemplate: theme.tuna_image_preview(tuna_uploadDir('tmp_path')~'/__path__'),
     previewsContainer: '#' ~ wrapperId ~ ' .gallery-items',
     dropoverText: 'Drop your gallery images here' | trans
     } %}
-    <div id="{{ wrapperId }}" class="thecodeine_admin_gallery" data-prototype="{{ form_widget(form.items.vars.prototype)|e }}" data-items-id="{{ form.items.vars.id }}" data-dropzone-options="{{ dropzoneOptions | json_encode }}">
+    <div
+        id="{{ wrapperId }}"
+        class="thecodeine_admin_gallery"
+        data-prototype="{{ form_widget(form.items.vars.prototype)|e }}"
+        data-items-id="{{ form.items.vars.id }}"
+        data-dropzone-options="{{ dropzoneOptions|json_encode }}"
+    >
         {% for type in form.vars.attr.types %}
-            <a href="#" class="btn btn-border" data-type="{{ type }}" data-action="add-new-item">
+            <a class="btn btn-border" data-type="{{ type }}" data-action="add-new-item">
                 <i class="fa fa-plus" aria-hidden="true"></i> {{ type | capitalize | trans }}
             </a>
         {% endfor %}
         {{ form_errors(form) }}
         <ul class="gallery-items">
             {% for item in form.items %}
-                {{ form_row(item, { label: false }) }}
+                {{ form_row(item, { label: true }) }}
             {% endfor %}
         </ul>
     </div>

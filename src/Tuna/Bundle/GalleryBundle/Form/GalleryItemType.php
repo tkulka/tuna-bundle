@@ -27,48 +27,47 @@ class GalleryItemType extends AbstractType
             ->add('type', Type\HiddenType::class);
 
         $formModifier = function (FormInterface $form, $type) {
-            if (empty($type)) {
-                return;
-            }
+            if (empty($type)) return;
 
             if ($type === GalleryItem::VIDEO_TYPE) {
                 $form
                     ->add('position', Type\HiddenType::class)
-                    ->add('video', VideoUrlType::class, array(
-                        'attr' => array(
-                            'placeholder' => 'Video URL'
-                        )
-                    ))
-                    ->add('translations', GedmoTranslationsType::class, array(
+                    ->add('video', VideoUrlType::class, [
+                        'attr' => [
+                            'placeholder' => 'Video URL',
+                        ],
+                    ])
+                    ->add('translations', GedmoTranslationsType::class, [
                         'translatable_class' => GalleryItem::class,
-                        'fields' => array(
-                            'name' => array(
+                        'fields' => [
+                            'name' => [
                                 'field_type' => 'text',
                                 'label' => false,
-                                'attr' => array(
+                                'attr' => [
                                     'placeholder' => 'Video title',
-                                )
-                            ),
-                        )
-                    ));
+                                ],
+                            ],
+                        ],
+                    ]);
             } else if ($type === GalleryItem::IMAGE_TYPE) {
                 $form
                     ->add('position', Type\HiddenType::class)
-                    ->add('image', ImageType::class, array(
-                        'attr' => array(
+                    ->add('image', ImageType::class, [
+                        'label' => false,
+                        'attr' => [
                             'deletable' => false,
-                        )
-                    ))
-                    ->add('translations', GedmoTranslationsType::class, array(
+                        ],
+                    ])
+                    ->add('translations', GedmoTranslationsType::class, [
                         'translatable_class' => GalleryItem::class,
-                        'fields' => array(
-                            'name' => array(
-                                'attr' => array(
+                        'fields' => [
+                            'name' => [
+                                'attr' => [
                                     'placeholder' => 'Image title',
-                                )
-                            )
-                        )
-                    ));
+                                ],
+                            ],
+                        ],
+                    ]);
             }
         };
 
@@ -99,11 +98,11 @@ class GalleryItemType extends AbstractType
      */
     public function setOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => GalleryItem::class,
             'translation_domain' => 'tuna_admin',
             'error_bubbling' => false,
-        ));
+        ]);
     }
 
     /**

@@ -1,6 +1,5 @@
 (function () {
     tuna.file.view.DropzoneView = Backbone.View.extend({
-
         initialize: function (options) {
             Dropzone.autoDiscover = false;
 
@@ -9,12 +8,13 @@
             this.options = options.options;
 
             this.setupOptions();
+            this.doSomething();
             this.createDropzone();
             this.bindEvents();
         },
 
         createDropzone: function () {
-            this.dropzone = this.$el.dropzone(this.defaultOptions);
+            this.dropzone = this.$el.dropzone(this.options);
         },
 
         bindEvents: function () {
@@ -27,17 +27,27 @@
             }, this));
         },
 
+        doSomething: function () {
+            if (this.options.clickableExternal) return;
+
+            this.$el.addClass(this.cid);
+            this.options.clickable = '.' + this.cid + ' ' + this.options.clickable;
+        },
+
         setupOptions: function () {
             var dropzoneView = this;
 
-            this.defaultOptions = _.extend({
+            this.options = _.extend({
                 url: Routing.generate('tuna_file_upload'),
-                acceptedFiles: '.jpg, .jpeg, .png, .gif',
+                acceptedFiles: '*',
                 paramName: 'file',
                 dictInvalidFileType: Translator.trans('You can\'t upload files of this type.'),
                 dictMaxFilesExceeded: Translator.trans('You can\'t upload any more files.'),
+                isClickableExternal: false,
                 clickable: '[data-dropzone-clickable]',
-                addedfile: function () {},
+                previewsContainer: '.preview',
+                addedfile: function () {
+                },
                 error: function (file, error, xhr) {
                     if (xhr) error = error.messages;
                     dropzoneView.tunaEvents.trigger('errorOccurred', {
@@ -47,11 +57,8 @@
                 },
                 init: function () {
                     this.on('success', function (file, response) {
-                        if (dropzoneView.parentView) {
-                            dropzoneView.parentView.uploadCallback(response);
-                        } else {
-                            dropzoneView.uploadCallback(response);
-                        }
+                        var view = dropzoneView.parentView ? dropzoneView.parentView : dropzoneView;
+                        view.uploadCallback(response);
                     });
 
                     this.on('queuecomplete', function () {
@@ -62,7 +69,7 @@
                         dropzoneView.tunaEvents.trigger('file.fileAdded');
                     });
 
-                    this.on('complete', function() {
+                    this.on('complete', function () {
                         dropzoneView.tunaEvents.trigger('file.fileCompleted');
                     })
                 }
@@ -74,7 +81,7 @@
         uploadCallback: function (response) {
             this.$('.input--path').val(response.path);
             this.$('.input--filename').val(response.originalName);
-            this.$('.preview').html(
+            this.$(this.options.previewsContainer).html(
                 this.options.previewTemplate.replace('__path__', response.path)
             );
         }

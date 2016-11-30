@@ -45,6 +45,10 @@ tuna.website = {
         new tuna.view.MenuTreeView({el: $('.edit-menu-tree')});
         new tuna.view.ModalError({el: $('#modalError'), tunaEvents: this.events});
         new tuna.view.MenuItemEditView({el: $('form[name="menu"]'), tunaEvents: this.events});
+
+        _.each($('.tuna-image'), function (el) {
+            new tuna.view.ImageView({el: el});
+        });
     },
 
     initEditor: function () {

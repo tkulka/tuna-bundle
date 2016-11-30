@@ -25,7 +25,7 @@ abstract class AbstractFileType extends AbstractType
 
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        $view->vars['accepted_files'] = $options['accepted_files'];
+        $view->vars['dropzone_options'] = $options['dropzone_options'];
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -34,7 +34,9 @@ abstract class AbstractFileType extends AbstractType
             'translation_domain' => 'tuna_admin',
             'data_class' => $this->getEntityClass(),
             'error_bubbling' => false,
-            'accepted_files' => '*',
+            'dropzone_options' => [
+                'acceptedFiles' => '*',
+            ],
             'attr' => [
                 'deletable' => true,
             ],

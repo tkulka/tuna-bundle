@@ -43,9 +43,7 @@
 {% block form_row %}
     <div
         class="form-group form--{{ name }}{% if form.vars.errors | length > 0 %} has-errors{% endif %}"
-        {% if form.parent.vars.allow_add | default(false) %}
-            data-collection-item="{{ name }}"
-        {% endif %}
+        {% if form.parent.vars.allow_add | default(false) %} data-collection-item="{{ name }}"{% endif %}
     >
         {{ form_label(form) }}
         {{ form_errors(form) }}
@@ -59,7 +57,7 @@
         {% set attr = attr | merge({value: value}) %}
     {% endif %}
     {%- set type = type|default('text') -%}
-    <div class="{% if type != 'hidden' %}form-group {% endif %}form--{{ name }}">
+    <div class="form-{{ type == 'hidden' ? 'hidden' : 'group' }} form--{{ name }}">
         <input type="{{ type }}" {{ block('widget_attributes') }}{% if type != 'hidden' %} placeholder="{{ name | humanize | capitalize | trans }}"{% endif %}>
     </div>
 {%- endblock form_widget_simple -%}

@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use TheCodeine\FileBundle\Form\AttachmentCollectionType;
-use TheCodeine\FileBundle\Form\ImageType;
+use TheCodeine\FileBundle\Form\MainImageType;
 use TheCodeine\NewsBundle\Entity\Page;
 use TheCodeine\NewsBundle\Form\AttachmentsType;
 use TheCodeine\GalleryBundle\Form\GalleryType;
@@ -46,33 +46,31 @@ abstract class AbstractPageType extends AbstractType
             }, 900);
         }
         $builder
-            ->add('image', ImageType::class,  array(
-                'label' => false
-            ))
-            ->add('published', Type\CheckboxType::class, array(
+            ->add('image', MainImageType::class)
+            ->add('published', Type\CheckboxType::class, [
                 'required' => false
-            ))
+            ])
             ->add('attachments', AttachmentCollectionType::class)
             ->add('gallery', GalleryType::class)
-            ->add('translations', GedmoTranslationsType::class, array(
+            ->add('translations', GedmoTranslationsType::class, [
                 'translatable_class' => $this->getEntityClass(),
-                'fields' => array(
-                    'title' => array(
+                'fields' => [
+                    'title' => [
                         'required' => true
-                    ),
-                    'teaser' => array(
+                    ],
+                    'teaser' => [
                         'field_type' => 'editor',
-                        'attr' => array(
+                        'attr' => [
                             'data-type' => 'basic',
-                        ),
+                        ],
                         'required' => false,
-                    ),
-                    'body' => array(
+                    ],
+                    'body' => [
                         'field_type' => 'editor',
                         'required' => true
-                    )
-                )
-            ));
+                    ],
+                ],
+            ]);
     }
 
     /**
@@ -80,10 +78,10 @@ abstract class AbstractPageType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => $this->getEntityClass(),
             'translation_domain' => 'tuna_admin',
-        ));
+        ]);
     }
 
     /**
