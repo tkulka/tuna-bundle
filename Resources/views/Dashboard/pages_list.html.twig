@@ -26,7 +26,7 @@
             <td class="options">
                 <a href="{{ path('tuna_page_edit', { id: item.id, redirect: 'dashboard' }) }}" class="fa fa-pencil-square-o" aria-hidden="true"></a>
                 {% if is_granted('delete', 'pages') %}
-                    <a href="#" data-title="{{ item.title }}" data-url="{{ path('tuna_page_delete', { id: item.id, redirect: 'dashboard'}) }}" data-target="#modal-confirm" data-action="delete" class="fa fa-trash" aria-hidden="true"></a>
+                    <a href="#" data-title="{{ item.title }}" data-url="{{ path('tuna_page_delete', { id: item.id, redirect: 'dashboard' }) }}" data-target="#modal-confirm" data-action="delete" class="fa fa-trash" aria-hidden="true"></a>
                 {% endif %}
             </td>
         </tr>
