@@ -57,7 +57,7 @@
     class: (attr.class|default ~ " form-control input-lg input--#{name}")|trim
     }) %}
     {% if value is not empty %}
-        {% set attr = attr|merge({value: value}) %}
+        {% set attr = attr|merge({ value: value }) %}
     {% endif %}
     {%- set type = type|default('text') -%}
     <div class="form-{{ type == 'hidden' ? 'hidden' : 'group' }} form--{{ name }}">

@@ -19,6 +19,6 @@
 {%- endblock choice_widget -%}
 
 {%- block tuna_choice_widget_collapsed -%}
-    {% set attr = attr|merge({class: (attr.class|default ~ ' form-control select select-default select-block')|trim}) %}
+    {% set attr = attr|merge({ class: (attr.class|default ~ ' form-control select select-default select-block')|trim }) %}
     {{ block('choice_widget_collapsed') }}
 {%- endblock -%}

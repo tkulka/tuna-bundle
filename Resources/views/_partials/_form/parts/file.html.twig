@@ -13,7 +13,7 @@
         <div class="preview">
             {% if file and file.path and form.vars.valid %}
                 {% set fileUrl = (file.uploaded  ? '/uploads/tmp/' : '/uploads/files/') ~ file.path %}
-                {{ theme.tuna_file_preview(fileUrl)|raw }}
+                {{ theme.tuna_file_preview(fileUrl) }}
             {% endif %}
             {{ form_widget(form) }}
         </div>

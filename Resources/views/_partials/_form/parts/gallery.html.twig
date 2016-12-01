@@ -44,7 +44,7 @@
                     {{ form_widget(form.type) }}
 
                     {% if form.position is defined %}
-                        {{ form_widget(form.position, { attr: { class: 'position'} }) }}
+                        {{ form_widget(form.position, { attr: { class: 'position' } }) }}
                     {% endif %}
 
                     {% if form.image is defined %}
@@ -61,18 +61,18 @@
                         </div>
                         <div>
                             <div class="video">
-                                {{ form_widget(form.video, { attr: { class: 'form-control'}}) }}
+                                {{ form_widget(form.video, { attr: { class: 'form-control' }}) }}
                             </div>
                             <div class="item-name video">
                                 {% if form.translations is defined %}
-                                    {{ form_widget(form.translations, { label: false}) }}
+                                    {{ form_widget(form.translations, { label: false }) }}
                                 {% endif %}
                             </div>
                         </div>
                     {% elseif form.image is defined %}
                         <div class="item-name">
                             {% if form.translations is defined %}
-                                {{ form_widget(form.translations, { label: false}) }}
+                                {{ form_widget(form.translations, { label: false }) }}
                             {% endif %}
                         </div>
                     {% endif %}

@@ -7,7 +7,7 @@
                 {% set locale = translationsFields.vars.name %}
                 <div
                     class="a2lix_translationsFields-{{ locale }} tab-pane {% if app.request.locale == locale %}active{% endif %}">
-                    {{ form_widget(translationsFields, { required: false}) }}
+                    {{ form_widget(translationsFields, { required: false }) }}
                 </div>
             {% endfor %}
         </div>
