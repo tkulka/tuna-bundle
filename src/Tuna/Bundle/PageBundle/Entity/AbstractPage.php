@@ -138,6 +138,8 @@ abstract class AbstractPage
     public function setBody($body)
     {
         $this->body = $body;
+
+        return $this;
     }
 
     /**
@@ -162,6 +164,8 @@ abstract class AbstractPage
     public function setImage($image)
     {
         $this->image = $image;
+
+        return $this;
     }
 
     /**
@@ -210,6 +214,8 @@ abstract class AbstractPage
     public function setLocale($locale)
     {
         $this->locale = $locale;
+
+        return $this;
     }
 
     public function getTranslations()
@@ -223,11 +229,15 @@ abstract class AbstractPage
             $this->translations[] = $t;
             $t->setObject($this);
         }
+
+        return $this;
     }
 
     public function removeTranslation(AbstractPersonalTranslation $t)
     {
         $this->translations->removeElement($t);
+
+        return $this;
     }
 
     /**
@@ -242,6 +252,8 @@ abstract class AbstractPage
         }
 
         $this->translations = $translations;
+
+        return $this;
     }
 
     /**

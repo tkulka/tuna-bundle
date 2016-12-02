@@ -1,19 +1,19 @@
 {% trans_default_domain 'tuna_admin' %}
+
 {% block tuna_file_widget %}
-    {% import 'TheCodeineAdminBundle:_partials/_form:_theme.html.twig' as theme %}
+    {% import '@TheCodeineAdmin/_partials/_form/_theme.html.twig' as theme %}
     {% set wrapperId = form.vars.id ~ '_wrapper' %}
     {% set dropzoneOptions = {
     selector: '#' ~ wrapperId,
-    acceptedFiles: accepted_files,
     previewTemplate: theme.tuna_file_preview('/uploads/tmp/__path__'),
     previewSelector: '#' ~ wrapperId ~ ' .preview'
     } %}
-    <div id="{{ wrapperId }}" class="thecodeine_admin_file" data-dropzone-options="{{ dropzoneOptions | json_encode }}">
+    <div id="{{ wrapperId }}" class="thecodeine_admin_file" data-dropzone-options="{{ dropzoneOptions|json_encode }}">
         {% set file = form.vars.data %}
         <div class="preview">
             {% if file and file.path and form.vars.valid %}
                 {% set fileUrl = (file.uploaded  ? '/uploads/tmp/' : '/uploads/files/') ~ file.path %}
-                {{ theme.tuna_file_preview(fileUrl) | raw }}
+                {{ theme.tuna_file_preview(fileUrl) }}
             {% endif %}
             {{ form_widget(form) }}
         </div>

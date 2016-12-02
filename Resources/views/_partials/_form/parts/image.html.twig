@@ -1,24 +1,40 @@
 {% trans_default_domain 'tuna_admin' %}
+
 {% block tuna_image_widget %}
-    {% import 'TheCodeineAdminBundle:_partials/_form:_theme.html.twig' as theme %}
+    {% import '@TheCodeineAdmin/_partials/_form/_theme.html.twig' as theme %}
     {% set wrapperId = form.vars.id ~ '_wrapper' %}
     {% set dropzoneOptions = {
-    clickable: '.admin-option-container .btn-main-image',
-    selector: '.admin-option-container',
     previewTemplate: theme.tuna_image_preview('/' ~ tuna_uploadDir('tmp_path') ~ '/__path__', form.vars.attr.deletable, scale_preview_thumbnail),
-    previewsContainer: '#' ~ wrapperId ~ ' .preview',
-    maxFiles: 1,
-    acceptedFiles: accepted_files,
-    dropoverText: 'Drop your cover image here' | trans
+    dropoverText: 'Drop your image here'|trans
     } %}
-    <div id="{{ wrapperId }}" class="thecodeine_admin_main_image" data-dropzone-options="{{ dropzoneOptions | json_encode }}">
+
+    <div id="{{ wrapperId }}" class="thecodeine_admin_main_image" data-dropzone-options="{{ dropzoneOptions|merge(dropzone_options)|json_encode }}">
         {% set image = form.vars.data %}
 
         <div class="preview">
             {% if image and image.path and form.vars.valid %}
-                {{ theme.tuna_image_preview(tuna_file(image), form.vars.attr.deletable, scale_preview_thumbnail) | raw }}
+                {{ theme.tuna_image_preview(tuna_file(image), form.vars.attr.deletable, scale_preview_thumbnail)|raw }}
             {% endif %}
         </div>
+        {{ form_widget(form) }}
+
+        {% if form.vars.label %}
+            <div class="form-group form--image--btn">
+                <div class="btn btn-mini btn-primary btn-block btn-main-image">
+                    {{ form.vars.label }}
+                    <i class="fui-arrow-right pull-right"></i>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block tuna_image_row %}
+    <div
+        class="form-group form--{{ name }}{% if form.vars.errors|length %} has-errors{% endif %} tuna-image"
+        {% if form.parent.vars.allow_add|default(false) %} data-collection-item="{{ name }}"{% endif %}
+    >
+        {{ form_errors(form) }}
         {{ form_widget(form) }}
     </div>
 {% endblock %}

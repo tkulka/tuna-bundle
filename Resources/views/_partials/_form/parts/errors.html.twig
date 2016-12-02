@@ -1,7 +1,8 @@
 {% trans_default_domain 'tuna_admin' %}
+
 {% block form_errors %}
     {% spaceless %}
-        {% if errors|length > 0 %}
+        {% if errors|length %}
             <div class="dialog dialog-danger form-errors">
                 <div class="form-errors-container">
                     <strong class="text-danger">{% trans %}Woops!{% endtrans %} </strong>

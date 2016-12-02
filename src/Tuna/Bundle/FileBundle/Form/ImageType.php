@@ -9,6 +9,12 @@ use TheCodeine\FileBundle\Entity\Image;
 
 class ImageType extends AbstractFileType
 {
+    protected static $DROPZONE_DEFAULTS = [
+        'clickable' => '.btn-main-image',
+        'maxFiles' => 1,
+        'acceptedFiles' => '.png,.jpg,.gif,.jpeg'
+    ];
+
     protected function getEntityClass()
     {
         return Image::class;
@@ -23,10 +29,12 @@ class ImageType extends AbstractFileType
     public function configureOptions(OptionsResolver $resolver)
     {
         parent::configureOptions($resolver);
-        $resolver->setDefault('accepted_files', '.png,.jpg,.gif,.jpeg');
-        $resolver->setDefault('scale_preview_thumbnail', true);
-    }
 
+        $resolver
+            ->setDefault('label', 'Choose image')
+            ->setDefault('dropzone_options', self::$DROPZONE_DEFAULTS)
+            ->setDefault('scale_preview_thumbnail', true);
+    }
 
     public function getBlockPrefix()
     {

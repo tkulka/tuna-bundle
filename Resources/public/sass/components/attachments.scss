@@ -61,7 +61,7 @@
                 .table-row {
                     display: table-row;
 
-                    > div {
+                    > div:not(.form-hidden) {
                         height: 85px;
                         position: relative;
                         padding: 10px;

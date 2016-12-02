@@ -1,42 +1,46 @@
 (function () {
     tuna.view.OptionsView = Backbone.View.extend({
         events: {
-            'click .btn-gallery': '_onGalleryOpen',
-            'click .btn-attachments': '_onAttachmentsOpen'
+            'click .btn-gallery': 'onGalleryOpen',
+            'click .btn-attachments': 'onAttachmentsOpen'
         },
 
         initialize: function (options) {
-
             this.tunaEvents = options.tunaEvents;
             this.$el.addClass('magictime');
             this.bindEvents();
-
-            new tuna.view.MainImageView({
-                el: this.$('.thecodeine_admin_main_image')
-            });
         },
 
         bindEvents: function () {
-            this.tunaEvents.on('file.uploadStart', _.bind(function(){
-                $('body').addClass('sending');
-                this.disableSubmit(true);
-            }, this));
+            this.listenTo(this.tunaEvents, {
+                'file.uploadStart': this.onFileUploadStart,
+                'file.uploadEnd': this.onFileUploadEnd
+            });
+        },
 
-            this.tunaEvents.on('file.uploadEnd', _.bind(function(){
-                $('body').removeClass('sending');
-                this.disableSubmit(false);
-            }, this));
+        onFileUploadStart: function () {
+            $('body').addClass('sending');
+            this.disableSubmit(true);
+        },
+
+        onFileUploadEnd: function () {
+            $('body').removeClass('sending');
+            this.disableSubmit(false);
         },
 
         disableSubmit: function (value) {
             this.$('button[type="submit"]').prop('disabled', value);
         },
 
-        _onGalleryOpen: function () {
+        onGalleryOpen: function (event) {
+            event.preventDefault();
+
             $('.admin-gallery-container').trigger('open');
         },
 
-        _onAttachmentsOpen: function () {
+        onAttachmentsOpen: function (event) {
+            event.preventDefault();
+
             $('.admin-attachments-container').trigger('open');
         }
     });

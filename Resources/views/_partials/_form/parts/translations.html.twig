@@ -1,4 +1,5 @@
 {% trans_default_domain 'tuna_admin' %}
+
 {% block a2lix_translations_widget %}
     <div class="a2lix_translations tabbable">
         <div class="a2lix_translationsFields tab-content">
@@ -6,7 +7,7 @@
                 {% set locale = translationsFields.vars.name %}
                 <div
                     class="a2lix_translationsFields-{{ locale }} tab-pane {% if app.request.locale == locale %}active{% endif %}">
-                    {{ form_widget(translationsFields, {'required': false}) }}
+                    {{ form_widget(translationsFields, { required: false }) }}
                 </div>
             {% endfor %}
         </div>

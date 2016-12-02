@@ -1,26 +1,24 @@
 {% trans_default_domain 'tuna_admin' %}
-
-{% extends "TheCodeineAdminBundle::_layout.html.twig" %}
-{% block main_class %}bg-lightgray{% endblock %}
-
-{% block content %}
-    <div class="row admin-container edit-menu-tree" data-save-order-url="{{ path('tuna_menu_saveorder') }}">
-        <div class="col-sm-12">
-            {% for menu in menus %}
-                <div class="admin-list">
-                    <div class="action-buttons">
-                        <a href="{{ path('tuna_menu_create') }}" class="btn btn-primary btn-wide">
-                            <i class="fui-plus"></i> {% trans %}Add item{% endtrans %}
-                        </a>
-                        <a href="#" data-action="save-order" class="btn btn-primary btn-wide inactive">
-                            <i class="fa fa-save" aria-hidden="true"></i> {% trans %}Save order{% endtrans %}
-                        </a>
+{% embed '@TheCodeineAdmin/_base/list.html.twig' %}
+    {% block content %}
+        <div class="row admin-container edit-menu-tree" data-save-order-url="{{ path('tuna_menu_saveorder') }}">
+            <div class="col-sm-12">
+                {% for menu in menus %}
+                    <div class="admin-list">
+                        <div class="action-buttons">
+                            <a href="{{ path('tuna_menu_create') }}" class="btn btn-primary btn-wide">
+                                <i class="fui-plus"></i> {% trans %}Add item{% endtrans %}
+                            </a>
+                            <a href="#" data-action="save-order" class="btn btn-primary btn-wide inactive">
+                                <i class="fa fa-save" aria-hidden="true"></i> {% trans %}Save order{% endtrans %}
+                            </a>
+                        </div>
+                        <ul data-menu-tree>
+                            {% include '@TheCodeineAdmin/Menu/menu_item.html.twig' with { item: menu } %}
+                        </ul>
                     </div>
-                    <ul data-menu-tree>
-                        {% include 'TheCodeineAdminBundle:Menu:menu_item.html.twig' with { item: menu } %}
-                    </ul>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
-    </div>
-{% endblock %}
+    {% endblock %}
+{% endembed %}

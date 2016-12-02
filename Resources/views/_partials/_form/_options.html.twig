@@ -1,30 +1,25 @@
 {% trans_default_domain 'tuna_admin' %}
+
 <div class="admin-option-container">
     <h6 class="text-inverse">{% trans %}Options{% endtrans %}</h6>
 
     {% if form.important is defined %}
-        {{ form_widget(form.important, {'label': 'Featured'}) }}
+        {{ form_widget(form.important, { label: 'Featured' }) }}
     {% endif %}
 
     {% if form.published is defined %}
-        {{ form_widget(form.published, {'label': 'Published'}) }}
+        {{ form_widget(form.published, { label: 'Published' }) }}
     {% endif %}
 
     {% if form.createdAt is defined %}
-        {{ form_row(form.createdAt, {'label': 'Create date'}) }}
+        {{ form_row(form.createdAt, { label: 'Create date' }) }}
     {% endif %}
 
     {% if form.image is defined %}
         {{ form_row(form.image, { label: false }) }}
-        <div class="form-group form--image--btn">
-            <div class="btn btn-mini btn-primary btn-block btn-main-image">
-                {{ mainImageLabel | default('Choose main picture') | trans }}
-                <i class="fui-arrow-right pull-right"></i>
-            </div>
-        </div>
     {% endif %}
 
-    {{ extraFields | raw }}
+    {{ extraFields|raw }}
 
     {% if form.gallery is defined %}
         <a href="javascript:void(0)" class="btn btn-small btn-secondary btn-block btn-gallery">
@@ -59,8 +54,7 @@
         {{ form_row(form.endDate, { label: 'End date' }) }}
     {% endif %}
 
-    {{ form_widget(form.save, {'attr': {'class': 'btn btn-small btn-primary btn-block'}}) }}
-
+    {{ form_widget(form.save, { attr: { class: 'btn btn-small btn-primary btn-block' }}) }}
 </div>
 
 {% if form.attachments is defined %}
@@ -69,7 +63,7 @@
             <i class="fa fa-times" aria-hidden="true"></i>
         </a>
 
-        {% include 'TheCodeineAdminBundle::_partials/_form/_translations.menu.html.twig' %}
+        {% include '@TheCodeineAdmin/_partials/_form/_translations.menu.html.twig' %}
 
         <h3>{% trans %}Attachments{% endtrans %}</h3>
         {{ form_widget(form.attachments) }}
@@ -82,7 +76,7 @@
             <i class="fa fa-times" aria-hidden="true"></i>
         </a>
 
-        {% include 'TheCodeineAdminBundle::_partials/_form/_translations.menu.html.twig' %}
+        {% include '@TheCodeineAdmin/_partials/_form/_translations.menu.html.twig' %}
 
         <h3>{% trans %}Gallery{% endtrans %}</h3>
         {{ form_widget(form.gallery) }}
