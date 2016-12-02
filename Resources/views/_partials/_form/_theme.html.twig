@@ -53,9 +53,7 @@
 {% endblock form_row %}
 
 {%- block form_widget_simple -%}
-    {% set attr = attr|merge({
-    class: (attr.class|default ~ " form-control input-lg input--#{name}")|trim
-    }) %}
+    {% set attr = attr|merge({ class: (attr.class|default ~ " form-control input-lg input--#{name}")|trim }) %}
     {% if value is not empty %}
         {% set attr = attr|merge({ value: value }) %}
     {% endif %}

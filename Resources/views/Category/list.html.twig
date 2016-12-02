@@ -4,9 +4,10 @@ canCreate: false,
 createPath: path('tuna_page_create'),
 isEmpty: groupedCategories|length == 0
 } %}
-    {% for categoryType, categories in groupedCategories %}
-        <h2>{{ categoryType|trans({}, 'categories') }}</h2>
-        {% include '@TheCodeineAdmin/Category/_list.html.twig' with { entities: categories } %}
-    {% endfor %}
+    {% block list_table %}
+        {% for categoryType, categories in groupedCategories %}
+            <h2>{{ categoryType|trans({}, 'categories') }}</h2>
+            {% include '@TheCodeineAdmin/Category/_list.html.twig' with { entities: categories } %}
+        {% endfor %}
     {% endblock %}
 {% endembed %}
