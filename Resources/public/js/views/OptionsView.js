@@ -12,15 +12,20 @@
         },
 
         bindEvents: function () {
-            this.tunaEvents.on('file.uploadStart', function () {
-                $('body').addClass('sending');
-                this.disableSubmit(true);
-            }.bind(this));
+            this.listenTo(this.tunaEvents, {
+                'file.uploadStart': this.onFileUploadStart,
+                'file.uploadEnd': this.onFileUploadEnd
+            });
+        },
 
-            this.tunaEvents.on('file.uploadEnd', function () {
-                $('body').removeClass('sending');
-                this.disableSubmit(false);
-            }.bind(this));
+        onFileUploadStart: function () {
+            $('body').addClass('sending');
+            this.disableSubmit(true);
+        },
+
+        onFileUploadEnd: function () {
+            $('body').removeClass('sending');
+            this.disableSubmit(false);
         },
 
         disableSubmit: function (value) {
