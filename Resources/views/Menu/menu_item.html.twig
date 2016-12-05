@@ -33,7 +33,7 @@
     {% if item.__children|length %}
         <ul>
             {% for child in item.__children %}
-                {% include '@TheCodeineAdmin/Menu/menu_item.html.twig' with { item: child } %}
+                {% include 'TheCodeineAdminBundle:Menu:menu_item.html.twig' with { item: child } %}
             {% endfor %}
         </ul>
     {% endif %}

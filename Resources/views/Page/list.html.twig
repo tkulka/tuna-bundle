@@ -1,5 +1,5 @@
 {% trans_default_domain 'tuna_admin' %}
-{% embed '@TheCodeineAdmin/_base/list.html.twig' with {
+{% embed 'TheCodeineAdminBundle::_base/list.html.twig' with {
 canCreate: is_granted('create', 'pages'),
 createPath: path('tuna_page_create')
 } %}

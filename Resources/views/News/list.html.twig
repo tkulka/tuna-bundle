@@ -1,5 +1,5 @@
 {% trans_default_domain 'tuna_admin' %}
-{% embed '@TheCodeineAdmin/_base/list.html.twig' with {
+{% embed 'TheCodeineAdminBundle::_base/list.html.twig' with {
 canCreate: true,
 createPath: path('tuna_news_create', { newsType: newsType })
 } %}

@@ -1,5 +1,5 @@
-{% extends app.request.isXmlHttpRequest ? '@TheCodeineAdmin/_embed.html.twig' : '@TheCodeineAdmin/_layout.html.twig' %}
+{% extends app.request.isXmlHttpRequest ? 'TheCodeineAdminBundle::_embed.html.twig' : 'TheCodeineAdminBundle::_layout.html.twig' %}
 
 {% block content %}
-    {% include '@TheCodeineAdmin/_partials/_form/_main.html.twig' with { title: page.title, slug: page.slug } %}
+    {% include 'TheCodeineAdminBundle::_partials/_form/_main.html.twig' with { title: page.title, slug: page.slug } %}
 {% endblock %}

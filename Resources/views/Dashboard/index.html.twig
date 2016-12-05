@@ -1,5 +1,5 @@
 {% trans_default_domain 'tuna_admin' %}
-{% extends '@TheCodeineAdmin/_layout.html.twig' %}
+{% extends 'TheCodeineAdminBundle::_layout.html.twig' %}
 
 {% block main_class %}bg-lightgray{% endblock %}
 
@@ -14,13 +14,13 @@
                         </a>
                     </div>
                     <ul data-menu-tree>
-                        {% include '@TheCodeineAdmin/Dashboard/menu_item.html.twig' with { item: menu } %}
+                        {% include 'TheCodeineAdminBundle:Dashboard:menu_item.html.twig' with { item: menu } %}
                     </ul>
                 </div>
             {% endfor %}
             {% if pagination.totalItemCount %}
                 <hr>
-                {% include '@TheCodeineAdmin/Dashboard/pages_list.html.twig' %}
+                {% include 'TheCodeineAdminBundle:Dashboard:pages_list.html.twig' %}
             {% endif %}
         </div>
     </div>

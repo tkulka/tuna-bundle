@@ -30,7 +30,7 @@
     {% if is_granted('ROLE_ADMIN') %}
         <header class="header">
             {% block navigation %}
-                {% include '@TheCodeineAdmin/_partials/_header.html.twig' %}
+                {% include 'TheCodeineAdminBundle::_partials/_header.html.twig' %}
             {% endblock navigation %}
         </header>
 
@@ -54,7 +54,7 @@
 
 <div id="upload"></div>
 
-{% include '@TheCodeineAdmin/_partials/_modal.html.twig' %}
+{% include 'TheCodeineAdminBundle::_partials/_modal.html.twig' %}
 
 <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
 <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
@@ -106,6 +106,6 @@
         });
     })();
 </script>
-{% include '@TheCodeineAdmin/_livereload.html.twig' %}
+{% include 'TheCodeineAdminBundle::_livereload.html.twig' %}
 </body>
 </html>
