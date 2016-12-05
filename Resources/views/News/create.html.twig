@@ -1,6 +1,6 @@
 {% trans_default_domain 'tuna_admin' %}
-{% extends '@TheCodeineAdmin/Page/create.html.twig' %}
+{% extends 'TheCodeineAdminBundle:Page:create.html.twig' %}
 
 {% block content %}
-    {% include '@TheCodeineAdmin/_partials/_form/_main.html.twig' with { title: "Create #{newsType}"|trans } %}
+    {% include 'TheCodeineAdminBundle::_partials/_form/_main.html.twig' with { title: "Create #{newsType}"|trans } %}
 {% endblock %}

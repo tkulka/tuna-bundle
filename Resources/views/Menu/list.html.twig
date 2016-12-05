@@ -1,5 +1,5 @@
 {% trans_default_domain 'tuna_admin' %}
-{% embed '@TheCodeineAdmin/_base/list.html.twig' %}
+{% embed 'TheCodeineAdminBundle::_base/list.html.twig' %}
     {% block content %}
         <div class="row admin-container edit-menu-tree" data-save-order-url="{{ path('tuna_menu_saveorder') }}">
             <div class="col-sm-12">
@@ -14,7 +14,7 @@
                             </a>
                         </div>
                         <ul data-menu-tree>
-                            {% include '@TheCodeineAdmin/Menu/menu_item.html.twig' with { item: menu } %}
+                            {% include 'TheCodeineAdminBundle:Menu:menu_item.html.twig' with { item: menu } %}
                         </ul>
                     </div>
                 {% endfor %}

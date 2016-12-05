@@ -1,5 +1,5 @@
 {% trans_default_domain 'tuna_admin' %}
-{% extends '@TheCodeineAdmin/_layout.html.twig' %}
+{% extends 'TheCodeineAdminBundle::_layout.html.twig' %}
 
 {% block main_class %}bg-lightgray{% endblock %}
 
@@ -23,27 +23,31 @@
             {% endblock %}
         </div>
     {% else %}
-        <div class="row admin-container">
-            <div class="col-sm-12">
-                <div class="admin-list">
-                    {% block list_wrapper %}
-                        {% if canCreate %}
-                            <div class="action-buttons">
-                                {% block list_action_buttons %}
-                                    <a href="{{ createPath }}" class="btn btn-primary btn-wide">
-                                        <i class="fui-plus"></i> {% trans %}Add item{% endtrans %}
-                                    </a>
-                                {% endblock %}
-                            </div>
-                        {% endif %}
+        {% block not_empty_list %}
+            <div class="row admin-container">
+                <div class="col-sm-12">
+                    <div class="admin-list">
+                        {% block list_wrapper %}
+                            {% if canCreate %}
+                                <div class="action-buttons">
+                                    {% block list_action_buttons %}
+                                        <a href="{{ createPath }}" class="btn btn-primary btn-wide">
+                                            <i class="fui-plus"></i> {% trans %}Add item{% endtrans %}
+                                        </a>
+                                    {% endblock %}
+                                </div>
+                            {% endif %}
 
-                        {% block list_table %}{% endblock %}
+                            {% block list_table %}{% endblock %}
 
-                        {{ knp_pagination_render(pagination, '@TheCodeineAdmin/_partials/_pagination.html.twig') }}
-                    {% endblock %}
+                            {% block pagination %}
+                                {{ knp_pagination_render(pagination, 'TheCodeineAdminBundle::_partials/_pagination.html.twig') }}
+                            {% endblock %}
+                        {% endblock %}
+                    </div>
                 </div>
             </div>
-        </div>
+        {% endblock %}
     {% endif %}
     <div class="clear"></div>
 {% endblock content %}

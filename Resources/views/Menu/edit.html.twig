@@ -1,8 +1,8 @@
 {% trans_default_domain 'tuna_admin' %}
-{% extends '@TheCodeineAdmin/_admin_layout.html.twig' %}
+{% extends 'TheCodeineAdminBundle::_admin_layout.html.twig' %}
 
 {% block content %}
-    {% embed '@TheCodeineAdmin/_partials/_form/_main.html.twig' with { title: menu.label, slug: menu.externalUrl ?: menu.slug } %}
+    {% embed 'TheCodeineAdminBundle::_partials/_form/_main.html.twig' with { title: menu.label, slug: menu.externalUrl ?: menu.slug } %}
         {% block extraFields %}
             {{ form_row(form.clickable, { label: 'Clickable' }) }}
             {{ form_row(form.published, { label: 'Published' }) }}

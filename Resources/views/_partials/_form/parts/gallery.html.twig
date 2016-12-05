@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block thecodeine_gallerybundle_gallery_widget %}
-    {% import '@TheCodeineAdmin/_partials/_form/_theme.html.twig' as theme %}
+    {% import 'TheCodeineAdminBundle::_partials/_form/_theme.html.twig' as theme %}
     {% set wrapperId = form.vars.id ~ '_wrapper' %}
     {% set dropzoneOptions = {
     clickable: 'a[data-type=image]',

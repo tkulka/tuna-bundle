@@ -1,5 +1,5 @@
 {% trans_default_domain 'tuna_admin' %}
-{% embed '@TheCodeineAdmin/_base/list.html.twig' with {
+{% embed 'TheCodeineAdminBundle::_base/list.html.twig' with {
 canCreate: false,
 createPath: path('tuna_page_create'),
 isEmpty: groupedCategories|length == 0
@@ -7,7 +7,7 @@ isEmpty: groupedCategories|length == 0
     {% block list_table %}
         {% for categoryType, categories in groupedCategories %}
             <h2>{{ categoryType|trans({}, 'categories') }}</h2>
-            {% include '@TheCodeineAdmin/Category/_list.html.twig' with { entities: categories } %}
+            {% include 'TheCodeineAdminBundle:Category:_list.html.twig' with { entities: categories } %}
         {% endfor %}
     {% endblock %}
 {% endembed %}

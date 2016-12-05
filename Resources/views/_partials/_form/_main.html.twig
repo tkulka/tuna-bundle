@@ -1,5 +1,5 @@
 {% trans_default_domain 'tuna_admin' %}
-{% form_theme form '@TheCodeineAdmin/_partials/_form/_theme.html.twig' %}
+{% form_theme form 'TheCodeineAdminBundle::_partials/_form/_theme.html.twig' %}
 
 {% block content %}
     <div class="admin-container">
@@ -9,14 +9,14 @@
 
         <aside class="aside aside-2">
             {% block form_options %}
-                {% include '@TheCodeineAdmin/_partials/_form/_options.html.twig' with { extraFields: block('extraFields') } %}
+                {% include 'TheCodeineAdminBundle::_partials/_form/_options.html.twig' with { extraFields: block('extraFields') } %}
             {% endblock %}
         </aside>
 
         <div class="inside">
             <div class="body">
                 {% block form_body %}
-                    {% include '@TheCodeineAdmin/_partials/_form/_translations.menu.html.twig' %}
+                    {% include 'TheCodeineAdminBundle::_partials/_form/_translations.menu.html.twig' %}
 
                     <h3>
                         {% if title is defined %}
@@ -30,7 +30,7 @@
                         {% endif %}
                     </h3>
 
-                    {% include '@TheCodeineAdmin/_partials/_form/_content.html.twig' %}
+                    {% include 'TheCodeineAdminBundle::_partials/_form/_content.html.twig' %}
                 {% endblock %}
             </div>
         </div>

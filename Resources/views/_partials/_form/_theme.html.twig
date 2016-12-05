@@ -1,15 +1,15 @@
 {% trans_default_domain 'tuna_admin' %}
 
-{% use '@TheCodeineAdmin/_partials/_form/parts/attachments.html.twig' %}
-{% use '@TheCodeineAdmin/_partials/_form/parts/checkbox.html.twig' %}
-{% use '@TheCodeineAdmin/_partials/_form/parts/choice.html.twig' %}
-{% use '@TheCodeineAdmin/_partials/_form/parts/date.html.twig' %}
-{% use '@TheCodeineAdmin/_partials/_form/parts/editor.html.twig' %}
-{% use '@TheCodeineAdmin/_partials/_form/parts/errors.html.twig' %}
-{% use '@TheCodeineAdmin/_partials/_form/parts/gallery.html.twig' %}
-{% use '@TheCodeineAdmin/_partials/_form/parts/image.html.twig' %}
-{% use '@TheCodeineAdmin/_partials/_form/parts/tags.html.twig' %}
-{% use '@TheCodeineAdmin/_partials/_form/parts/translations.html.twig' %}
+{% use 'TheCodeineAdminBundle::_partials/_form/parts/attachments.html.twig' %}
+{% use 'TheCodeineAdminBundle::_partials/_form/parts/checkbox.html.twig' %}
+{% use 'TheCodeineAdminBundle::_partials/_form/parts/choice.html.twig' %}
+{% use 'TheCodeineAdminBundle::_partials/_form/parts/date.html.twig' %}
+{% use 'TheCodeineAdminBundle::_partials/_form/parts/editor.html.twig' %}
+{% use 'TheCodeineAdminBundle::_partials/_form/parts/errors.html.twig' %}
+{% use 'TheCodeineAdminBundle::_partials/_form/parts/gallery.html.twig' %}
+{% use 'TheCodeineAdminBundle::_partials/_form/parts/image.html.twig' %}
+{% use 'TheCodeineAdminBundle::_partials/_form/parts/tags.html.twig' %}
+{% use 'TheCodeineAdminBundle::_partials/_form/parts/translations.html.twig' %}
 
 {% macro tuna_image_preview(fileUrl, deletable, scalePreviewThumbnail = true) %}{% spaceless %}
     {% if fileUrl %}
