@@ -1,6 +1,7 @@
 {% trans_default_domain 'tuna_admin' %}
 
 {% block checkbox_widget %}
+    {% set attr = attr|merge({ class: (attr.class|default ~ " form-control input-lg input--#{name}")|trim }) %}
     <label class="checkbox" for="{{ id }}">
         <input
             type="checkbox"
