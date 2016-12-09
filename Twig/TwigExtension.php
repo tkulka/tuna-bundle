@@ -16,13 +16,13 @@ class TwigExtension extends \Twig_Extension
      */
     public function getFunctions()
     {
-        return array(
-            'country_name' => new \Twig_Function_Method($this, 'countryName'),
-        );
+        return [
+            new \Twig_SimpleFunction('country_name', [$this, 'countryName']),
+        ];
     }
 
-    public function countryName($locale)
+    public function countryName($locale, $displayLocale = null)
     {
-        return Intl::getLocaleBundle()->getLocaleName($locale);
+        return Intl::getLocaleBundle()->getLocaleName($locale, $displayLocale);
     }
 }
