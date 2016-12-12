@@ -80,11 +80,14 @@ Translations are enabled by default. You can turn them off by setting:
                 translations: 
                     enabled: false
 
-Dump translation files:
-
-    php app/console translation:extract [language] --dir=[directory] --output-dir=./app/Resources/translations
-Replace `[language]` with any language you want to generate translations for (e.g. `de`) and `[directory]` with path to your bundle (e.g. `./src/Openheim/FrontendBundle`).
-
+### Import translations to database
+Run this command:
+    `php app/console lexik:translations:import -c -g -m`
+    
+### Export translations from database to yml files
+If you want to dump translations from database to yml files run this command:
+    `php app/console lexik:translations:export`
+    
 ## Admin JS translations:
 
 JavaScript translations are in `Resources/translations/tuna_admin.pl.yml`. To cache translations, run this command:

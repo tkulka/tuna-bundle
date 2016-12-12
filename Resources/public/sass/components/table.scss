@@ -1,4 +1,37 @@
-.table {
+.pagination {
+    background: transparent;
+
+    > .disabled {
+        > a {
+            background-color: transparent;
+
+            &:hover {
+                background-color: transparent;
+            }
+        }
+    }
+}
+
+table.table-bordered,
+table.table-striped {
+    border: 0;
+
+    > tbody, > thead {
+        > tr {
+            > td, th {
+                border: 0;
+            }
+
+            &:nth-child(odd) {
+                > td, th {
+                    background-color: transparent;
+                }
+            }
+        }
+    }
+}
+
+.table, .table-bordered, .table-striped {
     border-collapse: initial;
 
     > tbody, > thead {

@@ -127,3 +127,11 @@ stof_doctrine_extensions:
             sluggable: true
             translatable: true
             tree: true
+
+lexik_translation:
+    fallback_locale: ["%locale%"]
+    managed_locales: "%locales%"
+    base_layout: "TheCodeineAdminBundle::_translation_layout.html.twig"
+    resources_registration:
+        type: all
+        managed_locales_only: false

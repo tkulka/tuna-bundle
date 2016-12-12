@@ -107,8 +107,8 @@ class Builder
         }
 
         if ($this->componentsConfig['translations']['enabled']) {
-            $this->addChild($menu, $request, 'Translations', 'tuna_translations', 500, function ($request, $route) {
-                return preg_match_all('/thecodeine_translations/i', $request->get('_route'));
+            $this->addChild($menu, $request, 'Translations', 'lexik_translation_grid', 500, function ($request, $route) {
+                return preg_match_all('/lexik_translation/i', $request->get('_route'));
             });
         }
 
