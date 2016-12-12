@@ -21,8 +21,8 @@ class TwigExtension extends \Twig_Extension
         ];
     }
 
-    public function countryName($locale)
+    public function countryName($locale, $displayLocale = null)
     {
-        return Intl::getLocaleBundle()->getLocaleName($locale);
+        return Intl::getLocaleBundle()->getLocaleName($locale, $displayLocale);
     }
 }
