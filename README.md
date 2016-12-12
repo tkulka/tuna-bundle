@@ -285,9 +285,25 @@ You can change default file location via `the_codeine_file` config (here's the d
 
     the_codeine_file:
         file_manager:
-            web_root_dir: '%kernel.root_dir%/../web'
+            web_root_dir: '%kernel.root_dir%/../web' # path to symfony's web directory
             tmp_path: uploads/tmp
             upload_files_path: uploads/files
+
+#### Custom data loader/cache resolver
+
+To avoid conflicts with other bundles using Liip Imagine as image processing engine, Tuna uses custom data loader/cache resolver: `tuna`. 
+
+#### Custom filters
+
+To add your custom filters to use with tuna images make sure that you've added `data_loader` option to filter configuration:
+
+    liip_imagine:
+        filter_sets:
+            person_thumb:
+                data_loader: tuna # you can drop this if no other bundle override liip_imagine default loader/resolver.
+                cache: tuna # you can drop this if no other bundle override liip_imagine default loader/resolver.
+                filters:
+                    .. your filters
 
 #### Rendering
 
