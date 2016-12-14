@@ -18,7 +18,6 @@ class BundleDependencyRegisterer
             new \TheCodeine\NewsBundle\TheCodeineNewsBundle(),
             new \TheCodeine\MenuBundle\TheCodeineMenuBundle(),
             new \TheCodeine\UserBundle\TheCodeineUserBundle(),
-            new \TheCodeine\TranslationBundle\TheCodeineTranslationBundle(),
             new \SmartCore\Bundle\AcceleratorCacheBundle\AcceleratorCacheBundle(),
             new \JMS\TranslationBundle\JMSTranslationBundle(),
             new \Bazinga\Bundle\JsTranslationBundle\BazingaJsTranslationBundle(),
@@ -34,6 +33,7 @@ class BundleDependencyRegisterer
             new \Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new \FOS\UserBundle\FOSUserBundle(),
             new \FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new \Lexik\Bundle\TranslationBundle\LexikTranslationBundle(),
         );
 
         foreach ($bundles as $bundle) {

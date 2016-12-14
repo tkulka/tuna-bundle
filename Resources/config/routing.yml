@@ -1,6 +1,10 @@
 _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"
 
+lexik_translation_edition:
+    resource: "@LexikTranslationBundle/Resources/config/routing.yml"
+    prefix:   /admin/translation
+
 tuna_user:
     resource: "@TheCodeineUserBundle/Resources/config/routing.yml"
 
@@ -27,10 +31,6 @@ tuna_menu_admin:
 tuna_news:
     resource: "@TheCodeineAdminBundle/Controller/NewsController.php"
     type:     annotation
-    prefix:   /admin/
-
-tuna_translations:
-    resource: "@TheCodeineTranslationBundle/Resources/config/routing.yml"
     prefix:   /admin/
 
 tuna_category:
