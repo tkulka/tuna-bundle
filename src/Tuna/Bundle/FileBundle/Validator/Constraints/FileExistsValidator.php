@@ -24,7 +24,7 @@ class FileExistsValidator extends ConstraintValidator
     public function validate($file, Constraint $constraint)
     {
         /* @var $file \TheCodeine\FileBundle\Entity\AbstractFile */
-        if (!$this->fileManager->fileExists($file)) {
+        if ($file->getPath() && !$this->fileManager->fileExists($file)) {
             $this->context->buildViolation($constraint->message)
                 ->setTranslationDomain('tuna_admin')
                 ->setParameter('%filename%', $file->getPath())

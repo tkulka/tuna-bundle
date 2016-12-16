@@ -38,12 +38,7 @@ class FileManager
 
     public function fileExists(AbstractFile $file)
     {
-        $filename = basename($file->getPath());
-        $fullPath = $this->getFullPath($file->isUploaded() ? 'tmp' : 'upload_files', $filename);
-
-        if (!$fullPath) {
-            return true;
-        }
+        $fullPath = $this->getFullPath($file->isUploaded() ? 'tmp' : 'upload_files', $file->getPath());
 
         return $this->fs->exists($fullPath);
     }
