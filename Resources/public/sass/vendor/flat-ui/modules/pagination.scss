@@ -109,14 +109,14 @@
       > a,
       > span {
         color: $pagination-color;
-        background-color: fade($inverse, 30%);
+          background-color: fade-out($inverse, .30);
         border-right-color: mix($pagination-bg, white, 80%);
         cursor: $cursor-disabled;
 
         &:hover,
         &:focus,
         &:active {
-          background-color: fade($inverse, 40%);
+            background-color: fade-out($inverse, .40);
           color: $pagination-color;
         }
       }

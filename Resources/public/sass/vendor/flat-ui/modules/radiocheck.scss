@@ -217,13 +217,13 @@
         }
       }
       &:disabled + .icons {
-        color: fade(mix($gray-light, white, 38%), 60%);
+          color: fade-out(mix($gray-light, white, 38%), .60);
       }
       &:disabled:checked + .icons {
-        color: fade(mix($gray-light, white, 38%), 60%);
+          color: fade-out(mix($gray-light, white, 38%), .60);
 
         .icon-checked {
-          color: fade(mix($gray-light, white, 38%), 60%);
+            color: fade-out(mix($gray-light, white, 38%), .60);
         }
       }
     }

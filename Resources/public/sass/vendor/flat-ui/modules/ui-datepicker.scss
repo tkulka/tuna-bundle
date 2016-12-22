@@ -8,7 +8,7 @@
     margin: 10px 0 0 0;
     border: 7px solid $turquoise;
     border-radius: $datepicker-border-radius;
-    @include box-shadow(-14px 14px 0 fade($wet-asphalt, 6%));
+    @include box-shadow(-14px 14px 0 fade-out($wet-asphalt, .6));
 
     // Navigation pad
     .ui-datepicker-header {
@@ -37,7 +37,7 @@
         }
         &.ui-state-disabled {
             background-color: transparent;
-            color: fade($inverse, 75%);
+            color: fade-out($inverse, .75);
             cursor: default;
             @include opacity(.7);
         }

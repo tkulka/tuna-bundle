@@ -302,17 +302,17 @@ $select-arrow-color:                        $brand-primary !default;
 // Select dropdowns
 $select-dropdown-border-radius:             $border-radius-base !default;
 
-$select-dropdown-item-color:                fade($brand-primary, 85%) !default;
+$select-dropdown-item-color: fade-out($brand-primary, .85) !default;
 $select-dropdown-item-hover-color:          inherit !default;
 $select-dropdown-item-hover-bg:             mix($inverse, $brand-primary, 85%) !default;
 
-$select-dropdown-disabled-item-color:       fade($brand-primary, 95%) !default;
+$select-dropdown-disabled-item-color: fade-out($brand-primary, .95) !default;
 $select-dropdown-disabled-item-opacity:     0.4 !default;
 
 $select-dropdown-highlighted-item-bg:       $brand-secondary !default;
 $select-dropdown-highlighted-item-color:    $inverse !default;
 
-$select-dropdown-optgroup-color:            fade($brand-primary, 60%) !default;
+$select-dropdown-optgroup-color: fade-out($brand-primary, .60) !default;
 
 // Multiselect
 $multiselect-container-bg:                  $tagsinput-container-bg !default;
@@ -463,7 +463,7 @@ $dropdown-link-color:            mix(darken($brand-primary, 5%), $inverse, 75%) 
 //** Hover color for dropdown links.
 $dropdown-link-hover-color:      darken($dropdown-link-color, 5%) !default;
 //** Hover background for dropdown links.
-$dropdown-link-hover-bg:         fade(desaturate(lighten($brand-primary, 52%), 21%), 50%) !default;
+$dropdown-link-hover-bg: fade-out(desaturate(lighten($brand-primary, 52%), 21%), .50) !default;
 
 //** Active dropdown menu item text color.
 $dropdown-link-active-color:     $inverse !default;
@@ -474,10 +474,10 @@ $dropdown-link-active-bg:        $brand-secondary !default;
 $dropdown-link-disabled-color:   $gray-light !default;
 
 //** Divider color for between dropdown items.
-$dropdown-divider-bg:            fade($dropdown-link-hover-bg, 50%) !default;
+$dropdown-divider-bg: fade-out($dropdown-link-hover-bg, .50) !default;
 
 //** Text color for headers within dropdown menus.
-$dropdown-header-color:          fade($brand-primary, 60%) !default;
+$dropdown-header-color: fade-out($brand-primary, .60) !default;
 
 
 // Inverted dropdown
@@ -487,25 +487,25 @@ $dropdown-inverse-bg:                    $brand-primary !default;
 
 
 //** Dropdown link text color.
-$dropdown-inverse-link-color:            fade($inverse, 85%) !default;
+$dropdown-inverse-link-color: fade-out($inverse, .85) !default;
 //** Hover color for dropdown links.
-$dropdown-inverse-link-hover-color:      fade($inverse, 85%) !default;
+$dropdown-inverse-link-hover-color: fade-out($inverse, .85) !default;
 //** Hover background for dropdown links.
-$dropdown-inverse-link-hover-bg:         fade(darken($brand-primary, 5%), 50%) !default;
+$dropdown-inverse-link-hover-bg: fade-out(darken($brand-primary, 5%), .50) !default;
 
 //** Active dropdown menu item text color.
-$dropdown-inverse-link-active-color:     fade($inverse, 85%) !default;
+$dropdown-inverse-link-active-color: fade-out($inverse, .85) !default;
 //** Active dropdown menu item background color.
 $dropdown-inverse-link-active-bg:        $brand-secondary !default;
 
 //** Disabled dropdown menu item background color.
-$dropdown-inverse-link-disabled-color:   fade($dropdown-inverse-link-color, 50%) !default;
+$dropdown-inverse-link-disabled-color: fade-out($dropdown-inverse-link-color, .50) !default;
 
 //** Divider color for between dropdown items.
 $dropdown-inverse-divider-bg:            $dropdown-inverse-link-hover-bg !default;
 
 //** Text color for headers within dropdown menus.
-$dropdown-inverse-header-color:          fade($inverse, 40%) !default;
+$dropdown-inverse-header-color: fade-out($inverse, .40) !default;
 
 
 //== Progress bars

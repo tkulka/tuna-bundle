@@ -21,5 +21,15 @@
                 color: $brand-primary;
             }
         }
+
+        &.disabled {
+            > a,
+            > a:hover,
+            > a:active,
+            > span {
+                background: transparent;
+                opacity: .5;
+            }
+        }
     }
 }

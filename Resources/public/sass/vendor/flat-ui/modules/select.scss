@@ -447,7 +447,7 @@
 // Dropdown inverse variant
 .select-inverse-dropdown {
   background-color: $brand-primary;
-  color: fade($inverse, 75%);
+    color: fade-out($inverse, .75);
 
   // Result list
   .select2-results {
@@ -469,7 +469,7 @@
 
     // Optgroup title
     > .select2-result-label {
-      color: fade($inverse, 60%);
+        color: fade-out($inverse, .60);
 
       &:hover {
         color: $inverse;

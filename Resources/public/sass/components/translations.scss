@@ -1,34 +1,9 @@
-.a2lix_translationsLocales {
-    margin-bottom: 60px;
+#translation-grid {
+    .actions {
+        min-width: 90px;
 
-    &.nav-tabs {
-        border: 0;
-
-        li {
-            margin-right: 20px;
-
-            a {
-                color: lighten($brand-tertiary, 25%);
-                border: 0;
-                padding: 0;
-            }
-
-            &.active a, & a:hover, & a:focus {
-                border: 0;
-                background: transparent;
-                color: $brand-secondary;
-            }
+        button {
+            display: inline-block;
         }
-    }
-}
-
-.translation-container {
-    .preview {
-        @extend pre;
-        white-space: normal;
-    }
-
-    .translation-key {
-        font-weight: bold;
     }
 }
