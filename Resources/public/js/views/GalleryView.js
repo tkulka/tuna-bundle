@@ -18,12 +18,12 @@
             this.initSortable();
             this.$wrapper = this.$('.thecodeine_admin_gallery');
             this.$wrapper.data('index', this.$('li.item').length);
+            this.dropzoneOptions = this.$('[data-dropzone-options]').data('dropzone-options');
 
-            var dropzoneOptions = this.$('[data-dropzone-options]').data('dropzone-options');
-            if (dropzoneOptions) {
+            if (this.dropzoneOptions) {
                 new tuna.file.view.DropzoneView({
-                    el: $(dropzoneOptions.selector),
-                    options: dropzoneOptions,
+                    el: $(this.dropzoneOptions.selector),
+                    options: this.dropzoneOptions,
                     parentView: this,
                     tunaEvents: this.tunaEvents
                 });
@@ -73,10 +73,8 @@
                     );
                     $(selector).addClass('loaded');
 
-                    var options = $(selector).find('.thecodeine_admin_main_image').data('dropzone-options');
-
                     if (image) {
-                        $(selector).find('.preview').html(options.previewTemplate.replace('__path__', image.path));
+                        $(selector).find('.preview').html(this.dropzoneOptions.previewTemplate.replace('__path__', image.path));
                         $(selector).find('.input--path').val(image.path);
                         $(selector).find('.input--filename').val(image.originalName);
                     }
