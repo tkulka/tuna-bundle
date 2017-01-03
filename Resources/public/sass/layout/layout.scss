@@ -35,7 +35,12 @@ body {
             color: $link-color-inverse;
 
             @media all and (min-width: $desktopSmallScreen) {
+                @include calc(height, "100% - 50px");
                 padding: 60px;
+
+                .inside {
+                    padding-bottom: 20px;
+                }
             }
         }
     }
@@ -46,7 +51,6 @@ body {
     height: 100%;
 
     @media all and (min-width: $desktopSmallScreen) {
-        height: 100%;
         overflow-x: hidden;
         overflow-y: auto;
     }
