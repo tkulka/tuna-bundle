@@ -28,7 +28,7 @@
         "gedmo/doctrine-extensions": "^2.4",
         "doctrine/doctrine-fixtures-bundle": "^2.3",
         "doctrine/doctrine-migrations-bundle": "^1.0",
-        "friendsofsymfony/user-bundle": "2.0.*@dev",
+        "friendsofsymfony/user-bundle": "2.0.x-dev#c080ad2",
         "leafo/scssphp": "^0.6.3",
         "willdurand/js-translation-bundle": "^2.5",
         "smart-core/accelerator-cache-bundle": "^1.2.0",
