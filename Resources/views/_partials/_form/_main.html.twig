@@ -30,7 +30,7 @@
                         {% endif %}
                     </h3>
 
-                    {% include 'TheCodeineAdminBundle::_partials/_form/_content.html.twig' %}
+                    {% include 'TheCodeineAdminBundle::_partials/_form/_content.html.twig' with { contentExtraFields: block('contentExtraFields') } %}
                 {% endblock %}
             </div>
         </div>
