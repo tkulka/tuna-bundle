@@ -1,9 +1,11 @@
 .admin-option-container .thecodeine_admin_main_image {
     .preview {
         img {
+            width: auto;
+            height: auto;
+            display: block;
+            max-width: 100%;
             border: 2px solid $brand-primary;
-            height: 197px;
-            width: 280px;
         }
 
         .remove {
