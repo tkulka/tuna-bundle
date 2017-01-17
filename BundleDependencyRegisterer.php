@@ -18,6 +18,7 @@ class BundleDependencyRegisterer
             new \TheCodeine\NewsBundle\TheCodeineNewsBundle(),
             new \TheCodeine\MenuBundle\TheCodeineMenuBundle(),
             new \TheCodeine\UserBundle\TheCodeineUserBundle(),
+            new \TheCodeine\TranslationBundle\TheCodeineTranslationBundle(),
             new \SmartCore\Bundle\AcceleratorCacheBundle\AcceleratorCacheBundle(),
             new \JMS\TranslationBundle\JMSTranslationBundle(),
             new \Bazinga\Bundle\JsTranslationBundle\BazingaJsTranslationBundle(),

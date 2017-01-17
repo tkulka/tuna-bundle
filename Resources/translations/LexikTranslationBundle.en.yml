@@ -1,0 +1,29 @@
+translations:
+    page_title: Translations
+    new_translation: New translation
+    show_hide_columns: Toggle columns
+    toggle_all_columns: Toggle all collumns
+    invalidate_cache: Invalidate cache
+    cache_removed: Cache removed
+    all_translations: All translations
+    profiler: Profiler
+    data_source: Data source
+    latest_profiles: Latest profiles
+    profile: Profile
+    save_row: Save row
+    domain: Domain
+    key: Key
+    save: Save
+    successfully_updated: Saved
+    update_failed: Save failed
+    successfully_deleted: Deleted
+    delete_failed: Delete failed
+    no_translations: No translations
+    back_to_list: Back to list
+    save_add: Save and add next
+    add_translation: Add translation
+overview:
+    page_title: Overview
+    show_grid: Table
+    msg_latest_translation: "Date of last translation: %date%"
+    domain: Domain

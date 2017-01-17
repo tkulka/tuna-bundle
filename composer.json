@@ -33,7 +33,7 @@
         "willdurand/js-translation-bundle": "^2.5",
         "smart-core/accelerator-cache-bundle": "^1.2.0",
         "friendsofsymfony/jsrouting-bundle": "^1.6",
-        "lexik/translation-bundle": "dev-master"
+        "lexik/translation-bundle": "dev-master#71b34a2"
     },
     "replace": {
         "thecodeine/tuna-categorybundle": "self.version",

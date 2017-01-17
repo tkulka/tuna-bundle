@@ -1,0 +1,29 @@
+translations:
+    page_title: Tłumaczenia
+    new_translation: Nowe tłumaczenie
+    show_hide_columns: Pokaż/Ukryj kolumny
+    toggle_all_columns: Pokaż/Ukryj wszystkie kolumny
+    invalidate_cache: Wyczyść cache
+    cache_removed: Wyczyszczono cache
+    all_translations: Wszystkie tłumaczenia
+    profiler: Profiler
+    data_source: Źródło
+    latest_profiles: Ostatnie profile
+    profile: Profil
+    save_row: Zapisz rząd
+    domain: Domena
+    key: Klucz
+    save: Zapisz
+    successfully_updated: Zapisano
+    update_failed: Nie udało się zapisać
+    successfully_deleted: Usunięto
+    delete_failed: Nie udało się usunąć
+    no_translations: Brak tłumaczeń
+    back_to_list: Wróć do listy
+    save_add: Zapisz i dodaj następne
+    add_translation: Dodaj tłumaczenie
+overview:
+    page_title: Podsumowanie
+    show_grid: Tabela
+    msg_latest_translation: "Data ostatniego tłumaczenia: %date%"
+    domain: Domena

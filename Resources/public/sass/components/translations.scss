@@ -1,9 +1,78 @@
 #translation-grid {
     .actions {
         min-width: 90px;
+        margin-bottom: 0;
 
         button {
             display: inline-block;
+            padding: 2px;
+            background-color: transparent;
+            color: $link-color-inverse;
+            margin-left: 10px;
+
+            &:hover {
+                background-color: transparent;
+                color: $brand-primary;
+            }
         }
+    }
+
+    .locales-list {
+        display: inline-block;
+    }
+
+    .btn-manage-col {
+        background-color: transparent;
+        border: 2px solid $link-color-inverse;
+        padding: 11px 40px;
+
+        &:hover {
+            background-color: lighten($brand-tertiary, 5%);
+        }
+    }
+
+    .btn-invalidate-cache {
+        padding: 13px 40px;
+    }
+
+    .table {
+        table-layout: fixed;
+        margin-top: 40px;
+    }
+
+    .col-save {
+        width: 120px;
+    }
+
+    label.checkbox {
+        padding-left: 30px;
+        color: $brand-content;
+    }
+
+    .form-control {
+        background-color: transparent;
+        border: 2px solid lighten($brand-tertiary, 35%);
+        color: $brand-content;
+    }
+
+    .filters {
+        th {
+            opacity: 1;
+            vertical-align: middle;
+        }
+
+        .icon {
+            font-size: 18px;
+            color: $link-color-inverse;
+        }
+    }
+
+    .alert-info {
+        background-color: lighten($brand-tertiary, 10%);
+        border: none;
+        border-radius: 0;
+        color: $brand-content;
+        padding: 5px 10px;
+        font-size: 15px;
     }
 }

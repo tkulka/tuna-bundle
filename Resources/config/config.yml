@@ -132,6 +132,7 @@ lexik_translation:
     fallback_locale: ["%locale%"]
     managed_locales: "%locales%"
     base_layout: "TheCodeineAdminBundle::_translation_layout.html.twig"
+    grid_input_type: textarea
     resources_registration:
         type: all
         managed_locales_only: false

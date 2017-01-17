@@ -43,3 +43,13 @@
 .btn-round {
     border-radius: 30px;
 }
+
+.btn-group {
+    > .btn + .btn {
+        margin-left: 10px;
+
+        &:first-child {
+            margin-left: 0;
+        }
+    }
+}
