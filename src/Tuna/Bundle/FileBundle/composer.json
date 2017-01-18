@@ -4,6 +4,7 @@
     "description": "FileBundle",
     "homepage": "http://tuna-cms.herokuapp.com/",
     "require": {
+        "stof/doctrine-extensions-bundle": "^1.2",
         "friendsofsymfony/jsrouting-bundle": "^1.6"
     },
     "autoload": {
