@@ -1,9 +1,14 @@
+var tuna = tuna || {};
+
 (function () {
+    tuna.file = tuna.file || {};
+    tuna.file.view = tuna.file.view || {};
+
     tuna.file.view.DropzoneView = Backbone.View.extend({
         initialize: function (options) {
             Dropzone.autoDiscover = false;
 
-            this.tunaEvents = options.tunaEvents;
+            this.events = options.events || _.extend({}, Backbone.Events);
             this.parentView = options.parentView;
             this.options = options.options;
 
@@ -34,15 +39,23 @@
             this.options.clickable = '.' + this.cid + ' ' + this.options.clickable;
         },
 
+        getUploaderUrl: function () {
+            return Routing.generate('tuna_file_upload');
+        },
+
+        getText: function (text) {
+            return Translator.trans(text);
+        },
+
         setupOptions: function () {
             var dropzoneView = this;
 
             this.options = _.extend({
-                url: Routing.generate('tuna_file_upload'),
+                url: this.getUploaderUrl(),
                 acceptedFiles: '',
                 paramName: 'file',
-                dictInvalidFileType: Translator.trans('You can\'t upload files of this type.'),
-                dictMaxFilesExceeded: Translator.trans('You can\'t upload any more files.'),
+                dictInvalidFileType: this.getText('You can\'t upload files of this type.'),
+                dictMaxFilesExceeded: this.getText('You can\'t upload any more files.'),
                 isClickableExternal: false,
                 clickable: '[data-dropzone-clickable]',
                 previewsContainer: '.preview',
@@ -50,8 +63,8 @@
                 },
                 error: function (file, error, xhr) {
                     if (xhr) error = error.messages;
-                    dropzoneView.tunaEvents.trigger('errorOccurred', {
-                        title: Translator.trans('File upload error'),
+                    dropzoneView.events.trigger('errorOccurred', {
+                        title: dropzoneView.getText('File upload error'),
                         message: file.name + ' - ' + error
                     });
                 },
@@ -66,11 +79,11 @@
                     });
 
                     this.on('addedfile', function () {
-                        dropzoneView.tunaEvents.trigger('file.fileAdded');
+                        dropzoneView.events.trigger('file.fileAdded');
                     });
 
                     this.on('complete', function () {
-                        dropzoneView.tunaEvents.trigger('file.fileCompleted');
+                        dropzoneView.events.trigger('file.fileCompleted');
                     })
                 }
             }, this.options);

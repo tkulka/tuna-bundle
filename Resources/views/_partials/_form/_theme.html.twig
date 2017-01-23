@@ -11,26 +11,6 @@
 {% use 'TheCodeineAdminBundle::_partials/_form/parts/tags.html.twig' %}
 {% use 'TheCodeineAdminBundle::_partials/_form/parts/translations.html.twig' %}
 
-{% macro tuna_image_preview(fileUrl, deletable, scalePreviewThumbnail = true) %}{% spaceless %}
-    {% if fileUrl %}
-        {% if scalePreviewThumbnail %}
-            {% set fileUrl = fileUrl|imagine_filter('tuna_admin_thumb') %}
-        {% endif %}
-        <img src="{{ fileUrl }}"/>
-        {% if deletable %}
-            <span data-action="remove" class="remove">{% trans %}Remove{% endtrans %}</span>
-        {% endif %}
-    {% endif %}
-{% endspaceless %}{% endmacro %}
-
-{% macro tuna_file_preview(fileUrl) %}{% spaceless %}
-    {% if fileUrl is not null %}
-        <a href="{{ asset(fileUrl) }}" class="btn btn-secondary" target="_blank">
-            <span class="fui-eye"></span>
-        </a>
-    {% endif %}
-{% endspaceless %}{% endmacro %}
-
 {%- block form_widget_compound -%}
     <div {{ block('widget_container_attributes') }}>
         {%- if form.parent is empty -%}

@@ -14,8 +14,7 @@ tuna_page:
     prefix:   /admin/
 
 tuna_file:
-    resource: "@TheCodeineFileBundle/Controller/DefaultController.php"
-    type:     annotation
+    resource: "@TheCodeineFileBundle/Resources/config/routing.yml"
     prefix:   /admin/
 
 tuna_dashboard:

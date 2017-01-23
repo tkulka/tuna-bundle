@@ -5,7 +5,7 @@ window.tuna.file = {
 tuna.file.initFileBundle = function (tunaEvents) {
     new tuna.file.view.QueueView({
         el: $('#upload'),
-        tunaEvents: tunaEvents
+        events: tunaEvents
     });
 
     $('[data-dropzone-options]').each(function (index, item) {
@@ -16,7 +16,7 @@ tuna.file.initFileBundle = function (tunaEvents) {
             new tuna.file.view.DropzoneView({
                 el: $dropzonable,
                 options: options,
-                tunaEvents: tunaEvents
+                events: tunaEvents
             });
         }
     });
