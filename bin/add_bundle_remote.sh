@@ -3,5 +3,5 @@
 remoteName=tuna-$1
 
 if ! git config remote.$remoteName.url; then
-    git remote add $remoteName git@github.com:tuna-cms/$1.git;
+    git remote add $remoteName git@github.com:tuna-cms/$1-bundle.git;
 fi

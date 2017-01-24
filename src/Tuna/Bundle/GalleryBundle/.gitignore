@@ -1,3 +1,4 @@
+.idea/
 vendor/
 Behat/Fixtures/app/cache/
 Behat/Fixtures/app/logs/

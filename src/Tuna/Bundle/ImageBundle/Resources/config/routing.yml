@@ -1,0 +1,23 @@
+_image_upload_remote:
+    path: /admin/image/upload/remote.{_format}
+    defaults:  { _controller: TheCodeineImageBundle:Upload:uploadFromRemote, _format: json }
+    methods:  [POST]
+    requirements:
+        _format: json|xml+
+
+_image_upload_request:
+    path: /admin/image/upload/request.{_format}
+    defaults:  { _controller: TheCodeineImageBundle:Upload:uploadFromRequest, _format: json }
+    methods:  [POST]
+    requirements:
+        _format: json|xml+
+
+image_upload_remote:
+    path: /admin/image/upload/remote
+    defaults:  { _controller: TheCodeineImageBundle:Upload:remote }
+    methods:  [GET]
+
+image_upload_request:
+    path: /admin/image/upload/request
+    defaults:  { _controller: TheCodeineImageBundle:Upload:request }
+    methods:  [GET]

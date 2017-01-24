@@ -1,4 +1,6 @@
-# TheCodeine FileBundle
+Tuna CMS FileBundle
+
+[ ![Codeship Status for Tuna-CMS/file-bundle](https://app.codeship.com/projects/bbd21400-c125-0134-7fc8-7ee917b55fa1/status?branch=master)](https://app.codeship.com/projects/197169)
 
 ## Standalone usage:
 1. Enable FOSJsRoutingBundle:

@@ -1,6 +1,3 @@
-# TheCodeine EditorBundle
+Tuna CMS EditorBundle
 
-## Standalone usage:
-To use CKEditor include jquery and CKE (`bundles/thecodeineeditor/js/vendor/ckeditor/ckeditor.js`). You also have to define base path for CKE as global JS variable:
-
-    var CKEDITOR_BASEPATH = 'bundles/thecodeineeditor/js/vendor/ckeditor/';
+[ ![Codeship Status for Tuna-CMS/editor-bundle](https://app.codeship.com/projects/c95e3880-c125-0134-c668-7ee917b55fa1/status?branch=master)](https://app.codeship.com/projects/197170)

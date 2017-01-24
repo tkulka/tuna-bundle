@@ -1,6 +1,6 @@
-# TheCodeine AdminBundle
+Tuna CMS TunaBundle
 
-[![Codeship Status for Tuna-CMS/tuna](https://app.codeship.com/projects/d7adfd70-c125-0134-dd40-3264d70e0757/status?branch=master)](https://app.codeship.com/projects/197171)
+[ ![Codeship Status for Tuna-CMS/tuna-bundle](https://app.codeship.com/projects/d7adfd70-c125-0134-dd40-3264d70e0757/status?branch=master)](https://app.codeship.com/projects/197171)
 
 ## Installation:
 
