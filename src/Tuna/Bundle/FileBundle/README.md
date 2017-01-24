@@ -7,7 +7,7 @@ Tuna CMS FileBundle
 
         <?php
         // app/AppKernel.php
-        
+
         // ...
         class AppKernel extends Kernel
         {
@@ -15,16 +15,16 @@ Tuna CMS FileBundle
             {
                 $bundles = array(
                     // ...
-        
+
                     new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
                 );
-        
+
                 // ...
             }
-        
+
             // ...
         }
-    
+
 2. Register the Routes:
 
         # app/config/routing.yml
