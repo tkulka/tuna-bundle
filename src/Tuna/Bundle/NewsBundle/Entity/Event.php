@@ -2,7 +2,6 @@
 
 namespace TheCodeine\NewsBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -36,20 +35,22 @@ class Event extends AbstractNews
      */
     public function __construct()
     {
+        parent::__construct();
+
         $startDate = new \DateTime();
         $startDate->setTime(0, 0, 0);
         $startDate->format('Y-m-d');
 
-        parent::__construct();
         $this->setCreatedAt(new \DateTime());
         $this->setStartDate($startDate);
     }
 
     /**
-     * @return $this
      * @param \DateTime $startDate
+     *
+     * @return Event
      */
-    public function setStartDate($startDate)
+    public function setStartDate(\DateTime $startDate)
     {
         $this->startDate = $startDate;
 
@@ -73,10 +74,11 @@ class Event extends AbstractNews
     }
 
     /**
-     * @return $this
      * @param \DateTime $endDate
+     *
+     * @return Event
      */
-    public function setEndDate($endDate)
+    public function setEndDate(\DateTime $endDate)
     {
         $this->endDate = $endDate;
 

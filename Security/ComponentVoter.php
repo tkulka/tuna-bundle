@@ -17,23 +17,38 @@ class ComponentVoter extends Voter
      */
     protected $decisionManager;
 
+    /**
+     * @var array
+     */
     protected $componentsConfig;
 
+    /**
+     * ComponentVoter constructor.
+     *
+     * @param AccessDecisionManagerInterface $decisionManager
+     * @param array $componentsConfig
+     */
     public function __construct(AccessDecisionManagerInterface $decisionManager, array $componentsConfig)
     {
         $this->decisionManager = $decisionManager;
         $this->componentsConfig = $componentsConfig;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function supports($attribute, $subject)
     {
-        if (!in_array($attribute, array(self::CREATE, self::DELETE))) {
+        if (!in_array($attribute, [self::CREATE, self::DELETE])) {
             return false;
         }
 
-        return in_array($subject, array('pages', 'news', 'events'));
+        return in_array($subject, ['pages', 'news', 'events']);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
     {
         $user = $token->getUser();
@@ -42,7 +57,7 @@ class ComponentVoter extends Voter
             return false;
         }
 
-        if ($this->decisionManager->decide($token, array('ROLE_SUPER_ADMIN'))) {
+        if ($this->decisionManager->decide($token, ['ROLE_SUPER_ADMIN'])) {
             return true;
         }
 

@@ -6,13 +6,8 @@ use Symfony\Component\Intl\Intl;
 
 class TwigExtension extends \Twig_Extension
 {
-    public function getName()
-    {
-        return 'thecodeine_admin_extension';
-    }
-
     /**
-     * {@inheritdoc}
+     * @return array
      */
     public function getFunctions()
     {
@@ -21,6 +16,12 @@ class TwigExtension extends \Twig_Extension
         ];
     }
 
+    /**
+     * @param $locale
+     * @param null $displayLocale
+     *
+     * @return null|string
+     */
     public function countryName($locale, $displayLocale = null)
     {
         return Intl::getLocaleBundle()->getLocaleName($locale, $displayLocale);

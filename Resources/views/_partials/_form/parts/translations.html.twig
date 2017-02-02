@@ -5,8 +5,7 @@
         <div class="a2lix_translationsFields tab-content">
             {% for translationsFields in form %}
                 {% set locale = translationsFields.vars.name %}
-                <div
-                    class="a2lix_translationsFields-{{ locale }} tab-pane {% if app.request.locale == locale %}active{% endif %}">
+                <div class="a2lix_translationsFields-{{ locale }} tab-pane {% if app.request.locale == locale %}active{% endif %}">
                     {{ form_widget(translationsFields, { required: false }) }}
                 </div>
             {% endfor %}
@@ -24,9 +23,7 @@
                     {% for translationsFields in translationsLocales %}
                         {% set locale = translationsFields.vars.name %}
 
-                        <div
-                            class="a2lix_translationsFields-{{ locale }} tab-pane {% if app.request.locale == locale %}active{% endif %}"
-                            data-lang="{{ locale }}">
+                        <div class="a2lix_translationsFields-{{ locale }} tab-pane {% if app.request.locale == locale %}active{% endif %}" data-lang="{{ locale }}">
                             {{ form_widget(translationsFields) }}
                         </div>
                     {% endfor %}

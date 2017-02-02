@@ -41,8 +41,9 @@ class Page extends AbstractPage
     }
 
     /**
-     * @return $this
      * @param string $alias
+     *
+     * @return Page
      */
     public function setAlias($alias)
     {

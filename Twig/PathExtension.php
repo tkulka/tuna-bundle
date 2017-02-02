@@ -9,29 +9,37 @@ class PathExtension extends \Twig_Extension
      */
     private $paths;
 
+    /**
+     * PathExtension constructor.
+     *
+     * @param $paths
+     */
     public function __construct($paths)
     {
         $this->paths = $paths;
     }
 
+    /**
+     * @return array
+     */
     public function getFunctions()
     {
-        return array(
-            new \Twig_SimpleFunction('tuna_getPath', function ($name) {
-                if (array_key_exists($name, $this->paths)) {
-                    return '/' . $this->paths[$name];
-                } else {
-                    throw new \InvalidArgumentException(sprintf(
-                        'Path "%s" is not defined. Maybe you forgot to add it to thecodeine_admin.paths config?',
-                        $name
-                    ));
-                }
-            })
-        );
+        return [
+            new \Twig_SimpleFunction('tuna_getPath', [$this, 'getPath'])
+        ];
     }
 
-    public function getName()
+    /**
+     * @param $name
+     *
+     * @return string
+     */
+    public function getPath($name)
     {
-        return 'thecodeine_admin_path_extension';
+        if (array_key_exists($name, $this->paths)) {
+            return '/' . $this->paths[$name];
+        } else {
+            throw new \InvalidArgumentException(sprintf('Path "%s" is not defined. Maybe you forgot to add it to thecodeine_admin.paths config?', $name));
+        }
     }
 }

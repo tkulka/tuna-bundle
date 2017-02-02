@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use TheCodeine\PageBundle\Entity\AbstractPage;
 use Symfony\Component\Validator\Constraints as Assert;
+use TheCodeine\TagBundle\Entity\Tag;
 
 /**
  * AbstractNews
@@ -54,23 +55,24 @@ abstract class AbstractNews extends AbstractPage
     protected $important;
 
     /**
-     * Constructor
+     * AbstractNews constructor.
      */
     public function __construct()
     {
         parent::__construct();
+
         $this->tags = new ArrayCollection();
+
         $this->setImportant(false);
         $this->setCreatedAt(new \DateTime());
     }
 
     /**
-     * Set created
-     *
      * @param \DateTime $createdAt
-     * @return News
+     *
+     * @return AbstractNews
      */
-    public function setCreatedAt($createdAt)
+    public function setCreatedAt(\DateTime $createdAt)
     {
         $this->createdAt = $createdAt;
 
@@ -78,8 +80,6 @@ abstract class AbstractNews extends AbstractPage
     }
 
     /**
-     * Get created
-     *
      * @return \DateTime
      */
     public function getCreatedAt()
@@ -88,12 +88,11 @@ abstract class AbstractNews extends AbstractPage
     }
 
     /**
-     * Add tags
+     * @param Tag $tag
      *
-     * @param \TheCodeine\TagBundle\Entity\Tag $tag
-     * @return News
+     * @return AbstractNews
      */
-    public function addTag(\TheCodeine\TagBundle\Entity\Tag $tag)
+    public function addTag(Tag $tag)
     {
 
         $this->tags[] = $tag;
@@ -102,19 +101,15 @@ abstract class AbstractNews extends AbstractPage
     }
 
     /**
-     * Remove tags
-     *
-     * @param \TheCodeine\TagBundle\Entity\Tag $tag
+     * @param Tag $tag
      */
-    public function removeTag(\TheCodeine\TagBundle\Entity\Tag $tag)
+    public function removeTag(Tag $tag)
     {
         $this->tags->removeElement($tag);
     }
 
     /**
-     * Get tags
-     *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return ArrayCollection
      */
     public function getTags()
     {
@@ -122,10 +117,9 @@ abstract class AbstractNews extends AbstractPage
     }
 
     /**
-     * Set important flag
-     *
      * @param boolean $important
-     * @return News
+     *
+     * @return AbstractNews
      */
     public function setImportant($important)
     {
@@ -134,10 +128,7 @@ abstract class AbstractNews extends AbstractPage
         return $this;
     }
 
-
     /**
-     * Get important flag
-     *
      * @return boolean
      */
     public function isImportant()
@@ -145,6 +136,9 @@ abstract class AbstractNews extends AbstractPage
         return $this->important;
     }
 
+    /**
+     * @return string
+     */
     public function getType()
     {
         return (new \ReflectionClass($this))->getShortName();

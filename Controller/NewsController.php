@@ -5,12 +5,15 @@ namespace TheCodeine\AdminBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use TheCodeine\NewsBundle\Controller\NewsController as Controller;
 
 /**
  * @Route("/news")
  */
-class NewsController extends \TheCodeine\NewsBundle\Controller\NewsController
+class NewsController extends Controller
 {
+    const PAGINATE_LIMIT = 10;
+
     /**
      * @Route("/{newsType}/list", name="tuna_news_list")
      * @Template()
@@ -18,21 +21,20 @@ class NewsController extends \TheCodeine\NewsBundle\Controller\NewsController
     public function listAction(Request $request, $newsType = null)
     {
         $query = $this->getDoctrine()->getRepository('TheCodeineNewsBundle:AbstractNews')->getListQuery($newsType);
-        $defaultSort = array(
+        $defaultSort = [
             'defaultSortFieldName' => 'n.createdAt',
             'defaultSortDirection' => 'DESC'
-        );
+        ];
 
         $page = $request->query->get('page', 1);
-        $limit = 10;
 
         $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate($query, $page, $limit, $defaultSort);
+        $pagination = $paginator->paginate($query, $page, self::PAGINATE_LIMIT, $defaultSort);
 
-        return array(
-            'pagination' => $pagination,
-            'offset' => $page * $limit - $limit,
+        return [
+            'offset' => $page * self::PAGINATE_LIMIT - self::PAGINATE_LIMIT,
             'newsType' => $newsType,
-        );
+            'pagination' => $pagination,
+        ];
     }
 }

@@ -6,11 +6,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use TheCodeine\CategoryBundle\Entity\Category;
+use TheCodeine\CategoryBundle\Controller\CategoryController as Controller;
 
 /**
  * @Route("/category")
  */
-class CategoryController extends \TheCodeine\CategoryBundle\Controller\CategoryController
+class CategoryController extends Controller
 {
     /**
      * @Route("/list", name="tuna_category_list")

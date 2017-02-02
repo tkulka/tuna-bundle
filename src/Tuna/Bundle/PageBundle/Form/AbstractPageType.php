@@ -4,7 +4,7 @@ namespace TheCodeine\PageBundle\Form;
 
 use A2lix\TranslationFormBundle\Form\Type\GedmoTranslationsType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -12,12 +12,14 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use TheCodeine\FileBundle\Form\AttachmentCollectionType;
 use TheCodeine\FileBundle\Form\MainImageType;
-use TheCodeine\NewsBundle\Entity\Page;
-use TheCodeine\NewsBundle\Form\AttachmentsType;
 use TheCodeine\GalleryBundle\Form\GalleryType;
+use TunaCMS\EditorBundle\Form\EditorType;
 
 abstract class AbstractPageType extends AbstractType
 {
+    /**
+     * @var bool
+     */
     private $validate;
 
     /**
@@ -35,8 +37,7 @@ abstract class AbstractPageType extends AbstractType
     }
 
     /**
-     * @param FormBuilderInterface $builder
-     * @param array $options
+     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -47,7 +48,7 @@ abstract class AbstractPageType extends AbstractType
         }
         $builder
             ->add('image', MainImageType::class)
-            ->add('published', Type\CheckboxType::class, [
+            ->add('published', CheckboxType::class, [
                 'required' => false
             ])
             ->add('attachments', AttachmentCollectionType::class)
@@ -59,14 +60,15 @@ abstract class AbstractPageType extends AbstractType
                         'required' => true
                     ],
                     'teaser' => [
-                        'field_type' => 'editor',
+                        'field_type' => EditorType::class,
+                        'config_name' => 'tuna.editor.config.simple',
                         'attr' => [
                             'data-type' => 'basic',
                         ],
                         'required' => false,
                     ],
                     'body' => [
-                        'field_type' => 'editor',
+                        'field_type' => EditorType::class,
                         'required' => true
                     ],
                 ],
@@ -74,7 +76,7 @@ abstract class AbstractPageType extends AbstractType
     }
 
     /**
-     * @param OptionsResolver $resolver
+     * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
@@ -85,9 +87,9 @@ abstract class AbstractPageType extends AbstractType
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'thecodeine_pagebundle_page';
     }

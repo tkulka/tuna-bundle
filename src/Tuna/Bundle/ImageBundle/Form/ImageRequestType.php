@@ -3,28 +3,41 @@
 namespace TheCodeine\ImageBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use TheCodeine\ImageBundle\Entity\Image;
 
 class ImageRequestType extends AbstractType
 {
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('file', 'file')
-            ->add('save', 'submit')
+            ->add('file', FileType::class)
+            ->add('save', SubmitType::class)
         ;
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    /**
+     * {@inheritdoc}
+     */
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
+            'data_class' => Image::class,
             'csrf_protection' => false,
-            'data_class' => 'TheCodeine\ImageBundle\Entity\Image',
-        ));
+            'translation_domain' => 'tuna_admin',
+        ]);
     }
 
-    public function getName()
+    /**
+     * {@inheritdoc}
+     */
+    public function getBlockPrefix()
     {
         return 'the_codeine_image_request';
     }

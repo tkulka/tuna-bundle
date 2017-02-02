@@ -17,7 +17,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @Gedmo\TranslationEntity(class="TheCodeine\CategoryBundle\Entity\CategoryTranslation")
  * @UniqueEntity("name")
  * @ORM\Entity
- *
  */
 class Category
 {
@@ -38,15 +37,17 @@ class Category
     protected $name;
 
     /**
+     * @var string
+     *
      * @Gedmo\Slug(fields={"name"})
      * @ORM\Column(type="string", unique=true)
      */
     protected $slug;
 
     /**
-     * @Assert\Valid
-     *
      * @var ArrayCollection
+     *
+     * @Assert\Valid
      *
      * @ORM\OneToMany(targetEntity="CategoryTranslation", mappedBy="object", cascade={"persist", "remove"})
      */
@@ -59,15 +60,21 @@ class Category
 
     /**
      * Category constructor.
+     *
+     * @param null|string $name
      */
     public function __construct($name = null)
     {
         $this->translations = new ArrayCollection();
+
         if ($name !== null) {
             $this->setName($name);
         }
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->getName() ? $this->getName() : '';
@@ -92,9 +99,12 @@ class Category
      */
     public function getType()
     {
-        return strtr((new \ReflectionClass($this))->getShortName(), array('Category' => ''));
+        return strtr((new \ReflectionClass($this))->getShortName(), ['Category' => '']);
     }
 
+    /**
+     * @param $locale
+     */
     public function setTranslatableLocale($locale)
     {
         $this->locale = $locale;
@@ -108,6 +118,11 @@ class Category
         return $this->translations;
     }
 
+    /**
+     * @param CategoryTranslation $translation
+     *
+     * @return Category
+     */
     public function addTranslation(CategoryTranslation $translation)
     {
         if (!$this->translations->contains($translation) && $translation->getContent()) {
@@ -118,6 +133,11 @@ class Category
         return $this;
     }
 
+    /**
+     * @param CategoryTranslation $translation
+     *
+     * @return Category
+     */
     public function removeTranslation(CategoryTranslation $translation)
     {
         $this->translations->remove($translation);
@@ -150,8 +170,9 @@ class Category
     }
 
     /**
-     * @return $this
-     * @param string $name
+     * @param $name
+     *
+     * @return Category
      */
     public function setName($name)
     {

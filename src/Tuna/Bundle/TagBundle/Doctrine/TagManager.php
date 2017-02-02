@@ -2,23 +2,22 @@
 
 namespace TheCodeine\TagBundle\Doctrine;
 
-use TheCodeine\TagBundle\Entity\Tag;
-use TheCodeine\TagBundle\Model\TagManagerInterface;
-
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityRepository;
+use TheCodeine\TagBundle\Entity\Tag;
 
 class TagManager implements TagManagerInterface
 {
     /**
      * Tag entity repository class
      *
-     * @var Doctrine\ORM\EntityRepository
+     * @var EntityRepository
      */
     protected $repository;
 
     public function __construct(ObjectManager $om)
     {
-        $this->repository = $om->getRepository('TheCodeine\TagBundle\Entity\Tag');
+        $this->repository = $om->getRepository(Tag::class);
     }
 
     public function createTag()

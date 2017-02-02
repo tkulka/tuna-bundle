@@ -1,5 +1,4 @@
 <?php
-// @formatter:off
 
 namespace TheCodeine\AdminBundle\DependencyInjection;
 
@@ -7,11 +6,6 @@ use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
-/**
- * This is the class that validates and merges configuration from your app/config files
- *
- * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html#cookbook-bundles-extension-config-class}
- */
 class Configuration implements ConfigurationInterface
 {
     /**
@@ -26,20 +20,12 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('paths')
                     ->addDefaultsIfNotSet()
                     ->children()
-                        ->scalarNode('admin_logo')
-                            ->defaultValue('bundles/thecodeineadmin/images/logo.png')
-                        ->end()
-                        ->scalarNode('editor_config')
-                            ->defaultValue('bundles/thecodeineeditor/js/editorConfig.js')
-                        ->end()
+                        ->scalarNode('admin_logo')->defaultValue('bundles/thecodeineadmin/images/logo.png')->end()
+                        ->scalarNode('editor_config')->defaultValue('bundles/tunacmseditor/js/editorConfig.js')->end()
                     ->end()
                 ->end()
-                ->scalarNode('host')
-                    ->defaultNull()
-                ->end()
-                ->scalarNode('menu_builder')
-                    ->defaultValue('TheCodeine\AdminBundle\Menu\Builder')
-                ->end()
+                ->scalarNode('host')->defaultNull()->end()
+                ->scalarNode('menu_builder')->defaultValue('TheCodeine\AdminBundle\Menu\Builder')->end()
                 ->arrayNode('locales')
                     ->prototype('scalar')->end()
                     ->defaultValue(['en', 'pl'])
@@ -51,6 +37,9 @@ class Configuration implements ConfigurationInterface
         return $treeBuilder;
     }
 
+    /**
+     * @param ArrayNodeDefinition $rootNode
+     */
     private function addComponentsSection(ArrayNodeDefinition $rootNode)
     {
         $sections = $rootNode->children()
@@ -74,7 +63,7 @@ class Configuration implements ConfigurationInterface
                 ->addDefaultsIfNotSet()
                 ->children()
                     ->scalarNode('wysiwyg_style_dir')
-                        ->defaultValue('%kernel.root_dir%/../vendor/thecodeine/tuna-adminbundle/Resources/public/sass/editor')
+                        ->defaultValue('%kernel.root_dir%/../vendor/tuna-cms/tuna-bundle/Resources/public/sass/editor')
                     ->end()
                 ->end()
             ->end()
@@ -108,6 +97,11 @@ class Configuration implements ConfigurationInterface
         $this->addEnabledConfig($sections, 'categories', false);
     }
 
+    /**
+     * @param ArrayNodeDefinition $node
+     * @param $name
+     * @param $defaultValue
+     */
     private function addEnabledConfig(ArrayNodeDefinition $node, $name, $defaultValue)
     {
         $node->children()

@@ -11,22 +11,27 @@ class IdToCategoryTransformer implements DataTransformerInterface
     /**
      * @var EntityRepository
      */
-    private $repo;
+    private $entityRepository;
 
     /**
      * IdToCategoryTransformer constructor.
+     *
+     * @param EntityRepository $entityRepository
      */
-    public function __construct(EntityRepository $repo)
+    public function __construct(EntityRepository $entityRepository)
     {
-        $this->repo = $repo;
+        $this->entityRepository = $entityRepository;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function transform($data)
     {
-        $result = array(
+        $result = [
             AddableCategoryType::CHOICE_FIELD => null,
             AddableCategoryType::NEW_VALUE_FIELD => null
-        );
+        ];
 
         if ($data === null || $data === '') {
             return $result;
@@ -41,12 +46,15 @@ class IdToCategoryTransformer implements DataTransformerInterface
         return $result;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function reverseTransform($data)
     {
         if ($data[AddableCategoryType::CHOICE_FIELD] == AddableCategoryType::NEW_VALUE_OPTION) {
             return $data[AddableCategoryType::NEW_VALUE_FIELD];
         } else {
-            return $this->repo->find($data[AddableCategoryType::CHOICE_FIELD]);
+            return $this->entityRepository->find($data[AddableCategoryType::CHOICE_FIELD]);
         }
     }
 }

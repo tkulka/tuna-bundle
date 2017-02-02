@@ -2,8 +2,8 @@
 
 namespace TheCodeine\VideoBundle\Doctrine;
 
+use Doctrine\ORM\EntityRepository;
 use TheCodeine\VideoBundle\Entity\Video;
-use TheCodeine\VideoBundle\Model\VideoManagerInterface;
 use Doctrine\ORM\EntityManager;
 
 class VideoManager implements VideoManagerInterface
@@ -11,22 +11,35 @@ class VideoManager implements VideoManagerInterface
     /**
      * Tag entity repository class
      *
-     * @var Doctrine\ORM\EntityRepository
+     * @var EntityRepository
      */
     protected $repository;
 
+    /**
+     * VideoManager constructor.
+     *
+     * @param EntityManager $entityManager
+     */
     public function __construct(EntityManager $entityManager)
     {
-        $this->repository = $entityManager->getRepository('TheCodeine\VideoBundle\Entity\Video');
+        $this->repository = $entityManager->getRepository(Video::class);
     }
 
+    /**
+     * @return Video
+     */
     public function createVideo()
     {
         return new Video();
     }
 
+    /**
+     * @param string $videoId
+     *
+     * @return Video
+     */
     public function findByVideoId($videoId)
     {
-        return $this->repository->findOneBy(array('video_id' => $videoId));
+        return $this->repository->findOneBy(['video_id' => $videoId]);
     }
 }

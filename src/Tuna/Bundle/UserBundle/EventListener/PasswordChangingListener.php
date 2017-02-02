@@ -10,6 +10,9 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class PasswordChangingListener implements EventSubscriberInterface
 {
+    /**
+     * @var UrlGeneratorInterface
+     */
     private $router;
 
     public function __construct(UrlGeneratorInterface $router)
@@ -22,11 +25,14 @@ class PasswordChangingListener implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return array(
+        return [
             FOSUserEvents::CHANGE_PASSWORD_SUCCESS => 'onPasswordChangingSuccess',
-        );
+        ];
     }
 
+    /**
+     * @param FormEvent $event
+     */
     public function onPasswordChangingSuccess(FormEvent $event)
     {
         $url = $this->router->generate('fos_user_change_password');

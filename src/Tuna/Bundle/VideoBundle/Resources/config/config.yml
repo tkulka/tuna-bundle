@@ -1,0 +1,5 @@
+the_codeine_video:
+    manager_class: TheCodeine\VideoBundle\Doctrine\VideoManager
+    form_type_class: TheCodeine\VideoBundle\Form\VideoUrlType
+    entity_manager_class: Doctrine\ORM\EntityManager
+    twig_extension_class: TheCodeine\VideoBundle\Twig\Extension\VideoPlayerExtension

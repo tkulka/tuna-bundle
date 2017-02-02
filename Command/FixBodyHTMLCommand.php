@@ -3,27 +3,32 @@
 namespace TheCodeine\AdminBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use TheCodeine\NewsBundle\Entity\News;
+use TheCodeine\PageBundle\Entity\Page;
 
 class FixBodyHTMLCommand extends ContainerAwareCommand
 {
+    /**
+     * {@inheritdoc}
+     */
     protected function configure()
     {
         $this
-        ->setName('thecodeine:admin:fix-body-html')
-        ->setDescription('Check and correct all body HTML in pages and news items')
-        ;
+            ->setName('tuna:admin:fix-body-html')
+            ->setDescription('Check and correct all body HTML in pages and news items');
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $em = $this->getContainer()->get('doctrine.orm.entity_manager');
 
-        $pr = $em->getRepository('TheCodeinePageBundle:Page');
-        $nr = $em->getRepository('TheCodeineNewsBundle:News');
+        $pr = $em->getRepository(Page::class);
+        $nr = $em->getRepository(News::class);
 
         foreach(array_merge($pr->findAll(), $nr->findAll()) as $item) {
             $itemTitle = $item->getTitle();
@@ -53,12 +58,18 @@ class FixBodyHTMLCommand extends ContainerAwareCommand
 
     }
 
+    /**
+     * @param $html
+     *
+     * @return mixed
+     */
     private function fixHTML($html) {
         if($html != '') {
             $html  = preg_replace('/(<[^>]+) style=".*?"/i', '$1', $html);
             $html  = preg_replace('/(<[^>]+) color=".*?"/i', '$1', $html);
             $html  = preg_replace('/(<[^>]+) face=".*?"/i', '$1',  $html);
         }
+
         return $html;
     }
 }

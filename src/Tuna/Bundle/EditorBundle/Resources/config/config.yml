@@ -1,0 +1,42 @@
+ivory_ck_editor:
+    default_config: tuna.editor.config
+    configs:
+        tuna.editor.config:
+            skin: "tuna,/bundles/tunacmseditor/ckeditor/skins/tuna/"
+            contentsCss: '/bundles/tunacmseditor/css/wysiwyg-styles.css'
+            stylesSet: "tuna_styles"
+            extraPlugins: 'autogrow,divarea,fixedUI,imageToolbar'
+            toolbar:
+                - ['Styles']
+                - ['Bold', 'Italic', 'Underline', 'RemoveFormat']
+                - ['BulletedList', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock']
+                - ['Link']
+                - ['Image']
+                - ['Source']
+        tuna.editor.config.simple:
+            skin: "tuna,/bundles/tunacmseditor/ckeditor/skins/tuna/"
+            contentsCss: '/bundles/tunacmseditor/css/wysiwyg-styles.css'
+            stylesSet: "tuna_styles"
+            extraPlugins: 'autogrow,divarea,fixedUI,imageToolbar'
+            toolbar:
+                - ['Bold', 'Italic', 'Underline', 'RemoveFormat']
+                - ['Source']
+    styles:
+        tuna_styles:
+            - { name: 'h1', element: 'h1' }
+            - { name: 'h2', element: 'h2' }
+            - { name: 'p', element: 'p' }
+            - { name: 'blockquote', element: 'p', attributes: { 'class': 'blockquote' } }
+    plugins:
+        autogrow:
+            path:     "/bundles/tunacmseditor/ckeditor/plugins/autogrow/"
+            filename: "plugin.js"
+        divarea:
+            path:     "/bundles/tunacmseditor/ckeditor/plugins/divarea/"
+            filename: "plugin.js"
+        fixedUI:
+            path:     "/bundles/tunacmseditor/ckeditor/plugins/fixedUI/"
+            filename: "plugin.js"
+        imageToolbar:
+            path:     "/bundles/tunacmseditor/ckeditor/plugins/imageToolbar/"
+            filename: "plugin.js"

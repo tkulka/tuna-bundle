@@ -3,25 +3,23 @@
 namespace TheCodeine\ImageBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class ImageFile extends AbstractType
 {
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults(array(
-            'foo' => 'bar'
-        ));
-    }
-
+    /**
+     * {@inheritdoc}
+     */
     public function getParent()
     {
-        return 'file';
+        return FileType::class;
     }
 
-    public function getName()
+    /**
+     * {@inheritdoc}
+     */
+    public function getBlockPrefix()
     {
-        return 'imagefile';
+        return 'tuna_image_file';
     }
-
 }

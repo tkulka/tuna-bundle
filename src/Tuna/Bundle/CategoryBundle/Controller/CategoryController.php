@@ -43,14 +43,14 @@ class CategoryController extends AbstractCategoryController
     public function listAction(Request $request)
     {
         $categories = $this->getRepository()->findAll();
-        $groupedCategories = array();
+        $groupedCategories = [];
 
         foreach ($categories as $category) {
             $groupedCategories[$category->getType()][] = $category;
         }
 
-        return array(
+        return [
             'groupedCategories' => $groupedCategories,
-        );
+        ];
     }
 }

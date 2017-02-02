@@ -6,6 +6,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class MainImageType extends ImageType
 {
+    /**
+     * {@inheritdoc}
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         parent::configureOptions($resolver);

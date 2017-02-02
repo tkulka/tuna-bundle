@@ -1,5 +1,5 @@
 services:
-    tuna_user.password_resetting:
+    tuna.user.password.reset:
         class: TheCodeine\UserBundle\EventListener\PasswordChangingListener
         arguments: ["@router"]
         tags:

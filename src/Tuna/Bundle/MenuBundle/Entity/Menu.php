@@ -141,10 +141,8 @@ class Menu
 
     /**
      * Menu constructor.
-     * @param string $label
-     * @param Page $page
-     * @param bool $clickable
-     * @param \DateTime $publishDate
+     *
+     * @param null|string $label
      */
     public function __construct($label = null)
     {
@@ -157,6 +155,8 @@ class Menu
 
     /**
      * @Assert\Callback
+     *
+     * @param ExecutionContextInterface $context
      */
     public function validate(ExecutionContextInterface $context)
     {
@@ -316,7 +316,9 @@ class Menu
     }
 
     /**
-     * @param $published boolean
+     * @param boolean $published
+     *
+     * @return Menu
      */
     public function setPublished($published)
     {

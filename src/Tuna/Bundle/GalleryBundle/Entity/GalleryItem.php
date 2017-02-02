@@ -28,10 +28,10 @@ class GalleryItem
     const VIDEO_TYPE = 'video';
     const IMAGE_TYPE = 'image';
 
-    public static $TYPES = array(
+    public static $TYPES = [
         self::VIDEO_TYPE,
         self::IMAGE_TYPE,
-    );
+    ];
 
     /**
      * @var integer

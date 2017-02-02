@@ -14,13 +14,16 @@ class IdToImageTransformer implements DataTransformerInterface
     /**
      * @var RegistryInterface
      */
-    private $doctrine;
+    private $registryInterface;
 
-    public function __construct(RegistryInterface $doctrine)
+    public function __construct(RegistryInterface $registryInterface)
     {
-        $this->doctrine = $doctrine;
+        $this->registryInterface = $registryInterface;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function transform($image)
     {
         if (!$image instanceof Image) {
@@ -30,13 +33,17 @@ class IdToImageTransformer implements DataTransformerInterface
         return $image->getId();
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function reverseTransform($id)
     {
         if (null === $id) {
             return null;
         }
 
-        $image = $this->doctrine->getRepository('TheCodeineImageBundle:Image')->findOneById((int) $id);
+        $image = $this->registryInterface->getRepository(Image::class)->find($id);
+
         if (null === $image) {
             throw new TransformationFailedException(sprintf("An image with id `%s` doesn't exists", $id));
         }

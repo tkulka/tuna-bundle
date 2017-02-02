@@ -10,6 +10,9 @@ use TheCodeine\MenuBundle\Entity\Menu;
 
 class CreateMenuCommand extends ContainerAwareCommand
 {
+    /**
+     * {@inheritDoc}
+     */
     protected function configure()
     {
         $this
@@ -19,6 +22,9 @@ class CreateMenuCommand extends ContainerAwareCommand
             ->setHelp('This command allows you to create menu root items, that you can later manage in tuna admin.');
     }
 
+    /**
+     * {@inheritDoc}
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $em = $this->getContainer()->get('doctrine.orm.default_entity_manager');
@@ -28,5 +34,4 @@ class CreateMenuCommand extends ContainerAwareCommand
 
         $output->writeln('Created new menu item.');
     }
-
 }

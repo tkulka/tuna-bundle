@@ -18,15 +18,15 @@ class EventType extends NewsType
     {
         parent::buildForm($builder, $options);
         $builder
-            ->add('startDate', DateTimeType::class, array(
+            ->add('startDate', DateTimeType::class, [
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd HH:mm:ss'
-            ))
-            ->add('endDate', DateTimeType::class, array(
+            ])
+            ->add('endDate', DateTimeType::class, [
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd HH:mm:ss',
                 'required' => false
-            ));
+            ]);
     }
 
     protected function getTranslatableClass()

@@ -1,5 +1,5 @@
 services:
-    the_codeine_menu.twig.menu_extension:
+    tuna.menu.twig:
         class: TheCodeine\MenuBundle\Twig\MenuExtension
         calls:
             - [initRuntime, ['@twig']]
@@ -7,7 +7,7 @@ services:
         tags:
             - { name: twig.extension }
 
-    the_codeine_menu.event_listener.page_subscriber:
+    tuna.menu.listener.page:
         class: TheCodeine\MenuBundle\EventListener\PageSubscriber
         tags:
             - { name: doctrine.event_subscriber }

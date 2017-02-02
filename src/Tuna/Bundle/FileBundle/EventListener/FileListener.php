@@ -15,7 +15,9 @@ class FileListener
     private $fileManager;
 
     /**
-     * FileUploadSubscriber constructor.
+     * FileListener constructor.
+     *
+     * @param FileManager $fileManager
      */
     public function __construct(FileManager $fileManager)
     {
@@ -23,33 +25,54 @@ class FileListener
     }
 
     /**
-     * save current path to 'persisted' property to help file manipulations
+     * @param AbstractFile $file
+     * @param LifecycleEventArgs $args
      */
     public function postLoad(AbstractFile $file, LifecycleEventArgs $args)
     {
         $file->savePersistedPath();
     }
 
+    /**
+     * @param AbstractFile $file
+     * @param LifecycleEventArgs $args
+     */
     public function postPersist(AbstractFile $file, LifecycleEventArgs $args)
     {
         $this->handleUpload($file, $args->getEntityManager());
     }
 
+    /**
+     * @param AbstractFile $file
+     * @param LifecycleEventArgs $args
+     */
     public function postUpdate(AbstractFile $file, LifecycleEventArgs $args)
     {
         $this->handleUpload($file, $args->getEntityManager());
     }
 
+    /**
+     * @param AbstractFile $file
+     * @param LifecycleEventArgs $args
+     */
     public function preRemove(AbstractFile $file, LifecycleEventArgs $args)
     {
         $file->savePersistedPath();
     }
 
+    /**
+     * @param AbstractFile $file
+     * @param LifecycleEventArgs $args
+     */
     public function postRemove(AbstractFile $file, LifecycleEventArgs $args)
     {
         $this->fileManager->removeFile($file->getPersistedPath());
     }
 
+    /**
+     * @param AbstractFile $file
+     * @param EntityManager $em
+     */
     private function handleUpload(AbstractFile $file, EntityManager $em)
     {
         if (!$file->getPath()) {

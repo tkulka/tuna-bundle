@@ -1,3 +1,6 @@
+imports:
+    - { resource: "../../src/Tuna/Bundle/EditorBundle/Resources/config/config.yml" }
+
 fos_user:
     db_driver: orm
     firewall_name: main
@@ -6,9 +9,6 @@ fos_user:
 a2lix_translation_form:
     locales: "%the_codeine_admin.locales%"
     templating: "TheCodeineAdminBundle::_partials/_form/_theme.html.twig"
-
-the_codeine_editor:
-    autoinclude: true
 
 knp_paginator:
     page_range: 5
@@ -80,8 +80,8 @@ bazinga_js_translation:
         - tuna_admin
 
 accelerator_cache:
-    host: %the_codeine_admin.host%
-    web_dir: %kernel.root_dir%/../web
+    host: "%the_codeine_admin.host%"
+    web_dir: "%kernel.root_dir%/../web"
     mode: curl
 
 assetic:

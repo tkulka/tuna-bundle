@@ -11,7 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Table(name="video")
  * @ORM\Entity
- * @UniqueEntity(fields = "url")
+ * @UniqueEntity(fields="url")
  */
 class Video
 {
@@ -31,7 +31,6 @@ class Video
      *
      * @ORM\Column(type="string", length=128)
      * @Assert\Regex(pattern="/([a-z0-9-]+)/i", message = "The id '{{ value }}' is not a valid video id.")
-     *
      */
     protected $video_id;
 
@@ -42,7 +41,6 @@ class Video
      *
      * @ORM\Column(type="string", length=128)
      * @Assert\Regex(pattern="/(vimeo|youtube)/i", message = "The type '{{ value }}' is not a valid video type.")
-     *
      */
     protected $type;
 
@@ -51,8 +49,9 @@ class Video
      * @var string
      * @ORM\Column(type="string", length=128, unique=true)
      * @Assert\NotBlank()
-     * @Assert\Regex(pattern="/(?:(vimeo)(?:.com\/(?:video\/)?)(\d+))|(?:(youtu\.?be)(?:\.com\/|\/)?(?:watch|embed)?(?:\?v=|\/)?([a-z0-9-]+))/i",
-     *               message = "The url '{{ value }}' is not a valid Youtube or Vimeo url")
+     * @Assert\Regex(
+     *     pattern="/(?:(vimeo)(?:.com\/(?:video\/)?)(\d+))|(?:(youtu\.?be)(?:\.com\/|\/)?(?:watch|embed)?(?:\?v=|\/)?([a-z0-9-]+))/i",
+     *     message = "The url '{{ value }}' is not a valid Youtube or Vimeo url")
      */
     protected $url;
 
@@ -70,6 +69,7 @@ class Video
      * Set url
      *
      * @param string $url
+     *
      * @return Video
      */
     public function setUrl($url)
@@ -93,6 +93,7 @@ class Video
      * Set video id
      *
      * @param string $video_id
+     *
      * @return Video
      */
     public function setVideoId($video_id)
@@ -116,6 +117,7 @@ class Video
      * Set type
      *
      * @param string $type
+     *
      * @return Video
      */
     public function setType($type)

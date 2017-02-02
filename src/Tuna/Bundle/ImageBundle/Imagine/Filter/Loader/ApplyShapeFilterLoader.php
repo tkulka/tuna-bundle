@@ -28,8 +28,10 @@ class ApplyShapeFilterLoader implements LoaderInterface
     /**
      * @param ImageInterface $image
      * @param array $options
+     *
+     * @return ImageInterface
      */
-    function load(ImageInterface $image, array $options = array())
+    function load(ImageInterface $image, array $options = [])
     {
         if (!array_key_exists('file', $options)) {
             throw new InvalidArgumentException('Expected mask file path, none given');

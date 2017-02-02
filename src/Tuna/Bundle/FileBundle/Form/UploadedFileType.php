@@ -4,32 +4,41 @@ namespace TheCodeine\FileBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints;
+use Symfony\Component\Validator\Constraints\File;
 
 class UploadedFileType extends AbstractType
 {
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('file', Type\FileType::class, array(
+        $builder->add('file', FileType::class, [
             'error_bubbling' => true,
-            'constraints' => array(
-                new Constraints\File(array(
+            'constraints' => [
+                new File([
                     'maxSize' => ini_get('upload_max_filesize'),
-                ))
-            )
-        ));
+                ])
+            ]
+        ]);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'translation_domain' => 'tuna_admin',
             'csrf_protection' => false,
-        ));
+        ]);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getBlockPrefix()
     {
         return '';

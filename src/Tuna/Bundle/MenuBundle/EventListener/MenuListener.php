@@ -35,7 +35,7 @@ class MenuListener
             ->setPublished($page->isPublished())
             ->setExternalUrl(null);
 
-        $titleTranslations = array();
+        $titleTranslations = [];
         foreach ($page->getTranslations() as $t) {
             if ($t->getField() == 'title') {
                 $titleTranslations[$t->getLocale()] = $t->getContent();
@@ -50,11 +50,7 @@ class MenuListener
         }
 
         foreach ($titleTranslations as $locale => $title) {
-            $menu->addTranslation(new MenuTranslation(
-                'label',
-                $locale,
-                $title
-            ));
+            $menu->addTranslation(new MenuTranslation('label', $locale, $title));
         }
     }
 }

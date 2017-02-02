@@ -4,7 +4,8 @@ namespace TheCodeine\PageBundle\Controller;
 
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
-use TheCodeine\MenuBundle\Entity\Menu;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use TheCodeine\PageBundle\Entity\AbstractPage;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -13,7 +14,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Routing\Annotation\Route;
-use TheCodeine\PageBundle\Entity\Page;
 
 abstract class AbstractPageController extends Controller
 {
@@ -43,9 +43,9 @@ abstract class AbstractPageController extends Controller
      */
     public function listAction(Request $request)
     {
-        return array(
+        return [
             'entities' => $this->getRepository()->findAll(),
-        );
+        ];
     }
 
     /**
@@ -56,7 +56,7 @@ abstract class AbstractPageController extends Controller
     {
         $page = $this->getNewPage();
         $form = $this->createForm($this->getNewFormType($page, !$request->isXmlHttpRequest()), $page);
-        $form->add('save', 'submit');
+        $form->add('save', SubmitType::class);
 
         return $this->handleCreateForm($request, $form, $page);
     }
@@ -69,7 +69,7 @@ abstract class AbstractPageController extends Controller
     {
         $page = $this->getRepository()->find($id);
         $form = $this->createForm($this->getNewFormType($page, !$request->isXmlHttpRequest()), $page);
-        $form->add('save', 'submit');
+        $form->add('save', SubmitType::class);
 
         return $this->handleEditForm($request, $page, $form);
     }
@@ -98,7 +98,7 @@ abstract class AbstractPageController extends Controller
      * @param Request $request
      * @param $page
      * @param $form
-     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @return array|RedirectResponse
      */
     protected function handleEditForm(Request $request, $page, $form)
     {
@@ -138,17 +138,17 @@ abstract class AbstractPageController extends Controller
             }
         }
 
-        return array(
+        return [
             'page' => $page,
             'form' => $form->createView(),
-        );
+        ];
     }
 
     /**
      * @param Request $request
      * @param $form
      * @param $page
-     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @return array|RedirectResponse
      */
     protected function handleCreateForm(Request $request, $form, $page)
     {
@@ -164,9 +164,9 @@ abstract class AbstractPageController extends Controller
             }
         }
 
-        return array(
+        return [
             'page' => $page,
             'form' => $form->createView(),
-        );
+        ];
     }
 }

@@ -2,8 +2,13 @@
 
 namespace TheCodeine\MenuBundle\Sluggable\Handler;
 
-class TreeSlugHandler extends \Gedmo\Sluggable\Handler\TreeSlugHandler
+use Gedmo\Sluggable\Handler\TreeSlugHandler as BaseTreeSlugHandler;
+
+class TreeSlugHandler extends BaseTreeSlugHandler
 {
+    /**
+     * {@inheritDoc}
+     */
     public function transliterate($text, $separator, $object)
     {
         $slug = parent::transliterate($text, $separator, $object);

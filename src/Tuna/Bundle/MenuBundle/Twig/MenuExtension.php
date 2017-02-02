@@ -41,19 +41,10 @@ class MenuExtension extends \Twig_Extension
 
     public function getFunctions()
     {
-        return array(
-            new \Twig_SimpleFunction(
-                'tuna_menu_render',
-                array($this, 'renderMenu'),
-                array(
-                    'is_safe' => array('html' => true)
-                )
-            ),
-            new \Twig_SimpleFunction(
-                'tuna_menu_getLink',
-                array($this, 'getLink')
-            ),
-        );
+        return [
+            new \Twig_SimpleFunction('tuna_menu_render', [$this, 'renderMenu'], ['is_safe' => ['html' => true]]),
+            new \Twig_SimpleFunction('tuna_menu_getLink', [$this, 'getLink']),
+        ];
     }
 
     /**
@@ -65,26 +56,20 @@ class MenuExtension extends \Twig_Extension
         if ($menu->getExternalUrl()) {
             return $menu->getExternalUrl();
         } else {
-            return $this->router->generate('tuna_menu_item', array('slug' => $menu->getSlug()));
+            return $this->router->generate('tuna_menu_item', ['slug' => $menu->getSlug()]);
         }
     }
 
-    public function renderMenu($menuName = 'Menu', array $options = array())
+    public function renderMenu($menuName = 'Menu', array $options = [])
     {
-        $options += array('wrap' => true, 'template' => $this->defaultTemplate);
+        $options += ['wrap' => true, 'template' => $this->defaultTemplate];
 
         return $this->twig->render(
-            $options['template'],
-            array(
-                'menu' => $this->em->getRepository('TheCodeineMenuBundle:Menu')->getMenuTree($menuName),
+            $options['template'], [
+                'menu' => $this->em->getRepository(Menu::class)->getMenuTree($menuName),
                 'name' => $menuName,
                 'options' => $options,
-            )
+            ]
         );
-    }
-
-    public function getName()
-    {
-        return 'tuna_menu_extension';
     }
 }

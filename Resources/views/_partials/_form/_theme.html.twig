@@ -39,6 +39,9 @@
     {% endif %}
     {%- set type = type|default('text') -%}
     <div class="form-{{ type == 'hidden' ? 'hidden' : 'group' }} form--{{ name }}">
-        <input type="{{ type }}" {{ block('widget_attributes') }}{% if type != 'hidden' %} placeholder="{{ name|humanize|capitalize|trans }}"{% endif %}>
+        <input
+            type="{{ type }}" {{ block('widget_attributes') }}
+            {% if type != 'hidden' %}placeholder="{{ name|humanize|capitalize|trans }}"{% endif %}
+        >
     </div>
 {%- endblock form_widget_simple -%}

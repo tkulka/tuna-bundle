@@ -57,8 +57,9 @@ abstract class AbstractFile
     }
 
     /**
-     * @return $this
      * @param string $path
+     *
+     * @return AbstractFile
      */
     public function setPath($path)
     {
@@ -76,8 +77,9 @@ abstract class AbstractFile
     }
 
     /**
-     * @return $this
-     * @param string $filename
+     * @param $filename
+     *
+     * @return AbstractFile
      */
     public function setFilename($filename)
     {
@@ -87,7 +89,7 @@ abstract class AbstractFile
     }
 
     /**
-     * @return $this
+     * @return AbstractFile
      */
     public function savePersistedPath()
     {
@@ -98,11 +100,17 @@ abstract class AbstractFile
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getPersistedPath()
     {
         return $this->persistedPath;
     }
 
+    /**
+     * @return bool
+     */
     public function isUploaded()
     {
         return $this->persistedPath != $this->path;

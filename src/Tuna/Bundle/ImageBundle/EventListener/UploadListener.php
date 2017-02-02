@@ -13,103 +13,142 @@ use Doctrine\ORM\Events;
 
 class UploadListener implements EventSubscriber
 {
-    private $imageManager;
+    /**
+     * @var ImageManagerInterface
+     */
+    private $imageManagerInterface;
 
-    public function __construct(ImageManagerInterface $imageManager)
+    /**
+     * UploadListener constructor.
+     *
+     * @param ImageManagerInterface $imageManagerInterface
+     */
+    public function __construct(ImageManagerInterface $imageManagerInterface)
     {
-        $this->imageManager = $imageManager;
+        $this->imageManagerInterface = $imageManagerInterface;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getSubscribedEvents()
     {
-        return array(
+        return [
             Events::prePersist,
             Events::preUpdate,
-        );
+        ];
     }
 
+    /**
+     * @param LifecycleEventArgs $args
+     */
     public function preUpdate(LifecycleEventArgs $args)
     {
+        $entity = $args->getEntity();
 
-        if (!$args->getEntity() instanceof Image) {
+        if (!$entity instanceof Image) {
             return;
         }
 
-        $entity = $args->getEntity();
-        $em     = $args->getEntityManager();
+        $this->storeImage($entity);
 
-        $this->storeImage($args->getEntity());
+        $em = $args->getEntityManager();
+        $uow = $em->getUnitOfWork();
+        $meta = $em->getClassMetadata(get_class($entity));
 
-
-        $uow    = $em->getUnitOfWork();
-        $meta   = $em->getClassMetadata(get_class($entity));
         $uow->recomputeSingleEntityChangeSet($meta, $entity);
-
     }
 
+    /**
+     * @param LifecycleEventArgs $args
+     *
+     * @return null|Image
+     */
     public function prePersist(LifecycleEventArgs $args)
     {
-        if (!$args->getEntity() instanceof Image) {
-            return;
+        $entity = $args->getEntity();
+
+        if (!$entity instanceof Image) {
+            return null;
         }
 
-        return $this->storeImage($args->getEntity());
-
+        return $this->storeImage($entity);
     }
 
+    /**
+     * @param Image $image
+     *
+     * @return null|Image
+     */
     private function storeImage(Image $image)
     {
         $file = $this->getFile($image);
 
         if (!$file instanceof \SplFileInfo) {
-            return;
+            return null;
         }
-        $path = $this->imageManager->store($file);
+
+        $path = $this->imageManagerInterface->store($file);
 
         return $image->setPath($path);
     }
 
+    /**
+     * @param Image $image
+     *
+     * @return null|File
+     */
     private function getFile(Image $image)
     {
-        if ($image->getFile() instanceof \SplFileInfo) {
-            return $image->getFile();
+        $file = $image->getFile();
+
+        if ($file instanceof \SplFileInfo) {
+            return $file;
         }
 
-        if (null !== $image->getUrl()) {
-            return new File($this->downloadFile($image->getUrl()));
+        $url = $image->getUrl();
+
+        if (null !== $url) {
+            return new File($this->downloadFile($url));
         }
 
         return null;
     }
 
+    /**
+     * @param $url
+     *
+     * @return string
+     */
     private function downloadFile($url)
     {
-        $tmpfile = tempnam(sys_get_temp_dir(), 'utft');
+        $tmpFile = tempnam(sys_get_temp_dir(), 'utft');
         $extension = pathinfo($url, PATHINFO_EXTENSION);
+
         if (!empty($extension)) {
-            $tmpfile = sprintf("%s.%s", $tmpfile, $extension);
+            $tmpFile = sprintf("%s.%s", $tmpFile, $extension);
         }
 
-        $fp = fopen($tmpfile, 'w+');
+        $fp = fopen($tmpFile, 'w+');
         if (false === $fp) {
-            throw new \RuntimeException(sprintf('Cannot open temporary file `%s`', $tmpfile));
+            throw new \RuntimeException(sprintf('Cannot open temporary file `%s`', $tmpFile));
         }
 
         $ch = curl_init();
 
-        curl_setopt_array($ch, array(
+        curl_setopt_array($ch, [
             CURLOPT_URL => $url,
             CURLOPT_BINARYTRANSFER => 1,
             CURLOPT_RETURNTRANSFER => 1,
             CURLOPT_FILE => $fp,
             CURLOPT_TIMEOUT => 50,
-        ));
+        ]);
 
         if (false === curl_exec($ch)) {
             throw new \RuntimeException(sprintf('Cannot download remote file. Curl error: `%s`', curl_error($ch)));
         }
         curl_close($ch);
 
-        return $tmpfile;
+        return $tmpFile;
     }
 }

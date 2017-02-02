@@ -2,17 +2,16 @@
 
 namespace TheCodeine\PageBundle\Entity;
 
-use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;
 use Symfony\Component\Validator\Constraints as Assert;
-
 use TheCodeine\GalleryBundle\Entity\Gallery;
-use TheCodeine\FileBundle\Entity\Attachment;
+use TheCodeine\ImageBundle\Entity\Image;
 
 /**
- * Page
+ * AbstractPage
  *
  * @ORM\HasLifecycleCallbacks
  */
@@ -65,15 +64,6 @@ abstract class AbstractPage
      */
     protected $image;
 
-    protected $translations;
-
-    /**
-     * @Gedmo\Locale
-     * Used locale to override Translation listener`s locale
-     * this is not a mapped field of entity metadata, just a simple property
-     */
-    protected $locale;
-
     /**
      * @Assert\Valid
      *
@@ -99,21 +89,33 @@ abstract class AbstractPage
      */
     protected $attachments;
 
+    /**
+     * @Gedmo\Locale
+     */
+    protected $locale;
+    protected $translations;
+
+    /**
+     * AbstractPage constructor.
+     *
+     * @param null|string $title
+     */
     public function __construct($title = null)
     {
         $this->attachments = new ArrayCollection();
         $this->translations = new ArrayCollection();
-        $this->setPublished(false);
+
         if ($title !== null) {
             $this->setTitle($title);
         }
+
+        $this->setPublished(false);
     }
 
     /**
-     * Set gallery
+     * @param Gallery $gallery
      *
-     * @param \TheCodeine\GalleryBundle\Entity\Gallery $gallery
-     * @return $this
+     * @return AbstractPage
      */
     public function setGallery(Gallery $gallery = null)
     {
@@ -123,9 +125,7 @@ abstract class AbstractPage
     }
 
     /**
-     * Get gallery
-     *
-     * @return \TheCodeine\GalleryBundle\Entity\Gallery
+     * @return Gallery
      */
     public function getGallery()
     {
@@ -133,7 +133,9 @@ abstract class AbstractPage
     }
 
     /**
-     * @param string $body
+     * @param $body
+     *
+     * @return AbstractPage
      */
     public function setBody($body)
     {
@@ -159,9 +161,11 @@ abstract class AbstractPage
     }
 
     /**
-     * @param mixed $image
+     * @param Image $image
+     *
+     * @return AbstractPage
      */
-    public function setImage($image)
+    public function setImage(Image $image)
     {
         $this->image = $image;
 
@@ -169,7 +173,7 @@ abstract class AbstractPage
     }
 
     /**
-     * @return mixed
+     * @return Image
      */
     public function getImage()
     {
@@ -178,7 +182,8 @@ abstract class AbstractPage
 
     /**
      * @param string $title
-     * @return Page
+     *
+     * @return AbstractPage
      */
     public function setTitle($title)
     {
@@ -196,7 +201,7 @@ abstract class AbstractPage
     }
 
     /**
-     * @param mixed $slug
+     * @param string $slug
      */
     public function setSlug($slug)
     {
@@ -204,13 +209,18 @@ abstract class AbstractPage
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getSlug()
     {
         return $this->slug;
     }
 
+    /**
+     * @param $locale
+     *
+     * @return AbstractPage
+     */
     public function setLocale($locale)
     {
         $this->locale = $locale;
@@ -218,11 +228,19 @@ abstract class AbstractPage
         return $this;
     }
 
+    /**
+     * @return ArrayCollection
+     */
     public function getTranslations()
     {
         return $this->translations;
     }
 
+    /**
+     * @param AbstractPersonalTranslation $t
+     *
+     * @return AbstractPage
+     */
     public function addTranslation(AbstractPersonalTranslation $t)
     {
         if (!$this->translations->contains($t) && $t->getContent()) {
@@ -233,6 +251,11 @@ abstract class AbstractPage
         return $this;
     }
 
+    /**
+     * @param AbstractPersonalTranslation $t
+     *
+     * @return AbstractPage
+     */
     public function removeTranslation(AbstractPersonalTranslation $t)
     {
         $this->translations->removeElement($t);
@@ -241,9 +264,9 @@ abstract class AbstractPage
     }
 
     /**
-     * Set translations
+     * @param ArrayCollection[AbstractPersonalTranslation] $translations
      *
-     * @param ArrayCollection [AbstractPersonalTranslation] $translations
+     * @return AbstractPage
      */
     public function setTranslations($translations)
     {
@@ -257,10 +280,9 @@ abstract class AbstractPage
     }
 
     /**
-     * Set published flag
-     *
      * @param boolean $published
-     * @return Page
+     *
+     * @return AbstractPage
      */
     public function setPublished($published)
     {
@@ -270,8 +292,6 @@ abstract class AbstractPage
     }
 
     /**
-     * Get publish flag
-     *
      * @return boolean
      */
     public function isPublished()
@@ -280,8 +300,6 @@ abstract class AbstractPage
     }
 
     /**
-     * Get published
-     *
      * @return boolean
      */
     public function getPublished()
@@ -290,10 +308,11 @@ abstract class AbstractPage
     }
 
     /**
-     * @return $this
-     * @param mixed $attachments
+     * @param ArrayCollection $attachments
+     *
+     * @return AbstractPage
      */
-    public function setAttachments($attachments)
+    public function setAttachments(ArrayCollection $attachments)
     {
         $this->attachments = $attachments;
 
@@ -302,9 +321,7 @@ abstract class AbstractPage
 
 
     /**
-     * Get attachments
-     *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return ArrayCollection
      */
     public function getAttachments()
     {
@@ -320,8 +337,9 @@ abstract class AbstractPage
     }
 
     /**
-     * @return $this
      * @param string $teaser
+     *
+     * @return AbstractPage
      */
     public function setTeaser($teaser)
     {

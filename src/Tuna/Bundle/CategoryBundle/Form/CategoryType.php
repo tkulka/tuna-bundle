@@ -10,29 +10,43 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CategoryType extends AbstractType
 {
+    /**
+     * @var string
+     */
+    private $dataClass;
+
     public function __construct($dataClass = 'TheCodeine\CategoryBundle\Entity\Category')
     {
         $this->dataClass = $dataClass;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('translations', GedmoTranslationsType::class, array(
+            ->add('translations', GedmoTranslationsType::class, [
                 'translatable_class' => $this->dataClass,
-            ));
+            ]);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => $this->dataClass,
+            'error_bubbling' => false,
             'translation_domain' => 'tuna_admin',
-            'error_bubbling' => false
-        ));
+        ]);
     }
 
-    public function getName()
+    /**
+     * {@inheritdoc}
+     */
+    public function getBlockPrefix()
     {
         return 'tuna_category';
     }

@@ -4,6 +4,7 @@ namespace TheCodeine\GalleryBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\PersistentCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -39,6 +40,9 @@ class Gallery
      **/
     private $items;
 
+    /**
+     * Gallery constructor.
+     */
     public function __construct()
     {
         $this->items = new ArrayCollection();
@@ -75,8 +79,9 @@ class Gallery
     }
 
     /**
-     * @return $this
-     * @param mixed $items
+     * @param PersistentCollection|array $items
+     *
+     * @return Gallery
      */
     public function setItems($items)
     {
@@ -89,9 +94,7 @@ class Gallery
     }
 
     /**
-     * Get items
-     *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return ArrayCollection|GalleryItem[]
      */
     public function getItems()
     {

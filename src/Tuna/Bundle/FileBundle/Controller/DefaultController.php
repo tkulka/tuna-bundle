@@ -36,34 +36,47 @@ class DefaultController extends Controller
                 $translator = $this->get('translator.default');
                 $errorMsg = $translator->trans('error.upload.cant_move', 'validators');
 
-                return new JsonResponse(array('messages' => array($errorMsg)));
+                return new JsonResponse([
+                    'messages' => [$errorMsg]
+                ]);
             }
             return new JsonResponse($fileInfo);
         }
     }
 
+    /**
+     * @param FormInterface $form
+     *
+     * @return JsonResponse
+     */
     private function getErrorResponse(FormInterface $form)
     {
         $errors = $form->getErrors();
-        $errorCollection = array();
+        $errorCollection = [];
+
         foreach ($errors as $error) {
             $errorCollection[] = $error->getMessage();
         }
 
-        return new JsonResponse(array(
+        return new JsonResponse([
             'messages' => $errorCollection,
-        ), 400);
+        ], 400);
     }
 
+    /**
+     * @param UploadedFile $file
+     *
+     * @return array
+     */
     private function getFileInfo(UploadedFile $file)
     {
         $fileManager = $this->get('the_codeine_file.manager.file_manager');
         $filename = $fileManager->generateTmpFilename($file);
 
-        return array(
+        return [
             'path' => $filename,
-            'originalName' => $file->getClientOriginalName(),
             'mimeType' => $file->getMimeType(),
-        );
+            'originalName' => $file->getClientOriginalName(),
+        ];
     }
 }

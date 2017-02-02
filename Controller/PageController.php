@@ -9,6 +9,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use TheCodeine\PageBundle\Controller\PageController as Controller;
 use TheCodeine\MenuBundle\Entity\Menu;
 use TheCodeine\PageBundle\Entity\AbstractPage;
 use TheCodeine\PageBundle\Entity\Page;
@@ -16,22 +17,28 @@ use TheCodeine\PageBundle\Entity\Page;
 /**
  * @Route("/page")
  */
-class PageController extends \TheCodeine\PageBundle\Controller\PageController
+class PageController extends Controller
 {
+    const PAGINATE_LIMIT = 10;
+
+    /**
+     * @param AbstractPage|null $page
+     * @param Request|null $request
+     *
+     * @return string
+     */
     public function getRedirectUrl(AbstractPage $page = null, Request $request = null)
     {
         if ($request && $request->query->get('redirect') == 'dashboard') {
             return $this->generateUrl('tuna_admin_dashboard');
         }
+
         return parent::getRedirectUrl($page);
     }
 
     /**
-     *
      * @Route("/list", name="tuna_page_list")
      * @Template()
-     *
-     * @return array
      */
     public function listAction(Request $request)
     {
@@ -39,13 +46,12 @@ class PageController extends \TheCodeine\PageBundle\Controller\PageController
         $query = $em->getRepository('TheCodeinePageBundle:Page')->getListQuery();
         $menuMap = $em->getRepository('TheCodeineMenuBundle:Menu')->getPageMap();
         $page = $request->get('page', 1);
-        $limit = 10;
 
-        return array(
-            'pagination' => $this->get('knp_paginator')->paginate($query, $page, $limit),
-            'offset' => ($page - 1) * $limit,
+        return [
+            'offset' => ($page - 1) * self::PAGINATE_LIMIT,
             'menuMap' => $menuMap,
-        );
+            'pagination' => $this->get('knp_paginator')->paginate($query, $page, self::PAGINATE_LIMIT),
+        ];
     }
 
     /**
@@ -85,7 +91,6 @@ class PageController extends \TheCodeine\PageBundle\Controller\PageController
     }
 
     /**
-     *
      * @Route("/{id}/delete", name="tuna_page_delete", requirements={"id" = "\d+"})
      * @Template()
      */

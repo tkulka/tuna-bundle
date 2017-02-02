@@ -2,7 +2,8 @@
 
 namespace TheCodeine\VideoBundle\Form;
 
-use TheCodeine\VideoBundle\Model\VideoManagerInterface;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use TheCodeine\VideoBundle\Doctrine\VideoManagerInterface;
 use TheCodeine\VideoBundle\Form\DataTransformer\UrlToTypeAndIdTransformer;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -14,34 +15,51 @@ class VideoUrlType extends AbstractType
     /**
      * Tag manager
      *
-     * @var TagManagerInterface
+     * @var VideoManagerInterface
      */
     private $videoManager;
 
+    /**
+     * VideoUrlType constructor.
+     *
+     * @param VideoManagerInterface $videoManager
+     */
     public function __construct(VideoManagerInterface $videoManager)
     {
         $this->videoManager = $videoManager;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->addModelTransformer(new UrlToTypeAndIdTransformer($this->videoManager));
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function setOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
              'translation_domain' => 'tuna_admin',
-        ));
+        ]);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getParent()
     {
-        return 'url';
+        return UrlType::class;
     }
 
-    public function getName()
+    /**
+     * {@inheritdoc}
+     */
+    public function getBlockPrefix()
     {
-        return 'thecodeine_videobundle_url';
+        return 'tuna_video';
     }
 }

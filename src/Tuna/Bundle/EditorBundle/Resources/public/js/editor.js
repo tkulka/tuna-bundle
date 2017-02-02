@@ -2,12 +2,9 @@ window.tuna = window.tuna || {};
 window.tuna.view = window.tuna.view || {};
 
 /**
- * Wysiwyg editor
- *
- * @type {*|void}
+ * Tuna CMS Editor
  */
 tuna.view.EditorView = Backbone.View.extend({
-
     types: {
         basic: {
             toolbar: 'basic'

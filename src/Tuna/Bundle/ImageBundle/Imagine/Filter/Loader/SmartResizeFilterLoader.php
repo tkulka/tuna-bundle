@@ -33,7 +33,7 @@ class SmartResizeFilterLoader implements LoaderInterface
      *
      * @return ImageInterface
      */
-    function load(ImageInterface $image, array $options = array())
+    function load(ImageInterface $image, array $options = [])
     {
         list($width, $height) = $options['size'];
 
@@ -42,5 +42,4 @@ class SmartResizeFilterLoader implements LoaderInterface
 
         return $image;
     }
-
 }

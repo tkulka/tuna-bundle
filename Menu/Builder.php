@@ -14,13 +14,18 @@ class Builder
      */
     protected $factory;
 
+    /**
+     * @var array
+     */
     private $componentsConfig;
 
     /**
+     * Builder constructor.
+     *
      * @param FactoryInterface $factory
-     * @param String $enableTranslations
+     * @param array $componentsConfig
      */
-    public function __construct(FactoryInterface $factory, $componentsConfig)
+    public function __construct(FactoryInterface $factory, array $componentsConfig)
     {
         $this->factory = $factory;
         $this->componentsConfig = $componentsConfig;
@@ -28,6 +33,7 @@ class Builder
 
     /**
      * @param Request $request
+     *
      * @return ItemInterface
      */
     public function getTopMenu(Request $request)
@@ -39,12 +45,13 @@ class Builder
     }
 
     /**
-     * @param ItemInterface
+     * @param ItemInterface $menu
+     *
      * @return ItemInterface
      */
     protected function reorderMenu(ItemInterface $menu)
     {
-        $order = array();
+        $order = [];
         foreach ($menu->getChildren() as $label => $item) {
             $order[$label] = $item->getExtra('position');
         }
@@ -56,58 +63,59 @@ class Builder
 
     /**
      * @param Request $request
+     *
      * @return ItemInterface
      */
     protected function buildTopMenu(Request $request)
     {
-        $menu = $this->factory->createItem('root', array(
-            'childrenAttributes' => array('class' => 'nav')
-        ));
+        $menu = $this->factory->createItem('root', [
+            'childrenAttributes' => ['class' => 'nav']
+        ]);
 
-        $this->addChild($menu, $request, 'Dashboard', 'tuna_admin_dashboard', 0, function ($request, $route) {
+        $this->addChild($menu, $request, 'Dashboard', 'tuna_admin_dashboard', 0, function (Request $request, $route) {
             return preg_match_all('/tuna_admin_dashboard/i', $request->get('_route'));
         });
 
         if ($this->componentsConfig['menu']['enabled']) {
-            $this->addChild($menu, $request, 'Menu', 'tuna_menu_list', 50, function ($request, $route) {
+            $this->addChild($menu, $request, 'Menu', 'tuna_menu_list', 50, function (Request $request, $route) {
                 return preg_match_all('/tuna_menu_/i', $request->get('_route'));
             });
         }
 
         if ($this->componentsConfig['news']['enabled']) {
-            $this->addChild($menu, $request, 'News', 'tuna_news_list', 110, function ($request, $route) {
+            $this->addChild($menu, $request, 'News', 'tuna_news_list', 110, function (Request $request, $route) {
                 return
                     preg_match_all('/tuna_news_/i', $request->get('_route')) &&
                     (
                         $request->attributes->get('newsType') == 'News' ||
                         $request->attributes->get('news') instanceof News
                     );
-            }, array(
+            }, [
                 'newsType' => 'News'
-            ));
+            ]);
         }
 
         if ($this->componentsConfig['events']['enabled']) {
-            $this->addChild($menu, $request, 'Event', 'tuna_news_list', 120, function ($request, $route) {
+            $this->addChild($menu, $request, 'Event', 'tuna_news_list', 120, function (Request $request, $route) {
                 return
                     preg_match_all('/tuna_news_/i', $request->get('_route')) &&
                     (
                         $request->attributes->get('newsType') == 'Event' ||
                         $request->attributes->get('news') instanceof Event
                     );
-            }, array(
+            }, [
                 'newsType' => 'Event'
-            ));
+            ]);
         }
 
         if ($this->componentsConfig['categories']['enabled']) {
-            $this->addChild($menu, $request, 'Categories', 'tuna_category_list', 400, function ($request, $route) {
+            $this->addChild($menu, $request, 'Categories', 'tuna_category_list', 400, function (Request $request, $route) {
                 return preg_match_all('/tuna_category/i', $request->get('_route'));
             });
         }
 
         if ($this->componentsConfig['translations']['enabled']) {
-            $this->addChild($menu, $request, 'Translations', 'lexik_translation_grid', 500, function ($request, $route) {
+            $this->addChild($menu, $request, 'Translations', 'lexik_translation_grid', 500, function (Request $request, $route) {
                 return preg_match_all('/lexik_translation/i', $request->get('_route'));
             });
         }
@@ -116,9 +124,17 @@ class Builder
     }
 
     /**
-     * @return ItemInterface
+     * @param ItemInterface $menu
+     * @param Request $request
+     * @param string $label
+     * @param string $route
+     * @param null|int $position
+     * @param callable|null $activeTest
+     * @param array $routeParameters
+     *
+     * @return mixed
      */
-    protected function addChild($menu, $request, $label, $route, $position = null, callable $activeTest = null, $routeParameters = array())
+    protected function addChild(ItemInterface $menu, Request $request, $label, $route, $position = null, callable $activeTest = null, $routeParameters = [])
     {
         $menu->addChild($this->createChild($request, $label, $route, $position, $activeTest, $routeParameters))->setExtra('translation_domain', 'tuna_admin');
 
@@ -126,25 +142,30 @@ class Builder
     }
 
     /**
+     * @param Request $request
+     * @param string $label
+     * @param string $route
+     * @param int $position
+     * @param null|callable $activeTest
+     * @param array $routeParameters
+     *
      * @return ItemInterface
      */
-    protected function createChild($request, $label, $route, $position, $activeTest = null, $routeParameters = array())
+    protected function createChild(Request $request, $label, $route, $position = 200, callable $activeTest = null, $routeParameters = [])
     {
-        if ($position === null) {
-            $position = 200;
-        }
         if ($activeTest == null) {
-            $activeTest = function ($request, $route) {
+            $activeTest = function (Request $request, $route) {
                 return $request->get('_route') === $route;
             };
         }
-        $child = $this->factory->createItem($label, array(
+
+        $child = $this->factory->createItem($label, [
             'route' => $route,
             'routeParameters' => $routeParameters,
-            'attributes' => array(
+            'attributes' => [
                 'class' => $activeTest($request, $route) ? 'active' : ''
-            )
-        ))->setExtra('position', $position);
+            ]
+        ])->setExtra('position', $position);
 
         return $child;
     }

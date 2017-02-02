@@ -49,7 +49,7 @@ class NewsRepository extends PageRepository
 
     public function getSimilar($limit = 2, AbstractNews $news)
     {
-        $tagNames = array();
+        $tagNames = [];
         foreach ($news->getTags() as $tag) {
             $tagNames[] = $tag->getName();
         }

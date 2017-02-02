@@ -15,8 +15,6 @@ use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;
  */
 class GalleryItemTranslation extends AbstractPersonalTranslation
 {
-
-
     /**
      * @ORM\ManyToOne(targetEntity="TheCodeine\GalleryBundle\Entity\GalleryItem", inversedBy="translations")
      * @ORM\JoinColumn(name="object_id", referencedColumnName="id", onDelete="CASCADE")

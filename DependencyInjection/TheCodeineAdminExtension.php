@@ -29,6 +29,9 @@ class TheCodeineAdminExtension extends Extension implements PrependExtensionInte
         $loader->load('services.yml');
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function prepend(ContainerBuilder $container)
     {
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
@@ -59,18 +62,28 @@ class TheCodeineAdminExtension extends Extension implements PrependExtensionInte
         $loader->load('access_control.yml');
     }
 
+    /**
+     * @param ContainerBuilder $container
+     * @param array $config
+     */
     private function setParameters(ContainerBuilder $container, array $config)
     {
         $config += $this->flattenArray($config);
         foreach ($config as $key => $value) {
-            $container->setParameter("the_codeine_admin.$key", $value);
+            $container->setParameter('the_codeine_admin.' . $key, $value);
         }
         $container->setParameter('the_codeine_admin.menu_builder.class', $config['menu_builder']);
     }
 
+    /**
+     * @param $array
+     * @param string $prefix
+     *
+     * @return array
+     */
     private function flattenArray($array, $prefix = '')
     {
-        $result = array();
+        $result = [];
         foreach ($array as $key => $value) {
             if (is_array($value)) {
                 $result = $result + $this->flattenArray($value, $prefix . $key . '.');

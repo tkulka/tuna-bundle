@@ -19,17 +19,17 @@ class NewsType extends AbstractPageType
     {
         parent::buildForm($builder, $options);
         $builder
-            ->add('important', null, array(
+            ->add('important', null, [
                 'required' => false
-            ))
-            ->add('tags', TagCollectionType::class, array(
+            ])
+            ->add('tags', TagCollectionType::class, [
                 'required' => false
-            ))
-            ->add('createdAt', DateTimeType::class, array(
+            ])
+            ->add('createdAt', DateTimeType::class, [
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd HH:mm:ss',
                 'required' => false
-            ));
+            ]);
     }
 
     protected function getEntityClass()
@@ -49,7 +49,7 @@ class NewsType extends AbstractPageType
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'thecodeine_newsbundle_news';
     }

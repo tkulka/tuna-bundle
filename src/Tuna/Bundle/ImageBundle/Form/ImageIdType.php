@@ -2,10 +2,12 @@
 
 namespace TheCodeine\ImageBundle\Form;
 
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use TheCodeine\ImageBundle\Entity\Image;
 use TheCodeine\ImageBundle\Form\DataTransformer\IdToImageTransformer;
 
 use Symfony\Bridge\Doctrine\RegistryInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
 
@@ -17,6 +19,8 @@ class ImageIdType extends AbstractType
     private $doctrine;
 
     /**
+     * ImageIdType constructor.
+     *
      * @param RegistryInterface $doctrine
      */
     public function __construct(RegistryInterface $doctrine)
@@ -24,26 +28,39 @@ class ImageIdType extends AbstractType
         $this->doctrine = $doctrine;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->addModelTransformer(new IdToImageTransformer($this->doctrine));
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    /**
+     * {@inheritdoc}
+     */
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'TheCodeine\ImageBundle\Entity\Image',
+        $resolver->setDefaults([
+            'data_class' => Image::class,
             'csrf_protection' => false,
-        ));
+            'translation_domain' => 'tuna_admin',
+        ]);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getParent()
     {
-        return 'text';
+        return TextType::class;
     }
 
-    public function getName()
+    /**
+     * {@inheritdoc}
+     */
+    public function getBlockPrefix()
     {
-        return 'image';
+        return 'tuna_image';
     }
 }

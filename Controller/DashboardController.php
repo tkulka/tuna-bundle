@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class DashboardController extends Controller
 {
+    const PAGINATE_LIMIT = 10;
+
     /**
      * @Route("", name="tuna_admin_dashboard")
      * @Template()
@@ -22,12 +24,11 @@ class DashboardController extends Controller
 
         $query = $menuRepository->getStandalonePagesPaginationQuery();
         $page = $request->get('page', 1);
-        $limit = 10;
 
-        return array(
+        return [
             'menus' => $menuRepository->getMenuTree(null, false),
-            'offset' => ($page - 1) * $limit,
-            'pagination' => $this->get('knp_paginator')->paginate($query, $page, $limit),
-        );
+            'offset' => ($page - 1) * self::PAGINATE_LIMIT,
+            'pagination' => $this->get('knp_paginator')->paginate($query, $page, self::PAGINATE_LIMIT),
+        ];
     }
 }

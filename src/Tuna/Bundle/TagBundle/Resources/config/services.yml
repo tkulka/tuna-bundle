@@ -1,0 +1,13 @@
+services:
+    tuna.tag.em:
+        class: Doctrine\ORM\EntityManager
+        public: false
+        factory: ["@doctrine", getManager]
+    tuna.tag.manager:
+        class: TheCodeine\TagBundle\Doctrine\TagManager
+        arguments: ["@tuna.tag.em"]
+    tuna.tag.form:
+        class: TheCodeine\TagBundle\Form\TagCollectionType
+        arguments: ["@tuna.tag.manager"]
+        tags:
+            - { name: form.type, alias: tuna_tag }

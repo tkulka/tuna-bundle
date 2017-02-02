@@ -50,6 +50,7 @@ class Image extends BaseImage
      * Set path
      *
      * @param string $path
+     *
      * @return Image
      */
     public function setPath($path)
@@ -71,7 +72,8 @@ class Image extends BaseImage
 
     /**
      * @param File $file
-     * @return \TheCodeine\ImageBundle\Model\Image
+     *
+     * @return Image
      */
     public function setFile(File $file)
     {
@@ -86,7 +88,8 @@ class Image extends BaseImage
 
     /**
      * @param string $url
-     * @return \TheCodeine\ImageBundle\Model\Image
+     *
+     * @return Image
      */
     public function setUrl($url)
     {

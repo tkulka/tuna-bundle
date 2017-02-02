@@ -1,11 +1,9 @@
 <?php
 
-
-namespace TheCodeine\EditorBundle\DependencyInjection;
+namespace TunaCMS\EditorBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
-
 
 class Configuration implements ConfigurationInterface
 {
@@ -15,17 +13,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('the_codeine_editor');
-
-        $rootNode
-            ->children()
-            ->booleanNode('autoinclude')->defaultTrue()->end()
-            ->booleanNode('standalone')->defaultFalse()->end()
-            ->scalarNode('base_path')->defaultValue('bundles/thecodeineeditor')->end()
-            ->booleanNode('debug')->defaultFalse()->end()
-            ->booleanNode('noconflict')->defaultTrue()->end()
-            ->end()
-            ->end();
+        $rootNode = $treeBuilder->root('tuna_cms_editor');
 
         return $treeBuilder;
     }

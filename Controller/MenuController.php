@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use TheCodeine\MenuBundle\Entity\Menu;
@@ -25,9 +26,9 @@ class MenuController extends Controller
      */
     public function listAction(Request $request)
     {
-        return array(
+        return [
             'menus' => $this->getDoctrine()->getRepository('TheCodeineMenuBundle:Menu')->getMenuTree(null, false),
-        );
+        ];
     }
 
     /**
@@ -36,12 +37,13 @@ class MenuController extends Controller
      */
     public function createAction(Request $request)
     {
-        $menu = new Menu();
         $em = $this->getDoctrine()->getManager();
+        $menu = new Menu();
 
         if (($parentId = $request->query->get('parentId'))) {
             $menu->setParent($em->getReference('TheCodeineMenuBundle:Menu', $parentId));
         }
+
         if (($pageId = $request->query->get('pageId'))) {
             $page = $em->find('TheCodeinePageBundle:Page', $pageId);
             $menu->setPage($page);
@@ -59,11 +61,11 @@ class MenuController extends Controller
             return $this->redirectToRoute('tuna_menu_list');
         }
 
-        return array(
+        return [
             'form' => $form->createView(),
             'menu' => $menu,
             'pageTitlesMap' => $em->getRepository('TheCodeinePageBundle:Page')->getTitlesMap($this->getParameter('locale')),
-        );
+        ];
     }
 
     /**
@@ -75,6 +77,7 @@ class MenuController extends Controller
         if ($menu->getParent() == null) {
             throw new AccessDeniedHttpException();
         }
+
         $form = $this->createForm(MenuType::class, $menu);
         $form->add('save', SubmitType::class);
         $form->handleRequest($request);
@@ -86,11 +89,11 @@ class MenuController extends Controller
             return $this->redirectToRoute('tuna_menu_list');
         }
 
-        return array(
+        return [
             'form' => $form->createView(),
             'menu' => $menu,
             'pageTitlesMap' => $em->getRepository('TheCodeinePageBundle:Page')->getTitlesMap($this->getParameter('locale')),
-        );
+        ];
     }
 
     /**
@@ -118,9 +121,9 @@ class MenuController extends Controller
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('TheCodeineMenuBundle:Menu');
 
-        $order = $request->request->get('order', array());
+        $order = $request->request->get('order', []);
         $entities = $repository->findAll();
-        $nodes = array();
+        $nodes = [];
 
         foreach ($entities as $entity) {
             $nodes[$entity->getId()] = $entity;
@@ -150,8 +153,8 @@ class MenuController extends Controller
             throw new NotFoundHttpException();
         }
 
-        return array(
+        return [
             'page' => $menu->getPage(),
-        );
+        ];
     }
 }

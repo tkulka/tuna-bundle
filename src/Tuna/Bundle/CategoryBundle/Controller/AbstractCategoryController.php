@@ -3,7 +3,9 @@
 namespace TheCodeine\CategoryBundle\Controller;
 
 use Doctrine\DBAL\DBALException;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,7 +21,9 @@ abstract class AbstractCategoryController extends Controller
     abstract public function getNewObject();
 
     /**
-     * @return Category
+     * @param Category|null $category
+     *
+     * @return CategoryType
      */
     abstract public function getNewFormType(Category $category = null);
 
@@ -39,9 +43,9 @@ abstract class AbstractCategoryController extends Controller
      */
     public function listAction(Request $request)
     {
-        return array(
+        return [
             'categories' => $this->getRepository()->findAll(),
-        );
+        ];
     }
 
     /**
@@ -52,22 +56,23 @@ abstract class AbstractCategoryController extends Controller
     {
         $entity = $this->getNewObject();
 
-        $em = $this->getDoctrine()->getManager();
         $form = $this->createForm($this->getNewFormType(), $entity);
-        $form->add('save', 'submit');
+        $form->add('save', SubmitType::class);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+
             $em->persist($entity);
             $em->flush();
 
             return $this->redirect($this->getRedirectUrl($entity));
         }
 
-        return array(
-            'entity' => $entity,
+        return [
             'form' => $form->createView(),
-        );
+            'entity' => $entity,
+        ];
     }
 
     /**
@@ -76,22 +81,21 @@ abstract class AbstractCategoryController extends Controller
      */
     public function editAction(Request $request, Category $category)
     {
-        $em = $this->getDoctrine()->getManager();
-
         $form = $this->createForm($this->getNewFormType(), $category);
-        $form->add('save', 'submit');
+        $form->add('save', SubmitType::class);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
             $em->flush();
 
             return $this->redirect($this->getRedirectUrl($category));
         }
 
-        return array(
-            'entity' => $category,
+        return [
             'form' => $form->createView(),
-        );
+            'entity' => $category,
+        ];
     }
 
     /**
@@ -106,7 +110,7 @@ abstract class AbstractCategoryController extends Controller
             $em->flush();
         } catch (DBALException $e) {
             $translator = $this->get('translator.default');
-            $errorMsg = $translator->trans('error.category.not_empty', array('%name%' => $category->getName()), 'validators');
+            $errorMsg = $translator->trans('error.category.not_empty', ['%name%' => $category->getName()], 'validators');
             $this->get('session')->getFlashBag()->add('error', $errorMsg);
         }
 

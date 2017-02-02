@@ -4,7 +4,7 @@ namespace TheCodeine\FileBundle\Form;
 
 use A2lix\TranslationFormBundle\Form\Type\GedmoTranslationsType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use TheCodeine\FileBundle\Entity\Attachment;
@@ -12,40 +12,42 @@ use TheCodeine\FileBundle\Entity\Attachment;
 class AttachmentType extends AbstractType
 {
     /**
-     * @param FormBuilderInterface $builder
-     * @param array $options
+     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('position', Type\HiddenType::class)
+            ->add('position', HiddenType::class)
             ->add('file', FileType::class)
-            ->add('translations', GedmoTranslationsType::class, array(
-                'translatable_class' => 'TheCodeine\FileBundle\Entity\Attachment',
-                'fields' => array(
-                    'title' => array(
+            ->add('translations', GedmoTranslationsType::class, [
+                'translatable_class' => Attachment::class,
+                'fields' => [
+                    'title' => [
                         'required' => true,
-                        'attr' => array(
+                        'attr' => [
                             'placeholder' => 'Attachment title'
-                        )
-                    )
-                )
-            ));
-    }
-
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults(array(
-            'translation_domain' => 'tuna_admin',
-            'data_class' => Attachment::class,
-            'error_bubbling' => false,
-        ));
+                        ]
+                    ]
+                ]
+            ]);
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
-    public function getName()
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'data_class' => Attachment::class,
+            'error_bubbling' => false,
+            'translation_domain' => 'tuna_admin'
+        ]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getBlockPrefix()
     {
         return 'tuna_attachment';
     }

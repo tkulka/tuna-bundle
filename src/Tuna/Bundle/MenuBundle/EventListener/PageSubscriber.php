@@ -13,9 +13,9 @@ class PageSubscriber implements EventSubscriber
 {
     public function getSubscribedEvents()
     {
-        return array(
+        return [
             'postUpdate'
-        );
+        ];
     }
 
     public function postUpdate(LifecycleEventArgs $args)
@@ -27,9 +27,9 @@ class PageSubscriber implements EventSubscriber
         }
 
         $em = $args->getEntityManager();
-        $menus = $em->getRepository('TheCodeineMenuBundle:Menu')->findBy(array(
+        $menus = $em->getRepository(Menu::class)->findBy([
             'page' => $page,
-        ));
+        ]);
 
         if (!count($menus)) {
             return;

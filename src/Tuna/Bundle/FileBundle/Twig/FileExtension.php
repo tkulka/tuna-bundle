@@ -24,6 +24,13 @@ class FileExtension extends \Twig_Extension
      */
     private $imagine;
 
+    /**
+     * FileExtension constructor.
+     *
+     * @param $paths
+     * @param AssetsHelper $assetsHelper
+     * @param CacheManager $imagine
+     */
     public function __construct($paths, AssetsHelper $assetsHelper, CacheManager $imagine)
     {
         $this->paths = $paths;
@@ -31,15 +38,23 @@ class FileExtension extends \Twig_Extension
         $this->imagine = $imagine;
     }
 
+    /**
+     * @return array
+     */
     public function getFunctions()
     {
-        return array(
-            new \Twig_SimpleFunction('tuna_uploadDir', array($this, 'getUploadDir')),
-            new \Twig_SimpleFunction('tuna_file', array($this, 'getFileWebPath')),
-            new \Twig_SimpleFunction('tuna_image', array($this, 'getImageWebPath')),
-        );
+        return [
+            new \Twig_SimpleFunction('tuna_uploadDir', [$this, 'getUploadDir']),
+            new \Twig_SimpleFunction('tuna_file', [$this, 'getFileWebPath']),
+            new \Twig_SimpleFunction('tuna_image', [$this, 'getImageWebPath']),
+        ];
     }
 
+    /**
+     * @param AbstractFile|null $file
+     *
+     * @return string
+     */
     public function getFileWebPath(AbstractFile $file = null)
     {
         if (!$file) {
@@ -51,30 +66,40 @@ class FileExtension extends \Twig_Extension
         ));
     }
 
+    /**
+     * @param AbstractFile|null $file
+     * @param null $filter
+     *
+     * @return string
+     */
     public function getImageWebPath(AbstractFile $file = null, $filter = null)
     {
         if (!$file) {
             return '';
         }
+
         $webPath = $this->getFileWebPath($file);
 
-        return $filter ?
-            $this->imagine->getBrowserPath($webPath, $filter) :
-            $webPath;
+        return $filter ? $this->imagine->getBrowserPath($webPath, $filter) : $webPath;
     }
 
+    /**
+     * @param $name
+     *
+     * @return mixed
+     */
     public function getUploadDir($name)
     {
         if (array_key_exists($name, $this->paths)) {
             return $this->paths[$name];
         } else {
-            throw new \InvalidArgumentException(sprintf(
-                'Upload path "%s" is not defined.',
-                $name
-            ));
+            throw new \InvalidArgumentException(sprintf('Upload path "%s" is not defined.', $name));
         }
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return 'thecodeine_file_extension';

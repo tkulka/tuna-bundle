@@ -17,7 +17,7 @@ class PageRepository extends EntityRepository
 {
     public function findAllPublished()
     {
-        return $this->findBy(array('published' => true));
+        return $this->findBy(['published' => true]);
     }
 
     public function getListQuery($published = null)
@@ -49,12 +49,12 @@ class PageRepository extends EntityRepository
             ->leftJoin('p.translations', 't', Query\Expr\Join::WITH, 't.field = \'title\'')
             ->getQuery()->getArrayResult();
 
-        $map = array();
+        $map = [];
         foreach ($result as $item) {
             if (!array_key_exists($item['id'], $map)) {
-                $map[$item['id']] = array(
+                $map[$item['id']] = [
                     $defaultLocale => $item['originalTitle'],
-                );
+                ];
             }
 
             if ($item['locale'] !== null) {

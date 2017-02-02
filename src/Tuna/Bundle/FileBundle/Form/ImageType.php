@@ -15,17 +15,26 @@ class ImageType extends AbstractFileType
         'acceptedFiles' => '.png,.jpg,.gif,.jpeg'
     ];
 
+    /**
+     * {@inheritdoc}
+     */
     protected function getEntityClass()
     {
         return Image::class;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         parent::buildView($view, $form, $options);
         $view->vars['scale_preview_thumbnail'] = $options['scale_preview_thumbnail'];
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         parent::configureOptions($resolver);
@@ -36,6 +45,9 @@ class ImageType extends AbstractFileType
             ->setDefault('scale_preview_thumbnail', true);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getBlockPrefix()
     {
         return 'tuna_image';

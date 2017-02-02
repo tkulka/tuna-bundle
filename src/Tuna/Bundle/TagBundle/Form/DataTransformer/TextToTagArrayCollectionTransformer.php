@@ -2,33 +2,33 @@
 
 namespace TheCodeine\TagBundle\Form\DataTransformer;
 
-use TheCodeine\TagBundle\Doctrine\TagManager;
-
-use TheCodeine\TagBundle\Model\TagManagerInterface;
-
-use TheCodeine\TagBundle\Entity\Tag;
-
-use Symfony\Component\Form\Exception\TransformationFailedException;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\PersistentCollection;
 use Symfony\Component\Form\DataTransformerInterface;
-
-use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\ArrayCollection,
-    Doctrine\ORM\PersistentCollection;
+use Symfony\Component\Form\Exception\TransformationFailedException;
+use TheCodeine\TagBundle\Doctrine\TagManagerInterface;
+use TheCodeine\TagBundle\Entity\Tag;
 
 class TextToTagArrayCollectionTransformer implements DataTransformerInterface
 {
     /**
-     * Tag manager instance
-     *
      * @var TagManagerInterface
      */
     private $tagManager;
 
+    /**
+     * TextToTagArrayCollectionTransformer constructor.
+     *
+     * @param TagManagerInterface $tagManager
+     */
     public function __construct(TagManagerInterface $tagManager)
     {
         $this->tagManager = $tagManager;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function transform($value)
     {
         if (null === $value) {
@@ -44,6 +44,9 @@ class TextToTagArrayCollectionTransformer implements DataTransformerInterface
         }, $value->toArray()));
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function reverseTransform($value)
     {
         $tagCollection = new ArrayCollection();
@@ -69,6 +72,7 @@ class TextToTagArrayCollectionTransformer implements DataTransformerInterface
         $tagsNew = array_diff($tagNames, array_map(function (Tag $tag) {
             return mb_strtolower($tag->getName(), mb_detect_encoding($tag->getName()));
         }, $tagsExist));
+
         foreach ($tagsNew as $tagName) {
             $tag = $this->tagManager->createTag();
             $tag->setName(\trim($tagName));

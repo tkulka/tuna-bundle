@@ -4,7 +4,7 @@ namespace TheCodeine\GalleryBundle\Form;
 
 use A2lix\TranslationFormBundle\Form\Type\GedmoTranslationsType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormEvent;
@@ -18,20 +18,18 @@ use TheCodeine\VideoBundle\Form\VideoUrlType;
 class GalleryItemType extends AbstractType
 {
     /**
-     * @param FormBuilderInterface $builder
-     * @param array $options
+     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('type', Type\HiddenType::class);
+        $builder->add('type', HiddenType::class);
 
         $formModifier = function (FormInterface $form, $type) {
             if (empty($type)) return;
 
             if ($type === GalleryItem::VIDEO_TYPE) {
                 $form
-                    ->add('position', Type\HiddenType::class)
+                    ->add('position', HiddenType::class)
                     ->add('video', VideoUrlType::class, [
                         'attr' => [
                             'placeholder' => 'Video URL',
@@ -51,7 +49,7 @@ class GalleryItemType extends AbstractType
                     ]);
             } else if ($type === GalleryItem::IMAGE_TYPE) {
                 $form
-                    ->add('position', Type\HiddenType::class)
+                    ->add('position', HiddenType::class)
                     ->add('image', ImageType::class, [
                         'label' => false,
                         'attr' => [
@@ -94,21 +92,21 @@ class GalleryItemType extends AbstractType
     }
 
     /**
-     * @param OptionsResolver $resolver
+     * {@inheritdoc}
      */
     public function setOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => GalleryItem::class,
-            'translation_domain' => 'tuna_admin',
             'error_bubbling' => false,
+            'translation_domain' => 'tuna_admin',
         ]);
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'thecodeine_gallerybundle_item';
     }

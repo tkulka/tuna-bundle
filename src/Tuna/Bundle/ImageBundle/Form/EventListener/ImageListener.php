@@ -3,19 +3,10 @@
 namespace TheCodeine\ImageBundle\Form\EventListener;
 
 use TheCodeine\ImageBundle\Form\ImageIdType;
-
 use TheCodeine\ImageBundle\Form\ImageRemoteType;
-
 use TheCodeine\ImageBundle\Form\ImageRequestType;
-
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-
 use Symfony\Bridge\Doctrine\RegistryInterface;
-
-use TheCodeine\ImageBundle\Form\DataTransformer\IdToImageTransformer;
-
-use Symfony\Component\Form\FormBuilderInterface;
-
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
@@ -33,15 +24,21 @@ class ImageListener implements EventSubscriberInterface
      */
     private $factory;
 
+    /**
+     * {@inheritdoc}
+     */
     public static function getSubscribedEvents()
     {
-        return array(
+        return [
             FormEvents::PRE_SUBMIT => 'preSubmit',
-        );
+        ];
     }
 
     /**
-     * @param FormFactoryInterface $formFactory
+     * ImageListener constructor.
+     *
+     * @param RegistryInterface $doctrine
+     * @param FormFactoryInterface $factory
      */
     public function __construct(RegistryInterface $doctrine, FormFactoryInterface $factory)
     {
@@ -49,6 +46,9 @@ class ImageListener implements EventSubscriberInterface
         $this->factory = $factory;
     }
 
+    /**
+     * @param FormEvent $event
+     */
     public function preSubmit(FormEvent $event)
     {
         $form = $event->getForm();
@@ -63,11 +63,21 @@ class ImageListener implements EventSubscriberInterface
         }
     }
 
+    /**
+     * @param array $data
+     *
+     * @return bool
+     */
     private function isRequestImage(array $data)
     {
         return isset($data['image']['file']) && $data['image']['file'] instanceof UploadedFile;
     }
 
+    /**
+     * @param array $data
+     *
+     * @return bool
+     */
     private function isRemoteImage(array $data)
     {
         return isset($data['image']['file']) && is_string($data['image']['file']) &&

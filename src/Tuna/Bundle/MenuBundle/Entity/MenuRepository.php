@@ -7,7 +7,7 @@ use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 
 class MenuRepository extends NestedTreeRepository
 {
-    public function getNodesHierarchyQuery($node = null, $direct = false, array $options = array(), $includeNode = false)
+    public function getNodesHierarchyQuery($node = null, $direct = false, array $options = [], $includeNode = false)
     {
         return parent::getNodesHierarchyQuery($node, $direct, $options, $includeNode)->setHint(
             Query::HINT_CUSTOM_OUTPUT_WALKER,
@@ -22,12 +22,12 @@ class MenuRepository extends NestedTreeRepository
 
     private function nodeToArray(Menu $item)
     {
-        return array(
+        return [
             'lft' => $this->getFieldValue($item, 'lft'),
             'rgt' => $this->getFieldValue($item, 'rgt'),
             'lvl' => $this->getFieldValue($item, 'lvl'),
             '__object' => $item,
-        );
+        ];
     }
 
     public function getMenuTree($name = null, $filterUnpublished = true)
@@ -54,7 +54,7 @@ class MenuRepository extends NestedTreeRepository
                 $item = $this->nodeToArray($item);
             });
         } else {
-            $filteredNodes = array();
+            $filteredNodes = [];
             $unpublishedRgt = 0;
 
             foreach ($nodes as $node) {
@@ -84,7 +84,7 @@ class MenuRepository extends NestedTreeRepository
             ->getQuery()
             ->getResult();
 
-        $items = array();
+        $items = [];
         foreach ($results as $result) {
             $items[$result->getPage()->getId()] = $result;
         }

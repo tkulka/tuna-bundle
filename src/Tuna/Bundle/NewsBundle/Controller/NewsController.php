@@ -2,6 +2,7 @@
 
 namespace TheCodeine\NewsBundle\Controller;
 
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use TheCodeine\NewsBundle\Entity\AbstractNews;
 use TheCodeine\NewsBundle\Entity\Category;
 use TheCodeine\NewsBundle\Form\CategoryType;
@@ -29,7 +30,7 @@ class NewsController extends AbstractPageController
 
     public function getRedirectUrl(AbstractPage $page = null, Request $request = null)
     {
-        return $this->generateUrl('tuna_news_list', array('newsType' => $page->getType()));
+        return $this->generateUrl('tuna_news_list', ['newsType' => $page->getType()]);
     }
 
     public function getRepository()
@@ -44,9 +45,9 @@ class NewsController extends AbstractPageController
      */
     public function listAction(Request $request)
     {
-        return array(
+        return [
             'entities' => $this->getRepository()->findAll(),
-        );
+        ];
     }
 
     /**
@@ -59,7 +60,7 @@ class NewsController extends AbstractPageController
         $validate = !$request->isXmlHttpRequest();
         $news = $this->get('tuna.news.factory')->getInstance($newsType);
         $form = $this->createForm($this->get('tuna.news.factory')->getFormInstance($news, $validate), $news);
-        $form->add('save', 'submit');
+        $form->add('save', SubmitType::class);
 
         $result = $this->handleCreateForm($request, $form, $news);
 

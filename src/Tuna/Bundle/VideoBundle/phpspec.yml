@@ -1,7 +1,0 @@
-suites:
-    DependencyInjection:
-        { namespace: TheCodeine\VideoBundle\DependencyInjection, psr4_prefix: TheCodeine\VideoBundle\DependencyInjection, spec_prefix: DependencyInjection, spec_path: Spec, src_path: DependencyInjection }
-    Entity:
-        { namespace: TheCodeine\VideoBundle\Entity, psr4_prefix: TheCodeine\VideoBundle\Entity, spec_prefix: Entity, spec_path: Spec, src_path: Entity }
-    Form:
-        { namespace: TheCodeine\VideoBundle\Form, psr4_prefix: TheCodeine\VideoBundle\Form, spec_prefix: Form, spec_path: Spec, src_path: Form }

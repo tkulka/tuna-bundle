@@ -3,6 +3,7 @@
 namespace TheCodeine\MenuBundle\Form;
 
 use A2lix\TranslationFormBundle\Form\Type\GedmoTranslationsType;
+use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -14,6 +15,9 @@ use TheCodeine\PageBundle\Entity\Page;
 
 class MenuType extends AbstractType
 {
+    /**
+     * {@inheritDoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $nodeId = $builder->getData()->getId();
@@ -21,43 +25,48 @@ class MenuType extends AbstractType
         $builder
             ->add('clickable')
             ->add('published', CheckboxType::class)
-            ->add('page', EntityType::class, array(
+            ->add('page', EntityType::class, [
                 'class' => Page::class,
                 'property' => 'title',
                 'empty_value' => 'Not linked to a Page',
-                'attr' => array(
-                    'class' => 'filtered',
-                )
-            ))
+                'attr' => ['class' => 'filtered']
+            ])
             ->add('path')
-            ->add('translations', GedmoTranslationsType::class, array(
+            ->add('translations', GedmoTranslationsType::class, [
                 'translatable_class' => Menu::class,
-                'fields' => array(
-                    'label' => array(),
-                )
-            ))
-            ->add('parent', null,
-                array(
-                    'query_builder' => function (
-                        EntityRepository $er) use (
-                        $nodeId
-                    ) {
-                        return $er->createQueryBuilder('p')
-                            ->orderBy('p.root', 'ASC')
-                            ->addOrderBy('p.lft', 'ASC')
-                            ->where("p.id != '$nodeId'");
-                    },
-                    'property' => 'indentedName',
-                    'required' => true,
-                )
-            );
+                'fields' => ['label' => []]
+            ])
+            ->add('parent', null, [
+                'query_builder' => function (EntityRepository $er) use ($nodeId) {
+                    return $this->queryParentElement($er, $nodeId);
+                },
+                'property' => 'indentedName',
+                'required' => true,
+            ]);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => Menu::class,
             'translation_domain' => 'tuna_admin',
-        ));
+        ]);
+    }
+
+    /**
+     * @param EntityRepository $er
+     * @param int $nodeId
+     * @return QueryBuilder
+     */
+    protected function queryParentElement(EntityRepository $er, $nodeId)
+    {
+        return $er->createQueryBuilder('p')
+            ->orderBy('p.root', 'ASC')
+            ->addOrderBy('p.lft', 'ASC')
+            ->where('p.id != :nodeId')
+            ->setParameter('nodeId', $nodeId);
     }
 }
