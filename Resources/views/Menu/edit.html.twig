@@ -3,9 +3,11 @@
 
 {% block content %}
     {% embed 'TheCodeineAdminBundle::_partials/_form/_main.html.twig' with { title: menu.label, slug: menu.externalUrl ?: menu.slug } %}
-        {% block extraFields %}
+        {% block headerOptions %}
             {{ form_row(form.clickable, { label: 'Clickable' }) }}
-            {{ form_row(form.published, { label: 'Published' }) }}
+        {% endblock %}
+
+        {% block extraFields %}
             {% if form.parent %}
                 {{ form_row(form.parent) }}
             {% endif %}

@@ -22,6 +22,16 @@
     }
 }
 
+.btn-tertiary {
+    background-color: $brand-content;
+    color: $brand-secondary;
+
+    &:hover, &:focus {
+        background-color: $brand-secondary;
+        color: $brand-content;
+    }
+}
+
 .btn-sm {
     padding: 10px 15px;
     font-size: 12px;

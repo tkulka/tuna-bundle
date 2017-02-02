@@ -8,15 +8,17 @@
             margin-right: 20px;
 
             a {
-                color: lighten($brand-tertiary, 25%);
+                color: rgba($brand-content, .5);
                 border: 0;
-                padding: 0;
+                padding: 8px 0;
+                text-transform: capitalize;
+
             }
 
             &.active a, & a:hover, & a:focus {
                 border: 0;
                 background: transparent;
-                color: $brand-secondary;
+                color: $brand-content;
             }
         }
     }

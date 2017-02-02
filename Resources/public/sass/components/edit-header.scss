@@ -1,0 +1,50 @@
+.edit-header {
+    background: $brand-primary;
+    height: $headerHeight;
+    color: $brand-content;
+    padding: 10px 20px;
+    overflow: hidden;
+
+    @media screen and (min-width: $desktopMediumScreen) {
+        padding: 10px 60px 10px 20px;
+    }
+
+    > div {
+        float: left;
+    }
+
+    .options {
+        width: $sidebarOptionsWidth;
+        display: none;
+        font-size: 24px;
+
+        @media screen and (min-width: $mobileLargeScreen) {
+            display: block;
+        }
+    }
+
+    .controls {
+        float: right;
+
+        .checkboxes {
+            padding-top: 10px;
+            float: left;
+            display: none;
+
+            @media screen and (min-width: 1280px) {
+                display: block;
+            }
+
+            .checkbox {
+                float: left;
+                margin: 0 10px;
+                color: $brand-content;
+            }
+        }
+
+        .button {
+            margin-left: 40px;
+            float: right;
+        }
+    }
+}

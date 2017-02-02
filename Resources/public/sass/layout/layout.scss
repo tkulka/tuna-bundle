@@ -35,7 +35,7 @@ body {
             color: $link-color-inverse;
 
             @media all and (min-width: $desktopSmallScreen) {
-                @include calc(height, "100% - 50px");
+                height: 100%;
                 padding: 60px;
 
                 .inside {

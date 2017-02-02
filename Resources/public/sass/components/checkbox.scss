@@ -2,22 +2,12 @@
 .radio {
     color: lighten($brand-tertiary, 40%);
 
-    .icons {
-        color: lighten($brand-tertiary, 40%);
-    }
-
     input[type="checkbox"].custom-checkbox,
     input[type="radio"].custom-radio {
 
         &:checked + .icons {
-            color: $brand-primary;
-
-            .icon-unchecked {
-                color: $brand-primary;
-            }
-
             .icon-checked {
-                color: $brand-primary;
+                color: $brand-content;
             }
         }
     }
