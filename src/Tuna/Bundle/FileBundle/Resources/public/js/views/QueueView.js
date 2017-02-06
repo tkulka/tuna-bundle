@@ -9,15 +9,15 @@
         ),
 
         initialize: function (options) {
-            this.events = options.events || _.extend({}, Backbone.Events);
+            this.tunaEvents = options.tunaEvents || _.extend({}, Backbone.Events);
             this.queueCounter = 0;
 
             this.bindEvents();
         },
 
         bindEvents: function () {
-            this.events.on('file.fileAdded', this.increaseQueue, this);
-            this.events.on('file.fileCompleted', this.decreaseQueue, this);
+            this.tunaEvents.on('file.fileAdded', this.increaseQueue, this);
+            this.tunaEvents.on('file.fileCompleted', this.decreaseQueue, this);
         },
 
         increaseQueue: function () {
@@ -25,7 +25,7 @@
             this.render();
 
             if (this.queueCounter == 1) {
-                this.events.trigger('file.uploadStart');
+                this.tunaEvents.trigger('file.uploadStart');
             }
         },
 
@@ -34,7 +34,7 @@
             this.render();
 
             if (this.queueCounter == 0) {
-                this.events.trigger('file.uploadEnd');
+                this.tunaEvents.trigger('file.uploadEnd');
             }
         },
 

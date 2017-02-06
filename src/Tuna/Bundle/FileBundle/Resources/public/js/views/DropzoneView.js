@@ -8,7 +8,7 @@ var tuna = tuna || {};
         initialize: function (options) {
             Dropzone.autoDiscover = false;
 
-            this.events = options.events || _.extend({}, Backbone.Events);
+            this.tunaEvents = options.tunaEvents || _.extend({}, Backbone.Events);
             this.parentView = options.parentView;
             this.options = options.options;
 
@@ -63,7 +63,7 @@ var tuna = tuna || {};
                 },
                 error: function (file, error, xhr) {
                     if (xhr) error = error.messages;
-                    dropzoneView.events.trigger('errorOccurred', {
+                    dropzoneView.tunaEvents.trigger('errorOccurred', {
                         title: dropzoneView.getText('File upload error'),
                         message: file.name + ' - ' + error
                     });
@@ -79,11 +79,11 @@ var tuna = tuna || {};
                     });
 
                     this.on('addedfile', function () {
-                        dropzoneView.events.trigger('file.fileAdded');
+                        dropzoneView.tunaEvents.trigger('file.fileAdded');
                     });
 
                     this.on('complete', function () {
-                        dropzoneView.events.trigger('file.fileCompleted');
+                        dropzoneView.tunaEvents.trigger('file.fileCompleted');
                     })
                 }
             }, this.options);
