@@ -8,4 +8,3 @@ before_script:
 
 script:
     - ./run-tests.sh
-    - ./bin/synchronize_bundles.sh $TRAVIS_BRANCH
