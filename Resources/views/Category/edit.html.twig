@@ -1,6 +1,12 @@
 {% trans_default_domain 'tuna_admin' %}
-{% extends 'TheCodeineAdminBundle::_layout.html.twig' %}
+
+{% extends app.request.isXmlHttpRequest ? 'TheCodeineAdminBundle::_embed.html.twig' : 'TheCodeineAdminBundle::_layout.html.twig' %}
 
 {% block content %}
-    {% include 'TheCodeineAdminBundle::_partials/_form/_main.html.twig' with { title: entity.name, slug: entity.slug } %}
+    {% embed 'TheCodeineAdminBundle::_partials/_form/_main.html.twig' with { title: entity.name ?: 'Create Category'|trans, slug: entity.slug } %}
+        {% trans_default_domain 'tuna_admin' %}
+
+        {% block extraFields %}
+        {% endblock %}
+    {% endembed %}
 {% endblock %}

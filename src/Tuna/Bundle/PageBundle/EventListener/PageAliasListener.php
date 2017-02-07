@@ -3,16 +3,18 @@
 namespace TheCodeine\PageBundle\EventListener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use TheCodeine\PageBundle\Entity\Page;
+use TheCodeine\PageBundle\Entity\AbstractPage;
 
 class PageAliasListener
 {
-    public function postPersist(Page $page, LifecycleEventArgs $event)
+    public function postPersist(AbstractPage $abstractPage, LifecycleEventArgs $event)
     {
-        if ($page->getAlias() == null) {
+        if (null === $abstractPage->getAlias()) {
+            $abstractPage->setAlias($abstractPage->getSlug());
+
             $em = $event->getEntityManager();
-            $page->setAlias($page->getSlug());
-            $em->persist($page);
+
+            $em->persist($abstractPage);
             $em->flush();
         }
     }

@@ -1,6 +1,3 @@
 {% trans_default_domain 'tuna_admin' %}
-{% extends 'TheCodeineAdminBundle::_layout.html.twig' %}
 
-{% block content %}
-    {% include 'TheCodeineAdminBundle::_partials/_form/_main.html.twig' with { title: 'Create category'|trans } %}
-{% endblock %}
+{% extends 'TheCodeineAdminBundle:Category:edit.html.twig' %}

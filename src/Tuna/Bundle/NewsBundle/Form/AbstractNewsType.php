@@ -1,6 +1,6 @@
 <?php
 
-namespace TheCodeine\PageBundle\Form;
+namespace TheCodeine\NewsBundle\Form;
 
 use A2lix\TranslationFormBundle\Form\Type\GedmoTranslationsType;
 use Symfony\Component\Form\AbstractType;
@@ -9,13 +9,12 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
 use TheCodeine\FileBundle\Form\AttachmentCollectionType;
 use TheCodeine\FileBundle\Form\MainImageType;
 use TheCodeine\GalleryBundle\Form\GalleryType;
 use TunaCMS\EditorBundle\Form\EditorType;
 
-abstract class AbstractPageType extends AbstractType
+abstract class AbstractNewsType extends AbstractType
 {
     /**
      * @var bool
@@ -28,9 +27,9 @@ abstract class AbstractPageType extends AbstractType
     abstract protected function getEntityClass();
 
     /**
-     * PageType constructor.
+     * AbstractNewsType constructor.
      *
-     * @param $validate
+     * @param bool $validate
      */
     public function __construct($validate = false)
     {
@@ -86,13 +85,5 @@ abstract class AbstractPageType extends AbstractType
             'data_class' => $this->getEntityClass(),
             'translation_domain' => 'tuna_admin',
         ]);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getBlockPrefix()
-    {
-        return 'thecodeine_pagebundle_page';
     }
 }

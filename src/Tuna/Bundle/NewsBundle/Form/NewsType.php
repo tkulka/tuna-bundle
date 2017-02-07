@@ -5,19 +5,18 @@ namespace TheCodeine\NewsBundle\Form;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
-use TheCodeine\PageBundle\Form\AbstractPageType;
+use TheCodeine\NewsBundle\Entity\News;
 use TheCodeine\TagBundle\Form\TagCollectionType;
 
-class NewsType extends AbstractPageType
+class NewsType extends AbstractNewsType
 {
     /**
-     * @param FormBuilderInterface $builder
-     * @param array $options
+     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
+
         $builder
             ->add('important', null, [
                 'required' => false
@@ -32,22 +31,16 @@ class NewsType extends AbstractPageType
             ]);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function getEntityClass()
     {
-        return 'TheCodeine\NewsBundle\Entity\News';
+        return News::class;
     }
 
     /**
-     * @param OptionsResolver $resolver
-     */
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        parent::configureOptions($resolver);
-        $resolver->setDefault('data_class', 'TheCodeine\NewsBundle\Entity\AbstractNews');
-    }
-
-    /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getBlockPrefix()
     {

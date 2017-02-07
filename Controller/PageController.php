@@ -2,17 +2,14 @@
 
 namespace TheCodeine\AdminBundle\Controller;
 
-use Doctrine\ORM\EntityRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use TheCodeine\PageBundle\Controller\PageController as Controller;
 use TheCodeine\MenuBundle\Entity\Menu;
 use TheCodeine\PageBundle\Entity\AbstractPage;
-use TheCodeine\PageBundle\Entity\Page;
 
 /**
  * @Route("/page")
@@ -22,18 +19,15 @@ class PageController extends Controller
     const PAGINATE_LIMIT = 10;
 
     /**
-     * @param AbstractPage|null $page
-     * @param Request|null $request
-     *
-     * @return string
+     * {@inheritDoc}
      */
-    public function getRedirectUrl(AbstractPage $page = null, Request $request = null)
+    public function getRedirectUrl(Request $request)
     {
-        if ($request && $request->query->get('redirect') == 'dashboard') {
+        if ($request->query->get('redirect') == 'dashboard') {
             return $this->generateUrl('tuna_admin_dashboard');
         }
 
-        return parent::getRedirectUrl($page);
+        return parent::getRedirectUrl($request);
     }
 
     /**
@@ -43,8 +37,8 @@ class PageController extends Controller
     public function listAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $query = $em->getRepository('TheCodeinePageBundle:Page')->getListQuery();
-        $menuMap = $em->getRepository('TheCodeineMenuBundle:Menu')->getPageMap();
+        $query = $em->getRepository(AbstractPage::class)->getListQuery();
+        $menuMap = $em->getRepository(Menu::class)->getPageMap();
         $page = $request->get('page', 1);
 
         return [
@@ -62,43 +56,34 @@ class PageController extends Controller
     {
         $this->denyAccessUnlessGranted('create', 'pages');
 
-        $page = $this->getNewPage();
-        $form = $this->createForm($this->getNewFormType($page, !$request->isXmlHttpRequest()), $page);
-        $form->add('save', 'submit');
+        $abstractPage = $this->getNewPage();
+        $form = $this->createForm($this->getFormType($abstractPage), $abstractPage);
+
+        // TODO: Move this to twig
+        $form->add('save', SubmitType::class);
+
         if (($parentId = $request->query->get('menuParentId'))) {
-            $menuParent = $this->getDoctrine()->getManager()->getReference('TheCodeineMenuBundle:Menu', $parentId);
+            $menuParent = $this->getDoctrine()->getManager()->getReference(Menu::class, $parentId);
         }
 
-        $return = $this->handleCreateForm($request, $form, $page);
-        if (
-            $form->isValid()
-            && !$request->isXmlHttpRequest()
-            && isset($menuParent)
-        ) {
-            $this->createMenuForPage($menuParent, $page);
+        $return = $this->handleCreate($request, $form, $abstractPage);
+
+        if ($form->isValid() && !$request->isXmlHttpRequest() && isset($menuParent)) {
+            $this->createMenuForPage($menuParent, $abstractPage);
         }
 
         return $return;
     }
 
     /**
-     * @Route("/{id}/edit", name="tuna_page_edit", requirements={"id" = "\d+"})
-     * @Template()
-     */
-    public function editAction(Request $request, $id)
-    {
-        return parent::editAction($request, $id);
-    }
-
-    /**
      * @Route("/{id}/delete", name="tuna_page_delete", requirements={"id" = "\d+"})
      * @Template()
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction(Request $request, AbstractPage $abstractPage)
     {
         $this->denyAccessUnlessGranted('delete', 'pages');
 
-        return parent::deleteAction($request, $id);
+        return parent::deleteAction($request, $abstractPage);
     }
 
     /**
@@ -107,8 +92,8 @@ class PageController extends Controller
     public function createMenuItemAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $page = $em->getReference('TheCodeinePageBundle:Page', $request->request->get('pageId'));
-        $menuParent = $em->getReference('TheCodeineMenuBundle:Menu', $request->request->get('menuParentId'));
+        $page = $em->getReference(AbstractPage::class, $request->request->get('pageId'));
+        $menuParent = $em->getReference(Menu::class, $request->request->get('menuParentId'));
 
         $this->createMenuForPage($menuParent, $page);
 
@@ -117,13 +102,13 @@ class PageController extends Controller
 
     /**
      * @param Menu $menuParent
-     * @param Page $page
+     * @param AbstractPage $abstractPage
      */
-    private function createMenuForPage(Menu $menuParent, Page $page)
+    private function createMenuForPage(Menu $menuParent, AbstractPage $abstractPage)
     {
         $em = $this->getDoctrine()->getManager();
         $menu = new Menu('tmp');
-        $menu->setPage($page);
+        $menu->setPage($abstractPage);
         $menu->setParent($menuParent);
         $em->persist($menu);
         $em->flush();

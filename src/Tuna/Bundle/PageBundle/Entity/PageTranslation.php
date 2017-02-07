@@ -8,9 +8,7 @@ use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;
 /**
  * @ORM\Entity
  * @ORM\Table(name="pages_translations",
- *     uniqueConstraints={@ORM\UniqueConstraint(columns={
- *         "locale", "object_id", "field"
- *     })}
+ *     uniqueConstraints={@ORM\UniqueConstraint(columns={"locale", "object_id", "field"})}
  * )
  */
 class PageTranslation extends AbstractPersonalTranslation

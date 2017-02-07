@@ -5,9 +5,7 @@ namespace TheCodeine\MenuBundle\EventListener;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use TheCodeine\MenuBundle\Entity\Menu;
-use TheCodeine\MenuBundle\Entity\MenuTranslation;
-use TheCodeine\PageBundle\Entity\Page;
-use TheCodeine\PageBundle\Entity\PageTranslation;
+use TheCodeine\PageBundle\Entity\AbstractPage;
 
 class PageSubscriber implements EventSubscriber
 {
@@ -22,7 +20,7 @@ class PageSubscriber implements EventSubscriber
     {
         $page = $args->getEntity();
 
-        if (!$page instanceof Page) {
+        if (!$page instanceof AbstractPage) {
             return;
         }
 

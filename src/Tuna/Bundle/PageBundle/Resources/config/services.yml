@@ -1,1 +1,4 @@
 services:
+    the_codeine_page.factory:
+        class: TheCodeine\PageBundle\Service\PageFactory
+        arguments: ["%the_codeine_page.model%"]

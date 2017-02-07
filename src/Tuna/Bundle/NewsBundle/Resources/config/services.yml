@@ -1,4 +1,3 @@
 services:
-    tuna.news.factory:
+    the_codeine_news.factory:
         class: TheCodeine\NewsBundle\Service\NewsFactory
-        arguments: ['@doctrine.orm.default_entity_manager']

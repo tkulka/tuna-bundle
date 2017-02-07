@@ -136,3 +136,9 @@ lexik_translation:
     resources_registration:
         type: all
         managed_locales_only: false
+
+doctrine_migrations:
+    dir_name: "%kernel.root_dir%/../vendor/tuna-cms/tuna-bundle/DoctrineMigrations"
+    namespace: Application\Migrations
+    table_name: migration_versions
+    name: Application Migrations

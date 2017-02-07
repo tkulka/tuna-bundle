@@ -1,3 +1,3 @@
-the_codeine_menu:
+the_codeine_news:
     type: annotation
     resource: "@TheCodeineNewsBundle/Controller/NewsController.php"

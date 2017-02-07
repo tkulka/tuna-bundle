@@ -8,19 +8,28 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;
 use Symfony\Component\Validator\Constraints as Assert;
 use TheCodeine\GalleryBundle\Entity\Gallery;
-use TheCodeine\ImageBundle\Entity\Image;
+use TheCodeine\FileBundle\Entity\Image;
+use TheCodeine\PageBundle\Model\PageInterface;
 
 /**
  * AbstractPage
  *
+ * @ORM\Table(name="pages")
+ * @ORM\Entity(repositoryClass="TheCodeine\PageBundle\Entity\PageRepository")
+ * @ORM\EntityListeners({"TheCodeine\PageBundle\EventListener\PageAliasListener"})
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="page_type", type="string")
  * @ORM\HasLifecycleCallbacks
+ *
+ * @Gedmo\TranslationEntity(class="TheCodeine\PageBundle\Entity\PageTranslation")
  */
-abstract class AbstractPage
+abstract class AbstractPage implements PageInterface
 {
     /**
-     * @var string
-     * @ORM\Column(name="id", type="integer")
+     * @var int
+     *
      * @ORM\Id
+     * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
@@ -28,71 +37,103 @@ abstract class AbstractPage
     /**
      * @var string
      *
-     * @Gedmo\Translatable
-     * @ORM\Column(name="title", type="string", length=255)
-     * @Assert\NotBlank()
-     */
-    protected $title;
-
-    /**
-     * @var string
-     *
-     * @Gedmo\Translatable
-     * @ORM\Column(name="teaser", type="text", nullable=true)
-     */
-    protected $teaser;
-
-    /**
-     * @Gedmo\Slug(fields={"title"})
      * @ORM\Column(type="string", unique=true)
+     *
+     * @Gedmo\Slug(fields={"title"})
      */
     protected $slug;
 
     /**
      * @var string
      *
-     * @Gedmo\Translatable
      * @ORM\Column(name="body", type="text", nullable=true)
+     *
+     * @Gedmo\Translatable
      */
     protected $body;
 
     /**
-     * @Assert\Valid
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $alias;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=255)
+     *
+     * @Assert\NotBlank()
+     *
+     * @Gedmo\Translatable
+     */
+    protected $title;
+
+    /**
+     * @var Image
      *
      * @ORM\OneToOne(targetEntity="TheCodeine\FileBundle\Entity\Image", cascade={"persist", "remove"})
      * @ORM\JoinColumn(onDelete="SET NULL")
+     *
+     * @Assert\Valid
      */
     protected $image;
 
     /**
-     * @Assert\Valid
+     * @var string
+     *
+     * @ORM\Column(name="teaser", type="text", nullable=true)
+     *
+     * @Gedmo\Translatable
+     */
+    protected $teaser;
+
+    /**
+     * @var string
+     *
+     * @Gedmo\Locale
+     */
+    protected $locale;
+
+    /**
+     * @var Gallery
      *
      * @ORM\OneToOne(targetEntity="TheCodeine\GalleryBundle\Entity\Gallery", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="gallery_id", referencedColumnName="id")
+     *
+     * @Assert\Valid
      */
     protected $gallery;
 
     /**
+     * @var boolean
+     *
      * @ORM\Column(type="boolean")
      */
     protected $published;
 
     /**
-     * @Assert\Valid
+     * @var ArrayCollection
      *
      * @ORM\ManyToMany(targetEntity="TheCodeine\FileBundle\Entity\Attachment", cascade={"persist", "remove"})
      * @ORM\JoinTable(
      *      joinColumns={@ORM\JoinColumn(name="page_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="attachment_id", referencedColumnName="id", unique=true)}
-     *      )
+     * )
      * @ORM\OrderBy({"position" = "ASC"})
+     *
+     * @Assert\Valid
      */
     protected $attachments;
 
     /**
-     * @Gedmo\Locale
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="PageTranslation", mappedBy="object", cascade={"persist", "remove"})
+     *
+     * @Assert\Valid
      */
-    protected $locale;
     protected $translations;
 
     /**
@@ -113,29 +154,33 @@ abstract class AbstractPage
     }
 
     /**
-     * @param Gallery $gallery
-     *
-     * @return AbstractPage
+     * {@inheritdoc}
      */
-    public function setGallery(Gallery $gallery = null)
+    public function getId()
     {
-        $this->gallery = $gallery;
+        return $this->id;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
 
         return $this;
     }
 
     /**
-     * @return Gallery
+     * {@inheritdoc}
      */
-    public function getGallery()
+    public function getSlug()
     {
-        return $this->gallery;
+        return $this->slug;
     }
 
     /**
-     * @param $body
-     *
-     * @return AbstractPage
+     * {@inheritdoc}
      */
     public function setBody($body)
     {
@@ -145,7 +190,7 @@ abstract class AbstractPage
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getBody()
     {
@@ -153,37 +198,25 @@ abstract class AbstractPage
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
-    public function getId()
+    public function setAlias($alias)
     {
-        return $this->id;
-    }
-
-    /**
-     * @param Image $image
-     *
-     * @return AbstractPage
-     */
-    public function setImage(Image $image)
-    {
-        $this->image = $image;
+        $this->alias = $alias;
 
         return $this;
     }
 
     /**
-     * @return Image
+     * {@inheritdoc}
      */
-    public function getImage()
+    public function getAlias()
     {
-        return $this->image;
+        return $this->alias;
     }
 
     /**
-     * @param string $title
-     *
-     * @return AbstractPage
+     * {@inheritdoc}
      */
     public function setTitle($title)
     {
@@ -193,7 +226,7 @@ abstract class AbstractPage
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getTitle()
     {
@@ -201,25 +234,43 @@ abstract class AbstractPage
     }
 
     /**
-     * @param string $slug
+     * {@inheritdoc}
      */
-    public function setSlug($slug)
+    public function setImage(Image $image)
     {
-        $this->slug = $slug;
+        $this->image = $image;
+
+        return $this;
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
-    public function getSlug()
+    public function getImage()
     {
-        return $this->slug;
+        return $this->image;
     }
 
     /**
-     * @param $locale
-     *
-     * @return AbstractPage
+     * {@inheritdoc}
+     */
+    public function setTeaser($teaser)
+    {
+        $this->teaser = $teaser;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getTeaser()
+    {
+        return $this->teaser;
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public function setLocale($locale)
     {
@@ -229,60 +280,33 @@ abstract class AbstractPage
     }
 
     /**
-     * @return ArrayCollection
+     * {@inheritdoc}
      */
-    public function getTranslations()
+    public function getLocale()
     {
-        return $this->translations;
+        return $this->locale;
     }
 
     /**
-     * @param AbstractPersonalTranslation $t
-     *
-     * @return AbstractPage
+     * {@inheritdoc}
      */
-    public function addTranslation(AbstractPersonalTranslation $t)
+    public function setGallery(Gallery $gallery)
     {
-        if (!$this->translations->contains($t) && $t->getContent()) {
-            $this->translations[] = $t;
-            $t->setObject($this);
-        }
+        $this->gallery = $gallery;
 
         return $this;
     }
 
     /**
-     * @param AbstractPersonalTranslation $t
-     *
-     * @return AbstractPage
+     * {@inheritdoc}
      */
-    public function removeTranslation(AbstractPersonalTranslation $t)
+    public function getGallery()
     {
-        $this->translations->removeElement($t);
-
-        return $this;
+        return $this->gallery;
     }
 
     /**
-     * @param ArrayCollection[AbstractPersonalTranslation] $translations
-     *
-     * @return AbstractPage
-     */
-    public function setTranslations($translations)
-    {
-        foreach ($translations as $translation) {
-            $translation->setObject($this);
-        }
-
-        $this->translations = $translations;
-
-        return $this;
-    }
-
-    /**
-     * @param boolean $published
-     *
-     * @return AbstractPage
+     * {@inheritdoc}
      */
     public function setPublished($published)
     {
@@ -292,15 +316,7 @@ abstract class AbstractPage
     }
 
     /**
-     * @return boolean
-     */
-    public function isPublished()
-    {
-        return $this->published;
-    }
-
-    /**
-     * @return boolean
+     * {@inheritdoc}
      */
     public function getPublished()
     {
@@ -308,9 +324,15 @@ abstract class AbstractPage
     }
 
     /**
-     * @param ArrayCollection $attachments
-     *
-     * @return AbstractPage
+     * {@inheritdoc}
+     */
+    public function isPublished()
+    {
+        return $this->published;
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public function setAttachments(ArrayCollection $attachments)
     {
@@ -319,9 +341,8 @@ abstract class AbstractPage
         return $this;
     }
 
-
     /**
-     * @return ArrayCollection
+     * {@inheritdoc}
      */
     public function getAttachments()
     {
@@ -329,22 +350,48 @@ abstract class AbstractPage
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
-    public function getTeaser()
+    public function setTranslations(ArrayCollection $translations)
     {
-        return $this->teaser;
+        $this->translations = $translations;
+
+        return $this;
     }
 
     /**
-     * @param string $teaser
-     *
-     * @return AbstractPage
+     * {@inheritdoc}
      */
-    public function setTeaser($teaser)
+    public function getTranslations()
     {
-        $this->teaser = $teaser;
+        return $this->translations;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function addTranslation(AbstractPersonalTranslation $translation)
+    {
+        $this->translations->add($translation);
 
         return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function removeTranslation(AbstractPersonalTranslation $translation)
+    {
+        $this->translations->removeElement($translation);
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getType()
+    {
+        return (new \ReflectionClass($this))->getShortName();
     }
 }

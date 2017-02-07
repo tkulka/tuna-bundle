@@ -11,7 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use TheCodeine\MenuBundle\Entity\Menu;
-use TheCodeine\PageBundle\Entity\Page;
+use TheCodeine\PageBundle\Entity\AbstractPage;
 
 class MenuType extends AbstractType
 {
@@ -26,7 +26,7 @@ class MenuType extends AbstractType
             ->add('clickable')
             ->add('published', CheckboxType::class)
             ->add('page', EntityType::class, [
-                'class' => Page::class,
+                'class' => AbstractPage::class,
                 'property' => 'title',
                 'empty_value' => 'Not linked to a Page',
                 'attr' => ['class' => 'filtered']

@@ -1,4 +1,6 @@
 ivory_ck_editor:
+    async: false
+    jquery: true
     default_config: tuna.editor.config
     configs:
         tuna.editor.config:

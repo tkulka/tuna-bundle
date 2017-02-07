@@ -4,19 +4,17 @@ namespace TheCodeine\NewsBundle\Form;
 
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
-
-use TheCodeine\NewsBundle\Entity\Category;
+use TheCodeine\NewsBundle\Entity\Event;
 
 class EventType extends NewsType
 {
-
     /**
-     * @param FormBuilderInterface $builder
-     * @param array $options
+     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
+
         $builder
             ->add('startDate', DateTimeType::class, [
                 'widget' => 'single_text',
@@ -29,8 +27,19 @@ class EventType extends NewsType
             ]);
     }
 
-    protected function getTranslatableClass()
+    /**
+     * {@inheritdoc}
+     */
+    protected function getEntityClass()
     {
-        return 'TheCodeine\NewsBundle\Entity\Event';
+        return Event::class;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getBlockPrefix()
+    {
+        return 'thecodeine_newsbundle_event';
     }
 }

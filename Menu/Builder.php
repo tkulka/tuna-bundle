@@ -5,6 +5,7 @@ namespace TheCodeine\AdminBundle\Menu;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 use Symfony\Component\HttpFoundation\Request;
+use TheCodeine\NewsBundle\Entity\Event;
 use TheCodeine\NewsBundle\Entity\News;
 
 class Builder
@@ -82,6 +83,12 @@ class Builder
             });
         }
 
+        if ($this->componentsConfig['pages']['enabled']) {
+            $this->addChild($menu, $request, 'Pages', 'tuna_page_list', 60, function (Request $request, $route) {
+                return preg_match_all('/tuna_page_/i', $request->get('_route'));
+            });
+        }
+
         if ($this->componentsConfig['news']['enabled']) {
             $this->addChild($menu, $request, 'News', 'tuna_news_list', 110, function (Request $request, $route) {
                 return
@@ -110,7 +117,7 @@ class Builder
 
         if ($this->componentsConfig['categories']['enabled']) {
             $this->addChild($menu, $request, 'Categories', 'tuna_category_list', 400, function (Request $request, $route) {
-                return preg_match_all('/tuna_category/i', $request->get('_route'));
+                return preg_match_all('/tuna_category_/i', $request->get('_route'));
             });
         }
 

@@ -24,6 +24,35 @@
             <link rel="stylesheet" href="{{ asset_url }}"/>
             {% endstylesheets %}
         {% endblock %}
+
+        {% javascripts output='bundles/thecodeineadmin/js/tuna_admin_vendor.js'
+        '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery-2.0.3.min.js'
+        '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery-ui-1.11.4.js'
+        '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.ui.touch-punch.min.js'
+        '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.ui.timepicker.js'
+        '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.ui.datepicker-pl.js'
+        '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.ui.timepicker-en.js'
+        '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.ui.timepicker-pl.js'
+        '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.tagsinput.js'
+        '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.hotkeys.js'
+        '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.placeholder.js'
+        '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.htmlClean.js'
+        '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.mjs.nestedSortable.js'
+        '@TheCodeineAdminBundle/Resources/public/js/vendor/dropzone.min.js'
+        '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery.dragbetter.min.js'
+        '@TheCodeineAdminBundle/Resources/public/js/vendor/underscore-1.6.0.js'
+        '@TheCodeineAdminBundle/Resources/public/js/vendor/backbone-1.1.2.js'
+        '@TheCodeineAdminBundle/Resources/public/js/vendor/flatUI/respond.min.js'
+        '@TheCodeineAdminBundle/Resources/public/js/vendor/flatUI/html5shiv.js'
+        '@TheCodeineAdminBundle/Resources/public/js/vendor/flatUI/flat-ui.js'
+        '@TheCodeineAdminBundle/Resources/public/js/vendor/cleanHtml.js' %}
+        <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ asset('bundles/bazingajstranslation/js/translator.min.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+        <script src="{{ url('bazinga_jstranslation_js', { domain: 'tuna_admin' }) }}?locales={{ app.request.defaultLocale }}"></script>
     </head>
     <body class="{% block body_class %}{% endblock %}">
         <div class="container {% block main_class %}{% endblock %}">
@@ -58,32 +87,7 @@
 
         {% include 'TheCodeineAdminBundle::_partials/_modal.html.twig' %}
 
-        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-        <script src="{{ asset('bundles/bazingajstranslation/js/translator.min.js') }}"></script>
-        <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
-        <script src="{{ url('bazinga_jstranslation_js', { domain: 'tuna_admin' }) }}?locales={{ app.request.defaultLocale }}"></script>
-
         {% javascripts output='bundles/thecodeineadmin/js/tuna_admin.js'
-        '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery-2.0.3.min.js'
-        '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery-ui-1.11.4.js'
-        '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.ui.touch-punch.min.js'
-        '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.ui.timepicker.js'
-        '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.ui.datepicker-pl.js'
-        '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.ui.timepicker-en.js'
-        '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.ui.timepicker-pl.js'
-        '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.tagsinput.js'
-        '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.hotkeys.js'
-        '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.placeholder.js'
-        '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.htmlClean.js'
-        '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery/jquery.mjs.nestedSortable.js'
-        '@TheCodeineAdminBundle/Resources/public/js/vendor/dropzone.min.js'
-        '@TheCodeineAdminBundle/Resources/public/js/vendor/jquery.dragbetter.min.js'
-        '@TheCodeineAdminBundle/Resources/public/js/vendor/underscore-1.6.0.js'
-        '@TheCodeineAdminBundle/Resources/public/js/vendor/backbone-1.1.2.js'
-        '@TheCodeineAdminBundle/Resources/public/js/vendor/flatUI/respond.min.js'
-        '@TheCodeineAdminBundle/Resources/public/js/vendor/flatUI/html5shiv.js'
-        '@TheCodeineAdminBundle/Resources/public/js/vendor/flatUI/flat-ui.js'
-        '@TheCodeineAdminBundle/Resources/public/js/vendor/cleanHtml.js'
         '@TheCodeineAdminBundle/Resources/public/js/common.js'
         '@TheCodeineFileBundle/Resources/public/js/app.js'
         '@TheCodeineAdminBundle/Resources/public/js/views/*.js'

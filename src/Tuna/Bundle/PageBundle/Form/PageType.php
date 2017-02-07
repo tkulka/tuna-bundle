@@ -2,14 +2,24 @@
 
 namespace TheCodeine\PageBundle\Form;
 
-final class PageType extends AbstractPageType
+use Symfony\Component\Form\FormBuilderInterface;
+use TheCodeine\PageBundle\Entity\Page;
+
+class PageType extends AbstractPageType
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
-    protected function getEntityClass()
+    public function getEntityClass()
     {
-        return 'TheCodeine\PageBundle\Entity\Page';
+        return Page::class;
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        parent::buildForm($builder, $options);
+    }
 }

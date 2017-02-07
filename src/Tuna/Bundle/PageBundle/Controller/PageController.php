@@ -4,33 +4,38 @@ namespace TheCodeine\PageBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use TheCodeine\PageBundle\Entity\AbstractPage;
-use TheCodeine\PageBundle\Entity\Page;
-use TheCodeine\PageBundle\Form\PageType;
-use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-/**
- * @Route("/page")
- */
 class PageController extends AbstractPageController
 {
+    /**
+     * {@inheritDoc}
+     */
     public function getNewPage()
     {
-        return new Page();
+        return $this->get('the_codeine_page.factory')->getInstance();
     }
 
-    public function getNewFormType(AbstractPage $page = null, $validate = true)
+    /**
+     * {@inheritDoc}
+     */
+    public function getFormType(AbstractPage $abstractPage)
     {
-        return new PageType($validate);
+        return $this->get('the_codeine_page.factory')->getFormInstance($abstractPage);
     }
 
-    public function getRedirectUrl(AbstractPage $page = null, Request $request = null)
+    /**
+     * {@inheritDoc}
+     */
+    public function getRedirectUrl(Request $request)
     {
         return $this->generateUrl('tuna_page_list');
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getRepository()
     {
-        return $this->getDoctrine()->getRepository('TheCodeinePageBundle:Page');
+        return $this->getDoctrine()->getRepository($this->getParameter('the_codeine_page.model'));
     }
 }

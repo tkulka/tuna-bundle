@@ -3,30 +3,32 @@
 namespace TheCodeine\NewsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
+use TheCodeine\NewsBundle\Model\EventInterface;
 
 /**
  * Event
  *
  * @ORM\Entity(repositoryClass="TheCodeine\NewsBundle\Entity\NewsRepository")
  */
-class Event extends AbstractNews
+class Event extends AbstractNews implements EventInterface
 {
     /**
      * @var \DateTime
      *
+     * @ORM\Column(name="start_date", type="datetime")
+     *
      * @Assert\Date()
      * @Assert\NotNull()
-     * @ORM\Column(name="start_date", type="datetime")
      */
     protected $startDate;
 
     /**
      * @var \DateTime
      *
-     * @Assert\Date()
      * @ORM\Column(name="end_date", type="datetime")
+     *
+     * @Assert\Date()
      */
     protected $endDate;
 
@@ -41,14 +43,11 @@ class Event extends AbstractNews
         $startDate->setTime(0, 0, 0);
         $startDate->format('Y-m-d');
 
-        $this->setCreatedAt(new \DateTime());
         $this->setStartDate($startDate);
     }
 
     /**
-     * @param \DateTime $startDate
-     *
-     * @return Event
+     * {@inheritdoc}
      */
     public function setStartDate(\DateTime $startDate)
     {
@@ -58,7 +57,7 @@ class Event extends AbstractNews
     }
 
     /**
-     * @return \DateTime
+     * {@inheritdoc}
      */
     public function getStartDate()
     {
@@ -66,22 +65,20 @@ class Event extends AbstractNews
     }
 
     /**
-     * @return \DateTime
-     */
-    public function getEndDate()
-    {
-        return $this->endDate;
-    }
-
-    /**
-     * @param \DateTime $endDate
-     *
-     * @return Event
+     * {@inheritdoc}
      */
     public function setEndDate(\DateTime $endDate)
     {
         $this->endDate = $endDate;
 
         return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getEndDate()
+    {
+        return $this->endDate;
     }
 }

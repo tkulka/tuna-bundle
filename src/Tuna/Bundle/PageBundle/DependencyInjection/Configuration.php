@@ -17,7 +17,9 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->booleanNode('categories')->defaultTrue()->end()
+                ->scalarNode('form')->defaultValue('TheCodeine\PageBundle\Form\PageType')->end()
+                ->scalarNode('model')->defaultValue('TheCodeine\PageBundle\Entity\Page')->end()
+                ->scalarNode('repository')->defaultValue('TheCodeine\PageBundle\Entity\PageRepository')->end()
             ->end();
 
         return $treeBuilder;

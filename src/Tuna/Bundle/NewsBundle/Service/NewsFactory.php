@@ -2,7 +2,6 @@
 
 namespace TheCodeine\NewsBundle\Service;
 
-use Doctrine\ORM\EntityManager;
 use TheCodeine\NewsBundle\Entity\News;
 use TheCodeine\NewsBundle\Entity\AbstractNews;
 use TheCodeine\NewsBundle\Entity\Event;
@@ -12,19 +11,13 @@ use TheCodeine\NewsBundle\Form\EventType;
 class NewsFactory
 {
     /**
-     * @var EntityManager
+     * @param string|null $type
+     *
+     * @return Event|News
      */
-    private $em;
-
-    public function __construct(EntityManager $em)
-    {
-        $this->em = $em;
-    }
-
     public function getInstance($type = null)
     {
-        $type = ucfirst(strtolower($type));
-        switch ($type) {
+        switch (ucfirst(strtolower($type))) {
             case 'Event':
                 return new Event();
             default:
@@ -32,13 +25,18 @@ class NewsFactory
         }
     }
 
-    public function getFormInstance(AbstractNews $news = null, $validate = true)
+    /**
+     * @param AbstractNews|null $abstractNews
+     *
+     * @return EventType|NewsType
+     */
+    public function getFormInstance(AbstractNews $abstractNews = null)
     {
         switch (true) {
-            case $news instanceof Event:
-                return new EventType($validate);
+            case $abstractNews instanceof Event:
+                return new EventType();
             default:
-                return new NewsType($validate);
+                return new NewsType();
         }
     }
 }

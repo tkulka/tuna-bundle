@@ -1,23 +1,21 @@
-#!/bin/bash
-nohup bash -c "php Behat/Fixtures/app/console --env=test --no-debug doctrine:schema:drop --force 2>&1 &" && sleep 1;
-nohup bash -c "php Behat/Fixtures/app/console --env=test --no-debug doctrine:schema:create 2>&1 &" && sleep 1;
-nohup bash -c "php Behat/Fixtures/app/console --env=test --no-debug doctrine:schema:update --force 2>&1 &" && sleep 1;
-nohup bash -c "php Behat/Fixtures/app/console --env=test --no-debug doctrine:fixtures:load -n 2>&1 &" && sleep 1;
-nohup bash -c "php Behat/Fixtures/app/console --env=test --no-debug server:run 2>&1 &" && sleep 1;
+#!/usr/bin/env bash
 
-exit_code=0;
+exitCode=0;
+
+# Test commands
 commands=(
-    "vendor/bin/behat -f progress -n"
-    "vendor/bin/phpspec run --format=pretty --no-code-generation"
-    "kill $(lsof -i :8000 | grep php | awk '{print $2}')"
+    "vendor/bin/phpspec run"
+    "vendor/bin/phpunit"
 )
 
+# Loop through all test commands
 for i in "${commands[@]}"
 do
-   $i
-   if [ $? -ne 0 ]; then
-      exit_code=1
-   fi
+   ${i}
+
+   # If test command failed set exitCode to 1 (the CI should throw an error)
+   if [ $? -ne 0 ]; then exitCode=1; fi
 done
 
-exit $exit_code
+# Exit with exitCode (0|1)
+exit ${exitCode}

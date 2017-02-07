@@ -14,6 +14,7 @@ use TheCodeine\MenuBundle\Entity\Menu;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use TheCodeine\MenuBundle\EventListener\MenuListener;
 use TheCodeine\MenuBundle\Form\MenuType;
+use TheCodeine\PageBundle\Entity\AbstractPage;
 
 /**
  * @Route("menu")
@@ -41,11 +42,11 @@ class MenuController extends Controller
         $menu = new Menu();
 
         if (($parentId = $request->query->get('parentId'))) {
-            $menu->setParent($em->getReference('TheCodeineMenuBundle:Menu', $parentId));
+            $menu->setParent($em->getReference(Menu::class, $parentId));
         }
 
         if (($pageId = $request->query->get('pageId'))) {
-            $page = $em->find('TheCodeinePageBundle:Page', $pageId);
+            $page = $em->find(AbstractPage::class, $pageId);
             $menu->setPage($page);
             MenuListener::synchronizeWithPage($menu, $page);
         }
@@ -64,7 +65,7 @@ class MenuController extends Controller
         return [
             'form' => $form->createView(),
             'menu' => $menu,
-            'pageTitlesMap' => $em->getRepository('TheCodeinePageBundle:Page')->getTitlesMap($this->getParameter('locale')),
+            'pageTitlesMap' => $em->getRepository(AbstractPage::class)->getTitlesMap($this->getParameter('locale')),
         ];
     }
 
@@ -92,7 +93,7 @@ class MenuController extends Controller
         return [
             'form' => $form->createView(),
             'menu' => $menu,
-            'pageTitlesMap' => $em->getRepository('TheCodeinePageBundle:Page')->getTitlesMap($this->getParameter('locale')),
+            'pageTitlesMap' => $em->getRepository(AbstractPage::class)->getTitlesMap($this->getParameter('locale')),
         ];
     }
 

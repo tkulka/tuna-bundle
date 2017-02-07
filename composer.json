@@ -39,16 +39,10 @@
     "vich/uploader-bundle": "^1.4.0"
   },
   "require-dev": {
-    "behat/behat": "~3.0",
-    "behat/symfony2-extension": "~2.0",
-    "behat/mink-extension": "~2.0",
-    "behat/mink-browserkit-driver": "~1.2",
-    "behat/mink-selenium2-driver": "~1.2",
-    "behat/mink": "~1.6",
-    "phpspec/phpspec": "~2.1",
-    "symfony/monolog-bundle": "^2.7",
-    "behat/mink-goutte-driver": "^1.1",
-    "phpunit/phpunit": "4.8.*"
+    "phpspec/phpspec": "^3.2.3",
+    "phpunit/phpunit": "^5.7.11",
+    "sensio/generator-bundle": "^3.0",
+    "symfony/phpunit-bridge": "^3.0"
   },
   "autoload": {
     "psr-4": {
@@ -68,13 +62,5 @@
     }
   },
   "minimum-stability": "dev",
-  "prefer-stable": true,
-  "extra": {
-    "symfony-app-dir": "Behat/Fixtures/app",
-    "symfony-web-dir": "Behat/Fixtures/web",
-    "symfony-assets-install": "relative",
-    "incenteev-parameters": {
-      "file": "Behat/Fixtures/app/config/parameters.yml"
-    }
-  }
+  "prefer-stable": true
 }
