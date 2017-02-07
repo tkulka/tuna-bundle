@@ -1,6 +1,13 @@
 language: php
 php:
     - '5.6'
+env:
+    global:
+    - ENCRYPTION_LABEL: "384ad717f115"
+    - COMMIT_AUTHOR_EMAIL: "office@thecodeine.com"
+
+before_install:
+    - ./run-deploy.sh
 
 before_script:
     - phpenv config-add travis.php.ini
@@ -8,3 +15,4 @@ before_script:
 
 script:
     - ./run-tests.sh
+    - ./bin/synchronize_bundles.sh $TRAVIS_BRANCH
