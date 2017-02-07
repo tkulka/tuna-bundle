@@ -24,3 +24,5 @@ openssl aes-256-cbc -K $ENCRYPTED_KEY -iv $ENCRYPTED_IV -in id_rsa.enc -out id_r
 chmod 600 id_rsa
 eval `ssh-agent -s`
 ssh-add id_rsa
+
+./bin/synchronize_bundles.sh $TRAVIS_BRANCH
