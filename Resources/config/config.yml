@@ -5,6 +5,9 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: TheCodeine\UserBundle\Entity\User
+    from_email:
+        address: admin@acme.org
+        sender_name: Acme Corp
 
 a2lix_translation_form:
     locales: "%the_codeine_admin.locales%"
