@@ -37,10 +37,6 @@ tuna_category:
     type:     annotation
     prefix:   /admin/
 
-tuna_admin_homepage:
-    path: /admin/
-    defaults: { _controller: TheCodeineAdminBundle:Admin:index }
-
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
 
