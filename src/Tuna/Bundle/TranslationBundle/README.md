@@ -1,3 +1,5 @@
 Tuna CMS TranslationBundle
 
-[ ![Codeship Status for Tuna-CMS/translation-bundle](https://app.codeship.com/projects/5221c970-c3a0-0134-242b-56ae29765c5b/status?branch=master)](https://app.codeship.com/projects/197665)
+[![Latest Stable Version](https://poser.pugx.org/tuna-cms/translation-bundle/v/stable)](https://packagist.org/packages/tuna-cms/translation-bundle)
+[![Total Downloads](https://poser.pugx.org/tuna-cms/translation-bundle/downloads)](https://packagist.org/packages/tuna-cms/translation-bundle)
+[![License](https://poser.pugx.org/tuna-cms/translation-bundle/license)](https://packagist.org/packages/tuna-cms/translation-bundle)

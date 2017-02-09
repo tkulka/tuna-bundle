@@ -1,3 +1,5 @@
 Tuna CMS GalleryBundle
 
-[ ![Codeship Status for Tuna-CMS/gallery-bundle](https://app.codeship.com/projects/adf87c10-c125-0134-1ceb-0ee59f5118e7/status?branch=master)](https://app.codeship.com/projects/197168)
+[![Latest Stable Version](https://poser.pugx.org/tuna-cms/gallery-bundle/v/stable)](https://packagist.org/packages/tuna-cms/gallery-bundle)
+[![Total Downloads](https://poser.pugx.org/tuna-cms/gallery-bundle/downloads)](https://packagist.org/packages/tuna-cms/gallery-bundle)
+[![License](https://poser.pugx.org/tuna-cms/gallery-bundle/license)](https://packagist.org/packages/tuna-cms/gallery-bundle)

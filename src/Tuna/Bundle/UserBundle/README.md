@@ -1,3 +1,5 @@
 Tuna CMS UserBundle
 
-[ ![Codeship Status for Tuna-CMS/user-bundle](https://app.codeship.com/projects/3b1a3170-c3a0-0134-aa20-7e56974aa38d/status?branch=master)](https://app.codeship.com/projects/197663)
+[![Latest Stable Version](https://poser.pugx.org/tuna-cms/user-bundle/v/stable)](https://packagist.org/packages/tuna-cms/user-bundle)
+[![Total Downloads](https://poser.pugx.org/tuna-cms/user-bundle/downloads)](https://packagist.org/packages/tuna-cms/user-bundle)
+[![License](https://poser.pugx.org/tuna-cms/user-bundle/license)](https://packagist.org/packages/tuna-cms/user-bundle)

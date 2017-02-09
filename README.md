@@ -1,6 +1,9 @@
 Tuna CMS TunaBundle
 
-[ ![Codeship Status for Tuna-CMS/tuna-bundle](https://app.codeship.com/projects/d7adfd70-c125-0134-dd40-3264d70e0757/status?branch=master)](https://app.codeship.com/projects/197171)
+[![Build Status](https://travis-ci.org/Tuna-CMS/tuna-bundle.svg?branch=master)](https://travis-ci.org/Tuna-CMS/tuna-bundle)
+[![Latest Stable Version](https://poser.pugx.org/tuna-cms/tuna-bundle/v/stable)](https://packagist.org/packages/tuna-cms/tuna-bundle)
+[![Total Downloads](https://poser.pugx.org/tuna-cms/tuna-bundle/downloads)](https://packagist.org/packages/tuna-cms/tuna-bundle)
+[![License](https://poser.pugx.org/tuna-cms/tuna-bundle/license)](https://packagist.org/packages/tuna-cms/tuna-bundle)
 
 ## Installation:
 1. Require module

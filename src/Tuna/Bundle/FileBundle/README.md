@@ -1,6 +1,8 @@
 Tuna CMS FileBundle
 
-[ ![Codeship Status for Tuna-CMS/file-bundle](https://app.codeship.com/projects/bbd21400-c125-0134-7fc8-7ee917b55fa1/status?branch=master)](https://app.codeship.com/projects/197169)
+[![Latest Stable Version](https://poser.pugx.org/tuna-cms/file-bundle/v/stable)](https://packagist.org/packages/tuna-cms/file-bundle)
+[![Total Downloads](https://poser.pugx.org/tuna-cms/file-bundle/downloads)](https://packagist.org/packages/tuna-cms/file-bundle)
+[![License](https://poser.pugx.org/tuna-cms/file-bundle/license)](https://packagist.org/packages/tuna-cms/file-bundle)
 
 ## Standalone usage:
 1. Enable FOSJsRoutingBundle:

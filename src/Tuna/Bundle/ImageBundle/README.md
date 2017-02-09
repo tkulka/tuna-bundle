@@ -1,3 +1,5 @@
 Tuna CMS ImageBundle
 
-[ ![Codeship Status for Tuna-CMS/image-bundle](https://app.codeship.com/projects/9e524750-c125-0134-7fc8-7ee917b55fa1/status?branch=master)](https://app.codeship.com/projects/197167)
+[![Latest Stable Version](https://poser.pugx.org/tuna-cms/image-bundle/v/stable)](https://packagist.org/packages/tuna-cms/image-bundle)
+[![Total Downloads](https://poser.pugx.org/tuna-cms/image-bundle/downloads)](https://packagist.org/packages/tuna-cms/image-bundle)
+[![License](https://poser.pugx.org/tuna-cms/image-bundle/license)](https://packagist.org/packages/tuna-cms/image-bundle)

@@ -1,3 +1,5 @@
 Tuna CMS PageBundle
 
-[ ![Codeship Status for Tuna-CMS/page-bundle](https://app.codeship.com/projects/84b7f860-c125-0134-7690-3264d70e0757/status?branch=master)](https://app.codeship.com/projects/197164)
+[![Latest Stable Version](https://poser.pugx.org/tuna-cms/page-bundle/v/stable)](https://packagist.org/packages/tuna-cms/page-bundle)
+[![Total Downloads](https://poser.pugx.org/tuna-cms/page-bundle/downloads)](https://packagist.org/packages/tuna-cms/page-bundle)
+[![License](https://poser.pugx.org/tuna-cms/page-bundle/license)](https://packagist.org/packages/tuna-cms/page-bundle)

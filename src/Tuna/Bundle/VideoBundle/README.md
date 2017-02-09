@@ -1,3 +1,5 @@
 Tuna CMS VideoBundle
 
-[ ![Codeship Status for Tuna-CMS/video-bundle](https://app.codeship.com/projects/35de52a0-c11c-0134-c668-7ee917b55fa1/status?branch=master)](https://app.codeship.com/projects/197152)
+[![Latest Stable Version](https://poser.pugx.org/tuna-cms/video-bundle/v/stable)](https://packagist.org/packages/tuna-cms/video-bundle)
+[![Total Downloads](https://poser.pugx.org/tuna-cms/video-bundle/downloads)](https://packagist.org/packages/tuna-cms/video-bundle)
+[![License](https://poser.pugx.org/tuna-cms/video-bundle/license)](https://packagist.org/packages/tuna-cms/video-bundle)

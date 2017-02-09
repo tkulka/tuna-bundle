@@ -1,3 +1,5 @@
 Tuna CMS NewsBundle
 
-[ ![Codeship Status for Tuna-CMS/news-bundle](https://app.codeship.com/projects/92bb7340-c125-0134-0f88-3264d70e0757/status?branch=master)](https://app.codeship.com/projects/197166)
+[![Latest Stable Version](https://poser.pugx.org/tuna-cms/news-bundle/v/stable)](https://packagist.org/packages/tuna-cms/news-bundle)
+[![Total Downloads](https://poser.pugx.org/tuna-cms/news-bundle/downloads)](https://packagist.org/packages/tuna-cms/news-bundle)
+[![License](https://poser.pugx.org/tuna-cms/news-bundle/license)](https://packagist.org/packages/tuna-cms/news-bundle)
