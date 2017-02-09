@@ -166,6 +166,8 @@ abstract class AbstractNews implements NewsInterface
     public function __construct($title = null)
     {
         $this->tags = new ArrayCollection();
+        $this->attachments = new ArrayCollection();
+        $this->translations = new ArrayCollection();
 
         $this->setImportant(false);
         $this->setCreatedAt(new \DateTime());
