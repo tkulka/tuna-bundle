@@ -1,0 +1,5 @@
+scheb_two_factor.header: 2-step verification
+scheb_two_factor.auth_code: Code
+scheb_two_factor.verify: Verify
+scheb_two_factor.cancel: Cancel
+scheb_two_factor.code_invalid: Invalid code.

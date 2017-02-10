@@ -1,8 +1,8 @@
 {% trans_default_domain 'tuna_admin' %}
-{% extends "TheCodeineAdminBundle::_layout.html.twig" %}
+{% extends "TheCodeineAdminBundle::_base_layout.html.twig" %}
 {% block body_class %}login-page{% endblock %}
 
-{% block content %}
+{% block mainContainer %}
     <div class="col-md-4 col-md-offset-4">
         <div class="login">
             <h2 class="text-center">{% trans %}Ahoy! Let's log in{% endtrans %}</h2>
@@ -39,4 +39,4 @@
             </div>
         </div>
     </div>
-{% endblock content %}
+{% endblock mainContainer %}

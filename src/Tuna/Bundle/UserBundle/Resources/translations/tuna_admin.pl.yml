@@ -1,0 +1,5 @@
+scheb_two_factor.header: Weryfikacja dwuetapowa
+scheb_two_factor.auth_code: Kod
+scheb_two_factor.verify: Weryfikuj
+scheb_two_factor.cancel: Anuluj
+scheb_two_factor.code_invalid: Nieprawidłowy kod.

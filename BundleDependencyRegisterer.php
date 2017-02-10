@@ -36,6 +36,7 @@ class BundleDependencyRegisterer
             new \Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new \Vich\UploaderBundle\VichUploaderBundle(),
             new \A2lix\TranslationFormBundle\A2lixTranslationFormBundle(),
+            new \Scheb\TwoFactorBundle\SchebTwoFactorBundle(),
         );
 
         foreach ($bundles as $bundle) {

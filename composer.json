@@ -36,7 +36,8 @@
     "smart-core/accelerator-cache-bundle": "^1.2.0",
     "stof/doctrine-extensions-bundle": "^1.2",
     "willdurand/js-translation-bundle": "^2.5",
-    "vich/uploader-bundle": "^1.4.0"
+    "vich/uploader-bundle": "^1.4.0",
+    "thecodeine/two-factor-bundle": "~2.8.5"
   },
   "require-dev": {
     "phpspec/phpspec": "^3.2.3",

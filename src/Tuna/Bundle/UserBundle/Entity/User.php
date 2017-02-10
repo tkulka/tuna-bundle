@@ -4,6 +4,7 @@ namespace TheCodeine\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as FOSUser;
+use Scheb\TwoFactorBundle\Model\Email\TwoFactorInterface;
 
 /**
  * User
@@ -11,7 +12,7 @@ use FOS\UserBundle\Model\User as FOSUser;
  * @ORM\Table(name="users")
  * @ORM\Entity
  */
-class User extends FOSUser
+class User extends FOSUser implements TwoFactorInterface
 {
     /**
      * @ORM\Id
@@ -19,6 +20,11 @@ class User extends FOSUser
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $authCode;
 
     /**
      * User constructor.
@@ -36,5 +42,20 @@ class User extends FOSUser
     public function getId()
     {
         return $this->id;
+    }
+
+    public function isEmailAuthEnabled()
+    {
+        return true; // This can also be a persisted field
+    }
+
+    public function getEmailAuthCode()
+    {
+        return $this->authCode;
+    }
+
+    public function setEmailAuthCode($authCode)
+    {
+        $this->authCode = $authCode;
     }
 }
