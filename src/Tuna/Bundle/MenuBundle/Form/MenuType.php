@@ -59,14 +59,21 @@ class MenuType extends AbstractType
     /**
      * @param EntityRepository $er
      * @param int $nodeId
+     *
      * @return QueryBuilder
      */
-    protected function queryParentElement(EntityRepository $er, $nodeId)
+    protected function queryParentElement(EntityRepository $er, $nodeId = null)
     {
-        return $er->createQueryBuilder('p')
+        $qb = $er->createQueryBuilder('p')
             ->orderBy('p.root', 'ASC')
-            ->addOrderBy('p.lft', 'ASC')
-            ->where('p.id != :nodeId')
-            ->setParameter('nodeId', $nodeId);
+            ->addOrderBy('p.lft', 'ASC');
+
+        if ($nodeId !== null) {
+            $qb
+                ->where('p.id != :nodeId')
+                ->setParameter('nodeId', $nodeId);
+        }
+
+        return $qb;
     }
 }
