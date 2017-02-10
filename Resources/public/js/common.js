@@ -52,8 +52,12 @@ tuna.website = {
     },
 
     initEditor: function () {
+        var editorSelector = '.tab-pane.active .thecodeine_admin_editor';
+
+        if (!$(editorSelector).length) return;
+
         tuna.view.EditorView && new tuna.view.EditorView({
-            selector: '.tab-pane.active .thecodeine_admin_editor',
+            selector: editorSelector,
             lang: this.options.lang,
             events: this.events,
             config: this.options.editor.config

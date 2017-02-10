@@ -1,28 +1,30 @@
 .admin-attachments-container, .admin-gallery-container {
-    width: 100%;
-    display: none;
-    position: fixed;
-    top: $headerHeight;
-    left: 0;
-    z-index: 9;
-    padding: 40px 60px 60px 60px;
-    height: 100%;
-    background: $brand-content;
-    color: $brand-tertiary;
-    overflow-y: auto;
+    &--overlay {
+        width: 100%;
+        display: none;
+        position: fixed;
+        top: $headerHeight;
+        left: 0;
+        z-index: 9;
+        padding: 40px 60px 60px 60px;
+        height: 100%;
+        background: $brand-content;
+        color: $brand-tertiary;
+        overflow-y: auto;
 
-    @media all and (min-width: $mobileLargeScreen) {
-        @include calc(width, "100% - #{$sidebarOptionsWidth}");
-        left: $sidebarOptionsWidth;
-    }
+        @media all and (min-width: $mobileLargeScreen) {
+            @include calc(width, "100% - #{$sidebarOptionsWidth}");
+            left: $sidebarOptionsWidth;
+        }
 
-    @media all and (min-width: $desktopSmallScreen) {
-        @include calc(width, "100% - #{$sidebarOptionsWidth + $sidebarNavWidth}");
-        left: $sidebarOptionsWidth + $sidebarNavWidth;
-    }
+        @media all and (min-width: $desktopSmallScreen) {
+            @include calc(width, "100% - #{$sidebarOptionsWidth + $sidebarNavWidth}");
+            left: $sidebarOptionsWidth + $sidebarNavWidth;
+        }
 
-    .close {
-        opacity: 1;
+        .close {
+            opacity: 1;
+        }
     }
 
     .thecodeine_admin_gallery,
