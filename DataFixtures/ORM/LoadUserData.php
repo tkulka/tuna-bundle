@@ -11,10 +11,23 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
 {
+    protected static $USERS = [
+        [
+            'email' => 'fake@thecodeine.com',
+            'name' => 'admin',
+            'role' => 'ROLE_ADMIN',
+        ],
+        [
+            'email' => 'fakesuperadmin@thecodeine.com',
+            'name' => 'superadmin',
+            'role' => 'ROLE_SUPER_ADMIN',
+        ],
+    ];
+
     /**
      * @var ContainerInterface
      */
-    private $container;
+    protected $container;
 
     /**
      * {@inheritDoc}
@@ -31,24 +44,11 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
     {
         /* @var UserManager $userManager */
         $userManager = $this->container->get('fos_user.user_manager');
-        $users = array(
-            array(
-                'email' => 'fake@thecodeine.com',
-                'name' => 'admin',
-                'role' => 'ROLE_ADMIN'
-            ),
-            array(
-                'email' => 'fakesuperadmin@thecodeine.com',
-                'name' => 'superadmin',
-                'role' => 'ROLE_SUPER_ADMIN'
-            ),
-        );
-
-        foreach ($users as $u) {
+        foreach ($this->getUsers() as $u) {
             if ($userManager->findUserByUsername($u['name']) != null || $userManager->findUserByEmail($u['email']) != null) {
                 continue;
             }
-            
+
             $user = $userManager->createUser();
             $user->setEnabled(true);
             $user->setPlainPassword($u['name']);
@@ -60,10 +60,13 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         }
     }
 
-
     public function getOrder()
     {
         return 1;
     }
 
+    protected function getUsers()
+    {
+        return self::$USERS;
+    }
 }
