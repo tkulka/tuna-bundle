@@ -3,39 +3,41 @@
 {% block body_class %}login-page{% endblock %}
 
 {% block mainContainer %}
-    <div class="col-md-4 col-md-offset-4">
-        <div class="login">
-            <h2 class="text-center">{% trans %}Ahoy! Let's log in{% endtrans %}</h2>
+    <div class="content">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="login">
+                <h2 class="text-center">{% trans %}Ahoy! Let's log in{% endtrans %}</h2>
 
-            {% if error %}
-                <div class="dialog dialog-inverse">
-                    <strong class="text-danger">{% trans %}Woops!{% endtrans %}</strong> {{ error.message|trans }}
-                </div>
-            {% endif %}
+                {% if error %}
+                    <div class="dialog dialog-inverse">
+                        <strong class="text-danger">{% trans %}Woops!{% endtrans %}</strong> {{ error.message|trans }}
+                    </div>
+                {% endif %}
 
-            <div class="login-form">
-                <form action="{{ path("fos_user_security_check") }}" method="post" role="form" novalidate>
-                    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
+                <div class="login-form">
+                    <form action="{{ path("fos_user_security_check") }}" method="post" role="form" novalidate>
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
 
-                    <div class="form-group">
-                        <div class="input-append">
-                            <input type="text" name="_username" class="form-control login-field" value="{{ last_username }}" placeholder="{% trans %}Enter your name{% endtrans %}" id="login-name" required="required"/>
-                            <label class="login-field-icon fui-user" for="login-name"></label>
+                        <div class="form-group">
+                            <div class="input-append">
+                                <input type="text" name="_username" class="form-control login-field" value="{{ last_username }}" placeholder="{% trans %}Enter your name{% endtrans %}" id="login-name" required="required"/>
+                                <label class="login-field-icon fui-user" for="login-name"></label>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <input type="password" name="_password" class="form-control login-field" value="" placeholder="{% trans %}Password{% endtrans %}" required="required" id="login-pass"/>
-                        <label class="login-field-icon fui-lock" for="login-pass"></label>
-                    </div>
+                        <div class="form-group">
+                            <input type="password" name="_password" class="form-control login-field" value="" placeholder="{% trans %}Password{% endtrans %}" required="required" id="login-pass"/>
+                            <label class="login-field-icon fui-lock" for="login-pass"></label>
+                        </div>
 
-                    <label class="checkbox" for="remember_me">
-                        <input type="checkbox" id="remember_me" name="_remember_me" value="on" data-toggle="checkbox"/>
-                        {% trans %}Remember me{% endtrans %}
-                    </label>
+                        <label class="checkbox" for="remember_me">
+                            <input type="checkbox" id="remember_me" name="_remember_me" value="on" data-toggle="checkbox"/>
+                            {% trans %}Remember me{% endtrans %}
+                        </label>
 
-                    <input type="submit" id="_submit" name="_submit" value="{% trans %}Log in{% endtrans %}" class="btn btn-primary btn-lg btn-block"/>
-                </form>
+                        <input type="submit" id="_submit" name="_submit" value="{% trans %}Log in{% endtrans %}" class="btn btn-primary btn-lg btn-block"/>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
