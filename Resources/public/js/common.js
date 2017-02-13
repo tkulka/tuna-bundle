@@ -37,6 +37,7 @@ tuna.website = {
         new tuna.view.NavigationView({el: $('nav')});
         new tuna.view.ListView({el: $('.admin-list')});
         new tuna.view.OptionsView({el: $('.admin-option-container'), tunaEvents: this.events});
+        new tuna.view.EditHeaderView({el: $('.edit-header'), tunaEvents: this.events});
         new tuna.view.GalleryView({el: $('.admin-gallery-container'), tunaEvents: this.events});
         new tuna.view.AttachmentsView({el: $('.admin-attachments-container'), tunaEvents: this.events});
         new tuna.view.EditView({el: $('.admin-container'), lang: this.options.lang});
