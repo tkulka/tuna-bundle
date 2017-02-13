@@ -14,86 +14,86 @@ CKEDITOR.plugins.add('imageToolbar', {
             $(styles).insertBefore($('head link').first());
         }
 
-        this.$selectedImage = '';
-        this.$container = $(editor.container.$);
-        this.$contents = this.$container.find('.cke_contents');
-        this.$imageToolbar = $('<div class="image-toolbar">' +
-                '<div class="image-toolbar__button image-toolbar__button--resize" data-resize="25">25%</div>' +
-                '<div class="image-toolbar__button image-toolbar__button--resize" data-resize="50">50%</div>' +
-                '<div class="image-toolbar__button image-toolbar__button--resize" data-resize="75">75%</div>' +
-                '<div class="image-toolbar__button image-toolbar__button--resize" data-resize="100">100%</div>' +
-                '<div class="image-toolbar__button image-toolbar__button--float image-toolbar__button--left" data-float="left"></div>' +
-                '<div class="image-toolbar__button image-toolbar__button--float image-toolbar__button--center" data-center="center"></div>' +
-                '<div class="image-toolbar__button image-toolbar__button--float image-toolbar__button--right" data-float="right"></div>' +
-                '<div class="image-toolbar__button image-toolbar__button--float image-toolbar__button--delete" data-delete="delete"></div>' +
+        editor.$selectedImage = '';
+        editor.$container = $(editor.container.$);
+        editor.$contents = editor.$container.find('.cke_contents');
+        editor.$imageToolbar = $('<div class="image-toolbar">' +
+            '<div class="image-toolbar__button image-toolbar__button--resize" data-resize="25">25%</div>' +
+            '<div class="image-toolbar__button image-toolbar__button--resize" data-resize="50">50%</div>' +
+            '<div class="image-toolbar__button image-toolbar__button--resize" data-resize="75">75%</div>' +
+            '<div class="image-toolbar__button image-toolbar__button--resize" data-resize="100">100%</div>' +
+            '<div class="image-toolbar__button image-toolbar__button--float image-toolbar__button--left" data-float="left"></div>' +
+            '<div class="image-toolbar__button image-toolbar__button--float image-toolbar__button--center" data-center="center"></div>' +
+            '<div class="image-toolbar__button image-toolbar__button--float image-toolbar__button--right" data-float="right"></div>' +
+            '<div class="image-toolbar__button image-toolbar__button--float image-toolbar__button--delete" data-delete="delete"></div>' +
             '</div>');
 
-        this.$container.append(this.$imageToolbar);
+        editor.$container.append(editor.$imageToolbar);
 
-        this.bindEvents();
+        this.bindEvents(editor);
     },
 
-    bindEvents: function() {
+    bindEvents: function(editor) {
         var self = this;
 
-        this.$contents.on('click', function(e) {
+        editor.$contents.on('click', function(e) {
             var $target = $(e.target);
 
             if ($target.prop('tagName') == 'IMG') {
-                self.$selectedImage = $target;
-                self.showToolbar($target);
+                editor.$selectedImage = $target;
+                self.showToolbar($target, editor);
             } else {
-                self.hideToolbar();
+                self.hideToolbar(editor);
             }
         });
 
-        this.$imageToolbar.find('[data-resize]').on('click', function(e) {
-            self.resizeImg(e);
+        editor.$imageToolbar.find('[data-resize]').on('click', function(e) {
+            self.resizeImg(e, editor);
         });
 
-        this.$imageToolbar.find('[data-float]').on('click', function(e) {
-            self.floatImg(e);
+        editor.$imageToolbar.find('[data-float]').on('click', function(e) {
+            self.floatImg(e, editor);
         });
 
-        this.$imageToolbar.find('[data-center]').on('click', function() {
-            self.centerImg();
+        editor.$imageToolbar.find('[data-center]').on('click', function() {
+            self.centerImg(editor);
         });
 
-        this.$imageToolbar.find('[data-delete]').on('click', function() {
-            self.deleteImg();
+        editor.$imageToolbar.find('[data-delete]').on('click', function() {
+            self.deleteImg(editor);
         })
     },
 
-    showToolbar: function($target) {
-        var offsetTop = this.$container.find('.cke_top').outerHeight() + parseInt(this.$contents.css('margin-top').replace('px', ''));
+    showToolbar: function($target, editor) {
+        var offsetTop = editor.$container.find('.cke_top').outerHeight() + parseInt(editor.$contents.css('margin-top').replace('px', ''));
         var offsetLeft =  parseInt($target.css('margin-left').replace('px', ''));
 
-        this.$imageToolbar.show().css({
+        editor.$imageToolbar.show().css({
             top: $target.position().top + offsetTop,
             left: $target.position().left + offsetLeft
         });
     },
 
-    hideToolbar: function() {
-        this.$imageToolbar.hide();
+    hideToolbar: function(editor) {
+        editor.$imageToolbar.hide();
     },
 
-    resizeImg: function(e) {
+    resizeImg: function(e, editor) {
         var value = $(e.target).data('resize');
-        this.$selectedImage.css('width', value + '%');
+        editor.$selectedImage.css('width', value + '%');
     },
 
-    floatImg: function(e) {
+    floatImg: function(e, editor) {
         var value = $(e.target).data('float');
-        this.$selectedImage.css('float', value).removeClass('centered');
+        editor.$selectedImage.css('float', value).removeClass('centered');
     },
 
-    centerImg: function() {
-        this.$selectedImage.css('float', 'none').addClass('centered');
+    centerImg: function(editor) {
+        editor.$selectedImage.css('float', 'none').addClass('centered');
     },
 
-    deleteImg: function() {
-        this.$selectedImage.remove();
-        this.hideToolbar();
+    deleteImg: function(editor) {
+        editor.$selectedImage.remove();
+        this.hideToolbar(editor);
     }
 });
