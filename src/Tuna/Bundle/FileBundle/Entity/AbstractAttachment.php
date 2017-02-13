@@ -46,6 +46,8 @@ class AbstractAttachment
     protected $position;
 
     /**
+     * @var ArrayCollection
+     *
      * @Assert\Valid
      *
      * @ORM\OneToMany(targetEntity="AttachmentTranslation", mappedBy="object", cascade={"persist", "remove"})
@@ -138,13 +140,13 @@ class AbstractAttachment
     }
 
     /**
-     * @param AbstractPersonalTranslation $t
+     * @param AbstractPersonalTranslation $translation
      */
-    public function addTranslation(AbstractPersonalTranslation $t)
+    public function addTranslation(AbstractPersonalTranslation $translation)
     {
-        if (!$this->translations->contains($t) && $t->getContent()) {
-            $this->translations[] = $t;
-            $t->setObject($this);
+        if (!$this->translations->contains($translation) && $translation->getContent()) {
+            $translation->setObject($this);
+            $this->translations->add($translation);
         }
     }
 

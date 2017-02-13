@@ -126,8 +126,8 @@ class Category
     public function addTranslation(CategoryTranslation $translation)
     {
         if (!$this->translations->contains($translation) && $translation->getContent()) {
-            $this->translations[] = $translation;
             $translation->setObject($this);
+            $this->translations->add($translation);
         }
 
         return $this;

@@ -426,6 +426,10 @@ abstract class AbstractNews implements NewsInterface
      */
     public function setTranslations(ArrayCollection $translations)
     {
+        foreach ($translations as $translation) {
+            $translation->setObject($this);
+        }
+
         $this->translations = $translations;
 
         return $this;
@@ -444,7 +448,10 @@ abstract class AbstractNews implements NewsInterface
      */
     public function addTranslation(AbstractPersonalTranslation $translation)
     {
-        $this->translations->add($translation);
+        if (!$this->translations->contains($translation) && $translation->getContent()) {
+            $translation->setObject($this);
+            $this->translations->add($translation);
+        }
 
         return $this;
     }

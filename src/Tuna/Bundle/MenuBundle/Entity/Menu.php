@@ -360,11 +360,11 @@ class Menu
         return $this->translations;
     }
 
-    public function addTranslation(AbstractPersonalTranslation $t)
+    public function addTranslation(AbstractPersonalTranslation $translation)
     {
-        if (!$this->translations->contains($t) && $t->getContent()) {
-            $this->translations[] = $t;
-            $t->setObject($this);
+        if (!$this->translations->contains($translation) && $translation->getContent()) {
+            $translation->setObject($this);
+            $this->translations->add($translation);
         }
     }
 
@@ -378,7 +378,7 @@ class Menu
      *
      * @param ArrayCollection [AbstractPersonalTranslation] $translations
      */
-    public function setTranslations($translations)
+    public function setTranslations(ArrayCollection $translations)
     {
         foreach ($translations as $translation) {
             $translation->setObject($this);

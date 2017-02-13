@@ -132,11 +132,11 @@ class GalleryItem
         return $this->translations;
     }
 
-    public function addTranslation(GalleryItemTranslation $t)
+    public function addTranslation(GalleryItemTranslation $translation)
     {
-        if (!$this->translations->contains($t) && $t->getContent()) {
-            $this->translations[] = $t;
-            $t->setObject($this);
+        if (!$this->translations->contains($translation) && $translation->getContent()) {
+            $translation->setObject($this);
+            $this->translations->add($translation);
         }
     }
 

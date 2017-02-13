@@ -354,6 +354,10 @@ abstract class AbstractPage implements PageInterface
      */
     public function setTranslations(ArrayCollection $translations)
     {
+        foreach ($translations as $translation) {
+            $translation->setObject($this);
+        }
+
         $this->translations = $translations;
 
         return $this;
@@ -372,7 +376,10 @@ abstract class AbstractPage implements PageInterface
      */
     public function addTranslation(AbstractPersonalTranslation $translation)
     {
-        $this->translations->add($translation);
+        if (!$this->translations->contains($translation) && $translation->getContent()) {
+            $translation->setObject($this);
+            $this->translations->add($translation);
+        }
 
         return $this;
     }
