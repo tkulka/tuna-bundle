@@ -14,11 +14,18 @@
                     </div>
                 {% endfor %}
 
+                {% block qrCodeContainer %}{% endblock %}
+
                 <div class="login-form">
                     <form class="form" action="" method="post">
                         {% for flashMessage in app.session.flashbag.get("two_factor") %}
                             <p class="error">{{ flashMessage|trans }}</p>
                         {% endfor %}
+
+                        <div class="form-group">
+                            <input id="_auth_code" type="text" class="form-control login-field" autocomplete="off" name="_auth_code" placeholder="{{ "scheb_two_factor.auth_code"|trans }}" />
+                            <label class="login-field-icon fui-lock" for="_auth_code"></label>
+                        </div>
 
                         {% if useTrustedOption %}
                             <label class="checkbox" for="_trusted">
@@ -26,11 +33,6 @@
                                 {{ "scheb_two_factor.trusted"|trans }}
                             </label>
                         {% endif %}
-
-                        <div class="form-group">
-                            <input id="_auth_code" type="text" class="form-control login-field" autocomplete="off" name="_auth_code" placeholder="{{ "scheb_two_factor.auth_code"|trans }}" />
-                            <label class="login-field-icon fui-lock" for="_auth_code"></label>
-                        </div>
 
                         <input type="submit" id="_submit" name="_submit" value="{{ "scheb_two_factor.verify"|trans }}" class="btn btn-primary btn-lg btn-block"/>
 
