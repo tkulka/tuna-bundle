@@ -1,12 +1,15 @@
 the_codeine_user:
 
 scheb_two_factor:
+    google:
+        enabled: false
+        template: TheCodeineUserBundle:TwoStepAuthentication:google.html.twig
     email:
         enabled: false
         sender_email: no-reply@example.com
         sender_name: John Doe  # Optional
         digits: 6
-        template: TheCodeineUserBundle:TwoStepAuthentication:form.html.twig
+        template: TheCodeineUserBundle:TwoStepAuthentication:email.html.twig
     access_control:
         - { path: ^/admin/ }
         - { path: ^/login }

@@ -4,9 +4,3 @@ services:
         arguments: ["@router"]
         tags:
             - { name: kernel.event_subscriber }
-    tuna.user.twig_extension:
-            class: TheCodeine\UserBundle\Twig\TwigExtension
-            public: false
-            arguments: [ "@scheb_two_factor.security.google_authenticator" ]
-            tags:
-                - { name: twig.extension }
