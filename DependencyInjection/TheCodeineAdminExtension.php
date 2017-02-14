@@ -30,7 +30,6 @@ class TheCodeineAdminExtension extends Extension implements PrependExtensionInte
     public function prepend(ContainerBuilder $container)
     {
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-        $loader->load('config.yml');
 
         $configs = $container->getExtensionConfig($this->getAlias());
         $config = $this->processConfiguration(new Configuration(), $configs);

@@ -14,27 +14,32 @@ Tuna CMS TunaBundle
 
         TheCodeine\AdminBundle\BundleDependencyRegisterer::register($bundles);
 
-3. Migrate db
+3. Import Tuna config:
+
+        imports:
+            - { resource: '@TheCodeineAdminBundle/Resources/config/config.yml' }
+
+4. Migrate db
 
         doctrine:migrations:diff && doctrine:migrations:migrate
 
-4. Add routing
+5. Add routing
 
         # app/config/routing.yml
 
         the_codeine_tuna_admin:
             resource: "@TheCodeineAdminBundle/Resources/config/routing.yml"
 
-5. Change editor config to (will be changed in next releases)
+6. Change editor config to (will be changed in next releases)
 
         the_codeine_admin:
             components:
                 editor:
                     wysiwyg_style_dir: '%kernel.root_dir%/../vendor/tuna-cms/tuna-bundle/Resources/public/sass/editor'
 
-6. Override config
+7. Override config
 
-Tuna injects some basic configs, but feel free to override them (be aware that you can broke some of functionalities by this).
+Tuna injects some basic configs, but feel free to override them (be aware that you can brake some of functionalities by this).
 For newest config defaults check [Resources/config/config.yml](Resources/config/config.yml). This file also includes
 [Resources/config/security.yml](Resources/config/security.yml), so be sure to clear your security.yml file, or override some parts.
 
