@@ -5,6 +5,7 @@ services:
     the_codeine_admin.menu_builder:
         class: "%the_codeine_admin.menu_builder.class%"
         arguments: ["@knp_menu.factory", "%the_codeine_admin.components%"]
+
     the_codeine_admin.menu.top:
         class: "%the_codeine_admin.menu.item.class%"
         tags:
@@ -12,18 +13,33 @@ services:
         factory: ["@the_codeine_admin.menu_builder", getTopMenu]
         arguments: ["@request"]
         scope: request
+
     the_codeine_admin.twig.twig_extension:
         class: TheCodeine\AdminBundle\Twig\TwigExtension
         tags:
             - { name: twig.extension }
+
     the_codeine_admin.twig.path_extension:
         class: TheCodeine\AdminBundle\Twig\PathExtension
         tags:
             - { name: twig.extension }
         arguments: ["%the_codeine_admin.paths%"]
-    app.post_voter:
+
+    the_codeine_admin.security.post_voter:
         class: TheCodeine\AdminBundle\Security\ComponentVoter
         public: false
         tags:
             - { name: security.voter }
         arguments: ["@security.access.decision_manager", "%the_codeine_admin.components%"]
+
+    the_codeine_translation.command.extract_translations_command:
+        class: TheCodeine\TranslationBundle\Command\ExtractTranslationsCommand
+        arguments: ["%the_codeine_admin.locales%"]
+        tags:
+            - { name: console.command }
+
+    the_codeine_translation.command.update_translations_command:
+        class: TheCodeine\TranslationBundle\Command\UpdateTranslationsCommand
+        arguments: ["%the_codeine_admin.locales%"]
+        tags:
+            - { name: console.command }
