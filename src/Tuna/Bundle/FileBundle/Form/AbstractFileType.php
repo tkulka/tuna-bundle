@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
+use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 abstract class AbstractFileType extends AbstractType
@@ -15,6 +16,15 @@ abstract class AbstractFileType extends AbstractType
      * @return string Fully qualified class name of
      */
     abstract protected function getEntityClass();
+
+    /**
+     * Override this method instead of providing `dropzone_options` in `configureOptions`
+     * if these options should be merged (in child class or in form builder)
+     */
+    public static function getDropzoneDefaultOptions()
+    {
+        return [];
+    }
 
     /**
      * {@inheritdoc}
@@ -39,17 +49,28 @@ abstract class AbstractFileType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
+        $defaultDropzoneOptions = static::getDropzoneDefaultOptions() + [
+                'maxFilesize' => self::getPHPMaxFilesize(),
+                'acceptedFiles' => '*',
+            ];
+
         $resolver->setDefaults([
             'translation_domain' => 'tuna_admin',
             'data_class' => $this->getEntityClass(),
             'error_bubbling' => false,
-            'dropzone_options' => [
-                'acceptedFiles' => '*',
-            ],
+            'dropzone_options' => $defaultDropzoneOptions,
             'attr' => [
                 'deletable' => true,
             ],
         ]);
+
+        $resolver->setNormalizer('dropzone_options', function (Options $options, $value) use ($defaultDropzoneOptions) {
+            if (array_key_exists('maxFilesize', $value)) {
+                $value['maxFilesize'] = min(self::getPHPMaxFilesize(), $value['maxFilesize']);
+            }
+
+            return array_merge($defaultDropzoneOptions, $value);
+        });
     }
 
     /**
@@ -58,5 +79,35 @@ abstract class AbstractFileType extends AbstractType
     public function getBlockPrefix()
     {
         return 'tuna_file';
+    }
+
+    /**
+     * @return int upload_max_filesize in MB
+     */
+    public static function getPHPMaxFilesize()
+    {
+        return self::getFilesize(ini_get('upload_max_filesize'));
+    }
+
+    /**
+     * Converts filesize string (compatible with php.ini values) to MB
+     *
+     * @param $filesize in bytes, or with unit (`2043`, `273K`, `1.2M`, `0.3G`)
+     * @return float
+     */
+    protected static function getFilesize($filesize)
+    {
+        $value = (float)($filesize);
+        $unit = substr($filesize, -1);
+
+        switch ($unit) {
+            case 'K':
+                return $value / 1024;
+            case 'G':
+                return $value * 1024;
+            case 'M':
+            default:
+                return $value;
+        }
     }
 }

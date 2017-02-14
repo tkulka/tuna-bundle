@@ -19,7 +19,7 @@ class UploadedFileType extends AbstractType
             'error_bubbling' => true,
             'constraints' => [
                 new File([
-                    'maxSize' => ini_get('upload_max_filesize'),
+                    'maxSize' => AbstractFileType::getPHPMaxFilesize() * 1048576, // filesize in MB
                 ])
             ]
         ]);

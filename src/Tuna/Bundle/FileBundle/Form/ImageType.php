@@ -9,11 +9,21 @@ use TheCodeine\FileBundle\Entity\Image;
 
 class ImageType extends AbstractFileType
 {
-    protected static $DROPZONE_DEFAULTS = [
-        'clickable' => '.btn-main-image',
-        'maxFiles' => 1,
-        'acceptedFiles' => '.png,.jpg,.gif,.jpeg'
-    ];
+    const MAX_FILESIZE = 10;
+    const ACCEPTED_FILES = '.png,.jpg,.gif,.jpeg';
+
+    public static function getDropzoneDefaultOptions()
+    {
+        return array_merge(
+            parent::getDropzoneDefaultOptions(),
+            [
+                'clickable' => '.btn-main-image',
+                'maxFiles' => 1,
+                'maxFilesize' => self::MAX_FILESIZE,
+                'acceptedFiles' => self::ACCEPTED_FILES,
+            ]
+        );
+    }
 
     /**
      * {@inheritdoc}
@@ -41,7 +51,6 @@ class ImageType extends AbstractFileType
 
         $resolver
             ->setDefault('label', 'Choose image')
-            ->setDefault('dropzone_options', self::$DROPZONE_DEFAULTS)
             ->setDefault('scale_preview_thumbnail', true);
     }
 

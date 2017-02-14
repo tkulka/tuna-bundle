@@ -6,6 +6,16 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class MainImageType extends ImageType
 {
+    public static function getDropzoneDefaultOptions()
+    {
+        return array_merge(
+            parent::getDropzoneDefaultOptions(),
+            [
+                'selector' => '.admin-option-container',
+            ]
+        );
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -14,6 +24,5 @@ class MainImageType extends ImageType
         parent::configureOptions($resolver);
 
         $resolver->setDefault('label', 'Choose main image');
-        $resolver->setDefault('dropzone_options', ['selector' => '.admin-option-container'] + self::$DROPZONE_DEFAULTS);
     }
 }
