@@ -39,7 +39,7 @@ Tuna CMS TunaBundle
 
 7. Override config
 
-Tuna injects some basic configs, but feel free to override them (be aware that you can brake some of functionalities by this).
+Tuna injects some basic configs, but feel free to override them (be aware that you can break some of functionalities by this).
 For newest config defaults check [Resources/config/config.yml](Resources/config/config.yml). This file also includes
 [Resources/config/security.yml](Resources/config/security.yml), so be sure to clear your security.yml file, or override some parts.
 
