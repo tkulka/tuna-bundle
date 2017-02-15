@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use TheCodeine\MenuBundle\Entity\Menu;
@@ -23,23 +24,38 @@ class MenuType extends AbstractType
         $nodeId = $builder->getData()->getId();
 
         $builder
-            ->add('clickable')
-            ->add('published', CheckboxType::class)
+            ->add('clickable', CheckboxType::class, [
+                'label' => 'ui.form.labels.clickable'
+            ])
+            ->add('published', CheckboxType::class, [
+                'label' => 'ui.form.labels.published'
+            ])
             ->add('page', EntityType::class, [
                 'class' => AbstractPage::class,
                 'property' => 'title',
-                'empty_value' => 'Not linked to a Page',
-                'attr' => ['class' => 'filtered']
+                'empty_value' => 'ui.form.labels.not_linked',
+                'attr' => ['class' => 'filtered'],
+                'label' => 'ui.form.labels.page'
             ])
-            ->add('path')
+            ->add('path', TextType::class, [
+                'label' => 'ui.form.labels.path'
+            ])
             ->add('translations', GedmoTranslationsType::class, [
                 'translatable_class' => Menu::class,
-                'fields' => ['label' => []]
+                'fields' => [
+                    'label' => [
+                        'label' => 'ui.form.labels.label'
+                    ],
+                    'externalUrl' => [
+                        'label' => 'ui.form.labels.external'
+                    ]
+                ]
             ])
             ->add('parent', null, [
                 'query_builder' => function (EntityRepository $er) use ($nodeId) {
                     return $this->queryParentElement($er, $nodeId);
                 },
+                'label' => 'ui.form.labels.parent',
                 'property' => 'indentedName',
                 'required' => true,
             ]);

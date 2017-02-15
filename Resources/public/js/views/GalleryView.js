@@ -116,7 +116,7 @@
                 this.loadItemForm('#' + id + ' .video-player');
                 $el.removeClass('error').siblings('.form-error').remove();
             } else {
-                $el.trigger('showError', Translator.trans('Paste url to YouTube or Vimeo.'));
+                $el.trigger('showError', Translator.trans('error.video.type'));
             }
         },
 

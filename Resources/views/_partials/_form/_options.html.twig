@@ -1,22 +1,22 @@
 {% trans_default_domain 'tuna_admin' %}
 
 <div class="admin-option-container">
-    {% if form.createdAt is defined %}
-        {{ form_row(form.createdAt, { label: 'Create date' }) }}
-    {% endif %}
-
     {% if form.image is defined %}
-        {{ form_row(form.image, { label: false }) }}
+        {{ form_row(form.image) }}
     {% endif %}
 
-    {{ extraFields|raw }}
+    {% if form.createdAt is defined %}
+        {{ form_row(form.createdAt) }}
+    {% endif %}
+
+    {{ optionsExtraFields|raw }}
 
     {% if form.gallery is defined %}
         <a href="javascript:void(0)" class="btn btn-small btn-secondary btn-block btn-gallery">
             {% if not form.gallery.vars.valid %}
                 <i class="fui-alert-circle text-danger pull-left"></i>
             {% endif %}
-            {% trans %}Gallery{% endtrans %}
+            {{ 'components.galleries.name'|trans }}
             <i class="fui-arrow-right pull-right"></i>
         </a>
     {% endif %}
@@ -26,27 +26,31 @@
             {% if not form.attachments.vars.valid %}
                 <i class="fui-alert-circle text-danger pull-left"></i>
             {% endif %}
-            {% trans %}Attachments{% endtrans %}
+            {{ 'components.attachments.name'|trans }}
             <i class="fui-arrow-right pull-right"></i>
         </a>
     {% endif %}
 
     {% if form.category is defined %}
-        <h6 class="text-inverse">{% trans %}Category{% endtrans %}</h6>
+        <h6 class="text-inverse">
+            {{ 'components.categories.name'|trans }}
+        </h6>
         {{ form_widget(form.category) }}
     {% endif %}
 
     {% if form.tags is defined %}
-        <h6 class="text-inverse">{% trans %}Tags{% endtrans %}</h6>
+        <h6 class="text-inverse">
+            {{ 'components.tags.name'|trans }}
+        </h6>
         {{ form_widget(form.tags) }}
     {% endif %}
 
     {% if form.startDate is defined %}
-        {{ form_row(form.startDate, { label: 'Start date' }) }}
+        {{ form_row(form.startDate) }}
     {% endif %}
 
     {% if form.endDate is defined %}
-        {{ form_row(form.endDate, { label: 'End date' }) }}
+        {{ form_row(form.endDate) }}
     {% endif %}
 
     {{ form_widget(form.save, { attr: { class: 'btn btn-small btn-primary btn-block' }}) }}
@@ -60,7 +64,7 @@
 
         {% include 'TheCodeineAdminBundle::_partials/_form/_translations.menu.html.twig' %}
 
-        <h3>{% trans %}Attachments{% endtrans %}</h3>
+        <h3>{{ 'components.attachments.name'|trans }}</h3>
         {{ form_widget(form.attachments) }}
     </div>
 {% endif %}
@@ -73,7 +77,7 @@
 
         {% include 'TheCodeineAdminBundle::_partials/_form/_translations.menu.html.twig' %}
 
-        <h3>{% trans %}Gallery{% endtrans %}</h3>
+        <h3>{{ 'components.galleries.name'|trans }}</h3>
         {{ form_widget(form.gallery) }}
     </div>
 {% endif %}

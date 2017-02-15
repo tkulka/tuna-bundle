@@ -23,6 +23,6 @@ class MainImageType extends ImageType
     {
         parent::configureOptions($resolver);
 
-        $resolver->setDefault('label', 'Choose main image');
+        $resolver->setDefault('label', 'ui.form.labels.image.main');
     }
 }

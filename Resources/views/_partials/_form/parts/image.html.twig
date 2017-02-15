@@ -4,8 +4,8 @@
     {% import 'TheCodeineFileBundle::form_macros.html.twig' as theme %}
     {% set wrapperId = form.vars.id ~ '_wrapper' %}
     {% set dropzoneOptions = {
-    previewTemplate: theme.tuna_image_preview('/' ~ tuna_uploadDir('tmp_path') ~ '/__path__', form.vars.attr.deletable, scale_preview_thumbnail),
-    dropoverText: 'Drop your image here'|trans
+        previewTemplate: theme.tuna_image_preview('/' ~ tuna_uploadDir('tmp_path') ~ '/__path__', form.vars.attr.deletable, scale_preview_thumbnail),
+        dropoverText: 'components.images.dropzone'|trans
     } %}
 
     <div id="{{ wrapperId }}" class="thecodeine_admin_main_image" {% if no_dropzone is not defined %}data-dropzone-options="{{ dropzoneOptions|merge(dropzone_options)|json_encode }}"{% endif %}>
@@ -16,6 +16,7 @@
                 {{ theme.tuna_image_preview(tuna_file(image), form.vars.attr.deletable, scale_preview_thumbnail)|raw }}
             {% endif %}
         </div>
+
         {{ form_widget(form) }}
 
         {% if form.vars.label %}

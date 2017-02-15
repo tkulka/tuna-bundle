@@ -8,12 +8,12 @@
     {% import 'TheCodeineFileBundle::form_macros.html.twig' as theme %}
     {% set wrapperId = form.vars.id ~ '_wrapper' %}
     {% set dropzoneOptions = {
-    clickable: 'a[data-type=image]',
-    selector: '.admin-gallery-container',
-    acceptedFiles: '.png,.jpg,.gif,.jpeg',
-    previewTemplate: theme.tuna_image_preview(tuna_uploadDir('tmp_path')~'/__path__'),
-    previewsContainer: '#' ~ wrapperId ~ ' .gallery-items',
-    dropoverText: 'Drop your gallery images here'|trans
+        clickable: 'a[data-type=image]',
+        selector: '.admin-gallery-container',
+        acceptedFiles: '.png,.jpg,.gif,.jpeg',
+        previewTemplate: theme.tuna_image_preview(tuna_uploadDir('tmp_path')~'/__path__'),
+        previewsContainer: '#' ~ wrapperId ~ ' .gallery-items',
+        dropoverText: 'components.galleries.dropzone'|trans
     } %}
     <div
         id="{{ wrapperId }}"
@@ -30,7 +30,7 @@
         {{ form_errors(form) }}
         <ul class="gallery-items">
             {% for item in form.items %}
-                {{ form_row(item, {label: true}) }}
+                {{ form_row(item) }}
             {% endfor %}
         </ul>
     </div>
@@ -65,14 +65,14 @@
                             </div>
                             <div class="item-name video">
                                 {% if form.translations is defined %}
-                                    {{ form_widget(form.translations, {label: false}) }}
+                                    {{ form_widget(form.translations) }}
                                 {% endif %}
                             </div>
                         </div>
                     {% elseif form.image is defined %}
                         <div class="item-name">
                             {% if form.translations is defined %}
-                                {{ form_widget(form.translations, {label: false}) }}
+                                {{ form_widget(form.translations) }}
                             {% endif %}
                         </div>
                     {% endif %}

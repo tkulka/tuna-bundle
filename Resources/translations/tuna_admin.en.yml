@@ -1,11 +1,162 @@
+common:
+  remove: Remove
+  preview: This is only TunaAdmin preview of your page - override <code>tuna_menu_item</code> route in your FrontendController
+  sitename: Tuna CMS
+
+# Lists
+list:
+  add: '{0} Add first entry|{1} Add another entry'
+  save: Save order
+  empty: Woops! There is nothing here yet
+
+# Tables
+table:
+  menu: Menu
+  name: Name
+  slug: Slug
+  title: Title
+  number: No.
+  options: Options
+  created: Created
+  featured: Featured
+  published: Published
+
+# File types
+Image: Image
+Video: Video
+
+# Security pages
+Bad credentials.: Bad credentials.
+Invalid CSRF token.: Invalid CSRF token.
+security:
+  header: Ahoy! Log in
+  login:
+    name: Username
+    button: Log in
+  remember: Remember me
+  password:
+    name: Password
+    change: Change password
+  logout: Log out
+  two_factor:
+    cancel: Cancel
+    header: Two-step authorization
+    verify: Verify
+    trusted: I amm on a trusted computer
+    auth_code: Code
+    code_invalid: Invalid code
+
+# Modal windows
+modal:
+  header: Attention
+  question: Are you sure, you want to delete <b>%title%</b>?
+  action:
+    ok: Ok
+    remove: Remove
+    cancel: Cancel
+
+# Components in Tuna
+components:
+  tags:
+    name: Tags
+  menu:
+    name: Menu
+  news:
+    name: News
+    create: Create %newsType%
+  pages:
+    name: Page
+    create: Create page
+  images:
+      dropzone: Drop image here
+  events:
+    name: Event
+  galleries:
+    name: Gallery
+    dropzone: Drop gallery images here
+  dashboard:
+    name: Dashboard
+  categories:
+    name: Category
+    create: Create category
+  attachments:
+    name: Attachments
+    dropzone: Drop attachments here
+  translations:
+    name: Translations
+
+# Admin menu
+menu:
+  news: News
+  menu: Menu
+  pages: Pages
+  events: Events
+  dashboard: Dashboard
+  categories: Categories
+  translations: Translations
+
+# Forms
+ui:
+  form:
+    error: Woops!
+    options: Options
+    labels:
+      name: Name
+      body: Body
+      save: Save
+      page: Page
+      path: Path
+      tags: Tags
+      label: Label
+      title: Title
+      parent: Parent
+      teaser: Teaser
+      external: External link
+      featured: Featured
+      end.date: End date
+      clickable: Clickable
+      published: Published
+      start.date: Start date
+      not_linked: Not assigned to page
+      create.date: Create date
+      attachment:
+        title: Attachment title
+      image:
+        main: Choose main image
+        title: Image title
+        default: Choose image
+      video:
+        url: Video url
+        title: Video title
+
+#JMS
+Alternative Translations: Alternative Translations
 translations.refresh_info: To show new translations on website, refresh them with this button.
-category.new: New category
-file.uploading.info: Your files are uploading (%count%). Please wait...
+The translation file is not writable.: The translation file is not writable.
+jms:
+  saved: Translation was saved.
+  saving: Saving...
+  not_saved: Translation could not be saved.
+  refreshed: Translations refreshed.
+  not_refreshed: Couldn't refresh translations.
+
+# Uploading
+file:
+  uploading:
+    info: Your files are uploading (%count%). Please wait...
+
+# Errors
 error:
-    category:
-        not_empty: You cannot delete category <strong>%name%</strong> as it is not empty.
-    file:
-        empty: You have to upload file.
-        not_exists: Cannot find "%filename%" file.
-    menu:
-        path_or_url: You must provide path or external url.
+  video:
+    type: Paste url to YouTube or Vimeo.
+  upload:
+    type: You can\'t upload files of this type.
+    count: You can\'t upload files of this type.
+    common: File upload error
+  category:
+    not_empty: You cannot delete category <strong>%name%</strong> as it is not empty.
+  file:
+    empty: You have to upload file.
+    not_exists: Cannot find "%filename%" file.
+  menu:
+    path_or_url: You must provide path or external url.

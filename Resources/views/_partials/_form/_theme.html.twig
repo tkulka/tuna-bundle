@@ -24,7 +24,7 @@
 {% block form_row %}
     <div
         class="form-group form--{{ name }}{% if form.vars.errors|length %} has-errors{% endif %}"
-        {% if form.parent.vars.allow_add|default(false) %} data-collection-item="{{ name }}"{% endif %}
+        {% if form.parent.vars.allow_add|default(false) %}data-collection-item="{{ name }}"{% endif %}
     >
         {{ form_label(form) }}
         {{ form_errors(form) }}
@@ -33,15 +33,14 @@
 {% endblock form_row %}
 
 {%- block form_widget_simple -%}
+    {%- set type = type|default('text') -%}
     {% set attr = attr|merge({ class: (attr.class|default ~ " form-control input-lg input--#{name}")|trim }) %}
+
     {% if value is not empty %}
         {% set attr = attr|merge({ value: value }) %}
     {% endif %}
-    {%- set type = type|default('text') -%}
+
     <div class="form-{{ type == 'hidden' ? 'hidden' : 'group' }} form--{{ name }}">
-        <input
-            type="{{ type }}" {{ block('widget_attributes') }}
-            {% if type != 'hidden' %}placeholder="{{ name|humanize|capitalize|trans }}"{% endif %}
-        >
+        <input type="{{ type }}" {{ block('widget_attributes') }}>
     </div>
 {%- endblock form_widget_simple -%}

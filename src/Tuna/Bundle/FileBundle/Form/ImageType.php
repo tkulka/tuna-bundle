@@ -49,9 +49,10 @@ class ImageType extends AbstractFileType
     {
         parent::configureOptions($resolver);
 
-        $resolver
-            ->setDefault('label', 'Choose image')
-            ->setDefault('scale_preview_thumbnail', true);
+        $resolver->setDefaults([
+            'label' => 'ui.form.labels.image.default',
+            'scale_preview_thumbnail' => true
+        ]);
     }
 
     /**

@@ -1,6 +1,5 @@
-{% if options.wrap %}
-<ul class="menu-{{ name }}">{% endif %}
+{% if options.wrap %}<ul class="menu-{{ name }}">{% endif %}
     {% for item in menu %}
         {% include 'TheCodeineMenuBundle:Menu:render_menu_item.html.twig' with { item: item } %}
     {% endfor %}
-    {% if options.wrap %}</ul>{% endif %}
+{% if options.wrap %}</ul>{% endif %}

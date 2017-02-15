@@ -24,8 +24,9 @@ class AttachmentType extends AbstractType
                 'fields' => [
                     'title' => [
                         'required' => true,
+                        'label' => false,
                         'attr' => [
-                            'placeholder' => 'Attachment title'
+                            'placeholder' => 'ui.form.labels.attachment.title'
                         ]
                     ]
                 ]

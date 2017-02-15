@@ -19,15 +19,18 @@ class NewsType extends AbstractNewsType
 
         $builder
             ->add('important', null, [
-                'required' => false
+                'required' => false,
+                'label' => 'ui.form.labels.featured'
             ])
             ->add('tags', TagCollectionType::class, [
-                'required' => false
+                'required' => false,
+                'label' => 'ui.form.labels.tags'
             ])
             ->add('createdAt', DateTimeType::class, [
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd HH:mm:ss',
-                'required' => false
+                'required' => false,
+                'label' => 'ui.form.labels.create.date'
             ]);
     }
 

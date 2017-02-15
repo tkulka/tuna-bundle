@@ -65,7 +65,9 @@ abstract class AbstractNewsController extends Controller
         $form = $this->createForm($this->get('the_codeine_news.factory')->getFormInstance($abstractNews), $abstractNews);
 
         // TODO: Move this to twig
-        $form->add('save', SubmitType::class);
+        $form->add('save', SubmitType::class, [
+            'label' => 'ui.form.labels.save'
+        ]);
 
         $result = $this->handleCreate($request, $form, $abstractNews);
 
@@ -97,7 +99,9 @@ abstract class AbstractNewsController extends Controller
         $form = $this->createForm($this->getFormType($abstractNews), $abstractNews);
 
         // TODO: Move this to twig
-        $form->add('save', SubmitType::class);
+        $form->add('save', SubmitType::class, [
+            'label' => 'ui.form.labels.save'
+        ]);
 
         return $this->handleEdit($request, $form, $abstractNews, $originalAttachments, $originalGalleryItems);
     }

@@ -57,7 +57,9 @@ abstract class AbstractCategoryController extends Controller
         $entity = $this->getNewObject();
 
         $form = $this->createForm($this->getNewFormType(), $entity);
-        $form->add('save', SubmitType::class);
+        $form->add('save', SubmitType::class, [
+            'label' => 'ui.form.labels.save'
+        ]);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -82,7 +84,9 @@ abstract class AbstractCategoryController extends Controller
     public function editAction(Request $request, Category $category)
     {
         $form = $this->createForm($this->getNewFormType(), $category);
-        $form->add('save', SubmitType::class);
+        $form->add('save', SubmitType::class, [
+            'label' => 'ui.form.labels.save'
+        ]);
         $form->handleRequest($request);
 
         if ($form->isValid()) {

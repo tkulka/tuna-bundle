@@ -18,12 +18,14 @@ class EventType extends NewsType
         $builder
             ->add('startDate', DateTimeType::class, [
                 'widget' => 'single_text',
-                'format' => 'yyyy-MM-dd HH:mm:ss'
+                'format' => 'yyyy-MM-dd HH:mm:ss',
+                'label' => 'ui.form.labels.start.date'
             ])
             ->add('endDate', DateTimeType::class, [
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd HH:mm:ss',
-                'required' => false
+                'required' => false,
+                'label' => 'ui.form.labels.end.date'
             ]);
     }
 

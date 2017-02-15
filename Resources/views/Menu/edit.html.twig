@@ -2,15 +2,19 @@
 {% extends 'TheCodeineAdminBundle::_admin_layout.html.twig' %}
 
 {% block content %}
-    {% embed 'TheCodeineAdminBundle::_partials/_form/_main.html.twig' with { title: menu.label, slug: menu.externalUrl ?: menu.slug } %}
+    {% embed 'TheCodeineAdminBundle::_partials/_form/_main.html.twig' with {
+        title: menu.label,
+        slug: menu.externalUrl ?: menu.slug
+    } %}
         {% block headerOptions %}
-            {{ form_row(form.clickable, { label: 'Clickable' }) }}
+            {{ form_row(form.clickable) }}
         {% endblock %}
 
-        {% block extraFields %}
+        {% block optionsExtraFields %}
             {% if form.parent %}
                 {{ form_row(form.parent) }}
             {% endif %}
+
             {{ form_row(form.page) }}
             {{ form_row(form.path) }}
         {% endblock %}

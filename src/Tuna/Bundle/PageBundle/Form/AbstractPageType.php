@@ -49,9 +49,12 @@ abstract class AbstractPageType extends AbstractType
         }
 
         $builder
-            ->add('image', MainImageType::class)
+            ->add('image', MainImageType::class, [
+                'label' => 'ui.form.labels.image.main'
+            ])
             ->add('published', CheckboxType::class, [
-                'required' => false
+                'required' => false,
+                'label' => 'ui.form.labels.published'
             ])
             ->add('attachments', AttachmentCollectionType::class)
             ->add('gallery', GalleryType::class)
@@ -59,19 +62,22 @@ abstract class AbstractPageType extends AbstractType
                 'translatable_class' => $this->getEntityClass(),
                 'fields' => [
                     'title' => [
-                        'required' => true
+                        'required' => true,
+                        'label' => 'ui.form.labels.title'
                     ],
                     'teaser' => [
                         'field_type' => EditorType::class,
                         'config_name' => 'tuna.editor.config.simple',
                         'attr' => [
-                            'data-type' => 'basic',
+                            'data-type' => 'basic'
                         ],
                         'required' => false,
+                        'label' => 'ui.form.labels.teaser'
                     ],
                     'body' => [
                         'field_type' => EditorType::class,
-                        'required' => true
+                        'required' => true,
+                        'label' => 'ui.form.labels.body'
                     ],
                 ],
             ]);

@@ -13,7 +13,7 @@
 
         <aside class="aside aside-2">
             {% block form_options %}
-                {% include 'TheCodeineAdminBundle::_partials/_form/_options.html.twig' with { extraFields: block('extraFields') } %}
+                {% include 'TheCodeineAdminBundle::_partials/_form/_options.html.twig' with { optionsExtraFields: block('optionsExtraFields') } %}
             {% endblock %}
         </aside>
 
@@ -25,10 +25,7 @@
                             {{ title }}
                         {% endif %}
                         {% if slug is defined %}
-                            <br>
-                            <span>
-                                {{ slug }}
-                        </span>
+                            <br><span>{{ slug }}</span>
                         {% endif %}
                     </h3>
 

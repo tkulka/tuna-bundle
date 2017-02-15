@@ -1,113 +1,162 @@
-Tuna CMS: Tuna CMS
-Menu: Menu
-Save: Zapisz
-Options: Opcje
-Published: Opublikowany
-Gallery: Galeria
-Attachments: Załączniki
-Tags: Tagi
-Title: Tytuł
-Teaser: Krótkie podsumowanie
-Body: Treść
-Slug: Slug
-Name: Nazwa
-"Edit page:": "Edytuj stronę:"
-"Edit news:": "Edytuj newsa:"
-"Edit event:": "Edytuj wydarzenie:"
-Featured: Przypięty
-Create date: Data utworzenia
-Choose gallery item type: Wybierz typ elementu galerii
-Choose image: Wybierz obraz
-Choose main image: Wybierz obraz główny
-Logout: Wyloguj się
-Pages: Strony
-News: Aktualności
-Events: Wydarzenia
-List of pages: Lista stron
-Create page: Stwórz stronę
-List of news: Lista newsów
-Create news: Stwórz newsa
-Create category: Stwórz kategorię
-Manage categories: Zarządzaj kategoriami
-Categories: Kategorie
-Category: Kategoria
-category.new: Nowa kategoria
-Oops there is nothing here!: Ups! Jeszcze nic tutaj nie ma
-The Codeine - Admin Bundle: The Codeine - Admin Bundle
-Woops!: Ups!
-Attention: Uwaga
-Do you really want to remove this element?: Czy na pewno chcesz usunąć ten element?
-Cancel: Anuluj
-Remove: Usuń
-Panel: Panel
-Add first item: Dodaj pierwszy wpis
-Add item: Dodaj wpis
-Enter your name: Podaj swoje imię
-Password: Hasło
-Remember me: Zapamiętaj mnie
-Log in: Zaloguj się
-Event: Wydarzenia
-Video URL: URL do filmu
-Video title: Tytuł filmu
-Image title: Tytuł obrazka
-Attachment title: Tytuł załącznika
-Video URL: URL do filmu
-Video title: Tytuł filmu
-Image title: Tytuł obrazka
-Attachment title: Tytuł załącznika
-Select file: Wybierz plik
-Select language: Wybierz język
-Translations: Tłumaczenia
-The translation file is not writable.: Nie można zapisać pliku z tłumaczeniem.
-Translation: Tłumaczenie
-Additional Information: Dodatkowe informacje
-Alternative Translations: Pozostałe tłumaczenia
-Meaning: Znaczenie
-Sources: Źródła
-Save order: Zapisz kolejność
-Start date: Data początkowa
-End date: Data końcowa
-Create News: Utwórz aktualność
-Create Event: Utwórz wydarzenie
-Video: Film
-Image: Obrazek
-Paste url to YouTube or Vimeo.: Proszę wkleić link do YouTube lub Vimeo.
-Change password: Zmień hasło
-Refesh: Odśwież
-translations.refresh_info: Aby nowe tłumaczenia pokazały się na stronie, należy je odswieżyć tym przyciskiem.
-Drop your image here: Upuść obrazek tutaj
-Drop your attachments here: Upuść załączniki tutaj
-Drop your gallery images here: Upuść zdjęcia galerii tutaj
-file.uploading.info: Twoje pliki są przesyłane (%count%). Proszę czekać...
-Ahoy! Let's log in: Ahoj! Zaloguj się
-Bad credentials.: Niepoprawne dane logowania.
-Paste url to YouTube or Vimeo.: Proszę wkleić link do YouTube lub Vimeo
-Added: Dodano
-Are you sure you want to delete: Czy napewno chcesz usunąć
-Remove: Usuń
-Could not be saved.: Nie udało się zapisać
-Translation was saved.: Tłumaczenie zapisane
-Saving...: Zapisywanie...
-Couldn't refresh translations.: Nie udało się odświeżyć tłumaczeń.
-Translations refreshed.: Odświeżono tłumaczenia na stronie.
-You can't upload files of this type.:  Nie możesz wgrać pliku z tym rozszerzeniem.
-You can't upload any more files.:  Nie możesz wgrać aż tylu plików.
-File upload error: Błąd podczas wysyłania pliku
-error:
-    category:
-        not_empty: Nie można usunąć kategorii <strong>%name%</strong>, ponieważ jest ona niepusta.
-    file:
-        empty: Proszę wgrać plik.
-        not_exists: Nie znaleziono pliku "%filename%".
-    menu:
-        path_or_url: Proszę podać ścieżkę lub zewnętrzny url.
+common:
+  remove: Usuń
+  preview: To jest tylko podgląd - nadpisz <code>tuna_menu_item</code> route w swoim FrontendController
+  sitename: Tuna CMS
 
-Not linked to a Page: Nie połączone ze Stroną
-Clickable: Klikalny
-Parent: Nadrzędny element
-Page: Strona
-Path: Ścieżka
-External url: Zewnętrzny url
-Label: Etykieta
-Dashboard: Kokpit
-Ok: Ok
+# Lists
+list:
+  add: '{0} Dodaj pierwszy wpis|{1} Dodaj kolejny wpis'
+  save: Zapisz kolejność
+  empty: Ups! Jeszcze nic tutaj nie ma
+
+# Tables
+table:
+  menu: Menu
+  name: Nazwa
+  slug: Slug
+  title: Tytuł
+  number: Nr.
+  options: Opcje
+  created: Utworzony
+  featured: Przypięty
+  published: Opublikowany
+
+# File types
+Image: Obraz
+Video: Film
+
+# Security pages
+Bad credentials.: Niepoprawne dane logowania.
+Invalid CSRF token.: Niepoprawny token CSRF.
+security:
+  header: Ahoj! Zaloguj się
+  login:
+    name: Nazwa użytkownika
+    button: Zaloguj się
+  remember: Zapamiętaj mnie
+  password:
+    name: Hasło
+    change: Zmień hasło
+  logout: Wyloguj się
+  two_factor:
+    cancel: Anuluj
+    header: Weryfikacja dwuetapowa
+    verify: Weryfikuj
+    trusted: Jestem na zaufanym komputerze
+    auth_code: Kod
+    code_invalid: Nieprawidłowy kod
+
+# Modal windows
+modal:
+  header: Uwaga
+  question: Jesteś pewny, że chcesz usunąć <b>%title%</b>?
+  action:
+    ok: OK
+    remove: Usuń
+    cancel: Anuluj
+
+# Components in Tuna
+components:
+  tags:
+    name: Tagi
+  menu:
+    name: Menu
+  news:
+    name: Aktualności
+    create: Stwórz %newsType%
+  pages:
+    name: Strona
+    create: Stwórz stronę
+  images:
+      dropzone: Upuść obrazek tutaj
+  events:
+    name: Wydarzenie
+  galleries:
+    name: Galeria
+    dropzone: Upuść zdjęcia galerii tutaj
+  dashboard:
+    name: Kokpit
+  categories:
+    name: Kategoria
+    create: Stwórz kategorię
+  attachments:
+    name: Załączniki
+    dropzone: Upuść załączniki tutaj
+  translations:
+    name: Tłumaczenia
+
+# Admin menu
+menu:
+  news: Aktualności
+  menu: Menu
+  pages: Strony
+  events: Wydarzenia
+  dashboard: Kokpit
+  categories: Kategorie
+  translations: Tłumaczenia
+
+# Forms
+ui:
+  form:
+    error: Ups!
+    options: Opcje
+    labels:
+      name: Nazwa
+      body: Treść
+      save: Zapisz
+      page: Strona
+      path: Ścieżka
+      tags: Tagi
+      label: Etykieta
+      title: Tytuł
+      parent: Rodzic
+      teaser: Krótkie podsumowanie
+      external: Link zewnętrzny
+      featured: Przypięty
+      end.date: Data zakończenia
+      clickable: Klikalny
+      published: Opublikowany
+      start.date: Data rozpoczęcia
+      not_linked: Nieprzypisany do strony
+      create.date: Data utworzenia
+      attachment:
+        title: Tytuł załącznika
+      image:
+        main: Wybierz obrazek główny
+        title: Tytuł obrazka
+        default: Wybierz obrazek
+      video:
+        url: Url filmu
+        title: Tytuł filmu
+
+#JMS
+Alternative Translations: Pozostałe tłumaczenia
+translations.refresh_info: Aby nowe tłumaczenia pokazały się na stronie, należy je odswieżyć tym przyciskiem.
+The translation file is not writable.: Nie można zapisać pliku z tłumaczeniem.
+jms:
+  saved: Tłumaczenie zapisane.
+  saving: Zapisywanie...
+  not_saved: Nie udało się zapisać tłumaczenia.
+  refreshed: Odświeżono tłumaczenia na stronie.
+  not_refreshed: Nie udało się odświeżyć tłumaczeń.
+
+# Uploading
+file:
+  uploading:
+    info: Twoje pliki są przesyłane (%count%). Proszę czekać...
+
+# Errors
+error:
+  video:
+    type: Proszę wkleić link do YouTube lub Vimeo
+  upload:
+    type: Nie możesz wgrać pliku z tym rozszerzeniem.
+    count: Nie możesz wgrać aż tylu plików.
+    common: Błąd podczas wysyłania pliku
+  category:
+    not_empty: Nie można usunąć kategorii <strong>%name%</strong>, ponieważ jest ona niepusta.
+  file:
+    empty: Proszę wgrać plik.
+    not_exists: Nie znaleziono pliku "%filename%".
+  menu:
+    path_or_url: Proszę podać ścieżkę lub zewnętrzny url

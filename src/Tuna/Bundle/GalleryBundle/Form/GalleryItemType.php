@@ -31,8 +31,9 @@ class GalleryItemType extends AbstractType
                 $form
                     ->add('position', HiddenType::class)
                     ->add('video', VideoUrlType::class, [
+                        'label' => false,
                         'attr' => [
-                            'placeholder' => 'Video URL',
+                            'placeholder' => 'ui.form.labels.video.url',
                         ],
                     ])
                     ->add('translations', GedmoTranslationsType::class, [
@@ -42,7 +43,7 @@ class GalleryItemType extends AbstractType
                                 'field_type' => 'text',
                                 'label' => false,
                                 'attr' => [
-                                    'placeholder' => 'Video title',
+                                    'placeholder' => 'ui.form.labels.video.title',
                                 ],
                             ],
                         ],
@@ -60,8 +61,9 @@ class GalleryItemType extends AbstractType
                         'translatable_class' => GalleryItem::class,
                         'fields' => [
                             'name' => [
+                                'label' => false,
                                 'attr' => [
-                                    'placeholder' => 'Image title',
+                                    'placeholder' => 'ui.form.labels.image.title',
                                 ],
                             ],
                         ],

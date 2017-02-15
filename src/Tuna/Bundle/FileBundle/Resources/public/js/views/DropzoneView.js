@@ -54,8 +54,8 @@ var tuna = tuna || {};
                 url: this.getUploaderUrl(),
                 acceptedFiles: '',
                 paramName: 'file',
-                dictInvalidFileType: this.getText('You can\'t upload files of this type.'),
-                dictMaxFilesExceeded: this.getText('You can\'t upload any more files.'),
+                dictInvalidFileType: this.getText('error.upload.type'),
+                dictMaxFilesExceeded: this.getText('error.upload.count'),
                 isClickableExternal: false,
                 clickable: '[data-dropzone-clickable]',
                 previewsContainer: '.preview',
@@ -64,7 +64,7 @@ var tuna = tuna || {};
                 error: function (file, error, xhr) {
                     if (xhr) error = error.messages;
                     dropzoneView.tunaEvents.trigger('errorOccurred', {
-                        title: dropzoneView.getText('File upload error'),
+                        title: dropzoneView.getText('error.upload.common'),
                         message: file.name + ' - ' + error
                     });
                 },

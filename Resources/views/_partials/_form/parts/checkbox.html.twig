@@ -2,12 +2,13 @@
 
 {% block checkbox_widget %}
     {% set attr = attr|merge({ class: (attr.class|default ~ " form-control input-lg input--#{name}")|trim }) %}
+
     <label class="checkbox" for="{{ id }}">
         <input
             type="checkbox"
             {{ block('widget_attributes') }}
-            {% if value is not empty %}value="{{ value }}" {% endif %}
-            {% if checked %} checked="checked"{% endif %}
+            {% if value is not empty %}value="{{ value }}"{% endif %}
+            {% if checked %}checked="checked"{% endif %}
             data-toggle="checkbox"
         >
         {{ label|trans }}

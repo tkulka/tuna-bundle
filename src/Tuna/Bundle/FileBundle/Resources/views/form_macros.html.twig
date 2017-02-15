@@ -7,7 +7,7 @@
         {% endif %}
         <img src="{{ fileUrl }}"/>
         {% if deletable %}
-            <span data-action="remove" class="remove">{% trans %}Remove{% endtrans %}</span>
+            <span data-action="remove" class="remove">{{ 'common.remove'|trans }}</span>
         {% endif %}
     {% endif %}
 {% endspaceless %}{% endmacro %}

@@ -1,18 +1,19 @@
 {% trans_default_domain 'tuna_admin' %}
 {% embed 'TheCodeineAdminBundle::_base/list.html.twig' with {
-canCreate: true,
-createPath: path('tuna_news_create', { newsType: newsType })
+    canCreate: true,
+    createPath: path('tuna_news_create', { newsType: newsType })
 } %}
+    {% trans_default_domain 'tuna_admin' %}
     {% block list_table %}
         <table class="table table-hover">
             <thead>
             <tr>
-                <th>{% trans %}No.{% endtrans %}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'Title'|trans, 'p.title') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'Create date'|trans, 'p.createdAt') }}</th>
-                <th class="center">{{ knp_pagination_sortable(pagination, 'Published'|trans, 'p.published') }}</th>
-                <th class="center">{{ knp_pagination_sortable(pagination, 'Featured'|trans, 'p.important') }}</th>
-                <th class="text-right">{% trans %}Options{% endtrans %}</th>
+                <th>{{ 'table.number'|trans }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'table.title'|trans, 'p.title') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'table.created'|trans, 'p.createdAt') }}</th>
+                <th class="center">{{ knp_pagination_sortable(pagination, 'table.published'|trans, 'p.published') }}</th>
+                <th class="center">{{ knp_pagination_sortable(pagination, 'table.featured'|trans, 'p.important') }}</th>
+                <th class="text-right">{{ 'table.options'|trans }}</th>
             </tr>
             </thead>
             <tbody>

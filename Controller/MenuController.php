@@ -52,7 +52,9 @@ class MenuController extends Controller
         }
 
         $form = $this->createForm(MenuType::class, $menu);
-        $form->add('save', SubmitType::class);
+        $form->add('save', SubmitType::class, [
+            'label' => 'ui.form.labels.save'
+        ]);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -80,7 +82,9 @@ class MenuController extends Controller
         }
 
         $form = $this->createForm(MenuType::class, $menu);
-        $form->add('save', SubmitType::class);
+        $form->add('save', SubmitType::class, [
+            'label' => 'ui.form.labels.save'
+        ]);
         $form->handleRequest($request);
         $em = $this->getDoctrine()->getManager();
 

@@ -11,12 +11,12 @@
         <ul class="dropdown-menu  pull-right" role="menu">
             <li>
                 <a href="{{ path('fos_user_change_password') }}">
-                    <span>{% trans %}Change password{% endtrans %}</span>
+                    <span>{{ 'security.password.change'|trans }}</span>
                 </a>
             </li>
             <li>
                 <a href="{{ path('fos_user_security_logout') }}">
-                    <span>{% trans %}Logout{% endtrans %}</span>
+                    <span>{{ 'security.logout'|trans }}</span>
                 </a>
             </li>
         </ul>

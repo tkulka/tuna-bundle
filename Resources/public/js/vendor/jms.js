@@ -11,10 +11,10 @@ JMSTranslationManager = function() {
                 $this.closest('.admin-option-container').find('.refresh-message').remove();
             },
             error: function() {
-                $this.before('<div class="refresh-message error">' + Translator.trans("Couldn't refresh translations.") + '</div>');
+                $this.before('<div class="refresh-message error">' + Translator.trans('jms.not_refreshed') + '</div>');
             },
             success: function() {
-                $this.before('<div class="refresh-message">' + Translator.trans('Translations refreshed.') + '</div>');
+                $this.before('<div class="refresh-message">' + Translator.trans('jms.refreshed') + '</div>');
             }
         })
     });
@@ -34,7 +34,7 @@ JMSTranslationManager = function() {
             var $elem = $(event.target);
             $elem.parent().append(JMS.translation.ajax.errorMessageContent);
         },
-        errorMessageContent: '<span class="alert-message label error">' + Translator.trans('Could not be saved.') + '</span>',
+        errorMessageContent: '<span class="alert-message label error">' + Translator.trans('jms.not_saved') + '</span>',
         success: function(data, event, JMS)
         {
             var $elem = $(event.target);
@@ -49,9 +49,9 @@ JMSTranslationManager = function() {
                 $elem.parent().append(JMS.translation.ajax.unsavedMessageContent);
             }
         },
-        progressMessageContent: '<span class="alert-message label success">' + Translator.trans('Saving...') + '</span>',
-        savedMessageContent: '<span class="alert-message label success">' + Translator.trans('Translation was saved.') + '</span>',
-        unsavedMessageContent: '<span class="alert-message label error">' + Translator.trans('Could not be saved.') + '</span>',
+        progressMessageContent: '<span class="alert-message label success">' + Translator.trans('jms.saving') + '</span>',
+        savedMessageContent: '<span class="alert-message label success">' + Translator.trans('jms.saved') + '</span>',
+        unsavedMessageContent: '<span class="alert-message label error">' + Translator.trans('jms.not_saved') + '</span>',
         complete: function(data, event, JMS)
         {
             var $elem = $(event.target);

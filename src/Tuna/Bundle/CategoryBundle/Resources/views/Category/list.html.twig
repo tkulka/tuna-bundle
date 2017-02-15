@@ -1,4 +1,6 @@
-<h1>{% trans %}Categories{% endtrans %}</h1>
+{% trans_default_domain 'tuna_admin' %}
+
+<h1>{{ 'common.categories'|trans }}</h1>
 
 {% for categoryType, categories in groupedCategories %}
     <h2>{{ categoryType }}</h2>

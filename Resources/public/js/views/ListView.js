@@ -13,9 +13,13 @@
             event.preventDefault();
             var $a = $(event.currentTarget);
 
-            tuna.website.confirmModal(Translator.trans('Are you sure you want to delete') + ' <b>' + $a.data('title') + '</b>?').then(function () {
-                window.location.href = $a.data('url');
-            });
+            tuna.website
+                .confirmModal(Translator.trans('modal.question', {
+                    'title': $a.data('title')
+                }))
+                .then(function () {
+                    window.location.href = $a.data('url');
+                });
         }
     });
 })();

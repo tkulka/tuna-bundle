@@ -5,7 +5,9 @@
         <ul class="pagination">
             {% if previous is defined %}
                 <li>
-                    <a href="{{ path(route, query|merge({ (pageParameterName): previous })) }}"><span aria-hidden="true">&laquo;</span></a>
+                    <a href="{{ path(route, query|merge({ (pageParameterName): previous })) }}">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
                 </li>
             {% endif %}
 
@@ -30,7 +32,9 @@
 
             {% if next is defined %}
                 <li>
-                    <a href="{{ path(route, query|merge({ (pageParameterName): next })) }}" class="next"><span aria-hidden="true">&raquo;</span></a>
+                    <a href="{{ path(route, query|merge({ (pageParameterName): next })) }}" class="next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
                 </li>
             {% endif %}
         </ul>

@@ -5,7 +5,7 @@
         {% if errors|length %}
             <div class="dialog dialog-danger form-errors">
                 <div class="form-errors-container">
-                    <strong class="text-danger">{% trans %}Woops!{% endtrans %} </strong>
+                    <strong class="text-danger">{{ 'ui.form.error'|trans }}</strong>
                     {% for error in errors %}
                         <span>{{ error.message }}</span>
                     {% endfor %}

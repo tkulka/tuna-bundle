@@ -60,7 +60,9 @@ class PageController extends Controller
         $form = $this->createForm($this->getFormType($abstractPage), $abstractPage);
 
         // TODO: Move this to twig
-        $form->add('save', SubmitType::class);
+        $form->add('save', SubmitType::class, [
+            'label' => 'ui.form.labels.save'
+        ]);
 
         if (($parentId = $request->query->get('menuParentId'))) {
             $menuParent = $this->getDoctrine()->getManager()->getReference(Menu::class, $parentId);

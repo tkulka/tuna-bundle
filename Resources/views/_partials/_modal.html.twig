@@ -5,18 +5,16 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">{% trans %}Attention{% endtrans %}</h4>
+                <h4 class="modal-title">{{ 'modal.header'|trans }}</h4>
             </div>
 
             <div class="modal-body">
-                <p>
-                    {% trans %}Do you really want to remove this element?{% endtrans %}
-                </p>
+                <p>{{ 'modal.question'|trans }}</p>
             </div>
 
             <div class="modal-footer">
-                <button class="btn btn-primary" data-dismiss="modal">{% trans %}Cancel{% endtrans %}</button>
-                <button class="btn btn-danger" data-action="accept">{% trans %}Remove{% endtrans %}</button>
+                <button class="btn btn-primary" data-dismiss="modal">{{ 'modal.action.cancel'|trans }}</button>
+                <button class="btn btn-danger" data-action="accept">{{ 'modal.action.remove'|trans }}</button>
             </div>
         </div>
     </div>
@@ -33,7 +31,7 @@
             <div class="modal-body"></div>
 
             <div class="modal-footer">
-                <button class="btn btn-primary" data-dismiss="modal">{% trans %}Ok{% endtrans %}</button>
+                <button class="btn btn-primary" data-dismiss="modal">{{ 'modal.action.ok'|trans }}</button>
             </div>
         </div>
     </div>

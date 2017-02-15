@@ -1,7 +1,11 @@
 {% trans_default_domain 'tuna_admin' %}
 
 {% set menuObject = item.__object %}
-<li id="menu_{{ menuObject.id }}" class="{% if item.lvl == 0 %} root{% endif %}{% if not menuObject.published %} unpublished{% endif %}" data-id="{{ menuObject.id }}">
+<li
+    id="menu_{{ menuObject.id }}"
+    class="{% if item.lvl == 0 %} root{% endif %}{% if not menuObject.published %} unpublished{% endif %}"
+    data-id="{{ menuObject.id }}"
+>
     {% if item.lvl == 0 %}
         <div class="title">{{ menuObject.label }}</div>
     {% else %}

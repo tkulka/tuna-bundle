@@ -2,10 +2,11 @@
 {% extends 'TheCodeineAdminBundle::_admin_layout.html.twig' %}
 
 {% block content %}
-    <div class="alert alert-danger">This is only TunaAdmin preview of your page - override <code>tuna_menu_item</code> route in your FrontendController</div>
+    <div class="alert alert-danger">
+        {{ 'common.preview'|trans }}
+    </div>
     <div class="page-preview">
         <h1>{{ page.title }}</h1>
-
         {{ page.body|raw }}
     </div>
 {% endblock %}

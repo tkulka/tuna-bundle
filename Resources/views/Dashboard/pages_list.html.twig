@@ -3,11 +3,11 @@
 <table class="table table-hover standalone-pages" data-add-menu-item-url="{{ path('tuna_page_add_to_menu') }}">
     <thead>
     <tr>
-        <th>{{ knp_pagination_sortable(pagination, 'No'|trans, 'p.id') }}</th>
-        <th>{{ knp_pagination_sortable(pagination, 'Title'|trans, 'p.title') }}</th>
-        <th>{{ knp_pagination_sortable(pagination, 'Slug'|trans, 'p.slug') }}</th>
-        <th class="center">{{ knp_pagination_sortable(pagination, 'Published'|trans, 'p.published') }}</th>
-        <th class="text-right">{% trans %}Options{% endtrans %}</th>
+        <th>{{ knp_pagination_sortable(pagination, 'table.number'|trans, 'p.id') }}</th>
+        <th>{{ knp_pagination_sortable(pagination, 'table.title'|trans, 'p.title') }}</th>
+        <th>{{ knp_pagination_sortable(pagination, 'table.slug'|trans, 'p.slug') }}</th>
+        <th class="center">{{ knp_pagination_sortable(pagination, 'table.published'|trans, 'p.published') }}</th>
+        <th class="text-right">{{ 'table.options'|trans }}</th>
     </tr>
     </thead>
     <tbody>

@@ -6,6 +6,7 @@ use A2lix\TranslationFormBundle\Form\Type\GedmoTranslationsType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use TheCodeine\CategoryBundle\Entity\Category;
 
 
 class CategoryType extends AbstractType
@@ -15,7 +16,7 @@ class CategoryType extends AbstractType
      */
     private $dataClass;
 
-    public function __construct($dataClass = 'TheCodeine\CategoryBundle\Entity\Category')
+    public function __construct($dataClass = Category::class)
     {
         $this->dataClass = $dataClass;
     }
@@ -28,6 +29,15 @@ class CategoryType extends AbstractType
         $builder
             ->add('translations', GedmoTranslationsType::class, [
                 'translatable_class' => $this->dataClass,
+                'fields' => [
+                    'name' => [
+                        'required' => true,
+                        'label' => 'ui.form.labels.name',
+                        'attr' => [
+                            'placeholder' => 'ui.form.labels.name'
+                        ]
+                    ],
+                ],
             ]);
     }
 

@@ -1,7 +1,7 @@
 {% trans_default_domain 'tuna_admin' %}
 
 <div class="options">
-    {% trans %}Options{% endtrans %}
+    {{ 'ui.form.options'|trans }}
 </div>
 
 <div class="languages">
@@ -11,11 +11,11 @@
 <div class="controls">
     <div class="checkboxes">
         {% if form.published is defined %}
-            {{ form_widget(form.published, { label: 'Published' }) }}
+            {{ form_widget(form.published) }}
         {% endif %}
 
         {% if form.important is defined %}
-            {{ form_widget(form.important, { label: 'Featured' }) }}
+            {{ form_widget(form.important) }}
         {% endif %}
 
         {{ headerOptions|raw }}

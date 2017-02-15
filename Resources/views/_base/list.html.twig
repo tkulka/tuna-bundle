@@ -14,10 +14,10 @@
     {% if isEmpty %}
         <div class="admin-alert alert text-center">
             {% block list_empty %}
-                <h3>{% trans %}Oops there is nothing here!{% endtrans %}</h3>
+                <h3>{{ 'list.empty'|trans }}</h3>
                 {% if canCreate %}
                     <a href="{{ createPath }}" class="btn btn-primary btn-wide">
-                        <i class="fui-plus"></i> {% trans %}Add first item{% endtrans %}
+                        <i class="fui-plus"></i> {{ 'list.add'|transchoice(0) }}
                     </a>
                 {% endif %}
             {% endblock %}
@@ -32,7 +32,7 @@
                                 <div class="action-buttons">
                                     {% block list_action_buttons %}
                                         <a href="{{ createPath }}" class="btn btn-primary btn-wide">
-                                            <i class="fui-plus"></i> {% trans %}Add item{% endtrans %}
+                                            <i class="fui-plus"></i> {{ 'list.add'|transchoice(1) }}
                                         </a>
                                     {% endblock %}
                                 </div>

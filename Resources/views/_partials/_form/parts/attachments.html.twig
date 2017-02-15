@@ -8,7 +8,7 @@
     selector: '.admin-attachments-container',
     previewTemplate: theme.tuna_file_preview(tuna_uploadDir('tmp_path')~'/__path__'),
     previewsContainer: "##{wrapperId} .attachments",
-    dropoverText: 'Drop your attachments here'|trans
+    dropoverText: 'components.attachments.dropzone'|trans
     } %}
     <div id="{{ wrapperId }}" class="form-group thecodeine_admin_attachments" data-dropzone-options="{{ dropzoneOptions|json_encode }}">
         <a href="javascript:void(0)" class="btn btn-border" data-prototype="{{ form_widget(form.vars.prototype)|e }}" data-action="add-new-attachment">
@@ -16,7 +16,7 @@
         </a>
         <ul class="attachments clearfix">
             {% for attachment in form %}
-                {{ form_row(attachment, { label: false }) }}
+                {{ form_row(attachment) }}
             {% endfor %}
         </ul>
     </div>
@@ -31,7 +31,7 @@
                     {{ form_widget(form.position, { attr: { class: 'position' } }) }}
 
                     <div class="item-name">
-                        {{ form_widget(form.translations, { label: false }) }}
+                        {{ form_widget(form.translations) }}
                     </div>
 
                     <div class="options-container">
