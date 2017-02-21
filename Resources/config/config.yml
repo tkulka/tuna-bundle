@@ -89,6 +89,9 @@ jms_i18n_routing:
     locales: "%the_codeine_admin.locales%"
     strategy: prefix
 
+fos_js_routing:
+    routes_to_expose: [ '_image_upload_request' ]
+
 accelerator_cache:
     host: "%the_codeine_admin.host%"
     web_dir: "%kernel.root_dir%/../web"
