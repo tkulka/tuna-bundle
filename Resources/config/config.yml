@@ -49,6 +49,8 @@ jms_translation:
 
 liip_imagine:
     driver: gd
+    cache: tuna
+    data_loader: tuna
     resolvers:
         tuna:
             web_path: ~
@@ -81,6 +83,11 @@ bazinga_js_translation:
     default_domain: tuna_admin
     active_domains:
         - tuna_admin
+
+jms_i18n_routing:
+    default_locale: "%the_codeine_admin.locale%"
+    locales: "%the_codeine_admin.locales%"
+    strategy: prefix
 
 accelerator_cache:
     host: "%the_codeine_admin.host%"
@@ -121,7 +128,7 @@ doctrine:
                 is_bundle: false
 
 stof_doctrine_extensions:
-    default_locale: "%locale%"
+    default_locale: "%the_codeine_admin.locale%"
     persist_default_translation: false
     translation_fallback: true
     orm:
@@ -132,8 +139,8 @@ stof_doctrine_extensions:
             tree: true
 
 lexik_translation:
-    fallback_locale: ["%locale%"]
-    managed_locales: "%locales%"
+    fallback_locale: ["%the_codeine_admin.locale%"]
+    managed_locales: "%the_codeine_admin.locales%"
     base_layout: "TheCodeineAdminBundle::_translation_layout.html.twig"
     grid_input_type: textarea
     resources_registration:
