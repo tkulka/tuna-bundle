@@ -100,6 +100,8 @@ accelerator_cache:
 assetic:
     debug:              "%kernel.debug%"
     use_controller:     false
+    bundles:
+        - TheCodeineAdminBundle
     ruby: ~
     filters:
         cssrewrite: ~

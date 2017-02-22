@@ -14,14 +14,14 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface
     /**
      * @var EntityManager
      */
-    private $om;
+    protected $om;
 
     /**
      * @var array
      */
-    private $pages = [
-        'O nas',
-        'Kontakt'
+    protected $pages = [
+        'About',
+        'Contact'
     ];
 
     /**
@@ -47,7 +47,7 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface
      *
      * @return Page
      */
-    private function createPage($title, Menu $menuRoot = null)
+    protected function createPage($title, Menu $menuRoot = null)
     {
         $page = new Page();
 
@@ -74,7 +74,7 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface
      *
      * @return Menu
      */
-    private function createMenuItem($label, Page $page = null, Menu $menuRoot = null, $slug = null, $externalUrl = null)
+    protected function createMenuItem($label, Page $page = null, Menu $menuRoot = null, $slug = null, $externalUrl = null)
     {
         $menu = new Menu();
 

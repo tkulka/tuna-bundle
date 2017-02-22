@@ -55,7 +55,7 @@ class Configuration implements ConfigurationInterface
             ->arrayNode('pages')
                 ->addDefaultsIfNotSet()
                 ->children()
-                    ->booleanNode('enabled')->defaultTrue()->end()
+                    ->booleanNode('enabled')->defaultFalse()->end()
                     ->booleanNode('create')->defaultTrue()->end()
                     ->booleanNode('delete')->defaultTrue()->end()
                 ->end()
