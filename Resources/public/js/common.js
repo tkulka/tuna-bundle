@@ -87,7 +87,10 @@ tuna.website = {
                 success: function (file, response) {
                     var $el = $(this.element).siblings('textarea');
                     var editor = CKEDITOR.instances[$el.attr('id')];
-                    editor.insertHtml('<img src="' + $el.data('image-url') + response.path + '">');
+                    var token = Math.random();
+                    editor.insertHtml('<img src="' + $el.data('image-url') + response.path + '" data-token="' + token + '">');
+                    var imgElement = $('img[data-token="' + token + '"]', editor.container.$).removeAttr('data-token');
+                    editor.fire('afterImageInsert', {element: imgElement});
                 }
             },
             tunaEvents: this.events
