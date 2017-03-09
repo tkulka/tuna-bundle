@@ -2,10 +2,20 @@ services:
     tuna.menu.twig:
         class: TheCodeine\MenuBundle\Twig\MenuExtension
         calls:
-            - [initRuntime, ['@twig']]
-        arguments: ['@twig', "@doctrine.orm.default_entity_manager", "@router", "%the_codeine_admin.components.menu.default_template%"]
+            - [initRuntime, ["@twig"]]
+        arguments: ["@twig", "@doctrine.orm.default_entity_manager", "@router", "%the_codeine_admin.components.menu.default_template%"]
         tags:
             - { name: twig.extension }
+
+    the_codeine_menu.menu_type:
+        class: TheCodeine\MenuBundle\Form\MenuType
+        arguments: ["%the_codeine_page.model%"]
+        tags:
+            - { name: form.type }
+
+    the_codeine_menu.manager:
+        class: TheCodeine\MenuBundle\Service\MenuManager
+        arguments: ["%the_codeine_menu.model%", "%the_codeine_page.model%", "@doctrine.orm.default_entity_manager"]
 
     tuna.menu.listener.page:
         class: TheCodeine\MenuBundle\EventListener\PageSubscriber

@@ -12,10 +12,22 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use TheCodeine\MenuBundle\Entity\Menu;
-use TheCodeine\PageBundle\Entity\AbstractPage;
 
 class MenuType extends AbstractType
 {
+    /**
+     * @var string
+     */
+    private $modelClass;
+
+    /**
+     * @param string $modelClass
+     */
+    public function __construct($modelClass)
+    {
+        $this->modelClass = $modelClass;
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -31,7 +43,7 @@ class MenuType extends AbstractType
                 'label' => 'ui.form.labels.published'
             ])
             ->add('page', EntityType::class, [
-                'class' => AbstractPage::class,
+                'class' => $this->modelClass,
                 'property' => 'title',
                 'empty_value' => 'ui.form.labels.not_linked',
                 'attr' => ['class' => 'filtered'],

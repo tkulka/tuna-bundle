@@ -14,11 +14,11 @@ class PageRepository extends EntityRepository
         return $this->findBy(['published' => true]);
     }
 
-    public function getListQuery($published = null)
+    public function getListQuery($onlyPublished = false)
     {
         $query = $this->createQueryBuilder('p');
 
-        if ($published !== null) {
+        if ($onlyPublished) {
             $query->andWhere('p.published = 1');
         }
 
@@ -35,11 +35,11 @@ class PageRepository extends EntityRepository
         return $this->addTranslationWalker($qb)->getResult();
     }
 
-    public function getTitlesMap($defaultLocale)
+    public function getTitlesMap($defaultLocale, $class)
     {
         $result = $this->_em->createQueryBuilder()
             ->select('p.id, p.title originalTitle, t.content title, t.locale')
-            ->from(AbstractPage::class, 'p')
+            ->from($class, 'p')
             ->leftJoin('p.translations', 't', Query\Expr\Join::WITH, 't.field = \'title\'')
             ->getQuery()->getArrayResult();
 

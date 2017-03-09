@@ -1,29 +1,21 @@
 <?php
 
-namespace TheCodeine\PageBundle\Entity;
+namespace TunaCMS\CommonComponent\Traits;
 
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 use TheCodeine\CategoryBundle\Entity\Category;
 
-/**
- * Page
- *
- * @ORM\Entity(repositoryClass="TheCodeine\PageBundle\Entity\PageRepository")
- */
-class CategoryPage extends AbstractPage
+trait CategoryTrait
 {
     /**
+     * @var Category
+     *
      * @ORM\ManyToOne(targetEntity="TheCodeine\CategoryBundle\Entity\Category")
      */
-    protected $category;
+    private $category;
 
     /**
-     * Set category
-     *
-     * @param Category $category
-     *
-     * @return self
+     * @inheritdoc
      */
     public function setCategory(Category $category = null)
     {
@@ -33,9 +25,7 @@ class CategoryPage extends AbstractPage
     }
 
     /**
-     * Get category
-     *
-     * @return Category
+     * @inheritdoc
      */
     public function getCategory()
     {

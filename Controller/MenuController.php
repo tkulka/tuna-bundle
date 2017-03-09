@@ -14,7 +14,7 @@ use TheCodeine\MenuBundle\Entity\Menu;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use TheCodeine\MenuBundle\EventListener\MenuListener;
 use TheCodeine\MenuBundle\Form\MenuType;
-use TheCodeine\PageBundle\Entity\AbstractPage;
+use TunaCMS\PageComponent\Model\AbstractPage;
 
 /**
  * @Route("menu")
@@ -28,7 +28,7 @@ class MenuController extends Controller
     public function listAction(Request $request)
     {
         return [
-            'menus' => $this->getDoctrine()->getRepository('TheCodeineMenuBundle:Menu')->getMenuTree(null, false),
+            'menus' => $this->get('the_codeine_menu.manager')->getMenuTree(null, false),
         ];
     }
 
@@ -67,7 +67,7 @@ class MenuController extends Controller
         return [
             'form' => $form->createView(),
             'menu' => $menu,
-            'pageTitlesMap' => $em->getRepository(AbstractPage::class)->getTitlesMap($this->getParameter('locale')),
+            'pageTitlesMap' => $this->get('the_codeine_page.manager')->getTitlesMap($this->getParameter('locale')),
         ];
     }
 
@@ -97,7 +97,7 @@ class MenuController extends Controller
         return [
             'form' => $form->createView(),
             'menu' => $menu,
-            'pageTitlesMap' => $em->getRepository(AbstractPage::class)->getTitlesMap($this->getParameter('locale')),
+            'pageTitlesMap' => $this->get('the_codeine_page.manager')->getTitlesMap($this->getParameter('locale')),
         ];
     }
 
@@ -123,27 +123,7 @@ class MenuController extends Controller
      */
     public function saveOrderAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $repository = $em->getRepository('TheCodeineMenuBundle:Menu');
-
-        $order = $request->request->get('order', []);
-        $entities = $repository->findAll();
-        $nodes = [];
-
-        foreach ($entities as $entity) {
-            $nodes[$entity->getId()] = $entity;
-        }
-
-        foreach ($order as $nodeTreeData) {
-            $nodes[(int)$nodeTreeData['id']]->setTreeData(
-                (int)$nodeTreeData['left'],
-                (int)$nodeTreeData['right'],
-                (int)$nodeTreeData['depth'],
-                isset($nodes[$nodeTreeData['parent_id']]) ? $nodes[$nodeTreeData['parent_id']] : null
-            );
-        }
-
-        $em->flush();
+        $this->get('the_codeine_menu.manager')->saveOrder($request->request->get('order', []));
 
         return new JsonResponse('ok');
     }

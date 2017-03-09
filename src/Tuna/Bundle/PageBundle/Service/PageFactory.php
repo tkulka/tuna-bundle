@@ -2,26 +2,28 @@
 
 namespace TheCodeine\PageBundle\Service;
 
-use TheCodeine\PageBundle\Entity\AbstractPage;
-use TheCodeine\PageBundle\Entity\CategoryPage;
-use TheCodeine\PageBundle\Form\CategoryPageType;
-use TheCodeine\PageBundle\Form\PageType;
-
 class PageFactory
 {
     /**
      * @var string
      */
-    protected $model;
+    private $formClass;
+
+    /**
+     * @var string
+     */
+    private $modelClass;
 
     /**
      * PageFactory constructor.
      *
-     * @param string $model
+     * @param string $formClass
+     * @param string $modelClass
      */
-    public function __construct($model)
+    public function __construct($formClass, $modelClass)
     {
-        $this->model = $model;
+        $this->formClass = $formClass;
+        $this->modelClass = $modelClass;
     }
 
     /**
@@ -29,21 +31,14 @@ class PageFactory
      */
     public function getInstance()
     {
-        return new $this->model();
+        return new $this->modelClass();
     }
 
     /**
-     * @param AbstractPage|null $abstractPage
-     *
-     * @return CategoryPageType|PageType
+     * @return string
      */
-    public function getFormInstance(AbstractPage $abstractPage = null)
+    public function getFormInstance()
     {
-        switch (true) {
-            case $abstractPage instanceof CategoryPage:
-                return CategoryPageType::class;
-            default:
-                return PageType::class;
-        }
+        return $this->formClass;
     }
 }

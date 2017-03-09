@@ -7,14 +7,14 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use TheCodeine\PageBundle\Controller\PageController as Controller;
+use TheCodeine\PageBundle\Controller\PageController as TunaPageController;
 use TheCodeine\MenuBundle\Entity\Menu;
-use TheCodeine\PageBundle\Entity\AbstractPage;
+use TunaCMS\PageComponent\Model\AbstractPage;
 
 /**
  * @Route("/page")
  */
-class PageController extends Controller
+class PageController extends TunaPageController
 {
     const PAGINATE_LIMIT = 10;
 
@@ -36,9 +36,8 @@ class PageController extends Controller
      */
     public function listAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $query = $em->getRepository(AbstractPage::class)->getListQuery();
-        $menuMap = $em->getRepository(Menu::class)->getPageMap();
+        $query = $this->get('the_codeine_page.manager')->getListQuery();
+        $menuMap = $this->get('the_codeine_menu.manager')->getPageMap();
         $page = $request->get('page', 1);
 
         return [
@@ -56,8 +55,8 @@ class PageController extends Controller
     {
         $this->denyAccessUnlessGranted('create', 'pages');
 
-        $abstractPage = $this->getNewPage();
-        $form = $this->createForm($this->getFormType($abstractPage), $abstractPage);
+        $page = $this->getNewPage();
+        $form = $this->createForm($this->getFormType(), $page);
 
         // TODO: Move this to twig
         $form->add('save', SubmitType::class, [
@@ -68,10 +67,10 @@ class PageController extends Controller
             $menuParent = $this->getDoctrine()->getManager()->getReference(Menu::class, $parentId);
         }
 
-        $return = $this->handleCreate($request, $form, $abstractPage);
+        $return = $this->handleCreate($request, $form, $page);
 
         if ($form->isValid() && !$request->isXmlHttpRequest() && isset($menuParent)) {
-            $this->createMenuForPage($menuParent, $abstractPage);
+            $this->createMenuForPage($menuParent, $page);
         }
 
         return $return;
@@ -81,11 +80,11 @@ class PageController extends Controller
      * @Route("/{id}/delete", name="tuna_page_delete", requirements={"id" = "\d+"})
      * @Template()
      */
-    public function deleteAction(Request $request, AbstractPage $abstractPage)
+    public function deleteAction(Request $request, AbstractPage $page)
     {
         $this->denyAccessUnlessGranted('delete', 'pages');
 
-        return parent::deleteAction($request, $abstractPage);
+        return parent::deleteAction($request, $page);
     }
 
     /**
@@ -104,13 +103,13 @@ class PageController extends Controller
 
     /**
      * @param Menu $menuParent
-     * @param AbstractPage $abstractPage
+     * @param AbstractPage $page
      */
-    private function createMenuForPage(Menu $menuParent, AbstractPage $abstractPage)
+    private function createMenuForPage(Menu $menuParent, AbstractPage $page)
     {
         $em = $this->getDoctrine()->getManager();
         $menu = new Menu('tmp');
-        $menu->setPage($abstractPage);
+        $menu->setPage($page);
         $menu->setParent($menuParent);
         $em->persist($menu);
         $em->flush();

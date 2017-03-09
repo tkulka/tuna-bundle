@@ -38,7 +38,22 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface
         }
 
         $om->flush();
+    }
 
+    /**
+     * @return Page
+     */
+    protected function getNewPage()
+    {
+       return new Page();
+    }
+
+    /**
+     * @return Menu
+     */
+    protected function getNewMenu()
+    {
+        return new Menu();
     }
 
     /**
@@ -49,7 +64,7 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface
      */
     protected function createPage($title, Menu $menuRoot = null)
     {
-        $page = new Page();
+        $page = $this->getNewPage();
 
         $page
             ->setTitle($title)
@@ -76,7 +91,7 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface
      */
     protected function createMenuItem($label, Page $page = null, Menu $menuRoot = null, $slug = null, $externalUrl = null)
     {
-        $menu = new Menu();
+        $menu = $this->getNewMenu();
 
         $menu
             ->setPage($page)

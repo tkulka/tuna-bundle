@@ -3,7 +3,6 @@
 namespace TheCodeine\PageBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use TheCodeine\PageBundle\Entity\AbstractPage;
 
 class PageController extends AbstractPageController
 {
@@ -18,9 +17,9 @@ class PageController extends AbstractPageController
     /**
      * {@inheritDoc}
      */
-    public function getFormType(AbstractPage $abstractPage)
+    public function getFormType()
     {
-        return $this->get('the_codeine_page.factory')->getFormInstance($abstractPage);
+        return $this->get('the_codeine_page.factory')->getFormInstance();
     }
 
     /**
@@ -36,6 +35,6 @@ class PageController extends AbstractPageController
      */
     public function getRepository()
     {
-        return $this->getDoctrine()->getRepository($this->getParameter('the_codeine_page.model'));
+        return $this->get('the_codeine_page.manager')->getRepository();
     }
 }

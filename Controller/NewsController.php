@@ -5,12 +5,12 @@ namespace TheCodeine\AdminBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use TheCodeine\NewsBundle\Controller\NewsController as Controller;
+use TheCodeine\NewsBundle\Controller\NewsController as TunaNewsController;
 
 /**
  * @Route("/news")
  */
-class NewsController extends Controller
+class NewsController extends TunaNewsController
 {
     const PAGINATE_LIMIT = 10;
 
