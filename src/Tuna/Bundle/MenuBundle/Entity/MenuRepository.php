@@ -7,6 +7,13 @@ use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 
 class MenuRepository extends NestedTreeRepository
 {
+    /**
+     * @param null $node
+     * @param bool $direct
+     * @param array $options
+     * @param bool $includeNode
+     * @return \Doctrine\ORM\AbstractQuery
+     */
     public function getNodesHierarchyQuery($node = null, $direct = false, array $options = [], $includeNode = false)
     {
         return parent::getNodesHierarchyQuery($node, $direct, $options, $includeNode)->setHint(
@@ -30,21 +37,26 @@ class MenuRepository extends NestedTreeRepository
         ];
     }
 
-    public function getMenuTree($name = null, $filterUnpublished = true)
+    /**
+     * @param null $root Menu root item
+     * @param bool $filterUnpublished
+     * @return array
+     * @throws \Exception
+     */
+    public function getMenuTree(Menu $root = null, $filterUnpublished = true)
     {
         $qb = $this->createQueryBuilder('m')
             ->orderBy('m.root, m.lft', 'ASC');
 
-        if ($name) {
-            $root = $this->findOneByLabel($name);
+        if ($root) {
             if (!$root) {
-                throw new \Exception('There\'s no menu like this');
+                throw new \Exception('There\'s no menu like this.');
             }
             $qb
                 ->where($qb->expr()->lte('m.rgt', $this->getFieldValue($root, 'rgt')))
                 ->andWhere($qb->expr()->gte('m.lft', $this->getFieldValue($root, 'lft')))
                 ->andWhere('m.root = :root')
-                ->setParameter('root', $root);
+                ->setParameter('root', $root->getRoot());
         }
 
         $nodes = $qb->getQuery()->getResult();
@@ -74,9 +86,16 @@ class MenuRepository extends NestedTreeRepository
 
         $tree = $this->buildTree($nodes);
 
-        return $name ? $tree[0]['__children'] : $tree;
+        if ($root && !array_key_exists(0, $tree)) {
+            throw new \Exception('Something wrong happened during building this menu.');
+        }
+
+        return $root ? $tree[0]['__children'] : $tree;
     }
 
+    /**
+     * @return array
+     */
     public function getPageMap()
     {
         $results = $this->createQueryBuilder('m')

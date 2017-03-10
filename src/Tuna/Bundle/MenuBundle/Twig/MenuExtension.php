@@ -62,11 +62,15 @@ class MenuExtension extends \Twig_Extension
 
     public function renderMenu($menuName = 'Menu', array $options = [])
     {
-        $options += ['wrap' => true, 'template' => $this->defaultTemplate];
+        $options += [
+            'wrap' => true,
+            'template' => $this->defaultTemplate,
+            'root' => array_key_exists('root', $options) ?: $this->em->getRepository('TheCodeineMenuBundle:Menu')->findOneByLabel($menuName),
+        ];
 
         return $this->twig->render(
             $options['template'], [
-                'menu' => $this->em->getRepository(Menu::class)->getMenuTree($menuName),
+                'menu' => $this->em->getRepository(Menu::class)->getMenuTree($options['root']),
                 'name' => $menuName,
                 'options' => $options,
             ]

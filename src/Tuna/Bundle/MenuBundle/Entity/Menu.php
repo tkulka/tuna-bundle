@@ -168,17 +168,32 @@ class Menu
         }
     }
 
+    /**
+     * @param $lft
+     * @param $rgt
+     * @param $lvl
+     * @param Menu|null $parent
+     * @return $this
+     */
     public function setTreeData($lft, $rgt, $lvl, Menu $parent = null)
     {
         $this->lft = $lft;
         $this->rgt = $rgt;
         $this->lvl = $lvl;
         $this->parent = $parent;
+
+        return $this;
     }
 
+    /**
+     * @param $locale
+     * @return $this
+     */
     public function setTranslatableLocale($locale)
     {
         $this->locale = $locale;
+
+        return $this;
     }
 
     public function getIndentedName()
@@ -206,10 +221,13 @@ class Menu
 
     /**
      * @param Menu|null $parent
+     * @return $this
      */
     public function setParent(Menu $parent = null)
     {
         $this->parent = $parent;
+
+        return $this;
     }
 
     /**
