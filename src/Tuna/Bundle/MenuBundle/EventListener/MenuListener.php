@@ -4,6 +4,7 @@ namespace TheCodeine\MenuBundle\EventListener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreFlushEventArgs;
+use Gedmo\Sluggable\Util\Urlizer;
 use TheCodeine\MenuBundle\Entity\Menu;
 use TheCodeine\MenuBundle\Entity\MenuTranslation;
 use TunaCMS\PageComponent\Model\PageInterface;
@@ -19,7 +20,7 @@ class MenuListener
     {
         if ($menu->getPage()) {
             $menu->getPage()->setPublished($menu->isPublished());
-            $menu->setPath($menu->getPage()->getSlug());
+            $menu->setPath(self::getPathFromPage($menu->getPage()));
         }
     }
 
@@ -31,7 +32,7 @@ class MenuListener
 
         $menu
             ->setLabel($pageInterface->getTitle())
-            ->setPath($pageInterface->getSlug())
+            ->setPath(self::getPathFromPage($pageInterface))
             ->setPublished($pageInterface->isPublished())
             ->setExternalUrl(null);
 
@@ -52,5 +53,10 @@ class MenuListener
         foreach ($titleTranslations as $locale => $title) {
             $menu->addTranslation(new MenuTranslation('label', $locale, $title));
         }
+    }
+
+    private static function getPathFromPage(PageInterface $page)
+    {
+        return Urlizer::transliterate($page->getTitle());
     }
 }
