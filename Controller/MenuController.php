@@ -61,7 +61,7 @@ class MenuController extends Controller
             $em->persist($menu);
             $em->flush();
 
-            return $this->redirectToRoute('tuna_menu_list');
+            return $this->redirect($this->getRedirectUrl($request));
         }
 
         return [
@@ -91,7 +91,7 @@ class MenuController extends Controller
         if ($form->isValid()) {
             $em->flush();
 
-            return $this->redirectToRoute('tuna_menu_list');
+            return $this->redirect($this->getRedirectUrl($request));
         }
 
         return [
@@ -110,11 +110,7 @@ class MenuController extends Controller
         $em->remove($menu);
         $em->flush();
 
-        return $this->redirectToRoute(
-            $request->query->get('redirect') == 'dashboard' ?
-                'tuna_admin_dashboard' :
-                'tuna_menu_list'
-        );
+        return $this->redirect($this->getRedirectUrl($request));
     }
 
     /**
@@ -141,5 +137,14 @@ class MenuController extends Controller
         return [
             'page' => $menu->getPage(),
         ];
+    }
+
+    protected function getRedirectUrl(Request $request)
+    {
+        return $this->generateUrl(
+            $request->query->get('redirect') == 'dashboard' ?
+                'tuna_admin_dashboard' :
+                'tuna_menu_list'
+        );
     }
 }
