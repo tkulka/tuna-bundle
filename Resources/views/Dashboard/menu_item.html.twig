@@ -1,42 +1,41 @@
 {% trans_default_domain 'tuna_admin' %}
 
-{% set menuObject = item.__object %}
-<li id="menu_{{ menuObject.id }}" class="{% if item.lvl == 0 %} root{% endif %}{% if not menuObject.published %} unpublished{% endif %}" data-id="{{ menuObject.id }}">
+<li id="menu_{{ item.id }}" class="{% if item.lvl == 0 %} root{% endif %}{% if not item.published %} unpublished{% endif %}" data-id="{{ item.id }}">
     {% if item.lvl == 0 %}
         <div class="title">
             <span class="item-options">
-                <a href="{{ path('tuna_page_create', { redirect: 'dashboard', menuParentId: menuObject.id }) }}">
+                <a href="{{ path('tuna_page_create', { redirect: 'dashboard', menuParentId: item.id }) }}">
                     <i class="fa fa-plus"></i>
                 </a>
             </span>
-            {{ menuObject.label }}
+            {{ item.label }}
         </div>
     {% else %}
         <div>
-            {{ menuObject.label }}
+            {{ item.label }}
             <span class="item-options">
-                <a href="{{ path('tuna_page_create', { redirect: 'dashboard', menuParentId: menuObject.id }) }}">
+                <a href="{{ path('tuna_page_create', { redirect: 'dashboard', menuParentId: item.id }) }}">
                     <i class="fa fa-plus"></i>
                 </a>
-                {% if menuObject.page %}
-                    <a href="{{ path('tuna_page_edit', { id: menuObject.page.id, redirect: 'dashboard' }) }}">
+                {% if item.page %}
+                    <a href="{{ path('tuna_page_edit', { id: item.page.id, redirect: 'dashboard' }) }}">
                         <i class="fa fa-edit"></i>
                     </a>
                 {% endif %}
-                {% if menuObject.clickable %}
-                    <a href="{{ tuna_menu_getLink(menuObject) }}" target="_blank">
+                {% if item.clickable %}
+                    <a href="{{ tuna_menu_getLink(item) }}" target="_blank">
                         <i class="fa fa-external-link"></i>
                     </a>
                 {% endif %}
-                <a data-url="{{ path('tuna_menu_delete', { id: menuObject.id, redirect: 'dashboard' }) }}" data-title="pozycję menu {{ menuObject.label }}" data-target="#modal-confirm" data-action="delete">
+                <a data-url="{{ path('tuna_menu_delete', { id: item.id, redirect: 'dashboard' }) }}" data-title="pozycję menu {{ item.label }}" data-target="#modal-confirm" data-action="delete">
                     <i class="fa fa-trash"></i>
                 </a>
             </span>
         </div>
     {% endif %}
-    {% if item.__children|length %}
+    {% if item.children|length %}
         <ul>
-            {% for child in item.__children %}
+            {% for child in item.children %}
                 {% include 'TheCodeineAdminBundle:Dashboard:menu_item.html.twig' with { item: child } %}
             {% endfor %}
         </ul>

@@ -2,6 +2,7 @@
 
 namespace TheCodeine\MenuBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Query;
 use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 
@@ -22,79 +23,34 @@ class MenuRepository extends NestedTreeRepository
         );
     }
 
-    private function getFieldValue(Menu $object, $property)
-    {
-        return $this->getClassMetadata()->getReflectionProperty($property)->getValue($object);
-    }
-
-    private function nodeToArray(Menu $item)
-    {
-        return [
-            'lft' => $this->getFieldValue($item, 'lft'),
-            'rgt' => $this->getFieldValue($item, 'rgt'),
-            'lvl' => $this->getFieldValue($item, 'lvl'),
-            '__object' => $item,
-        ];
-    }
-
     /**
-     * @param null $root Menu root item
+     * @param Menu|null $root
      * @param bool $filterUnpublished
-     * @return array
-     * @throws \Exception
+     * @param $locale
+     * @param $defaultLocale
+     * @return array|Menu
      */
-    public function getMenuTree(Menu $root = null, $filterUnpublished = true)
+    public function getMenuTree(Menu $root = null, $filterUnpublished = true, $locale, $defaultLocale)
     {
-        $qb = $this->createQueryBuilder('m')
-            ->orderBy('m.root, m.lft', 'ASC');
+        $nodes = $this->getMenuTreeQuery($root, $filterUnpublished, $locale, $defaultLocale)->getResult();
+        $tree = $this->buildTree($this->getArrifiedNodes($nodes));
 
-        if ($root) {
-            if (!$root) {
-                throw new \Exception('There\'s no menu like this.');
-            }
-            $qb
-                ->where($qb->expr()->lte('m.rgt', $this->getFieldValue($root, 'rgt')))
-                ->andWhere($qb->expr()->gte('m.lft', $this->getFieldValue($root, 'lft')))
-                ->andWhere('m.root = :root')
-                ->setParameter('root', $root->getRoot());
+        foreach ($tree as $menu) {
+            $this->objectifyTree($menu);
         }
 
-        $nodes = $qb->getQuery()->getResult();
-
-        if (!$filterUnpublished) {
-            array_walk($nodes, function (&$item) {
-                $item = $this->nodeToArray($item);
-            });
-        } else {
-            $filteredNodes = [];
-            $unpublishedRgt = 0;
-
-            foreach ($nodes as $node) {
-
-                $nodeRgt = $this->getFieldValue($node, 'rgt');
-                if (!$node->isPublished()) {
-                    $unpublishedRgt = $nodeRgt;
-                }
-
-                if ($unpublishedRgt < $nodeRgt) {
-                    $filteredNodes[] = $this->nodeToArray($node);
-                }
-            }
-
-            $nodes = $filteredNodes;
+        if (!$root) {
+            // if no root was given return array of menu roots
+            return array_map(function ($item) {
+                return $item['__object'];
+            }, $tree);
         }
 
-        $tree = $this->buildTree($nodes);
-
-        if ($root && !array_key_exists(0, $tree)) {
-            throw new \Exception('Something wrong happened during building this menu.');
-        }
-
-        return $root ? $tree[0]['__children'] : $tree;
+        return $root;
     }
 
     /**
-     * @return array
+     * @return array|Menu[]
      */
     public function getPageMap()
     {
@@ -113,7 +69,6 @@ class MenuRepository extends NestedTreeRepository
 
     /**
      * @param string $class
-     *
      * @return Query
      */
     public function getStandalonePagesPaginationQuery($class)
@@ -123,5 +78,75 @@ class MenuRepository extends NestedTreeRepository
                 SELECT p2.id FROM TheCodeineMenuBundle:Menu m JOIN ${class} p2 WITH p2 = m.page
             )
         ");
+    }
+
+    protected function objectifyTree(&$tree)
+    {
+        /* @var $menu Menu */
+        $menu = $tree['__object'];
+        $menu->setChildren(new ArrayCollection());
+
+        foreach ($tree['__children'] as $item) {
+            if ($item['__object']->getParent() !== $menu) {
+                // don't allow indirect children.
+                // it can happen when you filter (e.g. unpublish) menu item - its children
+                // would be still used to build a tree resulting in broken structure.
+                continue;
+            }
+
+            $this->objectifyTree($item);
+            $menu->getChildren()->add($item['__object']);
+        }
+    }
+
+    protected function getFieldValue(Menu $object, $property)
+    {
+        return $this->getClassMetadata()->getReflectionProperty($property)->getValue($object);
+    }
+
+    protected function getArrifiedNodes(array &$array)
+    {
+        return array_map(function ($item) {
+            return [
+                'lft' => $item->getLft(),
+                'rgt' => $item->getRgt(),
+                'lvl' => $item->getLvl(),
+                '__object' => $item,
+            ];
+        }, $array);
+    }
+
+    protected function getMenuTreeQueryBuilder(Menu $root = null, $filterUnpublished = true, $locale = null, $defaultLocale = null)
+    {
+        $qb = $this->createQueryBuilder('m')
+            ->orderBy('m.root, m.lft', 'ASC');
+
+        if ($root) {
+            $qb
+                ->where($qb->expr()->lte('m.rgt', $root->getRgt()))
+                ->andWhere($qb->expr()->gte('m.lft', $root->getLft()))
+                ->andWhere('m.root = :root')
+                ->setParameter('root', $root->getRoot());
+        }
+
+        if ($filterUnpublished) {
+            $qb
+                ->andWhere('m.publishDate <= :now')
+                ->setParameter('now', new \DateTime());
+        }
+
+        if ($locale && $locale !== $defaultLocale) {
+            $qb
+                ->leftJoin('m.translations', 't', Query\Expr\Join::WITH, "t.field = 'label' AND t.locale = :locale")
+                ->andWhere('m.lvl = 0 OR m.lvl > 0 AND t IS NOT NULL')// menu root don't have to be translated.
+                ->setParameter('locale', $locale);
+        }
+
+        return $qb;
+    }
+
+    protected function getMenuTreeQuery(Menu $root = null, $filterUnpublished = true, $locale = null, $defaultLocale = null)
+    {
+        return $this->getMenuTreeQueryBuilder($root, $filterUnpublished, $locale, $defaultLocale)->getQuery();
     }
 }

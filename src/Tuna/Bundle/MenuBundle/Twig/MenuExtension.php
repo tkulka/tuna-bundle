@@ -2,39 +2,39 @@
 
 namespace TheCodeine\MenuBundle\Twig;
 
-use Doctrine\ORM\EntityManager;
 use Symfony\Component\Routing\RouterInterface;
 use TheCodeine\MenuBundle\Entity\Menu;
+use TheCodeine\MenuBundle\Service\MenuManager;
 
 class MenuExtension extends \Twig_Extension
 {
     /**
      * @var \Twig_Environment
      */
-    private $twig;
+    protected $twig;
 
     /**
-     * @var EntityManager
+     * @var MenuManager
      */
-    private $em;
+    protected $menuManager;
 
     /**
      * @var RouterInterface
      */
-    private $router;
+    protected $router;
 
     /**
-     * @var String
+     * @var string
      */
-    private $defaultTemplate;
+    protected $defaultTemplate;
 
     /**
      * MenuExtension constructor.
      */
-    public function __construct(\Twig_Environment $twig, EntityManager $em, RouterInterface $router, $defaultTemplate)
+    public function __construct(\Twig_Environment $twig, MenuManager $menuManager, RouterInterface $router, $defaultTemplate)
     {
         $this->twig = $twig;
-        $this->em = $em;
+        $this->menuManager = $menuManager;
         $this->router = $router;
         $this->defaultTemplate = $defaultTemplate;
     }
@@ -62,15 +62,24 @@ class MenuExtension extends \Twig_Extension
 
     public function renderMenu($menuName = 'Menu', array $options = [])
     {
+        if (!array_key_exists('root', $options)) {
+            $rootFromLabel = $this->menuManager->findMenuItemByLabel($menuName);
+
+            if (!$rootFromLabel) {
+                return '';
+            }
+        }
+
         $options += [
             'wrap' => true,
             'template' => $this->defaultTemplate,
-            'root' => array_key_exists('root', $options) ?: $this->em->getRepository('TheCodeineMenuBundle:Menu')->findOneByLabel($menuName),
+            'root' => isset($rootFromLabel) ? $rootFromLabel : $options['root'],
+            'locale' => null,
         ];
 
         return $this->twig->render(
             $options['template'], [
-                'menu' => $this->em->getRepository(Menu::class)->getMenuTree($options['root']),
+                'menu' => $this->menuManager->getMenuTree($options['root']),
                 'name' => $menuName,
                 'options' => $options,
             ]

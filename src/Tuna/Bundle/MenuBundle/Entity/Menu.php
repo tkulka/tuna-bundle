@@ -150,7 +150,8 @@ class Menu
         $this->setClickable(true);
         $this->setPublished(true);
 
-        $this->translations = new ArrayCollection();
+        $this->setTranslations(new ArrayCollection());
+        $this->setChildren(new ArrayCollection());
     }
 
     /**
@@ -214,6 +215,9 @@ class Menu
         return $this->id;
     }
 
+    /**
+     * @return Menu|null
+     */
     public function getRoot()
     {
         return $this->root;
@@ -336,7 +340,6 @@ class Menu
 
     /**
      * @param boolean $published
-     *
      * @return Menu
      */
     public function setPublished($published)
@@ -374,28 +377,42 @@ class Menu
         return $this;
     }
 
+    /**
+     * @return ArrayCollection|MenuTranslation[]
+     */
     public function getTranslations()
     {
         return $this->translations;
     }
 
+    /**
+     * @param AbstractPersonalTranslation $translation
+     * @return $this
+     */
     public function addTranslation(AbstractPersonalTranslation $translation)
     {
         if (!$this->translations->contains($translation) && $translation->getContent()) {
             $translation->setObject($this);
             $this->translations->add($translation);
         }
-    }
 
-    public function removeTranslation(AbstractPersonalTranslation $t)
-    {
-        $this->translations->removeElement($t);
+        return $this;
     }
 
     /**
-     * Set translations
-     *
-     * @param ArrayCollection [AbstractPersonalTranslation] $translations
+     * @param AbstractPersonalTranslation $t
+     * @return $this
+     */
+    public function removeTranslation(AbstractPersonalTranslation $t)
+    {
+        $this->translations->removeElement($t);
+
+        return $this;
+    }
+
+    /**
+     * @param ArrayCollection $translations
+     * @return $this
      */
     public function setTranslations(ArrayCollection $translations)
     {
@@ -404,14 +421,27 @@ class Menu
         }
 
         $this->translations = $translations;
+
+        return $this;
     }
 
     /**
-     * @return mixed
+     * @return ArrayCollection|Menu[]|null
      */
     public function getChildren()
     {
         return $this->children;
+    }
+
+    /**
+     * @param ArrayCollection|null $children
+     * @return $this
+     */
+    public function setChildren(ArrayCollection $children = null)
+    {
+        $this->children = $children;
+
+        return $this;
     }
 
     /**
@@ -439,5 +469,29 @@ class Menu
         $this->externalUrl = trim($externalUrl);
 
         return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getLft()
+    {
+        return $this->lft;
+    }
+
+    /**
+     * @return int
+     */
+    public function getLvl()
+    {
+        return $this->lvl;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRgt()
+    {
+        return $this->rgt;
     }
 }

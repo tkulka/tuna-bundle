@@ -8,7 +8,7 @@
                 {% for menu in menus %}
                     <div class="admin-list">
                         <div class="action-buttons">
-                            <a href="{{ path('tuna_menu_create', { parentId: menu.__object.id }) }}" class="btn btn-primary btn-wide">
+                            <a href="{{ path('tuna_menu_create', { parentId: menu.id }) }}" class="btn btn-primary btn-wide">
                                 <i class="fui-plus"></i> {{ 'list.add'|transchoice(1) }}
                             </a>
                             <a href="#" data-action="save-order" class="btn btn-primary btn-wide inactive">

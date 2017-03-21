@@ -43,3 +43,8 @@ services:
         arguments: ["%the_codeine_admin.locales%"]
         tags:
             - { name: console.command }
+
+    the_codeine_admin.event_listener.translations_subscriber:
+        class: TheCodeine\AdminBundle\EventListener\TranslationsSubscriber
+        tags:
+            - { name: doctrine.event_subscriber }

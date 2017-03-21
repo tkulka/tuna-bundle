@@ -18,6 +18,7 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->scalarNode('model')->defaultValue('TheCodeine\MenuBundle\Entity\Menu')->end()
+            ->scalarNode('manager_class')->defaultValue('TheCodeine\MenuBundle\Service\MenuManager')->end()
             ->end();
 
         return $treeBuilder;

@@ -3,38 +3,49 @@
 namespace TheCodeine\MenuBundle\Service;
 
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
+use Symfony\Component\HttpFoundation\RequestStack;
+use TheCodeine\MenuBundle\Entity\Menu;
+use TheCodeine\MenuBundle\Entity\MenuRepository;
+use TunaCMS\PageComponent\Model\PageInterface;
 
 class MenuManager
 {
     /**
      * @var string
      */
-    private $class;
+    protected $class;
 
     /**
      * @var string
      */
-    private $model;
+    protected $model;
 
     /**
-     * @var EntityRepository
+     * @var MenuRepository
      */
-    private $repository;
+    protected $repository;
 
     /**
      * @var EntityManager
      */
-    private $entityManager;
+    protected $entityManager;
 
-    public function __construct($class, $model, EntityManager $entityManager)
+    protected $defaultLocale;
+    protected $locale;
+
+    public function __construct($class, $model, EntityManager $entityManager, RequestStack $requestStack)
     {
         $this->class = $class;
         $this->model = $model;
         $this->entityManager = $entityManager;
 
         $this->repository = $this->entityManager->getRepository($this->class);
+
+        if (($request = $requestStack->getCurrentRequest())) {
+            $this->defaultLocale = $request->getDefaultLocale();
+            $this->locale = $request->getLocale();
+        }
     }
 
     /**
@@ -80,14 +91,26 @@ class MenuManager
     }
 
     /**
-     * @param null $name
+     * @param Menu $root
      * @param bool $filterUnpublished
-     *
-     * @return mixed
+     * @param string $locale
+     * @param string $defaultLocale
+     * @return array
      */
-    public function getMenuTree($name = null, $filterUnpublished = true)
+    public function getMenuTree(Menu $root = null, $filterUnpublished = true, $locale = null, $defaultLocale = null)
     {
-        return $this->repository->getMenuTree($name, $filterUnpublished);
+        $locale = $locale ?: $this->locale;
+        $defaultLocale = $defaultLocale ?: $this->defaultLocale;
+
+        return $this->repository->getMenuTree($root, $filterUnpublished, $locale, $defaultLocale);
+    }
+
+    /**
+     * @return MenuRepository
+     */
+    public function getRepository()
+    {
+        return $this->repository;
     }
 
     /**
@@ -96,6 +119,43 @@ class MenuManager
     public function getStandalonePagesPaginationQuery()
     {
         return $this->repository->getStandalonePagesPaginationQuery($this->model);
+    }
+
+    public function isTranslated(Menu $menu, $locale = null)
+    {
+        if (!$locale) {
+            $locale = $this->locale;
+        }
+
+        if ($locale == $this->defaultLocale) {
+            return true;
+        }
+
+        foreach ($menu->getTranslations() as $translation) {
+            if ($translation->getField() == 'label' && $translation->getLocale() == $locale) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @param $label
+     * @return Menu|null
+     */
+    public function findMenuItemByLabel($label)
+    {
+        return $this->repository->findOneByLabel($label);
+    }
+
+    /**
+     * @param $page PageInterface
+     * @return Menu|null
+     */
+    public function findMenuItemByPage(PageInterface $page)
+    {
+        return $this->repository->findOneByPage($page);
     }
 
     /**
