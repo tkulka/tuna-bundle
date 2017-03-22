@@ -42,6 +42,18 @@ class FileListener
         $this->handleUpload($file, $args->getEntityManager());
     }
 
+    public function prePersist(AbstractFile $file, LifecycleEventArgs $args)
+    {
+        if (!$file->getPath()) {
+            return;
+        }
+
+        $info = $this->fileManager->getFileInfo($file);
+        $file
+            ->setMime($info['mime'])
+            ->setFilesize($info['size']);
+    }
+
     /**
      * @param AbstractFile $file
      * @param LifecycleEventArgs $args

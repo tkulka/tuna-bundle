@@ -139,34 +139,44 @@ class FileManager
         );
     }
 
-    /**
-     * @param $file
-     *
-     * @return string
-     */
-    private function getFullTmpPath($file)
+    public function getFileInfo(AbstractFile $file)
     {
-        return $this->getFullPath('tmp', $file);
+        $path = $this->getFullTmpPath($file->getPath());
+
+        return [
+            'mime' => finfo_file(finfo_open(FILEINFO_MIME_TYPE), $path),
+            'size' => filesize($path)
+        ];
     }
 
     /**
-     * @param $file
+     * @param $path
      *
      * @return string
      */
-    private function getFullFilePath($file)
+    private function getFullTmpPath($path)
     {
-        return $this->getFullPath('upload_files', $file);
+        return $this->getFullPath('tmp', $path);
+    }
+
+    /**
+     * @param $path
+     *
+     * @return string
+     */
+    private function getFullFilePath($path)
+    {
+        return $this->getFullPath('upload_files', $path);
     }
 
     /**
      * @param $type
-     * @param $file
+     * @param $path
      *
      * @return string
      */
-    private function getFullPath($type, $file)
+    private function getFullPath($type, $path)
     {
-        return sprintf('%s/%s/%s', $this->config['web_root_dir'], $this->config[$type . '_path'], $file);
+        return sprintf('%s/%s/%s', $this->config['web_root_dir'], $this->config[$type . '_path'], $path);
     }
 }
