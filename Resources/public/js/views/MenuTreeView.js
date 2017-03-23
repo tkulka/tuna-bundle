@@ -23,7 +23,7 @@
                     rootID: $menu.closest('.root').data('id'),
                     placeholder: 'sortable-placeholder',
                     update: _.bind(function (event, ui) {
-                        this.$('[data-action="save-order"]').removeClass('inactive');
+                        $('[data-action="save-order"]', $(ui.item).closest('.sortable-wrapper')).removeClass('inactive');
                     }, this)
                 });
             });
@@ -68,7 +68,8 @@
 
         onSaveOrderClick: function (event) {
             event.preventDefault();
-            var $list = $(event.currentTarget).closest('.admin-list').find('[data-menu-tree] .root > ul');
+            var $button = $(event.currentTarget);
+            var $list = $('[data-menu-tree] .root > ul', $button.closest('.sortable-wrapper'));
             var order = $list.sortable('toArray');
             order = _.map(order, function (item) {
                 // weird ifology due to weird behavior of nestedSortable plugin
@@ -88,7 +89,7 @@
                 },
                 url: this.saveOrderUrl,
                 success: function (data) {
-                    $(event.currentTarget).addClass('inactive');
+                    $button.blur().addClass('inactive');
                 }
             })
         }

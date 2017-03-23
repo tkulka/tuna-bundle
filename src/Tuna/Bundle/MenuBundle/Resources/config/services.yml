@@ -29,8 +29,3 @@ services:
         class: TheCodeine\MenuBundle\EventListener\PageSubscriber
         tags:
             - { name: doctrine.event_subscriber }
-
-    admin.event_listener.menu_subscriber:
-        class: AdminBundle\EventListener\MenuSubscriber
-        tags:
-            - { name: doctrine.event_subscriber }
