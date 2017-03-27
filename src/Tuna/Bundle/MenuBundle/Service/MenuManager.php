@@ -19,7 +19,7 @@ class MenuManager
     /**
      * @var string
      */
-    protected $model;
+    protected $pageModel;
 
     /**
      * @var MenuRepository
@@ -34,10 +34,10 @@ class MenuManager
     protected $defaultLocale;
     protected $locale;
 
-    public function __construct($class, $model, EntityManager $entityManager, RequestStack $requestStack)
+    public function __construct($class, $pageModel, EntityManager $entityManager, RequestStack $requestStack)
     {
         $this->class = $class;
-        $this->model = $model;
+        $this->pageModel = $pageModel;
         $this->entityManager = $entityManager;
 
         $this->repository = $this->entityManager->getRepository($this->class);
@@ -46,6 +46,11 @@ class MenuManager
             $this->defaultLocale = $request->getDefaultLocale();
             $this->locale = $request->getLocale();
         }
+    }
+
+    public function getMenuInstance()
+    {
+        return new $this->class();
     }
 
     /**
@@ -118,7 +123,7 @@ class MenuManager
      */
     public function getStandalonePagesPaginationQuery()
     {
-        return $this->repository->getStandalonePagesPaginationQuery($this->model);
+        return $this->repository->getStandalonePagesPaginationQuery($this->pageModel);
     }
 
     public function isTranslated(Menu $menu, $locale = null)

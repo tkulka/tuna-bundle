@@ -1,11 +1,10 @@
 <?php
 
-namespace TheCodeine\AdminBundle\DataFixtures\ORM;
+namespace TheCodeine\AdminBundle\DefaultDataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-use FOS\UserBundle\Entity\UserManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -42,7 +41,6 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
      */
     public function load(ObjectManager $om)
     {
-        /* @var UserManager $userManager */
         $userManager = $this->container->get('fos_user.user_manager');
         foreach ($this->getUsers() as $u) {
             if ($userManager->findUserByUsername($u['name']) != null || $userManager->findUserByEmail($u['email']) != null) {

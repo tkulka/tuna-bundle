@@ -54,6 +54,9 @@ class IdToCategoryTransformer implements DataTransformerInterface
         if ($data[AddableCategoryType::CHOICE_FIELD] == AddableCategoryType::NEW_VALUE_OPTION) {
             return $data[AddableCategoryType::NEW_VALUE_FIELD];
         } else {
+            if (!$data[AddableCategoryType::CHOICE_FIELD]) {
+                return null;
+            }
             return $this->entityRepository->find($data[AddableCategoryType::CHOICE_FIELD]);
         }
     }

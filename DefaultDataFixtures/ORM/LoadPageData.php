@@ -1,6 +1,6 @@
 <?php
 
-namespace TheCodeine\AdminBundle\DataFixtures\ORM;
+namespace TheCodeine\AdminBundle\DefaultDataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\Persistence\ObjectManager;

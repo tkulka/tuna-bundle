@@ -80,6 +80,10 @@ components:
   categories:
     name: Category
     create: Create category
+    form:
+      new: New category
+      existing: Existing categories
+      empty: Uncategorized
   attachments:
     name: Attachments
     dropzone: Drop attachments here

@@ -93,7 +93,7 @@ class PageController extends TunaPageController
     public function createMenuItemAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $page = $em->getReference(AbstractPage::class, $request->request->get('pageId'));
+        $page = $em->getReference($this->get('the_codeine_page.factory')->getModelClass(), $request->request->get('pageId'));
         $menuParent = $em->getReference(Menu::class, $request->request->get('menuParentId'));
 
         $this->createMenuForPage($menuParent, $page);
@@ -108,9 +108,11 @@ class PageController extends TunaPageController
     private function createMenuForPage(Menu $menuParent, AbstractPage $page)
     {
         $em = $this->getDoctrine()->getManager();
-        $menu = new Menu('tmp');
-        $menu->setPage($page);
-        $menu->setParent($menuParent);
+        $menu = $this->get('the_codeine_menu.manager')->getMenuInstance();
+        $menu
+            ->setLabel('tmp')
+            ->setPage($page)
+            ->setParent($menuParent);
         $em->persist($menu);
         $em->flush();
     }

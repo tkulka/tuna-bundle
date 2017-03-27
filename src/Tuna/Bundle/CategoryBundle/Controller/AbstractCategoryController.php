@@ -114,7 +114,7 @@ abstract class AbstractCategoryController extends Controller
             $em->flush();
         } catch (DBALException $e) {
             $translator = $this->get('translator.default');
-            $errorMsg = $translator->trans('error.category.not_empty', ['%name%' => $category->getName()], 'validators');
+            $errorMsg = $translator->trans('error.category.not_empty', ['%name%' => $category->getName()], 'tuna_admin');
             $this->get('session')->getFlashBag()->add('error', $errorMsg);
         }
 

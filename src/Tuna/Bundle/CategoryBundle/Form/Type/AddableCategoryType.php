@@ -8,6 +8,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use TheCodeine\CategoryBundle\Entity\Category;
 use TheCodeine\CategoryBundle\Form\CategoryType;
 use TheCodeine\CategoryBundle\Form\DataTransformer\IdToCategoryTransformer;
 
@@ -39,10 +40,17 @@ class AddableCategoryType extends AbstractType
     {
         $repo = $this->em->getRepository($options['class']);
 
+        $choiceOptions = [
+            'choices' => $this->getChoices($repo),
+            'attr' => array(
+                'class' => 'filtered',
+            )
+        ];
+        if ($options['nullable']) {
+            $choiceOptions['empty_value'] = 'components.categories.form.empty';
+        }
         $builder
-            ->add(self::CHOICE_FIELD, ChoiceType::class, [
-                'choices' => $this->getChoices($repo)
-            ])
+            ->add(self::CHOICE_FIELD, ChoiceType::class, $choiceOptions)
             ->add(self::NEW_VALUE_FIELD, new CategoryType($options['class']), [])
             ->addModelTransformer(new IdToCategoryTransformer($repo));
     }
@@ -53,11 +61,12 @@ class AddableCategoryType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'class' => '',
+            'class' => Category::class,
             'compound' => true,
             'error_mapping' => ['.' => self::NEW_VALUE_FIELD],
             'error_bubbling' => false,
             'translation_domain' => 'tuna_admin',
+            'nullable' => true,
         ]);
     }
 
@@ -82,8 +91,9 @@ class AddableCategoryType extends AbstractType
         foreach ($entities as $entity) {
             $choices[$entity->getId()] = $entity->getName();
         }
-        $choices[self::NEW_VALUE_OPTION] = 'category.new';
-
-        return $choices;
+        return [
+            self::NEW_VALUE_OPTION => 'components.categories.form.new',
+            'components.categories.form.existing' => $choices,
+        ];
     }
 }

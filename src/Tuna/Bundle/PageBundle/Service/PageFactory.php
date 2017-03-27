@@ -41,4 +41,20 @@ class PageFactory
     {
         return $this->formClass;
     }
+
+    /**
+     * @return string
+     */
+    public function getModelClass()
+    {
+        return $this->modelClass;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFormClass()
+    {
+        return $this->formClass;
+    }
 }
