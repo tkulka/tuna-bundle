@@ -13,7 +13,7 @@ trait TranslateTrait
      *
      * @ORM\OneToMany(targetEntity="TheCodeine\PageBundle\Entity\PageTranslation", mappedBy="object", cascade={"persist", "remove"})
      */
-    private $translations;
+    protected $translations;
 
     /**
      * @inheritdoc

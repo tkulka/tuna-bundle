@@ -20,7 +20,7 @@ trait AttachmentTrait
      *
      * @Assert\Valid
      */
-    private $attachments;
+    protected $attachments;
 
     /**
      * @inheritdoc

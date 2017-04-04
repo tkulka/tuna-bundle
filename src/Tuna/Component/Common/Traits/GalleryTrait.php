@@ -16,7 +16,7 @@ trait GalleryTrait
      *
      * @Assert\Valid
      */
-    private $gallery;
+    protected $gallery;
 
     /**
      * @inheritdoc

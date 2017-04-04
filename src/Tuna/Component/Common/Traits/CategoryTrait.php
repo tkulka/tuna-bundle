@@ -13,7 +13,7 @@ trait CategoryTrait
      * @ORM\ManyToOne(targetEntity="TheCodeine\CategoryBundle\Entity\Category", cascade={"persist"})
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
-    private $category;
+    protected $category;
 
     /**
      * @inheritdoc

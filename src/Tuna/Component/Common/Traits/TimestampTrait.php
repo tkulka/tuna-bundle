@@ -13,7 +13,7 @@ trait TimestampTrait
      * @ORM\Column(type="datetime", nullable=true)
      * @Gedmo\Timestampable(on="create")
      */
-    private $createdAt;
+    protected $createdAt;
 
     /**
      * @var \DateTime
@@ -21,7 +21,7 @@ trait TimestampTrait
      * @ORM\Column(type="datetime", nullable=true)
      * @Gedmo\Timestampable(on="update")
      */
-    private $updatedAt;
+    protected $updatedAt;
 
     /**
      * @inheritdoc

@@ -36,7 +36,13 @@ class MenuListener
             ->setPublished($pageInterface->isPublished())
             ->setExternalUrl(null);
 
+        if (!$pageInterface->getTranslations()) {
+            // there's no translations, don't do anything
+            return;
+        }
+
         $titleTranslations = [];
+
         foreach ($pageInterface->getTranslations() as $t) {
             if ($t->getField() == 'title') {
                 $titleTranslations[$t->getLocale()] = $t->getContent();
