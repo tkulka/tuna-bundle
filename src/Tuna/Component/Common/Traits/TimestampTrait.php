@@ -26,7 +26,7 @@ trait TimestampTrait
     /**
      * @inheritdoc
      */
-    public function setCreatedAt(\DateTime $createdAt)
+    public function setCreatedAt(\DateTime $createdAt = null)
     {
         $this->createdAt = $createdAt;
 
@@ -44,7 +44,7 @@ trait TimestampTrait
     /**
      * @inheritdoc
      */
-    public function setUpdatedAt(\DateTime $updatedAt)
+    public function setUpdatedAt(\DateTime $updatedAt = null)
     {
         $this->updatedAt = $updatedAt;
 
