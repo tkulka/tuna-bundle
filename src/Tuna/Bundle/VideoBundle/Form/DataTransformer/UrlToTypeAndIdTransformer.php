@@ -57,6 +57,10 @@ class UrlToTypeAndIdTransformer implements DataTransformerInterface
      */
     public function reverseTransform($value)
     {
+        if (!$value) {
+            return null;
+        }
+
         if (!is_string($value)) {
             throw new TransformationFailedException('Expected a string.');
         }
