@@ -1,9 +1,13 @@
 {% trans_default_domain 'tuna_admin' %}
 
-{% macro tuna_image_preview(fileUrl, deletable, scalePreviewThumbnail = true) %}{% spaceless %}
+{% macro tuna_image_preview(fileUrl, deletable, imageFilter = 'tuna_admin_thumb') %}{% spaceless %}
+    {% if imageFilter is same as(true) %}
+        {# TODO: BC for `scalePreviewThumbnail` replaced by `imageFilter` #}
+        {% set imageFilter = 'tuna_admin_thumb' %}
+    {% endif %}
     {% if fileUrl %}
-        {% if scalePreviewThumbnail %}
-            {% set fileUrl = fileUrl|imagine_filter('tuna_admin_thumb') %}
+        {% if imageFilter %}
+            {% set fileUrl = fileUrl|imagine_filter(imageFilter) %}
         {% endif %}
         <img src="{{ fileUrl }}"/>
         {% if deletable %}

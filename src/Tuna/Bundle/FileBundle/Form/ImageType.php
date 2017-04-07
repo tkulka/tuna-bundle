@@ -39,7 +39,11 @@ class ImageType extends AbstractFileType
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         parent::buildView($view, $form, $options);
+        if ($options['scale_preview_thumbnail'] !== null) {
+            @trigger_error(get_class($this) . ': The `scale_preview_thumbnail` option is deprecated. Use `image_filter` option instead (set it to `false` to disable use of filter).', E_USER_DEPRECATED);
+        }
         $view->vars['scale_preview_thumbnail'] = $options['scale_preview_thumbnail'];
+        $view->vars['image_filter'] = $options['image_filter'];
     }
 
     /**
@@ -51,7 +55,8 @@ class ImageType extends AbstractFileType
 
         $resolver->setDefaults([
             'label' => 'ui.form.labels.image.default',
-            'scale_preview_thumbnail' => true
+            'scale_preview_thumbnail' => null,
+            'image_filter' => 'tuna_admin_thumb',
         ]);
     }
 

@@ -7,9 +7,9 @@ You can use these types in entity as:
 1. required field:
 
         // AppBundle/Entity/Project.php
-
+        
         use TheCodeine\FileBundle\Validator\Constraints as FileAssert;
-
+        
         /**
          * @var File
          *
@@ -17,13 +17,16 @@ You can use these types in entity as:
          * @ORM\ManyToOne(targetEntity="TheCodeine\FileBundle\Entity\File", cascade={"persist", "remove"})
         **/
         protected $file;
-
-
+        
+        
         // AppBundle/Form/ProjectType.php
-
+        
         public function buildForm(FormBuilderInterface $builder, array $options)
         {
-            $builder->add('image', ImageType::class);
+            $builder->add('image', ImageType::class, [
+                // set it to `false` to disable scaling of image
+                'image_filter' => 'some_filter_name', // defaults to 'tuna_admin_thumb'
+            ]);
         }
 
 2. optional field (you can delete file by setting empty `path`):
@@ -41,9 +44,14 @@ You can use these types in entity as:
 
         public function buildForm(FormBuilderInterface $builder, array $options)
         {
-            $builder->add('image', ImageType::class, array(
-                'attr' => array('deletable' => false), // defaults to true
-            );
+            $builder->add('image', ImageType::class, [
+                'attr' => [
+                    'deletable' => false
+                ], // defaults to true
+                
+                // set it to `false` to disable scaling of image
+                'image_filter' => 'some_filter_name', // defaults to 'tuna_admin_thumb'
+            ];
         }
 
 You can change default file location via `the_codeine_file` config (here's the defaults):
@@ -81,4 +89,4 @@ FileBundle provides three twig helpers for easy file rendering:
 
 * `tuna_uploadDir(type)` - returns path to upload dir of given file (where type is `tmp_path|upload_files_path`), useful for placeholders:
 
-        previewTemplate: theme.tuna_image_preview(tuna_uploadDir('tmp_path')~'/__path__', form.vars.attr.deletable)
+        previewTemplate: theme.tuna_image_preview(tuna_uploadDir('tmp_path')~'/__path__', form.vars.attr.deletable, image_filter)
