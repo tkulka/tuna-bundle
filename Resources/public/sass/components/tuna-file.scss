@@ -1,0 +1,19 @@
+.tuna-file {
+    &__file-preview {
+        position: relative;
+        text-align: left;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        &--deletable {
+            display: block;
+            padding-right: 80px;
+        }
+    }
+
+    &__remove {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+}

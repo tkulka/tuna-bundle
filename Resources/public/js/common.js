@@ -50,6 +50,10 @@ tuna.website = {
         _.each($('.tuna-image'), function (el) {
             new tuna.view.ImageView({el: el});
         });
+
+        _.each($('.tuna-file'), function (el) {
+            new tuna.view.FileView({el: el});
+        });
     },
 
     initEditor: function () {

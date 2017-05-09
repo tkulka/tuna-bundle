@@ -95,7 +95,9 @@ var tuna = tuna || {};
             this.$('.input--path').val(response.path);
             this.$('.input--filename').val(response.originalName);
             this.$(this.options.previewsContainer).html(
-                this.options.previewTemplate.replace('__path__', response.path)
+                this.options.previewTemplate
+                    .replace('__path__', response.path)
+                    .replace('__filename__', response.originalName)
             );
         }
     });

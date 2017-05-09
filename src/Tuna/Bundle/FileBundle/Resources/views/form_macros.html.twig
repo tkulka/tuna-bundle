@@ -16,10 +16,20 @@
     {% endif %}
 {% endspaceless %}{% endmacro %}
 
-{% macro tuna_file_preview(fileUrl) %}{% spaceless %}
+{% macro tuna_file_preview(fileUrl, filename = '', deletable = false) %}{% spaceless %}
     {% if fileUrl is not null %}
-        <a href="{{ asset(fileUrl) }}" class="btn btn-secondary" target="_blank">
-            <span class="fui-eye"></span>
+        <a href="{{ asset(fileUrl) }}" class="btn btn-secondary tuna-file__file-preview{{ deletable ? ' tuna-file__file-preview--deletable' }}" target="_blank">
+            {% if filename %}
+                <span class="tuna-file__filename">{{ filename }}</span>
+            {% else %}
+                <span class="fui-eye"></span>
+            {% endif %}
         </a>
+
+        {% if deletable %}
+            <a class="btn btn-danger tuna-file__remove" data-action="remove">
+                {{ 'common.remove'|trans }}
+            </a>
+        {% endif %}
     {% endif %}
 {% endspaceless %}{% endmacro %}

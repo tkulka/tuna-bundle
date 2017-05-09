@@ -9,7 +9,7 @@
     previewTemplate: theme.tuna_file_preview(tuna_uploadDir('tmp_path')~'/__path__'),
     previewsContainer: "##{wrapperId} .attachments",
     dropoverText: 'components.attachments.dropzone'|trans
-    } %}
+    }|merge(form.vars.prototype.children.file.vars.dropzone_options) %}
     <div id="{{ wrapperId }}" class="form-group thecodeine_admin_attachments" data-dropzone-options="{{ dropzoneOptions|json_encode }}">
         <a href="javascript:void(0)" class="btn btn-border" data-prototype="{{ form_widget(form.vars.prototype)|e }}" data-action="add-new-attachment">
             <i class="fa fa-plus" aria-hidden="true"></i>
@@ -36,13 +36,6 @@
 
                     <div class="options-container">
                         {{ form_widget(form.file) }}
-                        <div class="preview">
-                            {% set attachment = form.vars.data %}
-
-                            {% if attachment and attachment.file and attachment.file.path and form.vars.valid %}
-                                {{ theme.tuna_file_preview(tuna_file(attachment.file)) }}
-                            {% endif %}
-                        </div>
                     </div>
 
                     <div class="option handle">

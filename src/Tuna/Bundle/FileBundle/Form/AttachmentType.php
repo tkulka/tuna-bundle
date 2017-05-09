@@ -18,7 +18,14 @@ class AttachmentType extends AbstractType
     {
         $builder
             ->add('position', HiddenType::class)
-            ->add('file', FileType::class)
+            ->add('file', FileType::class, [
+                'button_label' => false,
+                'show_filename' => false,
+                'init_dropzone' => false,
+                'attr' => [
+                    'deletable' => false,
+                ]
+            ])
             ->add('translations', GedmoTranslationsType::class, [
                 'translatable_class' => Attachment::class,
                 'fields' => [

@@ -128,6 +128,8 @@ ui:
         category: Choose category
       attachment:
         title: Attachment title
+      file:
+        button: Upload file
       image:
         main: Choose main image
         title: Image title

@@ -124,6 +124,8 @@ ui:
         category: Wybierz kategorię
       attachment:
         title: Tytuł załącznika
+      file:
+        button: Wgraj plik
       image:
         main: Wybierz obrazek główny
         title: Tytuł obrazka

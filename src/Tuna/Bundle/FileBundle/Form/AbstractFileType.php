@@ -42,6 +42,9 @@ abstract class AbstractFileType extends AbstractType
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         $view->vars['dropzone_options'] = $options['dropzone_options'];
+        $view->vars['button_label'] = $options['button_label'];
+        $view->vars['show_filename'] = $options['show_filename'];
+        $view->vars['init_dropzone'] = $options['init_dropzone'];
     }
 
     /**
@@ -51,7 +54,7 @@ abstract class AbstractFileType extends AbstractType
     {
         $defaultDropzoneOptions = static::getDropzoneDefaultOptions() + [
                 'maxFilesize' => self::getPHPMaxFilesize(),
-                'acceptedFiles' => '*',
+                'acceptedFiles' => '',
             ];
 
         $resolver->setDefaults([
@@ -59,6 +62,9 @@ abstract class AbstractFileType extends AbstractType
             'data_class' => $this->getEntityClass(),
             'error_bubbling' => false,
             'dropzone_options' => $defaultDropzoneOptions,
+            'button_label' => 'ui.form.labels.file.button',
+            'show_filename' => true,
+            'init_dropzone' => true,
             'attr' => [
                 'deletable' => true,
             ],
