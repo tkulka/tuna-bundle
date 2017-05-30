@@ -9,7 +9,7 @@ interface EventInterface extends NewsInterface
      *
      * @return self
      */
-    public function setStartDate(\DateTime $startDate);
+    public function setStartDate(\DateTime $startDate = null);
 
     /**
      * @return \DateTime
@@ -21,7 +21,7 @@ interface EventInterface extends NewsInterface
      *
      * @return self
      */
-    public function setEndDate(\DateTime $endDate);
+    public function setEndDate(\DateTime $endDate = null);
 
     /**
      * @return \DateTime

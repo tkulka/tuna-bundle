@@ -120,7 +120,7 @@ interface NewsInterface
      *
      * @return self
      */
-    public function setCreatedAt(\DateTime $createdAt);
+    public function setCreatedAt(\DateTime $createdAt = null);
 
     /**
      * @return \DateTime
