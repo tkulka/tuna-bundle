@@ -63,9 +63,9 @@
                 return new Subpage();
             }
 
-            public function getNewFormType(BasePage $page = null, $validate = true)
+            public function getNewFormType(BasePage $page = null)
             {
-                return new SubpageType($validate);
+                return new SubpageType();
             }
 
             public function getRedirectUrl(BasePage $page = null)

@@ -62,7 +62,7 @@ abstract class AbstractNewsController extends Controller
         $newsType = $request->query->get('newsType');
         $abstractNews = $this->getNewNews($newsType);
 
-        $form = $this->createForm($this->get('the_codeine_news.factory')->getFormInstance($abstractNews), $abstractNews);
+        $form = $this->createForm($this->getFormType($abstractNews), $abstractNews);
 
         // TODO: Move this to twig
         $form->add('save', SubmitType::class, [

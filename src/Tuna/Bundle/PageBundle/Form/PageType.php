@@ -6,18 +6,11 @@ use A2lix\TranslationFormBundle\Form\Type\GedmoTranslationsType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use TunaCMS\EditorBundle\Form\EditorType;
 
 class PageType extends AbstractType
 {
-    /**
-     * @var bool
-     */
-    private $validate;
-
     /**
      * @var string
      */
@@ -27,11 +20,9 @@ class PageType extends AbstractType
      * PageType constructor.
      *
      * @param string $modelClass
-     * @param bool $validate
      */
-    public function __construct($modelClass, $validate = false)
+    public function __construct($modelClass)
     {
-        $this->validate = $validate;
         $this->modelClass = $modelClass;
     }
 
@@ -40,12 +31,6 @@ class PageType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        if (!$this->validate) {
-            $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
-                $event->stopPropagation();
-            }, 900);
-        }
-
         $builder
             ->add('published', CheckboxType::class, [
                 'required' => false,
