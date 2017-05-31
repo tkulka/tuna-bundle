@@ -53,6 +53,7 @@ class GalleryItemType extends AbstractType
                     ->add('position', HiddenType::class)
                     ->add('image', ImageType::class, [
                         'label' => false,
+                        'init_dropzone' => false,
                         'attr' => [
                             'deletable' => false,
                         ],

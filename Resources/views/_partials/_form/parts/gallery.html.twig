@@ -48,7 +48,7 @@
                     {% endif %}
 
                     {% if form.image is defined %}
-                        {{ form_widget(form.image, {no_dropzone: true}) }}
+                        {{ form_widget(form.image) }}
                     {% endif %}
 
                     {% if form.video is defined %}

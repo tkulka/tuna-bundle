@@ -8,7 +8,7 @@
         dropoverText: 'components.images.dropzone'|trans
     } %}
 
-    <div id="{{ wrapperId }}" class="thecodeine_admin_main_image" {% if no_dropzone is not defined %}data-dropzone-options="{{ dropzoneOptions|merge(dropzone_options)|json_encode }}"{% endif %}>
+    <div id="{{ wrapperId }}" class="thecodeine_admin_main_image" {% if init_dropzone %}data-dropzone-options="{{ dropzoneOptions|merge(dropzone_options)|json_encode }}"{% endif %}>
         {% set image = form.vars.data %}
 
         <div class="preview">
