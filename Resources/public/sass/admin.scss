@@ -3,18 +3,16 @@
 @import "variables/colors";
 @import "variables/typography";
 @import "variables/borders";
-
+@import "variables/fonts";
 @import "vendor/flat-ui/flat-ui";
 @import "vendor/icons";
-
+@import "vendor/font-awesome";
 @import "common/mixins";
 @import "common/helpers";
 @import "common/typography";
 @import "common/btns";
 @import "common/inputs";
-
 @import "layout/layout";
-
 @import "components/login";
 @import "components/timepicker";
 @import "components/checkbox";

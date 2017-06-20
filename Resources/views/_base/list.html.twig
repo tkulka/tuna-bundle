@@ -17,7 +17,7 @@
                 <h3>{{ 'list.empty'|trans }}</h3>
                 {% if canCreate %}
                     <a href="{{ createPath }}" class="btn btn-primary btn-wide">
-                        <i class="fui-plus"></i> {{ 'list.add'|transchoice(0) }}
+                        <i class="fa fa-plus"></i> {{ 'list.add'|transchoice(0) }}
                     </a>
                 {% endif %}
             {% endblock %}
@@ -32,7 +32,7 @@
                                 <div class="action-buttons">
                                     {% block list_action_buttons %}
                                         <a href="{{ createPath }}" class="btn btn-primary btn-wide">
-                                            <i class="fui-plus"></i> {{ 'list.add'|transchoice(1) }}
+                                            <i class="fa fa-plus"></i> {{ 'list.add'|transchoice(1) }}
                                         </a>
                                     {% endblock %}
                                 </div>

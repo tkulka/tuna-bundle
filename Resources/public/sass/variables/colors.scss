@@ -1,14 +1,14 @@
 // Brand colors
-$brand-primary:             #297fd2 !default;
-$brand-secondary:           #252324 !default;
-$brand-tertiary:            #343233 !default;
-$brand-content:             #ffffff !default;
+$brand-primary: #297fd2 !default;
+$brand-secondary: #252324 !default;
+$brand-tertiary: #343233 !default;
+$brand-content: #ffffff !default;
 
-$link-color:                #297fd2 !default;
-$link-hover-color:          #ffffff !default;
+$link-color: #297fd2 !default;
+$link-hover-color: #ffffff !default;
 
-$link-color-inverse:        #ffffff !default;
-$link-hover-color-inverse:  #252324 !default;
+$link-color-inverse: #ffffff !default;
+$link-hover-color-inverse: #252324 !default;
 
 $brand-secondary-darker: darken($brand-secondary, 3%) !default;
 $select-default-bg: lighten($brand-tertiary, 25%) !default;
@@ -20,7 +20,7 @@ $select-dropdown-item-hover-color: #ffffff !default;
 
 $dropdown-link-hover-bg: $brand-primary !default;
 
-$brand-success:             #1abc9c !default;
-$brand-warning:             #f1c40f !default;
-$brand-danger:              #e74c3c !default;
-$brand-info:                #3498db !default;
+$brand-success: #1abc9c !default;
+$brand-warning: #f1c40f !default;
+$brand-danger: #e74c3c !default;
+$brand-info: #3498db !default;
