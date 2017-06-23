@@ -19,6 +19,7 @@ abstract class AbstractNewsType extends AbstractType
      */
     abstract protected function getEntityClass();
 
+
     /**
      * {@inheritdoc}
      */

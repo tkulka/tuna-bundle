@@ -6,7 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use TheCodeine\MenuBundle\Entity\Menu;
 
 class CreateMenuCommand extends ContainerAwareCommand
 {
@@ -28,7 +27,8 @@ class CreateMenuCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $em = $this->getContainer()->get('doctrine.orm.default_entity_manager');
-        $menu = new Menu($input->getArgument('name'));
+        $menuManager = $this->getContainer()->get('the_codeine_menu.manager');
+        $menu = $menuManager->getMenuInstance()->setLabel($input->getArgument('name'));
         $em->persist($menu);
         $em->flush();
 

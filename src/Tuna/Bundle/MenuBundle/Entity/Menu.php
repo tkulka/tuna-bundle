@@ -12,14 +12,12 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use TunaCMS\PageComponent\Model\PageInterface;
 
 /**
- * @Gedmo\Tree(type="nested")
  * @ORM\Table(name="menu")
- * @ORM\Entity(repositoryClass="MenuRepository")
- * @ORM\HasLifecycleCallbacks
- * @ORM\EntityListeners({"TheCodeine\MenuBundle\EventListener\MenuListener"})
+ * @Gedmo\Tree(type="nested")
  * @Gedmo\TranslationEntity(class="TheCodeine\MenuBundle\Entity\MenuTranslation")
+ * @ORM\HasLifecycleCallbacks
  */
-class Menu
+class Menu implements MenuInterface
 {
     /**
      * @var integer
@@ -70,7 +68,7 @@ class Menu
     /**
      * @var PageInterface
      *
-     * @ORM\ManyToOne(targetEntity="TunaCMS\PageComponent\Model\PageInterface")
+     * @ORM\OneToOne(targetEntity="TunaCMS\PageComponent\Model\PageInterface")
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
     protected $page;
@@ -97,7 +95,7 @@ class Menu
     /**
      * @Assert\Valid
      *
-     * @ORM\OneToMany(targetEntity="MenuTranslation", mappedBy="object", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="TheCodeine\MenuBundle\Entity\MenuTranslation", mappedBy="object", cascade={"persist", "remove"})
      */
     protected $translations;
 
@@ -176,7 +174,7 @@ class Menu
      * @param Menu|null $parent
      * @return $this
      */
-    public function setTreeData($lft, $rgt, $lvl, Menu $parent = null)
+    public function setTreeData($lft, $rgt, $lvl, MenuInterface $parent = null)
     {
         $this->lft = $lft;
         $this->rgt = $rgt;
@@ -227,7 +225,7 @@ class Menu
      * @param Menu|null $parent
      * @return $this
      */
-    public function setParent(Menu $parent = null)
+    public function setParent(MenuInterface $parent = null)
     {
         $this->parent = $parent;
 

@@ -11,21 +11,26 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use TheCodeine\MenuBundle\Entity\Menu;
 
 class MenuType extends AbstractType
 {
     /**
      * @var string
      */
-    private $modelClass;
+    protected $pageClass;
 
     /**
-     * @param string $modelClass
+     * @var string
      */
-    public function __construct($modelClass)
+    protected $menuClass;
+
+    /**
+     * @param string $pageClass
+     */
+    public function __construct($pageClass, $menuClass)
     {
-        $this->modelClass = $modelClass;
+        $this->pageClass = $pageClass;
+        $this->menuClass = $menuClass;
     }
 
     /**
@@ -43,7 +48,7 @@ class MenuType extends AbstractType
                 'label' => 'ui.form.labels.published'
             ])
             ->add('page', EntityType::class, [
-                'class' => $this->modelClass,
+                'class' => $this->pageClass,
                 'property' => 'title',
                 'empty_value' => 'ui.form.labels.not_linked',
                 'attr' => ['class' => 'filtered'],
@@ -53,7 +58,7 @@ class MenuType extends AbstractType
                 'label' => 'ui.form.labels.path'
             ])
             ->add('translations', GedmoTranslationsType::class, [
-                'translatable_class' => Menu::class,
+                'translatable_class' => $this->menuClass,
                 'fields' => [
                     'label' => [
                         'label' => 'ui.form.labels.label'
@@ -79,7 +84,7 @@ class MenuType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Menu::class,
+            'data_class' => $this->menuClass,
             'translation_domain' => 'tuna_admin',
         ]);
     }

@@ -5,18 +5,18 @@ namespace TheCodeine\MenuBundle\EventListener;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreFlushEventArgs;
 use Gedmo\Sluggable\Util\Urlizer;
-use TheCodeine\MenuBundle\Entity\Menu;
+use TheCodeine\MenuBundle\Entity\MenuInterface;
 use TheCodeine\MenuBundle\Entity\MenuTranslation;
 use TunaCMS\PageComponent\Model\PageInterface;
 
 class MenuListener
 {
-    public function prePersist(Menu $menu, LifecycleEventArgs $args)
+    public function prePersist(MenuInterface $menu, LifecycleEventArgs $args)
     {
         self::synchronizeWithPage($menu, $menu->getPage());
     }
 
-    public function preFlush(Menu $menu, PreFlushEventArgs $args)
+    public function preFlush(MenuInterface $menu, PreFlushEventArgs $args)
     {
         if ($menu->getPage()) {
             $menu->getPage()->setPublished($menu->isPublished());
@@ -24,7 +24,7 @@ class MenuListener
         }
     }
 
-    public static function synchronizeWithPage(Menu $menu = null, PageInterface $pageInterface = null)
+    public static function synchronizeWithPage(MenuInterface $menu = null, PageInterface $pageInterface = null)
     {
         if ($menu == null || $pageInterface == null && ($pageInterface = $menu->getPage()) == null) {
             return;

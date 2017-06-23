@@ -10,8 +10,8 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use TheCodeine\MenuBundle\Entity\Menu;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use TheCodeine\MenuBundle\Entity\MenuInterface;
 use TheCodeine\MenuBundle\EventListener\MenuListener;
 use TheCodeine\MenuBundle\Form\MenuType;
 use TunaCMS\PageComponent\Model\AbstractPage;
@@ -39,10 +39,11 @@ class MenuController extends Controller
     public function createAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $menu = new Menu();
+        $menuManager = $this->get('the_codeine_menu.manager');
+        $menu = $menuManager->getMenuInstance();
 
         if (($parentId = $request->query->get('parentId'))) {
-            $menu->setParent($em->getReference(Menu::class, $parentId));
+            $menu->setParent($em->getReference($menuManager->getClassName(), $parentId));
         }
 
         if (($pageId = $request->query->get('pageId'))) {
@@ -51,7 +52,7 @@ class MenuController extends Controller
             MenuListener::synchronizeWithPage($menu, $page);
         }
 
-        $form = $this->createForm(MenuType::class, $menu);
+        $form = $this->createForm($menuManager->getFormType(), $menu);
         $form->add('save', SubmitType::class, [
             'label' => 'ui.form.labels.save'
         ]);
@@ -75,13 +76,13 @@ class MenuController extends Controller
      * @Route("/{id}/edit", name="tuna_menu_edit")
      * @Template()
      */
-    public function editAction(Request $request, Menu $menu)
+    public function editAction(Request $request, MenuInterface $menu)
     {
         if ($menu->getParent() == null) {
             throw new AccessDeniedHttpException();
         }
 
-        $form = $this->createForm(MenuType::class, $menu);
+        $form = $this->createForm($this->get('the_codeine_menu.manager')->getFormType(), $menu);
         $form->add('save', SubmitType::class, [
             'label' => 'ui.form.labels.save'
         ]);
@@ -104,7 +105,7 @@ class MenuController extends Controller
     /**
      * @Route("/{id}/delete", name="tuna_menu_delete")
      */
-    public function deleteAction(Request $request, Menu $menu)
+    public function deleteAction(Request $request, MenuInterface $menu)
     {
         $em = $this->getDoctrine()->getManager();
         $em->remove($menu);
@@ -128,7 +129,7 @@ class MenuController extends Controller
      * @Route("/override-this/{slug}", requirements={"slug"=".+"}, name="tuna_menu_item")
      * @Template()
      */
-    public function pageAction(Menu $menu)
+    public function pageAction(MenuInterface $menu)
     {
         if (!$menu->isPublished() || !$menu->getPage()) {
             throw new NotFoundHttpException();

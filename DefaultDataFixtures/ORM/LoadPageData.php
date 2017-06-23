@@ -6,10 +6,14 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use TheCodeine\MenuBundle\Entity\MenuInterface;
+use TheCodeine\MenuBundle\Service\MenuManager;
 use TheCodeine\PageBundle\Entity\Page;
-use TheCodeine\MenuBundle\Entity\Menu;
+use TheCodeine\PageBundle\Service\PageManager;
 
-class LoadPageData extends AbstractFixture implements OrderedFixtureInterface
+class LoadPageData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
 {
     /**
      * @var EntityManager
@@ -23,6 +27,22 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface
         'About',
         'Contact'
     ];
+
+    /**
+     * @var MenuManager
+     */
+    protected $menuManager;
+
+    /**
+     * @var PageManager
+     */
+    protected $pageManager;
+
+    public function setContainer(ContainerInterface $container = null)
+    {
+        $this->menuManager = $container->get('the_codeine_menu.manager');
+        $this->pageManager = $container->get('the_codeine_page.manager');
+    }
 
     /**
      * {@inheritDoc}
@@ -45,24 +65,24 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface
      */
     protected function getNewPage()
     {
-       return new Page();
+        return $this->pageManager->getPageInstance();
     }
 
     /**
-     * @return Menu
+     * @return MenuInterface
      */
     protected function getNewMenu()
     {
-        return new Menu();
+        return $this->menuManager->getMenuInstance();
     }
 
     /**
      * @param string $title
-     * @param Menu|null $menuRoot
+     * @param MenuInterface|null $menuRoot
      *
      * @return Page
      */
-    protected function createPage($title, Menu $menuRoot = null)
+    protected function createPage($title, MenuInterface $menuRoot = null)
     {
         $page = $this->getNewPage();
 
@@ -83,13 +103,13 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface
     /**
      * @param string $label
      * @param Page|null $page
-     * @param Menu|null $menuRoot
+     * @param MenuInterface|null $menuRoot
      * @param string|null $slug
      * @param string|null $externalUrl
      *
-     * @return Menu
+     * @return MenuInterface
      */
-    protected function createMenuItem($label, Page $page = null, Menu $menuRoot = null, $slug = null, $externalUrl = null)
+    protected function createMenuItem($label, Page $page = null, MenuInterface $menuRoot = null, $slug = null, $externalUrl = null)
     {
         $menu = $this->getNewMenu();
 

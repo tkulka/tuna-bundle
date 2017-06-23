@@ -17,7 +17,8 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('model')->defaultValue('TheCodeine\MenuBundle\Entity\Menu')->end()
+            ->scalarNode('model')->cannotBeEmpty()->isRequired()->end()
+            ->scalarNode('form')->cannotBeEmpty()->isRequired()->defaultValue('TheCodeine\MenuBundle\Form\MenuType')->end()
             ->scalarNode('manager_class')->defaultValue('TheCodeine\MenuBundle\Service\MenuManager')->end()
             ->end();
 

@@ -5,7 +5,7 @@ namespace TheCodeine\MenuBundle\Service;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query;
 use Symfony\Component\HttpFoundation\RequestStack;
-use TheCodeine\MenuBundle\Entity\Menu;
+use TheCodeine\MenuBundle\Entity\MenuInterface;
 use TheCodeine\MenuBundle\Entity\MenuRepository;
 use TunaCMS\PageComponent\Model\PageInterface;
 
@@ -15,6 +15,11 @@ class MenuManager
      * @var string
      */
     protected $class;
+
+    /**
+     * @var string
+     */
+    protected $formType;
 
     /**
      * @var string
@@ -32,15 +37,18 @@ class MenuManager
     protected $entityManager;
 
     protected $defaultLocale;
+
     protected $locale;
 
-    public function __construct($class, $pageModel, EntityManager $entityManager, RequestStack $requestStack)
+    public function __construct($class, $formType, $pageModel, EntityManager $entityManager, RequestStack $requestStack)
     {
         $this->class = $class;
         $this->pageModel = $pageModel;
+        $this->formType = $formType;
         $this->entityManager = $entityManager;
 
         $this->repository = $this->entityManager->getRepository($this->class);
+
 
         if (($request = $requestStack->getCurrentRequest())) {
             $this->defaultLocale = $request->getDefaultLocale();
@@ -48,9 +56,22 @@ class MenuManager
         }
     }
 
+    /**
+     * @return MenuInterface
+     */
     public function getMenuInstance()
     {
         return new $this->class();
+    }
+
+    public function getFormType()
+    {
+        return $this->formType;
+    }
+
+    public function getClassName()
+    {
+        return $this->class;
     }
 
     /**
@@ -96,13 +117,14 @@ class MenuManager
     }
 
     /**
-     * @param Menu $root
+     * @param MenuInterface $root
      * @param bool $filterUnpublished
      * @param string $locale
      * @param string $defaultLocale
+     *
      * @return array
      */
-    public function getMenuTree(Menu $root = null, $filterUnpublished = true, $locale = null, $defaultLocale = null)
+    public function getMenuTree(MenuInterface $root = null, $filterUnpublished = true, $locale = null, $defaultLocale = null)
     {
         $locale = $locale ?: $this->locale;
         $defaultLocale = $defaultLocale ?: $this->defaultLocale;
@@ -123,10 +145,10 @@ class MenuManager
      */
     public function getStandalonePagesPaginationQuery()
     {
-        return $this->repository->getStandalonePagesPaginationQuery($this->pageModel);
+        return $this->repository->getStandalonePagesPaginationQuery($this->pageModel, $this->class);
     }
 
-    public function isTranslated(Menu $menu, $locale = null)
+    public function isTranslated(MenuInterface $menu, $locale = null)
     {
         if (!$locale) {
             $locale = $this->locale;
@@ -147,7 +169,8 @@ class MenuManager
 
     /**
      * @param $label
-     * @return Menu|null
+     *
+     * @return MenuInterface|null
      */
     public function findMenuItemByLabel($label)
     {
@@ -156,7 +179,8 @@ class MenuManager
 
     /**
      * @param $page PageInterface
-     * @return Menu|null
+     *
+     * @return MenuInterface|null
      */
     public function findMenuItemByPage(PageInterface $page)
     {

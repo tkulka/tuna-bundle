@@ -24,13 +24,14 @@ class MenuRepository extends NestedTreeRepository
     }
 
     /**
-     * @param Menu|null $root
+     * @param MenuInterface|null $root
      * @param bool $filterUnpublished
      * @param $locale
      * @param $defaultLocale
-     * @return array|Menu
+     *
+     * @return array|MenuInterface
      */
-    public function getMenuTree(Menu $root = null, $filterUnpublished = true, $locale, $defaultLocale)
+    public function getMenuTree(MenuInterface $root = null, $filterUnpublished = true, $locale, $defaultLocale)
     {
         $nodes = $this->getMenuTreeQuery($root, $filterUnpublished, $locale, $defaultLocale)->getResult();
         $tree = $this->buildTree($this->getArrifiedNodes($nodes));
@@ -50,7 +51,7 @@ class MenuRepository extends NestedTreeRepository
     }
 
     /**
-     * @return array|Menu[]
+     * @return array|MenuInterface[]
      */
     public function getPageMap()
     {
@@ -68,21 +69,23 @@ class MenuRepository extends NestedTreeRepository
     }
 
     /**
-     * @param string $class
+     * @param string $pageClass
+     * @param string $menuClass
+     *
      * @return Query
      */
-    public function getStandalonePagesPaginationQuery($class)
+    public function getStandalonePagesPaginationQuery($pageClass, $menuClass)
     {
-        return $this->_em->createQuery("
-            SELECT p FROM ${class} p WHERE p.id NOT IN (
-                SELECT p2.id FROM TheCodeineMenuBundle:Menu m JOIN ${class} p2 WITH p2 = m.page
+        return $this->_em->createQuery(sprintf("
+            SELECT p FROM ${pageClass} p WHERE p.id NOT IN (
+                SELECT p2.id FROM %s m JOIN ${pageClass} p2 WITH p2 = m.page
             )
-        ");
+        ", $menuClass));
     }
 
     protected function objectifyTree(&$tree)
     {
-        /* @var $menu Menu */
+        /* @var $menu MenuInterface */
         $menu = $tree['__object'];
         $menu->setChildren(new ArrayCollection());
 
@@ -99,7 +102,7 @@ class MenuRepository extends NestedTreeRepository
         }
     }
 
-    protected function getFieldValue(Menu $object, $property)
+    protected function getFieldValue(MenuInterface $object, $property)
     {
         return $this->getClassMetadata()->getReflectionProperty($property)->getValue($object);
     }
@@ -116,7 +119,7 @@ class MenuRepository extends NestedTreeRepository
         }, $array);
     }
 
-    protected function getMenuTreeQueryBuilder(Menu $root = null, $filterUnpublished = true, $locale = null, $defaultLocale = null)
+    protected function getMenuTreeQueryBuilder(MenuInterface $root = null, $filterUnpublished = true, $locale = null, $defaultLocale = null)
     {
         $qb = $this->createQueryBuilder('m')
             ->orderBy('m.root, m.lft', 'ASC');
@@ -145,7 +148,7 @@ class MenuRepository extends NestedTreeRepository
         return $qb;
     }
 
-    protected function getMenuTreeQuery(Menu $root = null, $filterUnpublished = true, $locale = null, $defaultLocale = null)
+    protected function getMenuTreeQuery(MenuInterface $root = null, $filterUnpublished = true, $locale = null, $defaultLocale = null)
     {
         return $this->getMenuTreeQueryBuilder($root, $filterUnpublished, $locale, $defaultLocale)->getQuery();
     }

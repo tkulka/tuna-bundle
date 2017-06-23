@@ -12,8 +12,8 @@ services:
             - { name: twig.extension }
 
     the_codeine_menu.menu_type:
-        class: TheCodeine\MenuBundle\Form\MenuType
-        arguments: ["%the_codeine_page.model%"]
+        class: "%the_codeine_menu.form%"
+        arguments: ["%the_codeine_page.model%", "%the_codeine_menu.model%"]
         tags:
             - { name: form.type }
 
@@ -21,6 +21,7 @@ services:
         class: "%the_codeine_menu.manager_class%"
         arguments:
             - "%the_codeine_menu.model%"
+            - "%the_codeine_menu.form%"
             - "%the_codeine_page.model%"
             - "@doctrine.orm.default_entity_manager"
             - "@request_stack"
@@ -29,3 +30,9 @@ services:
         class: TheCodeine\MenuBundle\EventListener\PageSubscriber
         tags:
             - { name: doctrine.event_subscriber }
+
+    the_codeine_menu.request_param_converter.menu_interface_converter:
+        class: TheCodeine\MenuBundle\Request\ParamConverter\MenuInterfaceConverter
+        tags:
+            - { name: request.param_converter, priority: 100 }
+        arguments: ["@doctrine", "@the_codeine_menu.manager"]

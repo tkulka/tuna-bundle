@@ -3,7 +3,7 @@
 namespace TheCodeine\MenuBundle\Twig;
 
 use Symfony\Component\Routing\RouterInterface;
-use TheCodeine\MenuBundle\Entity\Menu;
+use TheCodeine\MenuBundle\Entity\MenuInterface;
 use TheCodeine\MenuBundle\Service\MenuManager;
 
 class MenuExtension extends \Twig_Extension
@@ -48,10 +48,11 @@ class MenuExtension extends \Twig_Extension
     }
 
     /**
-     * @param Menu|array $menu Menu object or array containing 'externalUrl', 'slug', keys
+     * @param MenuInterface|array $menu Menu object or array containing 'externalUrl', 'slug', keys
+     *
      * @return string
      */
-    public function getLink(Menu $menu)
+    public function getLink(MenuInterface $menu)
     {
         if ($menu->getExternalUrl()) {
             return $menu->getExternalUrl();

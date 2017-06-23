@@ -5,6 +5,7 @@ namespace TheCodeine\PageBundle\Service;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
+use TunaCMS\PageComponent\Model\PageInterface;
 
 class PageManager
 {
@@ -29,6 +30,14 @@ class PageManager
         $this->entityManager = $entityManager;
 
         $this->repository = $this->entityManager->getRepository($this->class);
+    }
+
+    /**
+     * @return PageInterface
+     */
+    public function getPageInstance()
+    {
+        return new $this->class();
     }
 
     /**

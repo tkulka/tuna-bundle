@@ -7,8 +7,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use TheCodeine\MenuBundle\Entity\MenuInterface;
 use TheCodeine\PageBundle\Controller\PageController as TunaPageController;
-use TheCodeine\MenuBundle\Entity\Menu;
 use TunaCMS\PageComponent\Model\AbstractPage;
 
 /**
@@ -64,7 +64,8 @@ class PageController extends TunaPageController
         ]);
 
         if (($parentId = $request->query->get('menuParentId'))) {
-            $menuParent = $this->getDoctrine()->getManager()->getReference(Menu::class, $parentId);
+            $menuClass = $this->get('the_codeine_menu.manager')->getClassName();
+            $menuParent = $this->getDoctrine()->getManager()->getReference($menuClass, $parentId);
         }
 
         $return = $this->handleCreate($request, $form, $page);
@@ -94,7 +95,9 @@ class PageController extends TunaPageController
     {
         $em = $this->getDoctrine()->getManager();
         $page = $em->getReference($this->get('the_codeine_page.factory')->getModelClass(), $request->request->get('pageId'));
-        $menuParent = $em->getReference(Menu::class, $request->request->get('menuParentId'));
+
+        $menuClass = $this->get('the_codeine_menu.manager')->getClassName();
+        $menuParent = $em->getReference($menuClass, $request->request->get('menuParentId'));
 
         $this->createMenuForPage($menuParent, $page);
 
@@ -102,10 +105,10 @@ class PageController extends TunaPageController
     }
 
     /**
-     * @param Menu $menuParent
+     * @param MenuInterface $menuParent
      * @param AbstractPage $page
      */
-    private function createMenuForPage(Menu $menuParent, AbstractPage $page)
+    private function createMenuForPage(MenuInterface $menuParent, AbstractPage $page)
     {
         $em = $this->getDoctrine()->getManager();
         $menu = $this->get('the_codeine_menu.manager')->getMenuInstance();
