@@ -4,15 +4,24 @@ namespace TheCodeine\MenuBundle\EventListener;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use TheCodeine\MenuBundle\Entity\Menu;
 use TunaCMS\PageComponent\Model\PageInterface;
 
 class PageSubscriber implements EventSubscriber
 {
+    /**
+     * @var string FQCN of Menu
+     */
+    protected $menuModel;
+
+    public function __construct($menuModel)
+    {
+        $this->menuModel = $menuModel;
+    }
+
     public function getSubscribedEvents()
     {
         return [
-            'postUpdate'
+            'postUpdate',
         ];
     }
 
@@ -25,7 +34,7 @@ class PageSubscriber implements EventSubscriber
         }
 
         $em = $args->getEntityManager();
-        $menus = $em->getRepository(Menu::class)->findBy([
+        $menus = $em->getRepository($this->menuModel)->findBy([
             'page' => $page,
         ]);
 

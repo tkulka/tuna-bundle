@@ -28,6 +28,7 @@ services:
 
     tuna.menu.listener.page:
         class: TheCodeine\MenuBundle\EventListener\PageSubscriber
+        arguments: ["%the_codeine_menu.model%"]
         tags:
             - { name: doctrine.event_subscriber }
 
