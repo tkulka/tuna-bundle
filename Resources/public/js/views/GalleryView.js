@@ -68,9 +68,11 @@
                 type: $form.attr('method'),
                 data: $form.serialize(),
                 success: _.bind(function (html) {
-                    $(selector).replaceWith(
-                        $(html).find(selector)
-                    );
+                    var $html = $(selector, html);
+                    // remove form-error because dynamic forms are stupid and validate itself here
+                    $('.form-errors', $html).remove();
+
+                    $(selector).replaceWith($html);
                     $(selector).addClass('loaded');
 
                     if (image) {
