@@ -8,6 +8,10 @@ lexik_translation_edition:
 tuna_user:
     resource: "@TheCodeineUserBundle/Resources/config/routing.yml"
 
+tuna_translation:
+    resource: "@TheCodeineTranslationBundle/Resources/config/routing.yml"
+    prefix: /admin/translation
+
 tuna_page:
     resource: "@TheCodeineAdminBundle/Controller/PageController.php"
     type:     annotation

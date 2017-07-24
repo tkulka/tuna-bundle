@@ -33,10 +33,6 @@
                 <span class="fa fa-eye-slash"></span>
                 {{ labels.hideCol }}
             </a>
-            <a ng-show="!autoCacheClean" ng-click="invalidateCache()" role="button" class="btn btn-primary btn-sm btn-invalidate-cache">
-                <span class="fa fa-refresh"></span>
-                {{ labels.invalidateCache }}
-            </a>
             <div ng-show="sharedMsg.content != ''" class="pull-right label label-{{ sharedMsg.css }}">
                 <span>
                     <i class="glyphicon glyphicon-{{ sharedMsg.icon }}"></i>
