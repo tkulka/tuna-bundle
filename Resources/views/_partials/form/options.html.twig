@@ -1,0 +1,77 @@
+{% trans_default_domain 'tuna_admin' %}
+
+{% if form.image is defined %}
+    {{ form_row(form.image) }}
+{% endif %}
+
+{% if form.createdAt is defined %}
+    {{ form_row(form.createdAt) }}
+{% endif %}
+
+{% if form.gallery is defined %}
+    <a href="javascript:void(0)" class="btn btn-small btn-secondary btn-block btn-gallery">
+        {% if not form.gallery.vars.valid %}
+            <i class="fui-alert-circle text-danger pull-left"></i>
+        {% endif %}
+        {{ 'components.galleries.name'|trans }}
+        <i class="fui-arrow-right pull-right"></i>
+    </a>
+{% endif %}
+
+{% if form.attachments is defined %}
+    <a href="javascript:void(0)" class="btn btn-small btn-secondary btn-block btn-attachments">
+        {% if not form.attachments.vars.valid %}
+            <i class="fui-alert-circle text-danger pull-left"></i>
+        {% endif %}
+        {{ 'components.attachments.name'|trans }}
+        <i class="fui-arrow-right pull-right"></i>
+    </a>
+{% endif %}
+
+{% if form.category is defined %}
+    <h6 class="text-inverse">
+        {{ 'components.categories.name'|trans }}
+    </h6>
+    {{ form_widget(form.category) }}
+{% endif %}
+
+{% if form.tags is defined %}
+    <h6 class="text-inverse">
+        {{ 'components.tags.name'|trans }}
+    </h6>
+    {{ form_widget(form.tags) }}
+{% endif %}
+
+{% if form.startDate is defined %}
+    {{ form_row(form.startDate) }}
+{% endif %}
+
+{% if form.endDate is defined %}
+    {{ form_row(form.endDate) }}
+{% endif %}
+
+{% if form.attachments is defined %}
+    <div class="admin-attachments-container admin-attachments-container--overlay">
+        <a href="javascript:void(0)" class="btn btn-secondary close">
+            <i class="fa fa-times" aria-hidden="true"></i>
+        </a>
+
+        {% include 'TunaCMSAdminBundle::_partials/form/translations.menu.html.twig' %}
+
+        <h3>{{ 'components.attachments.name'|trans }}</h3>
+        {{ form_widget(form.attachments) }}
+    </div>
+{% endif %}
+
+{% if form.gallery is defined %}
+    <div class="admin-gallery-container admin-gallery-container--overlay">
+        <a href="javascript:void(0)" class="btn btn-secondary close">
+            <i class="fa fa-times" aria-hidden="true"></i>
+        </a>
+
+        {% include 'TunaCMSAdminBundle::_partials/form/translations.menu.html.twig' %}
+
+        <h3>{{ 'components.galleries.name'|trans }}</h3>
+        {{ form_widget(form.gallery) }}
+    </div>
+{% endif %}

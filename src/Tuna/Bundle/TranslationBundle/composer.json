@@ -11,7 +11,7 @@
   },
   "autoload": {
     "psr-4": {
-      "TheCodeine\\TranslationBundle\\": ""
+      "TunaCMS\\Bundle\\TranslationBundle\\": ""
     }
   }
 }

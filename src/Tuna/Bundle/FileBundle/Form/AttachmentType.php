@@ -1,13 +1,13 @@
 <?php
 
-namespace TheCodeine\FileBundle\Form;
+namespace TunaCMS\Bundle\FileBundle\Form;
 
 use A2lix\TranslationFormBundle\Form\Type\GedmoTranslationsType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use TheCodeine\FileBundle\Entity\Attachment;
+use TunaCMS\Bundle\FileBundle\Entity\Attachment;
 
 class AttachmentType extends AbstractType
 {

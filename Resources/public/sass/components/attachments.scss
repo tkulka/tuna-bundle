@@ -27,8 +27,8 @@
         }
     }
 
-    .thecodeine_admin_gallery,
-    .thecodeine_admin_attachments {
+    .tuna_cms_admin_gallery,
+    .tuna_cms_admin_attachments {
         border: 2px solid lighten($brand-tertiary, 25%);
         padding: 10px;
         margin-bottom: 50px;
@@ -164,13 +164,13 @@
 
 }
 
-.thecodeine_admin_gallery .gallery-items .item .table-row div {
+.tuna_cms_admin_gallery .gallery-items .item .table-row div {
 
     &.form-errors-container {
         width: 100%;
     }
 
-    &.thecodeine_admin_main_image {
+    &.tuna_cms_admin_main_image {
         width: 200px;
 
         img {
@@ -242,7 +242,7 @@
     }
 }
 
-.thecodeine_admin_attachments .attachments .item .table-row div {
+.tuna_cms_admin_attachments .attachments .item .table-row div {
 
     &.item-name {
         padding-top: 20px;

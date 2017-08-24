@@ -1,10 +1,10 @@
 <?php
 
-namespace TheCodeine\CategoryBundle\Form\DataTransformer;
+namespace TunaCMS\Bundle\CategoryBundle\Form\DataTransformer;
 
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\DataTransformerInterface;
-use TheCodeine\CategoryBundle\Form\Type\AddableCategoryType;
+use TunaCMS\Bundle\CategoryBundle\Form\Type\AddableCategoryType;
 
 class IdToCategoryTransformer implements DataTransformerInterface
 {

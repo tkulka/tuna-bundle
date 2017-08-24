@@ -33,6 +33,6 @@ You can also use full syntax:
     }) }}
 
 * `Label` - label of the root menu item (defaults to `Menu`)
-* `template` - custom menu template (defaults to `'TheCodeineMenuBundle:Menu:render_menu.html.twig'`). You can also set default template in config.
+* `template` - custom menu template (defaults to `'TunaCMSMenuBundle:Menu:render_menu.html.twig'`). You can also set default template in config.
 * `wrap` - whether wrap menu in `<ul>` tags or not (defaults to true)
 * `root` - menu root element (defaults to Menu item found by `Label`)

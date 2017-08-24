@@ -1,13 +1,13 @@
 <?php
 
-namespace TheCodeine\FileBundle\Entity;
+namespace TunaCMS\Bundle\FileBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
-use TheCodeine\FileBundle\Validator\Constraints as FileAssert;
+use TunaCMS\Bundle\FileBundle\Validator\Constraints as FileAssert;
 
 
 class AbstractAttachment
@@ -27,7 +27,7 @@ class AbstractAttachment
      * @var File
      *
      * @FileAssert\FileNotNull
-     * @ORM\ManyToOne(targetEntity="TheCodeine\FileBundle\Entity\File", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="TunaCMS\Bundle\FileBundle\Entity\File", cascade={"persist", "remove"})
      **/
     protected $file;
 

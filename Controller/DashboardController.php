@@ -1,9 +1,8 @@
 <?php
 
-namespace TheCodeine\AdminBundle\Controller;
+namespace TunaCMS\AdminBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -12,23 +11,11 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class DashboardController extends Controller
 {
-    const PAGINATE_LIMIT = 10;
-
     /**
-     * @Route("", name="tuna_admin_dashboard")
-     * @Template()
+     * @Route("", name="tuna_cms_dashboard")
      */
     public function indexAction(Request $request)
     {
-        $page = $request->get('page', 1);
-        $menuManager = $this->get('the_codeine_menu.manager');
-
-        return [
-            'menus' => $menuManager->getMenuTree(null, false),
-            'offset' => ($page - 1) * self::PAGINATE_LIMIT,
-            'pagination' => $this->get('knp_paginator')->paginate(
-                $menuManager->getStandalonePagesPaginationQuery(), $page, self::PAGINATE_LIMIT
-            )
-        ];
+        return $this->redirectToRoute('tunacms_admin_node_index');
     }
 }

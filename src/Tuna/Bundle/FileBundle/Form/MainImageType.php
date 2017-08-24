@@ -1,6 +1,6 @@
 <?php
 
-namespace TheCodeine\FileBundle\Form;
+namespace TunaCMS\Bundle\FileBundle\Form;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
 

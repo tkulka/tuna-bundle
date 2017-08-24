@@ -1,48 +1,11 @@
-_liip_imagine:
-    resource: "@LiipImagineBundle/Resources/config/routing.xml"
-
 lexik_translation_edition:
     resource: "@LexikTranslationBundle/Resources/config/routing.yml"
-    prefix:   /admin/translation
-
-tuna_user:
-    resource: "@TheCodeineUserBundle/Resources/config/routing.yml"
-
-tuna_translation:
-    resource: "@TheCodeineTranslationBundle/Resources/config/routing.yml"
-    prefix: /admin/translation
-
-tuna_page:
-    resource: "@TheCodeineAdminBundle/Controller/PageController.php"
-    type:     annotation
-    prefix:   /admin/
+    prefix:   /translation
 
 tuna_file:
-    resource: "@TheCodeineFileBundle/Resources/config/routing.yml"
-    prefix:   /admin/
+    resource: "@TunaCMSFileBundle/Resources/config/routing.yml"
 
-tuna_dashboard:
-    resource: "@TheCodeineAdminBundle/Controller/DashboardController.php"
+tuna_controllers:
+    resource: "@TunaCMSAdminBundle/Controller"
     type:     annotation
-    prefix:   /admin/
 
-tuna_menu_admin:
-    resource: "@TheCodeineAdminBundle/Controller/MenuController.php"
-    type:     annotation
-    prefix:   /admin/
-
-tuna_news:
-    resource: "@TheCodeineAdminBundle/Controller/NewsController.php"
-    type:     annotation
-    prefix:   /admin/
-
-tuna_category:
-    resource: "@TheCodeineAdminBundle/Controller/CategoryController.php"
-    type:     annotation
-    prefix:   /admin/
-
-fos_js_routing:
-    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
-
-bazinga_jstranslation_js:
-    resource: "@BazingaJsTranslationBundle/Resources/config/routing/routing.yml"

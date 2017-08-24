@@ -1,6 +1,6 @@
 services:
     tuna_category.form_type.addable_category_type:
-        class: TheCodeine\CategoryBundle\Form\Type\AddableCategoryType
+        class: TunaCMS\Bundle\CategoryBundle\Form\Type\AddableCategoryType
         arguments: ['@doctrine.orm.default_entity_manager']
         tags:
             - { name: form.type, alias: tuna_addable_category }

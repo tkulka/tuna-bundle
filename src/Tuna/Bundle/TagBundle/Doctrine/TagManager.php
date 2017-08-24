@@ -1,10 +1,10 @@
 <?php
 
-namespace TheCodeine\TagBundle\Doctrine;
+namespace TunaCMS\Bundle\TagBundle\Doctrine;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityRepository;
-use TheCodeine\TagBundle\Entity\Tag;
+use TunaCMS\Bundle\TagBundle\Entity\Tag;
 
 class TagManager implements TagManagerInterface
 {

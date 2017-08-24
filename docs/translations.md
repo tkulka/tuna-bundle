@@ -1,7 +1,7 @@
 ## Frontend translations:
 Translations are enabled by default. You can turn them off by setting:
 
-    the_codeine_admin:
+    tuna_cms_admin:
         components:
             translations:
                 enabled: false

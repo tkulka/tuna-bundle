@@ -1,0 +1,58 @@
+{% trans_default_domain 'tuna_admin' %}
+
+{% block tuna_attachments_widget %}
+    {% import 'TunaCMSFileBundle::form_macros.html.twig' as theme %}
+    {% set wrapperId = "#{form.vars.id}_wrapper" %}
+    {% set dropzoneOptions = {
+    clickable: '[data-action="add-new-attachment"]',
+    selector: '.admin-attachments-container',
+    previewTemplate: theme.tuna_file_preview(tuna_uploadDir('tmp_path')~'/__path__'),
+    previewsContainer: "##{wrapperId} .attachments",
+    dropoverText: 'components.attachments.dropzone'|trans
+    }|merge(form.vars.prototype.children.file.vars.dropzone_options) %}
+    <div id="{{ wrapperId }}" class="form-group tuna_cms_admin_attachments" data-dropzone-options="{{ dropzoneOptions|json_encode }}">
+        <a href="javascript:void(0)" class="btn btn-border" data-prototype="{{ form_widget(form.vars.prototype)|e }}" data-action="add-new-attachment">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+        </a>
+        <ul class="attachments clearfix">
+            {% for attachment in form %}
+                {{ form_row(attachment, { label: false }) }}
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
+
+{% block tuna_attachment_widget %}
+    {% import 'TunaCMSFileBundle::form_macros.html.twig' as theme %}
+    {% spaceless %}
+        <li class="item ui-state-default">
+            <div class="gallery-table">
+                <div class="table-row">
+                    {{ form_widget(form.position, { attr: { class: 'position' }}) }}
+
+                    <div class="item-name">
+                        {{ form_widget(form.translations) }}
+                    </div>
+
+                    <div class="options-container">
+                        {{ form_widget(form.file) }}
+                    </div>
+
+                    <div class="option handle">
+                        <i class="fa fa-bars" aria-hidden="true"></i>
+                    </div>
+
+                    <div class="option delete" data-action="delete">
+                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                    </div>
+                </div>
+                {% if not form.vars.valid %}
+                    <div class="table-row">
+                        {{ form_errors(form) }}
+                        {{ form_errors(form.file) }}
+                    </div>
+                {% endif %}
+            </div>
+        </li>
+    {% endspaceless %}
+{% endblock %}

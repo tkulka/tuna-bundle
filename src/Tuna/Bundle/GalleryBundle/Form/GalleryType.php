@@ -1,13 +1,13 @@
 <?php
 
-namespace TheCodeine\GalleryBundle\Form;
+namespace TunaCMS\Bundle\GalleryBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use TheCodeine\GalleryBundle\Entity\Gallery;
-use TheCodeine\GalleryBundle\Entity\GalleryItem;
+use TunaCMS\Bundle\GalleryBundle\Entity\Gallery;
+use TunaCMS\Bundle\GalleryBundle\Entity\GalleryItem;
 
 class GalleryType extends AbstractType
 {
@@ -50,6 +50,6 @@ class GalleryType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'thecodeine_gallerybundle_gallery';
+        return 'tuna_cms_gallerybundle_gallery';
     }
 }

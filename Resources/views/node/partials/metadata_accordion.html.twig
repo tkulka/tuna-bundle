@@ -1,0 +1,11 @@
+{% if form.metadata is defined %}
+    {% embed '@TunaCMSAdmin/_partials/accordion.html.twig' with {
+    label: 'Metadata'|trans,
+    display_error: not form.metadata.vars.valid
+    } %}
+        {% block content %}
+            {{ form_errors(form.metadata) }}
+            {{ form_widget(form.metadata) }}
+        {% endblock %}
+    {% endembed %}
+{% endif %}

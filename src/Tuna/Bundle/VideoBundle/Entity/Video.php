@@ -1,6 +1,6 @@
 <?php
 
-namespace TheCodeine\VideoBundle\Entity;
+namespace TunaCMS\Bundle\VideoBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;

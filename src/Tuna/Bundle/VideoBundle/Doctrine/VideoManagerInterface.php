@@ -1,8 +1,8 @@
 <?php
 
-namespace TheCodeine\VideoBundle\Doctrine;
+namespace TunaCMS\Bundle\VideoBundle\Doctrine;
 
-use TheCodeine\VideoBundle\Entity\Video;
+use TunaCMS\Bundle\VideoBundle\Entity\Video;
 
 interface VideoManagerInterface
 {

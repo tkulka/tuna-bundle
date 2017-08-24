@@ -1,3 +1,0 @@
-services:
-    the_codeine_news.factory:
-        class: TheCodeine\NewsBundle\Service\NewsFactory

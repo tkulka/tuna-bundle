@@ -1,0 +1,14 @@
+.title-slug {
+    margin-bottom: 60px;
+    font-size: 40px;
+
+    &__slug {
+        display: block;
+        font-size: 20px;
+        color: lighten($brand-tertiary, 50%);
+
+        &:before {
+            content: '/';
+        }
+    }
+}

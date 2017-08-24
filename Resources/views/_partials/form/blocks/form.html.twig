@@ -1,0 +1,33 @@
+{%- block form_widget_compound -%}
+    <div {{ block('widget_container_attributes') }}>
+        {%- if form.parent is empty -%}
+            {{ form_errors(form) }}
+        {%- endif -%}
+        {{- block('form_rows') -}}
+        {{- form_rest(form) -}}
+    </div>
+{%- endblock form_widget_compound -%}
+
+{% block form_row %}
+    <div
+        class="form-group form--{{ name }}{% if form.vars.errors|length %} has-errors{% endif %}"
+        {% if form.parent.vars.allow_add|default(false) %}data-collection-item="{{ name }}"{% endif %}
+    >
+        {{ form_label(form) }}
+        {{ form_errors(form) }}
+        {{ form_widget(form) }}
+    </div>
+{% endblock form_row %}
+
+{%- block form_widget_simple -%}
+    {%- set type = type|default('text') -%}
+    {% set attr = attr|merge({ class: (attr.class|default ~ " form-control input-lg input--#{name}")|trim }) %}
+
+    {% if value is not empty %}
+        {% set attr = attr|merge({ value: value }) %}
+    {% endif %}
+
+    <div class="form-{{ type == 'hidden' ? 'hidden' : 'group' }} form--{{ name }}">
+        <input type="{{ type }}" {{ block('widget_attributes') }}>
+    </div>
+{%- endblock form_widget_simple -%}

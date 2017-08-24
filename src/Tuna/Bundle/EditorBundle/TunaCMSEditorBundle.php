@@ -1,6 +1,6 @@
 <?php
 
-namespace TunaCMS\EditorBundle;
+namespace TunaCMS\Bundle\EditorBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

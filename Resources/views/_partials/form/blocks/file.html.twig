@@ -1,0 +1,42 @@
+{% trans_default_domain 'tuna_admin' %}
+
+{% block tuna_file_widget %}
+    {% import 'TunaCMSFileBundle::form_macros.html.twig' as theme %}
+    {% set wrapperId = form.vars.id ~ '_wrapper' %}
+    {% set dropzoneOptions = {
+    previewTemplate: theme.tuna_file_preview('/uploads/tmp/__path__', show_filename ? '__filename__', attr.deletable),
+    } %}
+    <div id="{{ wrapperId }}"{% if init_dropzone %} data-dropzone-options="{{ dropzoneOptions|merge(dropzone_options)|json_encode }}{% endif %}">
+        {% set file = form.vars.data %}
+        {% spaceless %}
+            <div class="form-group preview tuna-file__preview">
+                {% if file and file.path and form.vars.valid %}
+                    {% set fileUrl = (file.uploaded  ? '/uploads/tmp/' : '/uploads/files/') ~ file.path %}
+                    {{ theme.tuna_file_preview(fileUrl, show_filename ? file.filename, attr.deletable) }}
+                {% endif %}
+            </div>
+        {% endspaceless %}
+
+        {{ form_widget(form) }}
+
+        {% if form.vars.button_label %}
+            <div class="form-group">
+                <div class="btn btn-mini btn-primary btn-block" data-dropzone-clickable>
+                    {{ form.vars.button_label|trans }}
+                    <i class="fui-arrow-right pull-right"></i>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block tuna_file_row %}
+    <div
+        class="form-group form--{{ name }}{% if form.vars.errors|length %} has-errors{% endif %} tuna-file"
+        {% if form.parent.vars.allow_add|default(false) %} data-collection-item="{{ name }}"{% endif %}
+    >
+        {{ form_label(form) }}
+        {{ form_errors(form) }}
+        {{ form_widget(form) }}
+    </div>
+{% endblock %}

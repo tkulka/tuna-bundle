@@ -1,18 +1,8 @@
 #!/bin/bash
 
 bundles=(
-    category
     editor
     file
-    gallery
-    image
-    menu
-    news
-    page
-    tag
-    translation
-    user
-    video
 )
 
 for bundle in "${bundles[@]}"

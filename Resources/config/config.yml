@@ -1,43 +1,16 @@
 imports:
     - { resource: "../../src/Tuna/Bundle/EditorBundle/Resources/config/config.yml" }
-
-fos_user:
-    db_driver: orm
-    firewall_name: main
-    user_class: TheCodeine\UserBundle\Entity\User
-    from_email:
-        address: admin@acme.org
-        sender_name: Acme Corp
+    - { resource: "@TunaCMSAdminBundle/Resources/config/doctrine_extensions.yml" }
+    - { resource: "@A2lixTranslationFormBundle/Resources/config/gedmo.xml" } # this is needed because A2lixTranslationFormBundle doesn't append this file if stof_doctrine_extensions isn't used (lame!)
+    - { resource: '@TunaCMSAdminBundle/Resources/config/a2lix_translation_form.yml' } # this is needed because gedmo.xml is using non-existing stof services (lame! part2)
 
 a2lix_translation_form:
-    locales: "%the_codeine_admin.locales%"
-    templating: "TheCodeineAdminBundle::_partials/_form/_theme.html.twig"
+    locales: "%tuna_cms_admin.locales%"
 
 knp_paginator:
     page_range: 5
     template:
-        pagination: "TheCodeineAdminBundle:_partials/_pagination.html.twig"
-
-knp_gaufrette:
-    adapters:
-        attachment_adapter:
-            local:
-                directory: "%kernel.root_dir%/../web/files"
-
-    filesystems:
-        attachment_fs:
-            adapter:    attachment_adapter
-    stream_wrapper:
-        protocol: http
-
-vich_uploader:
-    db_driver: orm
-    storage: gaufrette
-    mappings:
-        news_attachments:
-            uri_prefix: /files
-            upload_destination: attachment_fs
-            namer: vich_uploader.namer_origname
+        pagination: "TunaCMSAdminBundle:_partials/pagination.html.twig"
 
 jms_translation:
     configs:
@@ -85,76 +58,47 @@ bazinga_js_translation:
         - tuna_admin
 
 jms_i18n_routing:
-    default_locale: "%the_codeine_admin.locale%"
-    locales: "%the_codeine_admin.locales%"
+    default_locale: "%tuna_cms_admin.locale%"
+    locales: "%tuna_cms_admin.locales%"
     strategy: prefix
 
 fos_js_routing:
     routes_to_expose: [ '_image_upload_request' ]
 
-accelerator_cache:
-    host: "%the_codeine_admin.host%"
-    web_dir: "%kernel.root_dir%/../web"
-    mode: curl
-
 assetic:
     debug:              "%kernel.debug%"
     use_controller:     false
     bundles:
-        - TheCodeineAdminBundle
+        - TunaCMSAdminBundle
     ruby: ~
     filters:
         cssrewrite: ~
         sass:
             load_paths:
-                - "%the_codeine_admin.components.editor.wysiwyg_style_dir%"
+                - "%tuna_cms_admin.components.editor.wysiwyg_style_dir%"
             apply_to: "\\.s[ac]ss$"
             bin: "%sass_bin%"
 
 doctrine:
     orm:
-        resolve_target_entities:
-            TunaCMS\PageComponent\Model\PageInterface: TheCodeine\PageBundle\Entity\Page
         mappings:
-            gedmo_translatable:
+            translatable:
                 type: annotation
                 prefix: Gedmo\Translatable\Entity
-                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translatable/Entity"
+                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translatable/Entity/MappedSuperclass"
                 alias: GedmoTranslatable # (optional) it will default to the name set for the mapping
                 is_bundle: false
-            gedmo_translator:
-                type: annotation
-                prefix: Gedmo\Translator\Entity
-                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translator/Entity"
-                alias: GedmoTranslator # (optional) it will default to the name set for the mapping
-                is_bundle: false
-            gedmo_tree:
+            tree:
                 type: annotation
                 prefix: Gedmo\Tree\Entity
                 dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Tree/Entity"
                 is_bundle: false
 
-stof_doctrine_extensions:
-    default_locale: "%the_codeine_admin.locale%"
-    persist_default_translation: false
-    translation_fallback: true
-    orm:
-        default:
-            timestampable: true
-            sluggable: true
-            translatable: true
-            tree: true
-
 lexik_translation:
-    fallback_locale: ["%the_codeine_admin.locale%"]
-    managed_locales: "%the_codeine_admin.locales%"
-    base_layout: "TheCodeineAdminBundle::_translation_layout.html.twig"
+    fallback_locale: ["%tuna_cms_admin.locale%"]
+    managed_locales: "%tuna_cms_admin.locales%"
+    base_layout: "TunaCMSAdminBundle::translation_layout.html.twig"
     grid_input_type: textarea
     resources_registration:
         type: all
         managed_locales_only: false
-
-the_codeine_page:
-    form: TheCodeine\PageBundle\Form\PageType
-    model: TheCodeine\PageBundle\Entity\Page
-    repository: TheCodeine\PageBundle\Entity\PageRepository

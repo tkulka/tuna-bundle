@@ -1,9 +1,9 @@
 <?php
 
-namespace TheCodeine\VideoBundle\Doctrine;
+namespace TunaCMS\Bundle\VideoBundle\Doctrine;
 
 use Doctrine\ORM\EntityRepository;
-use TheCodeine\VideoBundle\Entity\Video;
+use TunaCMS\Bundle\VideoBundle\Entity\Video;
 use Doctrine\ORM\EntityManager;
 
 class VideoManager implements VideoManagerInterface

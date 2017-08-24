@@ -1,6 +1,6 @@
 <?php
 
-namespace TheCodeine\FileBundle\Entity;
+namespace TunaCMS\Bundle\FileBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 

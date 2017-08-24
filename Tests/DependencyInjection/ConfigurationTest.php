@@ -1,6 +1,6 @@
 <?php
 
-namespace TheCodeine\Tests\DependencyInjection;
+namespace TunaCMS\Tests\DependencyInjection;
 
 class ConfigurationTest extends \PHPUnit_Framework_TestCase
 {

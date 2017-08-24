@@ -2,7 +2,7 @@
 
 namespace TunaCMS\CommonComponent\Model;
 
-use TheCodeine\GalleryBundle\Entity\Gallery;
+use TunaCMS\Bundle\GalleryBundle\Entity\Gallery;
 
 interface GalleryInterface
 {

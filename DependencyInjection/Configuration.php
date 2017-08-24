@@ -1,6 +1,6 @@
 <?php
 
-namespace TheCodeine\AdminBundle\DependencyInjection;
+namespace TunaCMS\AdminBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
@@ -14,23 +14,32 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('the_codeine_admin');
+        $rootNode = $treeBuilder->root('tuna_cms_admin');
         // @formatter:off
         $rootNode
             ->children()
                 ->arrayNode('paths')
                     ->addDefaultsIfNotSet()
                     ->children()
-                        ->scalarNode('admin_logo')->defaultValue('bundles/thecodeineadmin/images/logo.png')->end()
+                        ->scalarNode('admin_logo')->defaultValue('bundles/tunacmsadmin/images/logo.png')->end()
                         ->scalarNode('editor_config')->defaultValue('bundles/tunacmseditor/js/editorConfig.js')->end()
                     ->end()
                 ->end()
                 ->scalarNode('host')->defaultNull()->end()
-                ->scalarNode('menu_builder')->defaultValue('TheCodeine\AdminBundle\Menu\Builder')->end()
+                ->scalarNode('menu_builder')->defaultValue('TunaCMS\AdminBundle\Menu\Builder')->end()
                 ->scalarNode('locale')->defaultValue('en')->end()
                 ->arrayNode('locales')
                     ->prototype('scalar')->end()
                     ->defaultValue(['en', 'pl'])
+                ->end()
+                ->arrayNode('form')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->arrayNode('templates')
+                            ->defaultValue(['TunaCMSAdminBundle::_partials/form/fields.html.twig'])
+                            ->prototype('scalar')
+                        ->end()
+                    ->end()
                 ->end()
             ->end();
         // @formatter:on
@@ -43,23 +52,12 @@ class Configuration implements ConfigurationInterface
     /**
      * @param ArrayNodeDefinition $rootNode
      */
-    private function addComponentsSection(ArrayNodeDefinition $rootNode)
+    protected function addComponentsSection(ArrayNodeDefinition $rootNode)
     {
         // @formatter:off
         $sections = $rootNode->children()
             ->arrayNode('components')
             ->addDefaultsIfNotSet()
-        ;
-
-        $sections->children()
-            ->arrayNode('pages')
-                ->addDefaultsIfNotSet()
-                ->children()
-                    ->booleanNode('enabled')->defaultFalse()->end()
-                    ->booleanNode('create')->defaultTrue()->end()
-                    ->booleanNode('delete')->defaultTrue()->end()
-                ->end()
-            ->end()
         ;
 
         $sections->children()
@@ -77,23 +75,17 @@ class Configuration implements ConfigurationInterface
             ->arrayNode('menu')
                 ->addDefaultsIfNotSet()
                 ->children()
-                    ->booleanNode('enabled')->defaultTrue()->end()
+                    ->booleanNode('enabled')->defaultFalse()->end()
                     ->scalarNode('default_template')
-                        ->defaultValue('TheCodeineMenuBundle:Menu:render_menu.html.twig')
+                        ->defaultValue('TunaCMSMenuBundle:Menu:render_menu.html.twig')
+                    ->end()
+                    ->arrayNode('bundle')
+                        ->prototype('scalar')->end()
                     ->end()
                 ->end()
             ->end()
         ;
 
-        $sections->children()
-            ->arrayNode('security')
-                ->addDefaultsIfNotSet()
-                ->children()
-                    ->booleanNode('enabled')->defaultTrue()->end()
-                    ->booleanNode('use_access_control')->defaultTrue()->end()
-                ->end()
-            ->end()
-        ;
         // @formatter:on
 
         $this->addEnabledConfig($sections, 'news', true);
@@ -107,7 +99,7 @@ class Configuration implements ConfigurationInterface
      * @param $name
      * @param $defaultValue
      */
-    private function addEnabledConfig(ArrayNodeDefinition $node, $name, $defaultValue)
+    protected function addEnabledConfig(ArrayNodeDefinition $node, $name, $defaultValue)
     {
         // @formatter:off
         $node->children()

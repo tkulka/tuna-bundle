@@ -1,50 +1,68 @@
 parameters:
-    the_codeine_admin.menu.item.class: Knp\Menu\MenuItem
+    tuna_cms_admin.menu.item.class: Knp\Menu\MenuItem
 
 services:
-    the_codeine_admin.menu_builder:
-        class: "%the_codeine_admin.menu_builder.class%"
-        arguments: ["@knp_menu.factory", "%the_codeine_admin.components%"]
+    tuna_cms_admin.menu_builder:
+        class: "%tuna_cms_admin.menu_builder.class%"
+        arguments: ["@knp_menu.factory", "%tuna_cms_admin.components%"]
 
-    the_codeine_admin.menu.top:
-        class: "%the_codeine_admin.menu.item.class%"
+    tuna_cms_admin.menu.top:
+        class: "%tuna_cms_admin.menu.item.class%"
         tags:
             - { name: knp_menu.menu, alias: menu.top }
-        factory: ["@the_codeine_admin.menu_builder", getTopMenu]
-        arguments: ["@request"]
-        scope: request
+        factory: ["@tuna_cms_admin.menu_builder", getTopMenu]
+        arguments: ["@request_stack"]
 
-    the_codeine_admin.twig.twig_extension:
-        class: TheCodeine\AdminBundle\Twig\TwigExtension
+    tuna_cms_admin.twig.twig_extension:
+        class: TunaCMS\AdminBundle\Twig\TwigExtension
         tags:
             - { name: twig.extension }
 
-    the_codeine_admin.twig.path_extension:
-        class: TheCodeine\AdminBundle\Twig\PathExtension
+    tuna_cms_admin.twig.path_extension:
+        class: TunaCMS\AdminBundle\Twig\PathExtension
         tags:
             - { name: twig.extension }
-        arguments: ["%the_codeine_admin.paths%"]
+        arguments: ["%tuna_cms_admin.paths%"]
 
-    the_codeine_admin.security.post_voter:
-        class: TheCodeine\AdminBundle\Security\ComponentVoter
+    tuna_cms_admin.security.post_voter:
+        class: TunaCMS\AdminBundle\Security\ComponentVoter
         public: false
         tags:
             - { name: security.voter }
-        arguments: ["@security.access.decision_manager", "%the_codeine_admin.components%"]
+        arguments: ["@security.access.decision_manager", "%tuna_cms_admin.components%"]
 
-    the_codeine_translation.command.extract_translations_command:
-        class: TheCodeine\TranslationBundle\Command\ExtractTranslationsCommand
-        arguments: ["%the_codeine_admin.locales%"]
+    tuna_cms_translation.command.extract_translations_command:
+        class: TunaCMS\Bundle\TranslationBundle\Command\ExtractTranslationsCommand
+        arguments: ["%tuna_cms_admin.locales%"]
         tags:
             - { name: console.command }
 
-    the_codeine_translation.command.update_translations_command:
-        class: TheCodeine\TranslationBundle\Command\UpdateTranslationsCommand
-        arguments: ["%the_codeine_admin.locales%"]
+    tuna_cms_translation.command.update_translations_command:
+        class: TunaCMS\Bundle\TranslationBundle\Command\UpdateTranslationsCommand
+        arguments: ["%tuna_cms_admin.locales%"]
         tags:
             - { name: console.command }
 
-    the_codeine_admin.event_listener.translations_subscriber:
-        class: TheCodeine\AdminBundle\EventListener\TranslationsSubscriber
+    tuna_cms.doctrine.class_metadata_reader:
+        class: TunaCMS\AdminBundle\Doctrine\ClassMetadataReader
+
+    tuna_cms_admin.event_listener.empty_translation_subscriber:
+        class: TunaCMS\AdminBundle\EventListener\EmptyTranslationSubscriber
         tags:
             - { name: doctrine.event_subscriber }
+
+    tuna_cms_admin.twig.node_templates_extension:
+        class: TunaCMS\AdminBundle\Twig\NodeExtension
+        arguments: ['@tuna_cms_node.node_manager']
+        calls:
+            - [initRuntime, ['@twig']]
+        tags:
+            - { name: twig.extension }
+
+    tuna_cms_admin.twig.tuna_config_extension:
+        class: TunaCMS\AdminBundle\Twig\TunaConfigExtension
+        arguments: ["%tuna_cms_admin%"]
+        calls:
+            - [initRuntime, ['@twig']]
+        tags:
+            - { name: twig.extension }

@@ -1,12 +1,12 @@
 <?php
 
-namespace TheCodeine\FileBundle\Entity;
+namespace TunaCMS\Bundle\FileBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use TheCodeine\FileBundle\Validator\Constraints as FileAssert;
+use TunaCMS\Bundle\FileBundle\Validator\Constraints as FileAssert;
 
 /**
- * @ORM\EntityListeners({"TheCodeine\FileBundle\EventListener\FileListener"})
+ * @ORM\EntityListeners({"TunaCMS\Bundle\FileBundle\EventListener\FileListener"})
  * @ORM\MappedSuperclass
  * @FileAssert\FileExists
  */

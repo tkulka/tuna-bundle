@@ -2,7 +2,7 @@
 
 namespace TunaCMS\CommonComponent\Model;
 
-use TheCodeine\FileBundle\Entity\Image;
+use TunaCMS\Bundle\FileBundle\Entity\Image;
 
 interface ImageInterface
 {

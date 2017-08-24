@@ -1,6 +1,6 @@
 <?php
 
-namespace TheCodeine\GalleryBundle\Entity;
+namespace TunaCMS\Bundle\GalleryBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;
@@ -16,7 +16,7 @@ use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;
 class GalleryItemTranslation extends AbstractPersonalTranslation
 {
     /**
-     * @ORM\ManyToOne(targetEntity="TheCodeine\GalleryBundle\Entity\GalleryItem", inversedBy="translations")
+     * @ORM\ManyToOne(targetEntity="TunaCMS\Bundle\GalleryBundle\Entity\GalleryItem", inversedBy="translations")
      * @ORM\JoinColumn(name="object_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $object;

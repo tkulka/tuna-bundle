@@ -1,8 +1,8 @@
 <?php
 
-namespace TheCodeine\TagBundle\Doctrine;
+namespace TunaCMS\Bundle\TagBundle\Doctrine;
 
-use TheCodeine\TagBundle\Entity\Tag;
+use TunaCMS\Bundle\TagBundle\Entity\Tag;
 
 interface TagManagerInterface
 {

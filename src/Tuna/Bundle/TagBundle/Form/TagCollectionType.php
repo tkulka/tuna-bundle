@@ -1,13 +1,13 @@
 <?php
 
-namespace TheCodeine\TagBundle\Form;
+namespace TunaCMS\Bundle\TagBundle\Form;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use TheCodeine\TagBundle\Form\DataTransformer\TextToTagArrayCollectionTransformer;
-use TheCodeine\TagBundle\Doctrine\TagManagerInterface;
+use TunaCMS\Bundle\TagBundle\Form\DataTransformer\TextToTagArrayCollectionTransformer;
+use TunaCMS\Bundle\TagBundle\Doctrine\TagManagerInterface;
 
 class TagCollectionType extends AbstractType
 {

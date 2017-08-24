@@ -1,6 +1,6 @@
 <?php
 
-namespace TheCodeine\FileBundle\DependencyInjection;
+namespace TunaCMS\Bundle\FileBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -13,7 +13,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('the_codeine_file');
+        $rootNode = $treeBuilder->root('tuna_cms_file');
 
         $rootNode
             ->children()

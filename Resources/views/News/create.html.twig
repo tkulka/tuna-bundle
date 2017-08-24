@@ -1,8 +1,0 @@
-{% trans_default_domain 'tuna_admin' %}
-{% extends 'TheCodeineAdminBundle:Page:create.html.twig' %}
-
-{% block content %}
-    {% include 'TheCodeineAdminBundle::_partials/_form/_main.html.twig' with {
-        title: 'components.news.create'|trans({'%newsType%': newsType})
-    } %}
-{% endblock %}

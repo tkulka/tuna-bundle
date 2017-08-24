@@ -1,39 +1,20 @@
 services:
     tuna.menu.twig:
-        class: TheCodeine\MenuBundle\Twig\MenuExtension
+        class: TunaCMS\Bundle\MenuBundle\Twig\MenuExtension
         calls:
             - [initRuntime, ["@twig"]]
         arguments:
             - "@twig"
-            - "@the_codeine_menu.manager"
+            - "@tuna_cms_menu.manager"
             - "@router"
-            - "%the_codeine_admin.components.menu.default_template%"
+            - "%tuna_cms_admin.components.menu.default_template%"
         tags:
             - { name: twig.extension }
 
-    the_codeine_menu.menu_type:
-        class: "%the_codeine_menu.form%"
-        arguments: ["%the_codeine_page.model%", "%the_codeine_menu.model%"]
-        tags:
-            - { name: form.type }
-
-    the_codeine_menu.manager:
-        class: "%the_codeine_menu.manager_class%"
+    tuna_cms_menu.manager:
+        class: "%tuna_cms_menu.manager_class%"
         arguments:
-            - "%the_codeine_menu.model%"
-            - "%the_codeine_menu.form%"
-            - "%the_codeine_page.model%"
+            - "%tuna_cms_menu.model%"
+            - "%tuna_cms_menu.form%"
             - "@doctrine.orm.default_entity_manager"
             - "@request_stack"
-
-    tuna.menu.listener.page:
-        class: TheCodeine\MenuBundle\EventListener\PageSubscriber
-        arguments: ["%the_codeine_menu.model%"]
-        tags:
-            - { name: doctrine.event_subscriber }
-
-    the_codeine_menu.request_param_converter.menu_interface_converter:
-        class: TheCodeine\MenuBundle\Request\ParamConverter\MenuInterfaceConverter
-        tags:
-            - { name: request.param_converter, priority: 100 }
-        arguments: ["@doctrine", "@the_codeine_menu.manager"]

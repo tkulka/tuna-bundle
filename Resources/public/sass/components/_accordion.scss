@@ -1,0 +1,24 @@
+.accordion {
+    &__toggler {
+        margin: 5px 0 0;
+    }
+
+    &__arrow {
+        @include prefix(transform, rotate(90deg));
+        transition: transform .3s;
+    }
+
+    &__content {
+        display: none;
+    }
+
+    &--opened {
+        .accordion__arrow {
+            @include prefix(transform, rotate(-90deg));
+        }
+    }
+
+    &--last {
+        margin-bottom: -15px;
+    }
+}

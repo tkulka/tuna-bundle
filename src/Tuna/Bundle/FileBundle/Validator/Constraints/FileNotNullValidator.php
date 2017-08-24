@@ -1,11 +1,11 @@
 <?php
 
-namespace TheCodeine\FileBundle\Validator\Constraints;
+namespace TunaCMS\Bundle\FileBundle\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
-use TheCodeine\FileBundle\Entity\AbstractFile;
+use TunaCMS\Bundle\FileBundle\Entity\AbstractFile;
 
 class FileNotNullValidator extends ConstraintValidator
 {

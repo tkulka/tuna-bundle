@@ -1,6 +1,6 @@
 <?php
 
-namespace TunaCMS\EditorBundle\Form;
+namespace TunaCMS\Bundle\EditorBundle\Form;
 
 use Ivory\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;

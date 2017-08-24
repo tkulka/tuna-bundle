@@ -1,6 +1,6 @@
 <?php
 
-namespace TheCodeine\TagBundle\Entity;
+namespace TunaCMS\Bundle\TagBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 

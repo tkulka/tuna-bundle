@@ -1,11 +1,11 @@
 <?php
 
-namespace TheCodeine\FileBundle\Twig;
+namespace TunaCMS\Bundle\FileBundle\Twig;
 
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Liip\ImagineBundle\Imagine\Cache\Resolver\WebPathResolver;
 use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
-use TheCodeine\FileBundle\Entity\AbstractFile;
+use TunaCMS\Bundle\FileBundle\Entity\AbstractFile;
 
 class FileExtension extends \Twig_Extension
 {
@@ -102,6 +102,6 @@ class FileExtension extends \Twig_Extension
      */
     public function getName()
     {
-        return 'thecodeine_file_extension';
+        return 'tuna_cms_file_extension';
     }
 }

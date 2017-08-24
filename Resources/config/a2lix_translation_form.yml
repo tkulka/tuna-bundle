@@ -1,0 +1,24 @@
+services:
+    a2lix_translation_form.listener.controller:
+        class: A2lix\TranslationFormBundle\EventListener\ControllerListener
+        arguments:
+            - "@annotation_reader"
+            - "@gedmo.listener.translatable"
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
+
+    a2lix_translation_form.gedmo.service.translation:
+        class: A2lix\TranslationFormBundle\TranslationForm\GedmoTranslationForm
+        arguments:
+            - "@form.registry"
+            - "@a2lix_translation_form.manager_registry"
+        calls:
+            - method: setGedmoTranslatableListener
+              arguments:
+                - "@gedmo.listener.translatable"
+
+    a2lix_translation_form.gedmo.type.translationsLocales:
+        class: TunaCMS\AdminBundle\Form\TunaTranslationsLocalesType
+        arguments: ["@tuna_cms.doctrine.class_metadata_reader"]
+        tags:
+            - { name: form.type, alias: a2lix_translationsLocales_gedmo }

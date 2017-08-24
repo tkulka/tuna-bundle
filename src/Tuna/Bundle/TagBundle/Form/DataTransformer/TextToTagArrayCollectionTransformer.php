@@ -1,13 +1,13 @@
 <?php
 
-namespace TheCodeine\TagBundle\Form\DataTransformer;
+namespace TunaCMS\Bundle\TagBundle\Form\DataTransformer;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\PersistentCollection;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
-use TheCodeine\TagBundle\Doctrine\TagManagerInterface;
-use TheCodeine\TagBundle\Entity\Tag;
+use TunaCMS\Bundle\TagBundle\Doctrine\TagManagerInterface;
+use TunaCMS\Bundle\TagBundle\Entity\Tag;
 
 class TextToTagArrayCollectionTransformer implements DataTransformerInterface
 {

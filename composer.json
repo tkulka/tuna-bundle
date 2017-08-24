@@ -18,26 +18,19 @@
     "a2lix/translation-form-bundle": "^1.0",
     "doctrine/doctrine-fixtures-bundle": "^2.3",
     "doctrine/doctrine-migrations-bundle": "^1.0",
-    "egeloen/ckeditor-bundle": "^4.0",
+    "egeloen/ckeditor-bundle": "^6.0",
     "friendsofsymfony/jsrouting-bundle": "^1.6",
-    "friendsofsymfony/user-bundle": "2.0.x-dev",
     "gedmo/doctrine-extensions": "^2.4",
     "jms/di-extra-bundle": "^1.5",
     "jms/i18n-routing-bundle": "^2.0",
-    "jms/serializer-bundle": "^1.0",
     "jms/translation-bundle": "^1.3.1",
     "knplabs/knp-menu-bundle": "^2.0",
     "knplabs/knp-menu": "^2.1",
-    "knplabs/knp-gaufrette-bundle": "~0.1",
     "knplabs/knp-paginator-bundle": "2.5.3",
     "leafo/scssphp": "^0.6.3",
     "lexik/translation-bundle": "^4.0.0",
     "liip/imagine-bundle": "^1.3",
-    "smart-core/accelerator-cache-bundle": "^1.2.0",
-    "stof/doctrine-extensions-bundle": "^1.2",
-    "willdurand/js-translation-bundle": "^2.5",
-    "vich/uploader-bundle": "^1.4.0",
-    "thecodeine/two-factor-bundle": "dev-master"
+    "willdurand/js-translation-bundle": "^2.5"
   },
   "require-dev": {
     "phpspec/phpspec": "^3.2.3",
@@ -47,21 +40,9 @@
   },
   "autoload": {
     "psr-4": {
-      "TheCodeine\\AdminBundle\\": "",
-      "TheCodeine\\CategoryBundle\\": "src/Tuna/Bundle/CategoryBundle",
-      "TunaCMS\\EditorBundle\\": "src/Tuna/Bundle/EditorBundle",
-      "TheCodeine\\FileBundle\\": "src/Tuna/Bundle/FileBundle",
-      "TheCodeine\\GalleryBundle\\": "src/Tuna/Bundle/GalleryBundle",
-      "TheCodeine\\ImageBundle\\": "src/Tuna/Bundle/ImageBundle",
-      "TheCodeine\\MenuBundle\\": "src/Tuna/Bundle/MenuBundle",
-      "TheCodeine\\NewsBundle\\": "src/Tuna/Bundle/NewsBundle",
-      "TheCodeine\\PageBundle\\": "src/Tuna/Bundle/PageBundle",
-      "TheCodeine\\TagBundle\\": "src/Tuna/Bundle/TagBundle",
-      "TheCodeine\\UserBundle\\": "src/Tuna/Bundle/UserBundle",
-      "TheCodeine\\VideoBundle\\": "src/Tuna/Bundle/VideoBundle",
-      "TheCodeine\\TranslationBundle\\": "src/Tuna/Bundle/TranslationBundle",
+      "TunaCMS\\AdminBundle\\": "",
       "TunaCMS\\CommonComponent\\": "src/Tuna/Component/Common",
-      "TunaCMS\\PageComponent\\": "src/Tuna/Component/Page"
+      "TunaCMS\\Bundle\\": "src/Tuna/Bundle/"
     }
   },
   "minimum-stability": "dev",

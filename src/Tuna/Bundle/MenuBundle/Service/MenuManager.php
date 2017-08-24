@@ -1,13 +1,12 @@
 <?php
 
-namespace TheCodeine\MenuBundle\Service;
+namespace TunaCMS\Bundle\MenuBundle\Service;
 
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\Query;
 use Symfony\Component\HttpFoundation\RequestStack;
-use TheCodeine\MenuBundle\Entity\MenuInterface;
-use TheCodeine\MenuBundle\Entity\MenuRepository;
-use TunaCMS\PageComponent\Model\PageInterface;
+use TunaCMS\Bundle\MenuBundle\Model\MenuInterface;
+use TunaCMS\Bundle\MenuBundle\Entity\MenuRepository;
+use TunaCMS\Bundle\NodeBundle\Repository\NodeRepository;
 
 class MenuManager
 {
@@ -22,12 +21,7 @@ class MenuManager
     protected $formType;
 
     /**
-     * @var string
-     */
-    protected $pageModel;
-
-    /**
-     * @var MenuRepository
+     * @var NodeRepository
      */
     protected $repository;
 
@@ -40,10 +34,9 @@ class MenuManager
 
     protected $locale;
 
-    public function __construct($class, $formType, $pageModel, EntityManager $entityManager, RequestStack $requestStack)
+    public function __construct($class, $formType, EntityManager $entityManager, RequestStack $requestStack)
     {
         $this->class = $class;
-        $this->pageModel = $pageModel;
         $this->formType = $formType;
         $this->entityManager = $entityManager;
 
@@ -85,14 +78,6 @@ class MenuManager
     }
 
     /**
-     * @return mixed
-     */
-    public function getPageMap()
-    {
-        return $this->repository->getPageMap();
-    }
-
-    /**
      * @param array $order
      */
     public function saveOrder(array $order)
@@ -129,7 +114,7 @@ class MenuManager
         $locale = $locale ?: $this->locale;
         $defaultLocale = $defaultLocale ?: $this->defaultLocale;
 
-        return $this->repository->getMenuTree($root, $filterUnpublished, $locale, $defaultLocale);
+        return $this->repository->loadNodeTree($root, $filterUnpublished, $locale, $defaultLocale);
     }
 
     /**
@@ -138,14 +123,6 @@ class MenuManager
     public function getRepository()
     {
         return $this->repository;
-    }
-
-    /**
-     * @return Query
-     */
-    public function getStandalonePagesPaginationQuery()
-    {
-        return $this->repository->getStandalonePagesPaginationQuery($this->pageModel, $this->class);
     }
 
     public function isTranslated(MenuInterface $menu, $locale = null)
@@ -178,13 +155,13 @@ class MenuManager
     }
 
     /**
-     * @param $page PageInterface
+     * @param $label
      *
      * @return MenuInterface|null
      */
-    public function findMenuItemByPage(PageInterface $page)
+    public function findMenuItemByName($label)
     {
-        return $this->repository->findOneByPage($page);
+        return $this->repository->findOneByName($label);
     }
 
     /**

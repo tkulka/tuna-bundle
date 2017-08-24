@@ -12,12 +12,16 @@
 
     .nav {
         li {
-
-            a {
+            > a,
+            > span {
                 padding: 20px;
                 color: lighten($brand-tertiary, 25%);
                 font-size: 18px;
                 font-weight: 400;
+                display: block;
+            }
+
+            > a {
                 cursor: pointer;
 
                 &:hover, &:focus {
@@ -27,7 +31,8 @@
             }
 
             &.active {
-                > a {
+                > a,
+                > span {
                     background: $brand-tertiary;
                     color: $brand-primary;
                 }
@@ -36,9 +41,12 @@
             ul {
                 padding: 0;
 
-                li a {
-                    display: block;
-                    padding-left: 40px;
+                li {
+                    > a,
+                    > span {
+                        display: block;
+                        padding-left: 40px;
+                    }
                 }
             }
         }

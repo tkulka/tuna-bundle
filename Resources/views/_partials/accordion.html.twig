@@ -1,0 +1,12 @@
+{% trans_default_domain 'tuna_admin' %}
+
+<div class="accordion {{ wrapperClass|default }}" data-accordion>
+    <a class="accordion__toggler btn btn-block btn-secondary" data-toggler>
+        {% if display_error|default(false) %}
+            <i class="fui-alert-circle text-danger pull-left"></i>
+        {% endif %}
+        {{ label|trans }}
+        <i class="fui-arrow-right pull-right accordion__arrow"></i>
+    </a>
+    <div class="accordion__content">{{ block('content') }}</div>
+</div>

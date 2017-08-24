@@ -1,0 +1,87 @@
+{% trans_default_domain 'tuna_admin' %}
+
+<!DOCTYPE html>
+<html lang="{{ app.request.defaultLocale }}">
+<head>
+    <meta charset="UTF-8"/>
+    <title>{% block title %}{{ 'common.sitename'|trans }}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700&subset=latin,latin-ext" rel="stylesheet">
+
+    {% block stylesheets %}
+        {% stylesheets output='bundles/tunacmsadmin/css/tuna_admin.css'
+        '@TunaCMSAdminBundle/Resources/public/css/vendor/bootstrap.css'
+        '@TunaCMSAdminBundle/Resources/public/css/vendor/magic.css'
+        '@TunaCMSAdminBundle/Resources/public/sass/admin.scss' %}
+        <link rel="stylesheet" href="{{ asset_url }}"/>
+        {% endstylesheets %}
+
+        {% stylesheets output='bundles/tunacmseditor/css/wysiwyg-styles.css'
+        '@TunaCMSEditorBundle/Resources/public/sass/wysiwyg-styles.scss' %}
+        <link rel="stylesheet" href="{{ asset_url }}"/>
+        {% endstylesheets %}
+    {% endblock %}
+
+    {% javascripts output='bundles/tunacmsadmin/js/tuna_admin_vendor.js'
+    '@TunaCMSAdminBundle/Resources/public/js/vendor/jquery/jquery-2.0.3.min.js'
+    '@TunaCMSAdminBundle/Resources/public/js/vendor/jquery/jquery-ui-1.11.4.js'
+    '@TunaCMSAdminBundle/Resources/public/js/vendor/jquery/jquery.ui.touch-punch.min.js'
+    '@TunaCMSAdminBundle/Resources/public/js/vendor/jquery/jquery.ui.timepicker.js'
+    '@TunaCMSAdminBundle/Resources/public/js/vendor/jquery/jquery.ui.datepicker-pl.js'
+    '@TunaCMSAdminBundle/Resources/public/js/vendor/jquery/jquery.ui.timepicker-en.js'
+    '@TunaCMSAdminBundle/Resources/public/js/vendor/jquery/jquery.ui.timepicker-pl.js'
+    '@TunaCMSAdminBundle/Resources/public/js/vendor/jquery/jquery.tagsinput.js'
+    '@TunaCMSAdminBundle/Resources/public/js/vendor/jquery/jquery.hotkeys.js'
+    '@TunaCMSAdminBundle/Resources/public/js/vendor/jquery/jquery.placeholder.js'
+    '@TunaCMSAdminBundle/Resources/public/js/vendor/jquery/jquery.htmlClean.js'
+    '@TunaCMSAdminBundle/Resources/public/js/vendor/jquery/jquery.mjs.nestedSortable.js'
+    '@TunaCMSAdminBundle/Resources/public/js/vendor/dropzone.min.js'
+    '@TunaCMSAdminBundle/Resources/public/js/vendor/jquery.dragbetter.min.js'
+    '@TunaCMSAdminBundle/Resources/public/js/vendor/underscore-1.6.0.js'
+    '@TunaCMSAdminBundle/Resources/public/js/vendor/backbone-1.1.2.js'
+    '@TunaCMSAdminBundle/Resources/public/js/vendor/flatUI/respond.min.js'
+    '@TunaCMSAdminBundle/Resources/public/js/vendor/flatUI/html5shiv.js'
+    '@TunaCMSAdminBundle/Resources/public/js/vendor/flatUI/flat-ui.js'
+    '@TunaCMSAdminBundle/Resources/public/js/vendor/cleanHtml.js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ asset('bundles/bazingajstranslation/js/translator.min.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+    <script src="{{ url('bazinga_jstranslation_js', { domain: 'tuna_admin' }) }}?locales={{ app.request.defaultLocale }}"></script>
+</head>
+<body class="{% block body_class %}{% endblock %}">
+<div class="container {% block main_class %}{% endblock %}">
+    {% block mainContainer %}{% endblock mainContainer %}
+</div>
+
+<div id="upload"></div>
+
+{% include 'TunaCMSAdminBundle::_partials/modal.html.twig' %}
+
+{% javascripts output='bundles/tunacmsadmin/js/tuna_admin.js'
+'@TunaCMSAdminBundle/Resources/public/js/common.js'
+'@TunaCMSFileBundle/Resources/public/js/app.js'
+'@TunaCMSAdminBundle/Resources/public/js/views/*.js'
+'@TunaCMSFileBundle/Resources/public/js/views/*.js'
+'@TunaCMSEditorBundle/Resources/public/js/editor.js' %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+{% block extra_javascript %}{% endblock %}
+
+<script>
+    (function () {
+        tuna.website.init({
+            lang: '{{ app.request.defaultLocale }}'.split(/[-_]/g)[0],
+            editor: {
+                config: "{{ tuna_getPath('editor_config') }}"
+            }
+        });
+    })();
+</script>
+</body>
+</html>

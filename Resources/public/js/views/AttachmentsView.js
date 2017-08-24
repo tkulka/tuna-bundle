@@ -14,7 +14,7 @@
             this.tunaEvents = options.tunaEvents;
             this.$el.addClass('magictime');
             this._initSortable();
-            this.$wrapper = this.$('.thecodeine_admin_attachments');
+            this.$wrapper = this.$('.tuna_cms_admin_attachments');
             this.$wrapper.data('index', this.$('li.item').length);
 
             var dropzoneOptions = this.$('[data-dropzone-options]').data('dropzone-options');
@@ -65,7 +65,7 @@
 
         addItem: function (file) {
             this._destroySortable();
-            var prototype = this.$('.thecodeine_admin_attachments a').data('prototype');
+            var prototype = this.$('.tuna_cms_admin_attachments a').data('prototype');
             var index = this.$wrapper.data('index') + 1;
             this.$wrapper.data('index', index);
 
@@ -74,7 +74,7 @@
             $newForm.find('.input--path').val(file.path);
             $newForm.find('.input--filename, input[type="text"]').val(file.originalName);
 
-            var options = this.$('.thecodeine_admin_attachments').data('dropzone-options');
+            var options = this.$('.tuna_cms_admin_attachments').data('dropzone-options');
 
             $newForm.find('.options-container .preview').append(options.previewTemplate.replace('__path__', file.path));
             this.$('.attachments').append($newForm);

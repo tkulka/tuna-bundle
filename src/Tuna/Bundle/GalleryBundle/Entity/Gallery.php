@@ -1,6 +1,6 @@
 <?php
 
-namespace TheCodeine\GalleryBundle\Entity;
+namespace TunaCMS\Bundle\GalleryBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -35,7 +35,7 @@ class Gallery
      *
      * @var ArrayCollection|GalleryItem[]
      *
-     * @ORM\OneToMany(targetEntity="TheCodeine\GalleryBundle\Entity\GalleryItem", mappedBy="gallery", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="TunaCMS\Bundle\GalleryBundle\Entity\GalleryItem", mappedBy="gallery", cascade={"persist", "remove"})
      * @ORM\OrderBy({"position" = "ASC"})
      **/
     private $items;

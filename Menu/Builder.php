@@ -1,12 +1,11 @@
 <?php
 
-namespace TheCodeine\AdminBundle\Menu;
+namespace TunaCMS\AdminBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 use Symfony\Component\HttpFoundation\Request;
-use TheCodeine\NewsBundle\Entity\Event;
-use TheCodeine\NewsBundle\Entity\News;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class Builder
 {
@@ -33,13 +32,13 @@ class Builder
     }
 
     /**
-     * @param Request $request
+     * @param RequestStack $requestStack
      *
      * @return ItemInterface
      */
-    public function getTopMenu(Request $request)
+    public function getTopMenu(RequestStack $requestStack)
     {
-        $menu = $this->buildTopMenu($request);
+        $menu = $this->buildTopMenu($requestStack->getCurrentRequest());
         $this->reorderMenu($menu);
 
         return $menu;
@@ -73,47 +72,9 @@ class Builder
             'childrenAttributes' => ['class' => 'nav']
         ]);
 
-        $this->addChild($menu, $request, 'menu.dashboard', 'tuna_admin_dashboard', 0, function (Request $request, $route) {
-            return preg_match_all('/tuna_admin_dashboard/i', $request->get('_route'));
+        $this->addChild($menu, $request, 'menu.dashboard', 'tuna_cms_dashboard', 0, function (Request $request, $route) {
+            return preg_match_all('/tuna_cms_dashboard/i', $request->get('_route'));
         });
-
-        if ($this->componentsConfig['menu']['enabled']) {
-            $this->addChild($menu, $request, 'menu.menu', 'tuna_menu_list', 50, function (Request $request, $route) {
-                return preg_match_all('/tuna_menu_/i', $request->get('_route'));
-            });
-        }
-
-        if ($this->componentsConfig['pages']['enabled']) {
-            $this->addChild($menu, $request, 'menu.pages', 'tuna_page_list', 60, function (Request $request, $route) {
-                return preg_match_all('/tuna_page_/i', $request->get('_route'));
-            });
-        }
-
-        if ($this->componentsConfig['news']['enabled']) {
-            $this->addChild($menu, $request, 'menu.news', 'tuna_news_list', 110, function (Request $request, $route) {
-                return
-                    preg_match_all('/tuna_news_/i', $request->get('_route')) &&
-                    (
-                        $request->attributes->get('newsType') == 'News' ||
-                        $request->attributes->get('news') instanceof News
-                    );
-            }, [
-                'newsType' => 'News'
-            ]);
-        }
-
-        if ($this->componentsConfig['events']['enabled']) {
-            $this->addChild($menu, $request, 'menu.events', 'tuna_news_list', 120, function (Request $request, $route) {
-                return
-                    preg_match_all('/tuna_news_/i', $request->get('_route')) &&
-                    (
-                        $request->attributes->get('newsType') == 'Event' ||
-                        $request->attributes->get('news') instanceof Event
-                    );
-            }, [
-                'newsType' => 'Event'
-            ]);
-        }
 
         if ($this->componentsConfig['categories']['enabled']) {
             $this->addChild($menu, $request, 'menu.categories', 'tuna_category_list', 400, function (Request $request, $route) {

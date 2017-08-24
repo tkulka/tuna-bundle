@@ -1,6 +1,6 @@
 <?php
 
-namespace TheCodeine\MenuBundle\Command;
+namespace TunaCMS\Bundle\MenuBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
@@ -27,7 +27,7 @@ class CreateMenuCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $em = $this->getContainer()->get('doctrine.orm.default_entity_manager');
-        $menuManager = $this->getContainer()->get('the_codeine_menu.manager');
+        $menuManager = $this->getContainer()->get('tuna_cms_menu.manager');
         $menu = $menuManager->getMenuInstance()->setLabel($input->getArgument('name'));
         $em->persist($menu);
         $em->flush();

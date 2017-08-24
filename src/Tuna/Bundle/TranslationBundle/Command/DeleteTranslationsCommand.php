@@ -1,6 +1,6 @@
 <?php
 
-namespace TheCodeine\TranslationBundle\Command;
+namespace TunaCMS\Bundle\TranslationBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;

@@ -54,10 +54,16 @@ tuna.website = {
         _.each($('.tuna-file'), function (el) {
             new tuna.view.FileView({el: el});
         });
+
+        _.each($('[data-accordion]'), function (item) {
+            new tuna.view.AccordionView({
+                el: item
+            });
+        });
     },
 
     initEditor: function () {
-        var editorSelector = '.tab-pane.active .thecodeine_admin_editor';
+        var editorSelector = '.tab-pane.active .tuna_cms_admin_editor';
 
         if (!$(editorSelector).length) return;
 

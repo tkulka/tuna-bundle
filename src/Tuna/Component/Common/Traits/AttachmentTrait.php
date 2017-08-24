@@ -11,7 +11,7 @@ trait AttachmentTrait
     /**
      * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="TheCodeine\FileBundle\Entity\Attachment", cascade={"persist", "remove"})
+     * @ORM\ManyToMany(targetEntity="TunaCMS\Bundle\FileBundle\Entity\Attachment", cascade={"persist", "remove"})
      * @ORM\JoinTable(
      *      joinColumns={@ORM\JoinColumn(name="page_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="attachment_id", referencedColumnName="id", unique=true)}

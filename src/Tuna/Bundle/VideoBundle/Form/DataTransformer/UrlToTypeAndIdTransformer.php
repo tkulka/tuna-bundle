@@ -1,11 +1,11 @@
 <?php
 
-namespace TheCodeine\VideoBundle\Form\DataTransformer;
+namespace TunaCMS\Bundle\VideoBundle\Form\DataTransformer;
 
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
-use TheCodeine\VideoBundle\Doctrine\VideoManagerInterface;
-use TheCodeine\VideoBundle\Entity\Video;
+use TunaCMS\Bundle\VideoBundle\Doctrine\VideoManagerInterface;
+use TunaCMS\Bundle\VideoBundle\Entity\Video;
 
 class UrlToTypeAndIdTransformer implements DataTransformerInterface
 {

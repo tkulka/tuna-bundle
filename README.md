@@ -12,12 +12,12 @@ Tuna CMS TunaBundle
 
 2. Add following line to `AppKernel::registerBundles()`
 
-        TheCodeine\AdminBundle\BundleDependencyRegisterer::register($bundles);
+        TunaCMS\AdminBundle\BundleDependencyRegisterer::register($bundles);
 
 3. Import Tuna config:
 
         imports:
-            - { resource: '@TheCodeineAdminBundle/Resources/config/config.yml' }
+            - { resource: '@TunaCMSAdminBundle/Resources/config/config.yml' }
 
 4. Migrate db
 
@@ -27,12 +27,12 @@ Tuna CMS TunaBundle
 
         # app/config/routing.yml
 
-        the_codeine_tuna_admin:
-            resource: "@TheCodeineAdminBundle/Resources/config/routing.yml"
+        tuna_cms_tuna_admin:
+            resource: "@TunaCMSAdminBundle/Resources/config/routing.yml"
 
 6. Change editor config to (will be changed in next releases)
 
-        the_codeine_admin:
+        tuna_cms_admin:
             components:
                 editor:
                     wysiwyg_style_dir: '%kernel.root_dir%/../vendor/tuna-cms/tuna-bundle/Resources/public/sass/editor'
@@ -46,14 +46,14 @@ For newest config defaults check [Resources/config/config.yml](Resources/config/
 You can also fine tune Tuna by changing bundle config.
 Here is full option config with defaults:
 
-    the_codeine_admin:
+    tuna_cms_admin:
         paths:
-            admin_logo: bundles/thecodeineadmin/images/logo.png
+            admin_logo: bundles/tunacmsadmin/images/logo.png
             editor_config: bundles/tunacmseditor/js/editorConfig.js
         
         host: null
         
-        menu_builder: TheCodeine\AdminBundle\Menu\Builder
+        menu_builder: TunaCMS\AdminBundle\Menu\Builder
         
         locale: en
         
@@ -72,7 +72,7 @@ Here is full option config with defaults:
             
             menu:
                 enabled: true
-                default_template: 'TheCodeineMenuBundle:Menu:render_menu.html.twig'
+                default_template: 'TunaCMSMenuBundle:Menu:render_menu.html.twig'
             
             security:
                 enabled: true

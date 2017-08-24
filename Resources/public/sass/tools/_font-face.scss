@@ -1,0 +1,12 @@
+@mixin font-face($fonts-list) {
+    @each $font-name in $fonts-list {
+        @font-face {
+            font-family: $font-name;
+            src: url('#{$url-fonts}#{$font-name}.eot');
+            src: url('#{$url-fonts}#{$font-name}.eot?#iefix') format('embedded-opentype'),
+            url('#{$url-fonts}#{$font-name}.woff2') format('woff2'),
+            url('#{$url-fonts}#{$font-name}.woff') format('woff'),
+            url('#{$url-fonts}#{$font-name}.ttf') format('truetype');
+        }
+    }
+}

@@ -3,14 +3,14 @@
 namespace TunaCMS\CommonComponent\Traits;
 
 use Doctrine\ORM\Mapping as ORM;
-use TheCodeine\CategoryBundle\Entity\Category;
+use TunaCMS\Bundle\CategoryBundle\Entity\Category;
 
 trait CategoryTrait
 {
     /**
      * @var Category
      *
-     * @ORM\ManyToOne(targetEntity="TheCodeine\CategoryBundle\Entity\Category", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="TunaCMS\Bundle\CategoryBundle\Entity\Category", cascade={"persist"})
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
     protected $category;

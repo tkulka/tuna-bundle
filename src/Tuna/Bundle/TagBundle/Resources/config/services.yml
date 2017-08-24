@@ -4,10 +4,10 @@ services:
         public: false
         factory: ["@doctrine", getManager]
     tuna.tag.manager:
-        class: TheCodeine\TagBundle\Doctrine\TagManager
+        class: TunaCMS\Bundle\TagBundle\Doctrine\TagManager
         arguments: ["@tuna.tag.em"]
     tuna.tag.form:
-        class: TheCodeine\TagBundle\Form\TagCollectionType
+        class: TunaCMS\Bundle\TagBundle\Form\TagCollectionType
         arguments: ["@tuna.tag.manager"]
         tags:
             - { name: form.type, alias: tuna_tag }

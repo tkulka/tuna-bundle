@@ -1,14 +1,14 @@
 <?php
 
-namespace TheCodeine\FileBundle\Manager;
+namespace TunaCMS\Bundle\FileBundle\Manager;
 
 use Symfony\Component\Filesystem\Exception\FileNotFoundException;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\File as HttpFile;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use TheCodeine\FileBundle\Entity\AbstractFile;
-use TheCodeine\FileBundle\Entity\File as TunaFile;
-use TheCodeine\FileBundle\Entity\Image as TunaImage;
+use TunaCMS\Bundle\FileBundle\Entity\AbstractFile;
+use TunaCMS\Bundle\FileBundle\Entity\File as TunaFile;
+use TunaCMS\Bundle\FileBundle\Entity\Image as TunaImage;
 
 class FileManager
 {

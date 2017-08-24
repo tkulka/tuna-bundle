@@ -9,14 +9,14 @@ Use bundle overriding:
     {
         public function getParent()
         {
-            return 'TheCodeineAdminBundle';
+            return 'TunaCMSAdminBundle';
         }
     }
 
 ### Menu
 Add `menu_builder` class to config, and override, or use your own Builder:
 
-    class Builder extends \TheCodeine\AdminBundle\Menu\Builder
+    class Builder extends \TunaCMS\AdminBundle\Menu\Builder
     {
         protected function buildTopMenu(Request $request)
         {
@@ -36,9 +36,9 @@ Add `menu_builder` class to config, and override, or use your own Builder:
     }
 
 ### Editor styles
-To override default editor styles, add `typography.scss` and `fonts.scss` to directory specified in `the_codeine_admin.components.editor.wysiwyg_style_dir` (remember to change it in your config). Example:
+To override default editor styles, add `typography.scss` and `fonts.scss` to directory specified in `tuna_cms_admin.components.editor.wysiwyg_style_dir` (remember to change it in your config). Example:
 
-    the_codeine_admin:
+    tuna_cms_admin:
         components:
             editor:
                 wysiwyg_style_dir: "%kernel.root_dir%/../src/AppBundle/Resources/public/Frontend/sass/base/"

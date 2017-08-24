@@ -1,0 +1,15 @@
+{% trans_default_domain 'tuna_admin' %}
+
+{% extends app.request.isXmlHttpRequest ? 'TunaCMSAdminBundle::embed.html.twig' : 'TunaCMSAdminBundle::layout.html.twig' %}
+
+{% block content %}
+    {% embed 'TunaCMSAdminBundle::_partials/form/edit.html.twig' with {
+        title: entity.name ?: 'components.categories.create'|trans,
+        slug: entity.slug
+    } %}
+        {% trans_default_domain 'tuna_admin' %}
+
+        {% block optionsExtraFields %}
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

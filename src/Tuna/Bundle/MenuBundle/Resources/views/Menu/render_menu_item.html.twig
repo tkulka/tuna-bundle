@@ -1,14 +1,14 @@
 {% set hasChildren = item.children | length > 0 %}
-<li class="{% if hasChildren %}dropdown{% endif %}">
+<li class="menu__item{% if hasChildren %} menu__item--dropdown{% endif %}">
     {% if item.clickable %}
-        <a href="{{ tuna_menu_getLink(item) }}">{{ item.label }}</a>
+        <a href="{{ tuna_menu_getLink(item) }}" class="menu__link">{{ item.label }}</a>
     {% else %}
-        <span>{{ item.label }}</span>
+        <span class="menu__text">{{ item.label }}</span>
     {% endif %}
-    {% if hasChildren %}
-        <ul class="subnav">
+    {% if item.displayingChildren and hasChildren %}
+        <ul class="menu__subnav">
             {% for child in item.children %}
-                {% include 'TheCodeineMenuBundle:Menu:render_menu_item.html.twig' with { item: child } %}
+                {% include 'TunaCMSMenuBundle:Menu:render_menu_item.html.twig' with { item: child } %}
             {% endfor %}
         </ul>
     {% endif %}

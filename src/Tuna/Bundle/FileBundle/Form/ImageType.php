@@ -1,11 +1,11 @@
 <?php
 
-namespace TheCodeine\FileBundle\Form;
+namespace TunaCMS\Bundle\FileBundle\Form;
 
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use TheCodeine\FileBundle\Entity\Image;
+use TunaCMS\Bundle\FileBundle\Entity\Image;
 
 class ImageType extends AbstractFileType
 {

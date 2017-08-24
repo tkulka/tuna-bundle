@@ -1,6 +1,6 @@
 <?php
 
-namespace TheCodeine\VideoBundle\Twig\Extension;
+namespace TunaCMS\Bundle\VideoBundle\Twig\Extension;
 
 class VideoPlayerExtension extends \Twig_Extension
 {

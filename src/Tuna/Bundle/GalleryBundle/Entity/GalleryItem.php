@@ -1,24 +1,24 @@
 <?php
 
-namespace TheCodeine\GalleryBundle\Entity;
+namespace TunaCMS\Bundle\GalleryBundle\Entity;
 
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
-use TheCodeine\FileBundle\Entity\Image;
-use TheCodeine\VideoBundle\Entity\Video;
+use TunaCMS\Bundle\FileBundle\Entity\Image;
+use TunaCMS\Bundle\VideoBundle\Entity\Video;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
-use TheCodeine\FileBundle\Validator\Constraints as FileAssert;
-use TheCodeine\GalleryBundle\Validator\Constraints as GalleryAssert;
+use TunaCMS\Bundle\FileBundle\Validator\Constraints as FileAssert;
+use TunaCMS\Bundle\GalleryBundle\Validator\Constraints as GalleryAssert;
 
 /**
  * PositionedImage
  *
  * @ORM\Table(name="gallery_items")
  * @ORM\Entity
- * @Gedmo\TranslationEntity(class="TheCodeine\GalleryBundle\Entity\GalleryItemTranslation")
+ * @Gedmo\TranslationEntity(class="TunaCMS\Bundle\GalleryBundle\Entity\GalleryItemTranslation")
  * @GalleryAssert\GalleryItemFileNotNull
  *
  * @ORM\HasLifecycleCallbacks
@@ -43,7 +43,7 @@ class GalleryItem
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="TheCodeine\GalleryBundle\Entity\Gallery", inversedBy="items")
+     * @ORM\ManyToOne(targetEntity="TunaCMS\Bundle\GalleryBundle\Entity\Gallery", inversedBy="items")
      * @ORM\JoinColumn(name="gallery_id", referencedColumnName="id")
      *
      */
@@ -61,7 +61,7 @@ class GalleryItem
      *
      * @var Image
      *
-     * @ORM\OneToOne(targetEntity="TheCodeine\FileBundle\Entity\Image", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="TunaCMS\Bundle\FileBundle\Entity\Image", cascade={"persist", "remove"})
      **/
     private $image;
 
@@ -70,7 +70,7 @@ class GalleryItem
      *
      * @var Video
      *
-     * @ORM\ManyToOne(targetEntity="TheCodeine\VideoBundle\Entity\Video", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="TunaCMS\Bundle\VideoBundle\Entity\Video", cascade={"persist"})
      **/
     private $video;
 

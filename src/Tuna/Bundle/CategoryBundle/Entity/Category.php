@@ -1,6 +1,6 @@
 <?php
 
-namespace TheCodeine\CategoryBundle\Entity;
+namespace TunaCMS\Bundle\CategoryBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -9,12 +9,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * User
+ * Category
  *
  * @ORM\Table(name="categories")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="string")
- * @Gedmo\TranslationEntity(class="TheCodeine\CategoryBundle\Entity\CategoryTranslation")
+ * @Gedmo\TranslationEntity(class="TunaCMS\Bundle\CategoryBundle\Entity\CategoryTranslation")
  * @UniqueEntity("name")
  * @ORM\Entity
  */

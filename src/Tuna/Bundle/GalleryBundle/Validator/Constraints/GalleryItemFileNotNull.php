@@ -1,6 +1,6 @@
 <?php
 
-namespace TheCodeine\GalleryBundle\Validator\Constraints;
+namespace TunaCMS\Bundle\GalleryBundle\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 

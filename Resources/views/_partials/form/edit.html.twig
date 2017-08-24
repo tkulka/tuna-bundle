@@ -1,0 +1,78 @@
+{% trans_default_domain 'tuna_admin' %}
+{% form_theme form with tuna_get_config('form.templates') %}
+
+<div class="admin-container">
+    {{ form_errors(form) }}
+    {{ form_start(form, { attr: { novalidate: 'novalidate' }}) }}
+    {{ form_widget(form._token) }}
+
+    {% block header_wrapper %}
+        <header class="edit-header">
+            {% block header %}
+                {% block header_options %}
+                    <div class="options">
+                        {{ 'ui.form.options'|trans }}
+                    </div>
+                {% endblock %}
+
+                {% block header_languages_wrapper %}
+                    <div class="languages">
+                        {% block header_languages %}
+                            {% include 'TunaCMSAdminBundle::_partials/form/translations.menu.html.twig' %}
+                        {% endblock %}
+                    </div>
+                {% endblock %}
+
+                {% block controls %}
+                    <div class="controls">
+                        {% block header_checkboxes_wrapper %}
+                            <div class="checkboxes inline-checkboxes">
+                                {% block header_checkboxes %}
+                                    {% if form.published is defined %}
+                                        {{ form_widget(form.published) }}
+                                    {% endif %}
+                                {% endblock %}
+                            </div>
+                        {% endblock %}
+
+                        {% block header_button_wrapper %}
+                            <div class="button">
+                                {% block header_button %}
+                                    <input type="submit" class="btn btn-tertiary btn-wide" value="{{ 'ui.form.labels.save'|trans }}">
+                                {% endblock %}
+                            </div>
+                        {% endblock %}
+                    </div>
+                {% endblock %}
+            {% endblock %}
+        </header>
+    {% endblock %}
+
+    {% block options_wrapper %}
+        <aside class="aside aside-2">
+            <div class="admin-option-container">
+                {% block options %}
+                    {% include 'TunaCMSAdminBundle::_partials/form/options.html.twig' %}
+                {% endblock %}
+            </div>
+        </aside>
+    {% endblock %}
+
+    {% block body_wrapper %}
+        <div class="inside">
+            <div class="body">
+                {% block body %}
+                    <h3 class="title-slug">
+                        <span class="title-slug__title">{{ title|default }}</span>
+                        <span class="title-slug__slug">{{ slug|default }}</span>
+                    </h3>
+
+                    {% block body_content %}
+                        {% include 'TunaCMSAdminBundle::_partials/form/content.html.twig' %}
+                    {% endblock %}
+                {% endblock %}
+            </div>
+        </div>
+    {% endblock %}
+    {{ form_end(form, { render_rest: render_rest is not defined ? true : render_rest }) }}
+</div>

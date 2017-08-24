@@ -1,18 +1,18 @@
 services:
     tuna.video.em:
-        class: "%the_codeine_video.entity_manager_class%"
+        class: "%tuna_cms_video.entity_manager_class%"
         public: false
         factory: ["@doctrine", getManager]
     tuna.video.manager:
-        class: "%the_codeine_video.manager_class%"
+        class: "%tuna_cms_video.manager_class%"
         arguments: ["@tuna.video.em"]
     tuna.video.form:
-        class: "%the_codeine_video.form_type_class%"
+        class: "%tuna_cms_video.form_type_class%"
         arguments: ["@tuna.video.manager"]
         tags:
             - { name: form.type, alias: tuna_video }
     tuna.video.twig:
-        class: "%the_codeine_video.twig_extension_class%"
+        class: "%tuna_cms_video.twig_extension_class%"
         public: false
         tags:
             - { name: twig.extension }

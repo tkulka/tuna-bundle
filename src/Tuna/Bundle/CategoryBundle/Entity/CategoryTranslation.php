@@ -1,6 +1,6 @@
 <?php
 
-namespace TheCodeine\CategoryBundle\Entity;
+namespace TunaCMS\Bundle\CategoryBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;

@@ -1,6 +1,6 @@
 <?php
 
-namespace TunaCMS\EditorBundle\DependencyInjection;
+namespace TunaCMS\Bundle\EditorBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

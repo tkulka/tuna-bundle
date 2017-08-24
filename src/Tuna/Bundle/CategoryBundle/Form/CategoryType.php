@@ -1,12 +1,12 @@
 <?php
 
-namespace TheCodeine\CategoryBundle\Form;
+namespace TunaCMS\Bundle\CategoryBundle\Form;
 
 use A2lix\TranslationFormBundle\Form\Type\GedmoTranslationsType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use TheCodeine\CategoryBundle\Entity\Category;
+use TunaCMS\Bundle\CategoryBundle\Entity\Category;
 
 
 class CategoryType extends AbstractType

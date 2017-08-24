@@ -1,0 +1,21 @@
+{% extends 'TunaCMSAdminBundle::admin_layout.html.twig' %}
+
+{% block body_class %}container bg-lightgray{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/lexiktranslation/ng-table/ng-table.min.css') }}">
+
+    {% stylesheets output='bundles/tunacmsadmin/css/tuna_admin.css'
+    '@TunaCMSAdminBundle/Resources/public/css/vendor/bootstrap.css'
+    '@TunaCMSAdminBundle/Resources/public/css/vendor/magic.css'
+    '@TunaCMSAdminBundle/Resources/public/sass/admin.scss' %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+{% endblock %}
+
+{% block extra_javascript %}
+    <script src="{{ asset('bundles/tunacmsadmin/js/vendor/angular.min.js') }}"></script>
+    <script src="{{ asset('bundles/lexiktranslation/ng-table/ng-table.min.js') }}"></script>
+
+    {% block javascript_footer %}{% endblock %}
+{% endblock %}

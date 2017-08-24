@@ -1,6 +1,6 @@
 <?php
 
-namespace TheCodeine\AdminBundle\Twig;
+namespace TunaCMS\AdminBundle\Twig;
 
 class PathExtension extends \Twig_Extension
 {
@@ -39,7 +39,7 @@ class PathExtension extends \Twig_Extension
         if (array_key_exists($name, $this->paths)) {
             return '/' . $this->paths[$name];
         } else {
-            throw new \InvalidArgumentException(sprintf('Path "%s" is not defined. Maybe you forgot to add it to thecodeine_admin.paths config?', $name));
+            throw new \InvalidArgumentException(sprintf('Path "%s" is not defined. Maybe you forgot to add it to tuna_cms_admin.paths config?', $name));
         }
     }
 }

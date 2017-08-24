@@ -1,6 +1,6 @@
 <?php
 
-namespace TheCodeine\FileBundle\Controller;
+namespace TunaCMS\Bundle\FileBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use TheCodeine\FileBundle\Form\UploadedFileType;
+use TunaCMS\Bundle\FileBundle\Form\UploadedFileType;
 
 /**
  * @Route("/file")
@@ -31,7 +31,7 @@ class DefaultController extends Controller
             $fileInfo = $this->getFileInfo($file);
 
             try {
-                $this->get('the_codeine_file.manager.file_manager')->moveUploadedFile($file, $fileInfo['path']);
+                $this->get('tuna_cms_file.manager.file_manager')->moveUploadedFile($file, $fileInfo['path']);
             } catch (FileException $e) {
                 $translator = $this->get('translator.default');
                 $errorMsg = $translator->trans('error.upload.cant_move', [], 'validators');
@@ -70,7 +70,7 @@ class DefaultController extends Controller
      */
     private function getFileInfo(UploadedFile $file)
     {
-        $fileManager = $this->get('the_codeine_file.manager.file_manager');
+        $fileManager = $this->get('tuna_cms_file.manager.file_manager');
         $filename = $fileManager->generateTmpFilename($file);
 
         return [

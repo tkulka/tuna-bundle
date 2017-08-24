@@ -1,0 +1,25 @@
+{% trans_default_domain 'tuna_admin' %}
+{% extends 'TunaCMSAdminBundle::layout.html.twig' %}
+
+{% block main_class %}bg-lightgray{% endblock %}
+
+{% block content %}
+    <div class="row admin-container edit-menu-tree" data-save-order-url="{{ path('tunacms_admin_node_saveorder') }}">
+        <div class="col-sm-12">
+            <div class="admin-list">
+                {% for node in nodes %}
+                    <div class="sortable-wrapper">
+                        <div class="action-buttons">
+                            <a href="#" data-action="save-order" class="btn btn-primary btn-wide inactive">
+                                <i class="fa fa-save" aria-hidden="true"></i> {{ 'list.save'|trans }}
+                            </a>
+                        </div>
+                        <ul data-menu-tree>
+                            {% include resolve_node_template(node) with { item: node } %}
+                        </ul>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -5,7 +5,7 @@ ivory_ck_editor:
     configs:
         tuna.editor.config:
             skin: "tuna,/bundles/tunacmseditor/ckeditor/skins/tuna/"
-            contentsCss: '/bundles/tunacmseditor/css/wysiwyg-styles.css'
+            contentsCss: 'css/compiled/wysiwyg-styles.css'
             stylesSet: "tuna_styles"
             extraPlugins: 'autogrow,divarea,fixedUI,imageToolbar'
             toolbar:
@@ -17,7 +17,7 @@ ivory_ck_editor:
                 - ['Source']
         tuna.editor.config.simple:
             skin: "tuna,/bundles/tunacmseditor/ckeditor/skins/tuna/"
-            contentsCss: '/bundles/tunacmseditor/css/wysiwyg-styles.css'
+            contentsCss: 'css/compiled/wysiwyg-styles.css'
             stylesSet: "tuna_styles"
             extraPlugins: 'autogrow,divarea,fixedUI,imageToolbar'
             toolbar:

@@ -1,6 +1,6 @@
 <?php
 
-namespace TheCodeine\TranslationBundle\Command;
+namespace TunaCMS\Bundle\TranslationBundle\Command;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;

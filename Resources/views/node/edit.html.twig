@@ -1,0 +1,20 @@
+{% trans_default_domain 'tuna_admin' %}
+{% extends 'TunaCMSAdminBundle::layout.html.twig' %}
+
+{% block content %}
+    {% embed 'TunaCMSAdminBundle:_partials/form:edit.html.twig' with { title: node.name, slug: node.slug } %}
+        {% import '@TunaCMSAdmin/_partials/form/translations_macro.html.twig' as a2lix %}
+
+        {% block header_checkboxes %}
+            {% include "@TunaCMSAdmin/node/partials/header_checkboxes.html.twig" %}
+        {% endblock %}
+
+        {% block options %}
+            {% include "@TunaCMSAdmin/node/partials/options.html.twig" %}
+        {% endblock %}
+
+        {% block body_content %}
+            {{ block('node_content') }}
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

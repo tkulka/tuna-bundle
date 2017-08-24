@@ -1,0 +1,23 @@
+{% trans_default_domain 'tuna_admin' %}
+
+{% block checkbox_widget %}
+    {% set attr = attr|merge({
+    class: (attr.class|default ~ " form-control input-lg input--#{name}")|trim,
+    'data-toggle': 'checkbox'
+    }) %}
+    {% if value is not empty %}
+        {% set attr = attr|merge({ value: value }) %}
+    {% endif %}
+    {% if checked %}
+        {% set attr = attr|merge({ checked: 'checked' }) %}
+    {% endif %}
+
+    <label class="checkbox" for="{{ id }}">
+        <input type="checkbox" {{ block('widget_attributes') }}>
+        {{ label|trans }}
+    </label>
+{% endblock %}
+
+{% block checkbox_row %}
+    {{ form_widget(form) }}
+{% endblock %}

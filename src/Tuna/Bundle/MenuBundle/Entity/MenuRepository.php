@@ -1,6 +1,6 @@
 <?php
 
-namespace TheCodeine\MenuBundle\Entity;
+namespace TunaCMS\Bundle\MenuBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Query;

@@ -1,6 +1,6 @@
 <?php
 
-namespace TheCodeine\CategoryBundle\Controller;
+namespace TunaCMS\Bundle\CategoryBundle\Controller;
 
 use Doctrine\DBAL\DBALException;
 use Doctrine\ORM\EntityRepository;
@@ -10,8 +10,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Routing\Annotation\Route;
 
-use TheCodeine\CategoryBundle\Entity\Category;
-use TheCodeine\CategoryBundle\Form\CategoryType;
+use TunaCMS\Bundle\CategoryBundle\Entity\Category;
+use TunaCMS\Bundle\CategoryBundle\Form\CategoryType;
 
 abstract class AbstractCategoryController extends Controller
 {

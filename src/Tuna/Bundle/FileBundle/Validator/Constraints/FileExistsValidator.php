@@ -1,10 +1,10 @@
 <?php
 
-namespace TheCodeine\FileBundle\Validator\Constraints;
+namespace TunaCMS\Bundle\FileBundle\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
-use TheCodeine\FileBundle\Manager\FileManager;
+use TunaCMS\Bundle\FileBundle\Manager\FileManager;
 
 class FileExistsValidator extends ConstraintValidator
 {
@@ -23,7 +23,7 @@ class FileExistsValidator extends ConstraintValidator
 
     public function validate($file, Constraint $constraint)
     {
-        /* @var $file \TheCodeine\FileBundle\Entity\AbstractFile */
+        /* @var $file \TunaCMS\Bundle\FileBundle\Entity\AbstractFile */
         if ($file->getPath() && !$this->fileManager->fileExists($file)) {
             $this->context->buildViolation($constraint->message)
                 ->setTranslationDomain('tuna_admin')

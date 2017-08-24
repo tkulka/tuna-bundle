@@ -1,8 +1,8 @@
 <?php
 
-namespace TheCodeine\FileBundle\Form;
+namespace TunaCMS\Bundle\FileBundle\Form;
 
-use TheCodeine\FileBundle\Entity\File;
+use TunaCMS\Bundle\FileBundle\Entity\File;
 
 class FileType extends AbstractFileType
 {

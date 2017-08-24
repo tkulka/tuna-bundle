@@ -1,6 +1,6 @@
 <?php
 
-namespace TheCodeine\GalleryBundle\Form;
+namespace TunaCMS\Bundle\GalleryBundle\Form;
 
 use A2lix\TranslationFormBundle\Form\Type\GedmoTranslationsType;
 use Symfony\Component\Form\AbstractType;
@@ -11,9 +11,9 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 
-use TheCodeine\FileBundle\Form\ImageType;
-use TheCodeine\GalleryBundle\Entity\GalleryItem;
-use TheCodeine\VideoBundle\Form\VideoUrlType;
+use TunaCMS\Bundle\FileBundle\Form\ImageType;
+use TunaCMS\Bundle\GalleryBundle\Entity\GalleryItem;
+use TunaCMS\Bundle\VideoBundle\Form\VideoUrlType;
 
 class GalleryItemType extends AbstractType
 {
@@ -111,6 +111,6 @@ class GalleryItemType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'thecodeine_gallerybundle_item';
+        return 'tuna_cms_gallerybundle_item';
     }
 }

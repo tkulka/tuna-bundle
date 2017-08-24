@@ -1,0 +1,48 @@
+services:
+    tuna_cms_node.node_manager:
+        class: TunaCMS\Bundle\NodeBundle\NodeManager
+        arguments:
+            - "%tuna_cms_node.node_types%"
+
+    tuna_cms_node.request_param_converter.entity_interface_converter:
+        class: TunaCMS\AdminBundle\Request\ParamConverter\EntityInterfaceConverter
+        tags:
+            - { name: request.param_converter, priority: 100 }
+        arguments:
+            - "@doctrine"
+            - TunaCMS\Bundle\NodeBundle\Model\NodeInterface
+            - "%tuna_cms_node.node_types.node.model%"
+
+    tuna_cms_node.form.node_type:
+        class: TunaCMS\Bundle\NodeBundle\Form\NodeType
+        arguments:
+            - "%tuna_cms_node.node_types.node.model%"
+            - "%tuna_cms_node.metadata.model%"
+        tags:
+            - { name: form.type }
+
+    tuna_cms_node.sluggable.node_translation_manager:
+        class: TunaCMS\Bundle\NodeBundle\Sluggable\NodeTranslationManager
+        arguments: ["@doctrine.orm.default_entity_manager"]
+
+    tuna_cms_node.event_listener.node_translation_subscriber:
+        class: TunaCMS\Bundle\NodeBundle\EventListener\NodeTranslationSubscriber
+        tags:
+            - { name: doctrine.event_subscriber, priority: -10 }
+        arguments: ['@tuna_cms_node.sluggable.node_translation_manager']
+
+    tuna_cms_node.event_listener.node_subscriber:
+        class: TunaCMS\Bundle\NodeBundle\EventListener\NodeSubscriber
+        arguments: ["@tuna_cms_node.sluggable.node_translation_manager"]
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    tuna_cms_node.crud.default:
+        class: TunaCMS\Bundle\NodeBundle\Crud\DefaultNodeCrud
+        arguments:
+            - '@templating.engine.twig'
+            - '@tuna_cms_node.node_manager'
+            - '@form.factory'
+            - '@doctrine.orm.default_entity_manager'
+            - '@router'
+            - '@?'

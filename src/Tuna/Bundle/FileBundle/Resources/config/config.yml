@@ -1,4 +1,4 @@
-the_codeine_file:
+tuna_cms_file:
     file_manager:
         tmp_path: uploads/tmp
         web_root_dir: "%kernel.root_dir%/../web"

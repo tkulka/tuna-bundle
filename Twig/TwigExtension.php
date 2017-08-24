@@ -1,6 +1,6 @@
 <?php
 
-namespace TheCodeine\AdminBundle\Twig;
+namespace TunaCMS\AdminBundle\Twig;
 
 use Symfony\Component\Intl\Intl;
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace TheCodeine\MenuBundle\Twig;
+namespace TunaCMS\Bundle\MenuBundle\Twig;
 
 use Symfony\Component\Routing\RouterInterface;
-use TheCodeine\MenuBundle\Entity\MenuInterface;
-use TheCodeine\MenuBundle\Service\MenuManager;
+use TunaCMS\Bundle\MenuBundle\Model\MenuInterface;
+use TunaCMS\Bundle\MenuBundle\Service\MenuManager;
 
 class MenuExtension extends \Twig_Extension
 {
@@ -28,9 +28,6 @@ class MenuExtension extends \Twig_Extension
      */
     protected $defaultTemplate;
 
-    /**
-     * MenuExtension constructor.
-     */
     public function __construct(\Twig_Environment $twig, MenuManager $menuManager, RouterInterface $router, $defaultTemplate)
     {
         $this->twig = $twig;
@@ -54,8 +51,8 @@ class MenuExtension extends \Twig_Extension
      */
     public function getLink(MenuInterface $menu)
     {
-        if ($menu->getExternalUrl()) {
-            return $menu->getExternalUrl();
+        if ($menu->getUrl()) {
+            return $menu->getUrl();
         } else {
             return $this->router->generate('tuna_menu_item', ['slug' => $menu->getSlug()]);
         }
@@ -64,9 +61,9 @@ class MenuExtension extends \Twig_Extension
     public function renderMenu($menuName = 'Menu', array $options = [])
     {
         if (!array_key_exists('root', $options)) {
-            $rootFromLabel = $this->menuManager->findMenuItemByLabel($menuName);
+            $rootFromName = $this->menuManager->findMenuItemByName($menuName);
 
-            if (!$rootFromLabel) {
+            if (!$rootFromName) {
                 return '';
             }
         }
@@ -74,12 +71,13 @@ class MenuExtension extends \Twig_Extension
         $options += [
             'wrap' => true,
             'template' => $this->defaultTemplate,
-            'root' => isset($rootFromLabel) ? $rootFromLabel : $options['root'],
+            'root' => isset($rootFromName) ? $rootFromName : $options['root'],
             'locale' => null,
         ];
 
         return $this->twig->render(
-            $options['template'], [
+            $options['template'],
+            [
                 'menu' => $this->menuManager->getMenuTree($options['root']),
                 'name' => $menuName,
                 'options' => $options,

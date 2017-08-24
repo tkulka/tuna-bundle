@@ -8,13 +8,13 @@ You can use these types in entity as:
 
         // AppBundle/Entity/Project.php
         
-        use TheCodeine\FileBundle\Validator\Constraints as FileAssert;
+        use TunaCMS\Bundle\FileBundle\Validator\Constraints as FileAssert;
         
         /**
          * @var File
          *
          * @FileAssert\FileNotNull
-         * @ORM\ManyToOne(targetEntity="TheCodeine\FileBundle\Entity\File", cascade={"persist", "remove"})
+         * @ORM\ManyToOne(targetEntity="TunaCMS\Bundle\FileBundle\Entity\File", cascade={"persist", "remove"})
         **/
         protected $file;
         
@@ -34,7 +34,7 @@ You can use these types in entity as:
         // AppBundle/Entity/Project.php
 
         /**
-         * @ORM\OneToOne(targetEntity="TheCodeine\FileBundle\Entity\Image", cascade={"persist", "remove"})
+         * @ORM\OneToOne(targetEntity="TunaCMS\Bundle\FileBundle\Entity\Image", cascade={"persist", "remove"})
          * @ORM\JoinColumn(onDelete="SET NULL")
          */
         protected $image;
@@ -54,9 +54,9 @@ You can use these types in entity as:
             ];
         }
 
-You can change default file location via `the_codeine_file` config (here's the defaults):
+You can change default file location via `tuna_cms_file` config (here's the defaults):
 
-    the_codeine_file:
+    tuna_cms_file:
         file_manager:
             web_root_dir: '%kernel.root_dir%/../web' # path to symfony's web directory
             tmp_path: uploads/tmp

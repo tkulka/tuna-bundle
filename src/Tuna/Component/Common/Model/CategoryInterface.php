@@ -2,7 +2,7 @@
 
 namespace TunaCMS\CommonComponent\Model;
 
-use TheCodeine\CategoryBundle\Entity\Category;
+use TunaCMS\Bundle\CategoryBundle\Entity\Category;
 
 interface CategoryInterface
 {

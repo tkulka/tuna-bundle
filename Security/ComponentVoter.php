@@ -1,6 +1,6 @@
 <?php
 
-namespace TheCodeine\AdminBundle\Security;
+namespace TunaCMS\AdminBundle\Security;
 
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
@@ -43,7 +43,7 @@ class ComponentVoter extends Voter
             return false;
         }
 
-        return in_array($subject, ['pages', 'news', 'events']);
+        return in_array($subject, ['page', 'news', 'events']);
     }
 
     /**

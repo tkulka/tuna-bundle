@@ -1,6 +1,6 @@
 <?php
 
-namespace TheCodeine\CategoryBundle\Form\Type;
+namespace TunaCMS\Bundle\CategoryBundle\Form\Type;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
@@ -8,9 +8,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use TheCodeine\CategoryBundle\Entity\Category;
-use TheCodeine\CategoryBundle\Form\CategoryType;
-use TheCodeine\CategoryBundle\Form\DataTransformer\IdToCategoryTransformer;
+use TunaCMS\Bundle\CategoryBundle\Entity\Category;
+use TunaCMS\Bundle\CategoryBundle\Form\CategoryType;
+use TunaCMS\Bundle\CategoryBundle\Form\DataTransformer\IdToCategoryTransformer;
 
 class AddableCategoryType extends AbstractType
 {

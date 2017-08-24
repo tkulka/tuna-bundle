@@ -1,11 +1,11 @@
 <?php
 
-namespace TheCodeine\FileBundle\EventListener;
+namespace TunaCMS\Bundle\FileBundle\EventListener;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use TheCodeine\FileBundle\Entity\AbstractFile;
-use TheCodeine\FileBundle\Manager\FileManager;
+use TunaCMS\Bundle\FileBundle\Entity\AbstractFile;
+use TunaCMS\Bundle\FileBundle\Manager\FileManager;
 
 class FileListener
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace TheCodeine\VideoBundle\Form;
+namespace TunaCMS\Bundle\VideoBundle\Form;
 
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
-use TheCodeine\VideoBundle\Doctrine\VideoManagerInterface;
-use TheCodeine\VideoBundle\Form\DataTransformer\UrlToTypeAndIdTransformer;
+use TunaCMS\Bundle\VideoBundle\Doctrine\VideoManagerInterface;
+use TunaCMS\Bundle\VideoBundle\Form\DataTransformer\UrlToTypeAndIdTransformer;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;

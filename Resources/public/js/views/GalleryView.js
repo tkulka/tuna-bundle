@@ -16,7 +16,7 @@
             this.tunaEvents = options.tunaEvents;
             this.$el.addClass('magictime');
             this.initSortable();
-            this.$wrapper = this.$('.thecodeine_admin_gallery');
+            this.$wrapper = this.$('.tuna_cms_admin_gallery');
             this.$wrapper.data('index', this.$('li.item').length);
             this.dropzoneOptions = this.$('[data-dropzone-options]').data('dropzone-options');
 

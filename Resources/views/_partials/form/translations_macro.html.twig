@@ -1,0 +1,17 @@
+{% macro translations(form, fieldsNames, wrapperClass = '') %}
+    <div class="a2lix_translations tabbable {{ wrapperClass }}">
+        <div class="a2lix_translationsFields tab-content">
+            {% for translationsLocales in form %}
+                {% for translationsFields in translationsLocales %}
+                    {% set locale = translationsFields.vars.name %}
+
+                    <div class="a2lix_translationsFields-{{ locale }} tab-pane {% if app.request.locale == locale %}active{% endif %}" data-lang="{{ locale }}">
+                        {% for translationsField in translationsFields if translationsField.vars.name in fieldsNames %}
+                            {{ form_row(translationsField) }}
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+{% endmacro %}
