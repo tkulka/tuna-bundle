@@ -11,20 +11,20 @@
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700&subset=latin,latin-ext" rel="stylesheet">
 
     {% block stylesheets %}
-        {% stylesheets output='bundles/tunacmsadmin/css/tuna_admin.css'
+        {% stylesheets output='css/compiled/tuna_admin.css'
         '@TunaCMSAdminBundle/Resources/public/css/vendor/bootstrap.css'
         '@TunaCMSAdminBundle/Resources/public/css/vendor/magic.css'
         '@TunaCMSAdminBundle/Resources/public/sass/admin.scss' %}
         <link rel="stylesheet" href="{{ asset_url }}"/>
         {% endstylesheets %}
 
-        {% stylesheets output='bundles/tunacmseditor/css/wysiwyg-styles.css'
+        {% stylesheets output='css/compiled/wysiwyg-styles.css'
         '@TunaCMSEditorBundle/Resources/public/sass/wysiwyg-styles.scss' %}
         <link rel="stylesheet" href="{{ asset_url }}"/>
         {% endstylesheets %}
     {% endblock %}
 
-    {% javascripts output='bundles/tunacmsadmin/js/tuna_admin_vendor.js'
+    {% javascripts output='js/compiled/tuna_admin_vendor.js'
     '@TunaCMSAdminBundle/Resources/public/js/vendor/jquery/jquery-2.0.3.min.js'
     '@TunaCMSAdminBundle/Resources/public/js/vendor/jquery/jquery-ui-1.11.4.js'
     '@TunaCMSAdminBundle/Resources/public/js/vendor/jquery/jquery.ui.touch-punch.min.js'
@@ -62,7 +62,7 @@
 
 {% include 'TunaCMSAdminBundle::_partials/modal.html.twig' %}
 
-{% javascripts output='bundles/tunacmsadmin/js/tuna_admin.js'
+{% javascripts output='js/compiled/tuna_admin.js'
 '@TunaCMSAdminBundle/Resources/public/js/common.js'
 '@TunaCMSFileBundle/Resources/public/js/app.js'
 '@TunaCMSAdminBundle/Resources/public/js/views/*.js'
