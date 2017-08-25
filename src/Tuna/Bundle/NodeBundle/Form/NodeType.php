@@ -81,7 +81,7 @@ class NodeType extends AbstractType
         ]);
     }
 
-    protected function getTranslatableFieldsConfig(NodeInterface $node)
+    public static function getTranslatableFieldsConfig(NodeInterface $node)
     {
         $config = [
             'name' => [],

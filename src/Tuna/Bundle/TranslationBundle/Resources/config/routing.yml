@@ -7,5 +7,5 @@ lexik_translation_api:
 
 lexik_translation_update:
     path:     /translations/{id}
-    defaults: { _controller: "TheCodeineTranslationBundle:Rest:update" }
+    defaults: { _controller: "TunaCMSTranslationBundle:Rest:update" }
     methods:  [PUT]

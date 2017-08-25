@@ -1,6 +1,6 @@
 <?php
 
-namespace TheCodeine\TranslationBundle\Controller;
+namespace TunaCMS\Bundle\TranslationBundle\Controller;
 
 use Lexik\Bundle\TranslationBundle\Controller\RestController as LexikRestController;
 use Symfony\Component\HttpFoundation\Request;

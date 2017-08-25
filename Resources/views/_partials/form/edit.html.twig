@@ -28,9 +28,7 @@
                         {% block header_checkboxes_wrapper %}
                             <div class="checkboxes inline-checkboxes">
                                 {% block header_checkboxes %}
-                                    {% if form.published is defined %}
-                                        {{ form_widget(form.published) }}
-                                    {% endif %}
+                                    {% include "@TunaCMSAdmin/node/partials/header_checkboxes.html.twig" %}
                                 {% endblock %}
                             </div>
                         {% endblock %}
@@ -52,7 +50,7 @@
         <aside class="aside aside-2">
             <div class="admin-option-container">
                 {% block options %}
-                    {% include 'TunaCMSAdminBundle::_partials/form/options.html.twig' %}
+                    {% include 'TunaCMSAdminBundle:node/partials:options.html.twig' %}
                 {% endblock %}
             </div>
         </aside>

@@ -27,6 +27,11 @@ class AbstractMetadata implements MetadataInterface
      */
     protected $locale;
 
+    public function __construct()
+    {
+        $this->setIndexable(true);
+    }
+
     public function setTranslatableLocale($locale)
     {
         $this->locale = $locale;
