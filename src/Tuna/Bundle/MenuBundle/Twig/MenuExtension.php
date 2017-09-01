@@ -54,7 +54,7 @@ class MenuExtension extends \Twig_Extension
         if ($menu->getUrl()) {
             return $menu->getUrl();
         } else {
-            return $this->router->generate('tuna_menu_item', ['slug' => $menu->getSlug()]);
+            return $this->router->generate('tuna_menu_item', ['slug' => $menu->getSlug()]); // todo getSlug method not exists in MenuInterface
         }
     }
 

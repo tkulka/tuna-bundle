@@ -8,7 +8,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use TunaCMS\Bundle\CategoryBundle\Entity\Category;
 
-
 class CategoryType extends AbstractType
 {
     /**

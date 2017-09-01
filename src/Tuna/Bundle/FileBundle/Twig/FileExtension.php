@@ -3,7 +3,6 @@
 namespace TunaCMS\Bundle\FileBundle\Twig;
 
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
-use Liip\ImagineBundle\Imagine\Cache\Resolver\WebPathResolver;
 use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
 use TunaCMS\Bundle\FileBundle\Entity\AbstractFile;
 

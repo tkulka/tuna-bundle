@@ -13,8 +13,10 @@
         bootstrap                   = "./vendor/autoload.php" >
 
     <testsuites>
-        <testsuite name="Tuna AdminBundle Test Suite">
+        <testsuite name="Tuna Test Suite">
             <directory suffix="Test.php">./Tests</directory>
+            <directory>./src/Tuna/Bundle/*/Tests/</directory>
+            <directory>./src/Tuna/Component/*/Tests/</directory>
         </testsuite>
     </testsuites>
 
@@ -25,6 +27,8 @@
                 <directory>./Resources</directory>
                 <directory>./Tests</directory>
                 <directory>./vendor</directory>
+                <directory>./src/Tuna/Bundle/*/Tests/</directory>
+                <directory>./src/Tuna/Component/*/Tests/</directory>
             </exclude>
         </whitelist>
     </filter>

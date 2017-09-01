@@ -76,15 +76,6 @@ class FileManager
     }
 
     /**
-     * @param AbstractFile $file
-     */
-    private function removeTmpFile(AbstractFile $file)
-    {
-        $path = $this->getFullTmpPath($file->getPath());
-        $this->fs->remove($path);
-    }
-
-    /**
      * @param HttpFile $file
      * @return string
      */

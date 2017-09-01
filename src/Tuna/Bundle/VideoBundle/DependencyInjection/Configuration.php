@@ -19,7 +19,7 @@ class Configuration implements ConfigurationInterface
             ->children()
             ->scalarNode('manager_class')->defaultValue('TunaCMS\Bundle\VideoBundle\Doctrine\VideoManager')->end()
             ->scalarNode('form_type_class')->defaultValue('TunaCMS\Bundle\VideoBundle\Form\VideoUrlType')->end()
-                ->scalarNode('entity_manager_class')->defaultValue('Doctrine\ORM\EntityManager')->end()
+            ->scalarNode('entity_manager_class')->defaultValue('Doctrine\ORM\EntityManager')->end()
             ->scalarNode('twig_extension_class')->defaultValue('TunaCMS\Bundle\VideoBundle\Twig\Extension\VideoPlayerExtension')->end()
             ->end();
 

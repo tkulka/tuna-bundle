@@ -4,6 +4,8 @@ namespace TunaCMS\Bundle\FileBundle\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
+use TunaCMS\Bundle\FileBundle\Entity\AbstractFile;
 use TunaCMS\Bundle\FileBundle\Manager\FileManager;
 
 class FileExistsValidator extends ConstraintValidator
@@ -21,13 +23,20 @@ class FileExistsValidator extends ConstraintValidator
         $this->fileManager = $fileManager;
     }
 
-    public function validate($file, Constraint $constraint)
+    public function validate($object, Constraint $constraint)
     {
-        /* @var $file \TunaCMS\Bundle\FileBundle\Entity\AbstractFile */
-        if ($file->getPath() && !$this->fileManager->fileExists($file)) {
+        if (!$constraint instanceof FileExists) {
+            throw new UnexpectedTypeException($constraint, FileExists::class);
+        }
+
+        if (!$object instanceof AbstractFile) {
+            throw new UnexpectedTypeException($object, AbstractFile::class);
+        }
+
+        if ($object->getPath() && !$this->fileManager->fileExists($object)) {
             $this->context->buildViolation($constraint->message)
                 ->setTranslationDomain('tuna_admin')
-                ->setParameter('%filename%', $file->getPath())
+                ->setParameter('%filename%', $object->getPath())
                 ->addViolation();
         }
     }
