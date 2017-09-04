@@ -30,11 +30,15 @@ class FileExtensionTest extends TestCase
         $this->imagineCacheManager = $this->createMock(CacheManager::class);
         $this->assetsHelper = $this->createMock(AssetsHelper::class);
 
-        $this->extension = new FileExtension([
-            'web_root_dir' => '/root',
-            'upload_files_path' => 'upload',
-            'tmp_path' => 'tmp',
-        ], $this->assetsHelper, $this->imagineCacheManager);
+        $this->extension = new FileExtension(
+            [
+                'web_root_dir' => '/root',
+                'upload_files_path' => 'upload',
+                'tmp_path' => 'tmp',
+            ],
+            $this->assetsHelper,
+            $this->imagineCacheManager
+        );
     }
 
     public function testGetFileWebPathWhenFileIsNull()

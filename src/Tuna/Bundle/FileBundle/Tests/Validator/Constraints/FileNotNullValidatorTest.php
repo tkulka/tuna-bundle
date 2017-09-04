@@ -20,7 +20,8 @@ class FileNotNullValidatorTest extends AbstractConstraintValidatorTest
 
         $this->buildViolation('error.file.empty')
             ->setInvalidValue('InvalidValue')
-            ->assertRaised();
+            ->assertRaised()
+        ;
     }
 
     public function testFilePathIsEmpty()
@@ -31,7 +32,8 @@ class FileNotNullValidatorTest extends AbstractConstraintValidatorTest
 
         $this->buildViolation('error.file.empty')
             ->setInvalidValue('InvalidValue')
-            ->assertRaised();
+            ->assertRaised()
+        ;
     }
 
     public function testFilePathIsValid()

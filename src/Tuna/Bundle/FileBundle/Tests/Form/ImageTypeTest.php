@@ -20,7 +20,8 @@ class ImageTypeTest extends TypeTestCase
         $object = new Image();
         $object
             ->setPath($formData['path'])
-            ->setFilename($formData['filename']);
+            ->setFilename($formData['filename'])
+        ;
 
         $form->submit($formData);
 

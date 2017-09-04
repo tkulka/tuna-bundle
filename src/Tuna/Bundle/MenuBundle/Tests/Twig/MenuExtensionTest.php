@@ -49,7 +49,8 @@ class MenuExtensionTest extends TestCase
         $menu = $this->createMock(MenuInterface::class);
         $menu
             ->method('getUrl')
-            ->will($this->returnValue('https://www.google.com/'));
+            ->will($this->returnValue('https://www.google.com/'))
+        ;
 
         $this->assertEquals(
             'https://www.google.com/',
@@ -63,13 +64,15 @@ class MenuExtensionTest extends TestCase
 
         $menu
             ->method('getSlug')
-            ->will($this->returnValue('foo'));
+            ->will($this->returnValue('foo'))
+        ;
 
         $this->router
             ->expects($this->once())
             ->method('generate')
             ->with('tuna_menu_item', ['slug' => 'foo'])
-            ->will($this->returnValue('/root/foo'));
+            ->will($this->returnValue('/root/foo'))
+        ;
 
         $this->assertEquals(
             '/root/foo',

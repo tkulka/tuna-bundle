@@ -40,10 +40,10 @@ class FileManagerTest extends TestCase
 
         $this->fileManager = new FileManager(
             $this->fs, [
-            'web_root_dir' => '/root',
-            'upload_files_path' => 'upload',
-            'tmp_path' => 'tmp',
-        ]
+                'web_root_dir' => '/root',
+                'upload_files_path' => 'upload',
+                'tmp_path' => 'tmp',
+            ]
         );
 
         $this->httpFile = $this->createMock(HttpFile::class);
@@ -55,7 +55,8 @@ class FileManagerTest extends TestCase
     {
         $this->fs
             ->expects($this->never())
-            ->method('remove');
+            ->method('remove')
+        ;
 
         $this->fileManager->removeFile(null);
     }
@@ -67,7 +68,8 @@ class FileManagerTest extends TestCase
         $this->fs
             ->expects($this->once())
             ->method('remove')
-            ->with('/root/upload/foo/test.bar');
+            ->with('/root/upload/foo/test.bar')
+        ;
 
         $this->fileManager->removeFile($path);
     }
@@ -81,7 +83,8 @@ class FileManagerTest extends TestCase
             ->expects($this->once())
             ->method('exists')
             ->with('/root/tmp/foo/test.bar')
-            ->will($this->returnValue(true));
+            ->will($this->returnValue(true))
+        ;
 
         $this->assertTrue($this->fileManager->fileExists($file));
     }
@@ -95,7 +98,8 @@ class FileManagerTest extends TestCase
             ->expects($this->once())
             ->method('exists')
             ->with('/root/tmp/foo/test.bar')
-            ->will($this->returnValue(false));
+            ->will($this->returnValue(false))
+        ;
 
         $this->assertFalse($this->fileManager->fileExists($file));
     }
@@ -110,7 +114,8 @@ class FileManagerTest extends TestCase
             ->expects($this->once())
             ->method('exists')
             ->with('/root/upload/foo/test.bar')
-            ->will($this->returnValue(true));
+            ->will($this->returnValue(true))
+        ;
 
         $this->assertTrue($this->fileManager->fileExists($file));
     }
@@ -125,7 +130,8 @@ class FileManagerTest extends TestCase
             ->expects($this->once())
             ->method('exists')
             ->with('/root/upload/foo/test.bar')
-            ->will($this->returnValue(false));
+            ->will($this->returnValue(false))
+        ;
 
         $this->assertFalse($this->fileManager->fileExists($file));
     }
@@ -142,7 +148,8 @@ class FileManagerTest extends TestCase
             ->expects($this->once())
             ->method('copy')
             ->with('/root/tmp/test.bar', '/root/upload/test.bar')
-            ->will($this->throwException(new FileNotFoundException()));
+            ->will($this->throwException(new FileNotFoundException()))
+        ;
 
         $this->fileManager->moveTmpFile($file);
     }
@@ -155,12 +162,14 @@ class FileManagerTest extends TestCase
         $this->fs
             ->expects($this->once())
             ->method('copy')
-            ->with('/root/tmp/test.bar', '/root/upload/test.bar');
+            ->with('/root/tmp/test.bar', '/root/upload/test.bar')
+        ;
 
         $this->fs
             ->expects($this->once())
             ->method('remove')
-            ->with('/root/tmp/test.bar');
+            ->with('/root/tmp/test.bar')
+        ;
 
         $this->fileManager->moveTmpFile($file);
     }
@@ -170,7 +179,8 @@ class FileManagerTest extends TestCase
         $this->httpFile
             ->expects($this->once())
             ->method('guessExtension')
-            ->will($this->returnValue('txt'));
+            ->will($this->returnValue('txt'))
+        ;
 
         $this->assertStringEndsWith(
             '.txt',

@@ -20,7 +20,8 @@ class FileTypeTest extends TypeTestCase
         $object = new File();
         $object
             ->setPath($formData['path'])
-            ->setFilename($formData['filename']);
+            ->setFilename($formData['filename'])
+        ;
 
         $form->submit($formData);
 

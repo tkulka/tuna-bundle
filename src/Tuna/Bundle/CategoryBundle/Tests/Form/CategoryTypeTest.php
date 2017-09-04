@@ -44,16 +44,16 @@ class CategoryTypeTest extends TypeTestCase
                     'getTranslationClass',
                 ]
             )
-            ->getMock();
-
+            ->getMock()
+        ;
         $this->translationForm
             ->method('getGedmoTranslatableListener')
-            ->will($this->returnValue($this->translatableListener));
-
+            ->will($this->returnValue($this->translatableListener))
+        ;
         $this->translationForm
             ->method('getTranslatableFields')
-            ->will($this->returnValue([]));
-
+            ->will($this->returnValue([]))
+        ;
         $this->translationForm
             ->method('getChildrenOptions')
             ->will(
@@ -67,11 +67,12 @@ class CategoryTypeTest extends TypeTestCase
                         ],
                     ]
                 )
-            );
-
+            )
+        ;
         $this->translationForm
             ->method('getTranslationClass')
-            ->will($this->returnValue(CategoryTranslation::class));
+            ->will($this->returnValue(CategoryTranslation::class))
+        ;
 
         $this->translationsListener = new GedmoTranslationsListener($this->translationForm);
 
@@ -113,7 +114,8 @@ class CategoryTypeTest extends TypeTestCase
         $translationObject
             ->setLocale('en')
             ->setField('name')
-            ->setContent('foo');
+            ->setContent('foo')
+        ;
 
         $object = new Category();
         $object->addTranslation($translationObject);

@@ -54,7 +54,8 @@ class GalleryItemFileNotNullValidatorTest extends AbstractConstraintValidatorTes
         $this->buildViolation('error.file.empty')
             ->setInvalidValue('InvalidValue')
             ->atPath('property.path.image')
-            ->assertRaised();
+            ->assertRaised()
+        ;
     }
 
     public function testImageIsValid()
@@ -65,7 +66,8 @@ class GalleryItemFileNotNullValidatorTest extends AbstractConstraintValidatorTes
         $object = new GalleryItem();
         $object
             ->setType(GalleryItem::IMAGE_TYPE)
-            ->setImage($image);
+            ->setImage($image)
+        ;
 
         $this->validator->validate($object, new GalleryItemFileNotNull());
 

@@ -21,11 +21,13 @@ class TagCollectionTypeTest extends TypeTestCase
         $this->tagManager = $this->getMockBuilder(TagManager::class)
             ->disableOriginalConstructor()
             ->setMethods(['findTagsByName'])
-            ->getMock();
+            ->getMock()
+        ;
 
         $this->tagManager
             ->method('findTagsByName')
-            ->will($this->returnValue([]));
+            ->will($this->returnValue([]))
+        ;
 
         parent::setUp();
     }

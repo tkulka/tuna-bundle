@@ -45,16 +45,16 @@ class AttachmentTypeTest extends TypeTestCase
                     'getTranslationClass',
                 ]
             )
-            ->getMock();
-
+            ->getMock()
+        ;
         $this->translationForm
             ->method('getGedmoTranslatableListener')
-            ->will($this->returnValue($this->translatableListener));
-
+            ->will($this->returnValue($this->translatableListener))
+        ;
         $this->translationForm
             ->method('getTranslatableFields')
-            ->will($this->returnValue([]));
-
+            ->will($this->returnValue([]))
+        ;
         $this->translationForm
             ->method('getChildrenOptions')
             ->will(
@@ -68,11 +68,12 @@ class AttachmentTypeTest extends TypeTestCase
                         ],
                     ]
                 )
-            );
-
+            )
+        ;
         $this->translationForm
             ->method('getTranslationClass')
-            ->will($this->returnValue(AttachmentTranslation::class));
+            ->will($this->returnValue(AttachmentTranslation::class))
+        ;
 
         $this->translationsListener = new GedmoTranslationsListener($this->translationForm);
 
@@ -118,17 +119,20 @@ class AttachmentTypeTest extends TypeTestCase
         $file = new File();
         $file
             ->setPath($formData['file']['path'])
-            ->setFilename($formData['file']['filename']);
+            ->setFilename($formData['file']['filename'])
+        ;
         $translation = new AttachmentTranslation();
         $translation
             ->setLocale('en')
             ->setField('title')
-            ->setContent('foo');
+            ->setContent('foo')
+        ;
         $object = new Attachment();
         $object
             ->setPosition($formData['position'])
             ->setFile($file)
-            ->addTranslation($translation);
+            ->addTranslation($translation)
+        ;
 
         $form = $this->factory->create(AttachmentType::class);
 

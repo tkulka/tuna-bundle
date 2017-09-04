@@ -61,15 +61,18 @@ class GalleryItemTypeTest extends TypeTestCase
                     'getTranslationClass',
                 ]
             )
-            ->getMock();
+            ->getMock()
+        ;
 
         $this->translationForm
             ->method('getGedmoTranslatableListener')
-            ->will($this->returnValue($this->translatableListener));
+            ->will($this->returnValue($this->translatableListener))
+        ;
 
         $this->translationForm
             ->method('getTranslatableFields')
-            ->will($this->returnValue([]));
+            ->will($this->returnValue([]))
+        ;
 
         $this->translationForm
             ->method('getChildrenOptions')
@@ -84,16 +87,19 @@ class GalleryItemTypeTest extends TypeTestCase
                         ],
                     ]
                 )
-            );
+            )
+        ;
 
         $this->translationForm
             ->method('getTranslationClass')
-            ->will($this->returnValue(GalleryItemTranslation::class));
+            ->will($this->returnValue(GalleryItemTranslation::class))
+        ;
 
         $this->videoManager = $this->getMockBuilder(VideoManager::class)
             ->disableOriginalConstructor()
             ->setMethods(['findByVideoId'])
-            ->getMock();
+            ->getMock()
+        ;
 
         $this->translationsListener = new GedmoTranslationsListener($this->translationForm);
 
@@ -182,12 +188,14 @@ class GalleryItemTypeTest extends TypeTestCase
         $translation
             ->setLocale('en')
             ->setField('name')
-            ->setContent('foo');
+            ->setContent('foo')
+        ;
         $object = new GalleryItem();
         $object
             ->setType($formData['type'])
             ->setPosition($formData['position'])
-            ->addTranslation($translation);
+            ->addTranslation($translation)
+        ;
 
         $galleryItem = new GalleryItem();
 
