@@ -21,13 +21,11 @@ class TagCollectionTypeTest extends TypeTestCase
         $this->tagManager = $this->getMockBuilder(TagManager::class)
             ->disableOriginalConstructor()
             ->setMethods(['findTagsByName'])
-            ->getMock()
-        ;
+            ->getMock();
 
         $this->tagManager
             ->method('findTagsByName')
-            ->will($this->returnValue([]))
-        ;
+            ->will($this->returnValue([]));
 
         parent::setUp();
     }
@@ -36,11 +34,13 @@ class TagCollectionTypeTest extends TypeTestCase
     {
         $tagCollectionType = new TagCollectionType($this->tagManager);
 
-        return array(
-            new PreloadedExtension([
-                $tagCollectionType,
-            ], []),
-        );
+        return [
+            new PreloadedExtension(
+                [
+                    $tagCollectionType,
+                ], []
+            ),
+        ];
     }
 
     public function testSubmitValidData()

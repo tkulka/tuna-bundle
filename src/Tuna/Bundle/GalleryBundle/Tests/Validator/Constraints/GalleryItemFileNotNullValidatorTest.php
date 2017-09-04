@@ -65,8 +65,7 @@ class GalleryItemFileNotNullValidatorTest extends AbstractConstraintValidatorTes
         $object = new GalleryItem();
         $object
             ->setType(GalleryItem::IMAGE_TYPE)
-            ->setImage($image)
-        ;
+            ->setImage($image);
 
         $this->validator->validate($object, new GalleryItemFileNotNull());
 

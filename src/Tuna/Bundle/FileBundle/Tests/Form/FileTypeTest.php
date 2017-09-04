@@ -20,8 +20,7 @@ class FileTypeTest extends TypeTestCase
         $object = new File();
         $object
             ->setPath($formData['path'])
-            ->setFilename($formData['filename'])
-        ;
+            ->setFilename($formData['filename']);
 
         $form->submit($formData);
 
@@ -31,7 +30,7 @@ class FileTypeTest extends TypeTestCase
         $view = $form->createView();
         $children = $view->children;
 
-        foreach (array_keys($formData) as $key) {
+        foreach ($formData as $key => $value) {
             $this->assertArrayHasKey($key, $children);
         }
     }

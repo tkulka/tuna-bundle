@@ -36,40 +36,42 @@ class CategoryTypeTest extends TypeTestCase
         $this->translatableListener = $this->createMock(TranslatableListener::class);
         $this->translationForm = $this->getMockBuilder(GedmoTranslationForm::class)
             ->disableOriginalConstructor()
-            ->setMethods([
-                'getGedmoTranslatableListener',
-                'getTranslatableFields',
-                'getChildrenOptions',
-                'getTranslationClass',
-            ])
+            ->setMethods(
+                [
+                    'getGedmoTranslatableListener',
+                    'getTranslatableFields',
+                    'getChildrenOptions',
+                    'getTranslationClass',
+                ]
+            )
             ->getMock();
 
         $this->translationForm
             ->method('getGedmoTranslatableListener')
-            ->will($this->returnValue($this->translatableListener))
-        ;
+            ->will($this->returnValue($this->translatableListener));
 
         $this->translationForm
             ->method('getTranslatableFields')
-            ->will($this->returnValue([]))
-        ;
+            ->will($this->returnValue([]));
 
         $this->translationForm
             ->method('getChildrenOptions')
-            ->will($this->returnValue([
-                'en' => [
-                    'name' => [
-                        'required' => true,
-                        'field_type' => TextType::class,
-                    ],
-                ],
-            ]))
-        ;
+            ->will(
+                $this->returnValue(
+                    [
+                        'en' => [
+                            'name' => [
+                                'required' => true,
+                                'field_type' => TextType::class,
+                            ],
+                        ],
+                    ]
+                )
+            );
 
         $this->translationForm
             ->method('getTranslationClass')
-            ->will($this->returnValue(CategoryTranslation::class))
-        ;
+            ->will($this->returnValue(CategoryTranslation::class));
 
         $this->translationsListener = new GedmoTranslationsListener($this->translationForm);
 
@@ -87,12 +89,14 @@ class CategoryTypeTest extends TypeTestCase
 
         $translationsFieldsType = new TranslationsFieldsType();
 
-        return array(
-            new PreloadedExtension([
-                $translationsType,
-                $translationsFieldsType,
-            ], []),
-        );
+        return [
+            new PreloadedExtension(
+                [
+                    $translationsType,
+                    $translationsFieldsType,
+                ], []
+            ),
+        ];
     }
 
     public function testSubmitValidData()
@@ -109,8 +113,8 @@ class CategoryTypeTest extends TypeTestCase
         $translationObject
             ->setLocale('en')
             ->setField('name')
-            ->setContent('foo')
-        ;
+            ->setContent('foo');
+
         $object = new Category();
         $object->addTranslation($translationObject);
 
@@ -124,7 +128,7 @@ class CategoryTypeTest extends TypeTestCase
         $view = $form->createView();
         $children = $view->children;
 
-        foreach (array_keys($formData) as $key) {
+        foreach ($formData as $key => $value) {
             $this->assertArrayHasKey($key, $children);
         }
     }

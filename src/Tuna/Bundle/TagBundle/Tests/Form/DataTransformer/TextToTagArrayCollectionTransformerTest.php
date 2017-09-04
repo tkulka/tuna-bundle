@@ -33,8 +33,7 @@ class TextToTagArrayCollectionTransformerTest extends TestCase
         $this->tagManager = $this->getMockBuilder(TagManager::class)
             ->disableOriginalConstructor()
             ->setMethods(['findTagsByName'])
-            ->getMock()
-        ;
+            ->getMock();
 
         $this->dataTransformer = new TextToTagArrayCollectionTransformer($this->tagManager);
     }
@@ -95,8 +94,7 @@ class TextToTagArrayCollectionTransformerTest extends TestCase
 
         $this->tagManager
             ->expects($this->never())
-            ->method('findTagsByName')
-        ;
+            ->method('findTagsByName');
 
         $this->assertEquals($object, $this->dataTransformer->reverseTransform(''));
     }
@@ -119,8 +117,7 @@ class TextToTagArrayCollectionTransformerTest extends TestCase
         $this->tagManager
             ->expects($this->once())
             ->method('findTagsByName')
-            ->will($this->returnValue([]))
-        ;
+            ->will($this->returnValue([]));
 
         $this->assertEquals($object, $this->dataTransformer->reverseTransform($data));
     }
@@ -163,10 +160,13 @@ class TextToTagArrayCollectionTransformerTest extends TestCase
         $this->tagManager
             ->expects($this->once())
             ->method('findTagsByName')
-            ->will($this->returnValue([
-                $tagExists,
-            ]))
-        ;
+            ->will(
+                $this->returnValue(
+                    [
+                        $tagExists,
+                    ]
+                )
+            );
 
         $this->assertEquals($object, $this->dataTransformer->reverseTransform($data));
     }

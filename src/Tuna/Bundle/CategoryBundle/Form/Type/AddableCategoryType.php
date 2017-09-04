@@ -42,9 +42,9 @@ class AddableCategoryType extends AbstractType
 
         $choiceOptions = [
             'choices' => $this->getChoices($repo),
-            'attr' => array(
+            'attr' => [
                 'class' => 'filtered',
-            )
+            ],
         ];
         if ($options['nullable']) {
             $choiceOptions['empty_value'] = 'components.categories.form.empty';

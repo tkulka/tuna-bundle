@@ -19,12 +19,11 @@ class UploadedFileTypeTest extends TypeTestCase
         $this->validator = $this->createMock(ValidatorInterface::class);
         $this->validator
             ->method('validate')
-            ->will($this->returnValue(new ConstraintViolationList()))
-        ;
+            ->will($this->returnValue(new ConstraintViolationList()));
+
         $this->validator
             ->method('getMetadataFor')
-            ->will($this->returnValue(new ClassMetadata(Form::class)))
-        ;
+            ->will($this->returnValue(new ClassMetadata(Form::class)));
 
         return [
             new ValidatorExtension($this->validator),
@@ -50,7 +49,7 @@ class UploadedFileTypeTest extends TypeTestCase
         $view = $form->createView();
         $children = $view->children;
 
-        foreach (array_keys($formData) as $key) {
+        foreach ($formData as $key => $value) {
             $this->assertArrayHasKey($key, $children);
         }
     }

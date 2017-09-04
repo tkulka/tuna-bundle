@@ -12,11 +12,14 @@ class TunaCMSMenuExtensionTest extends TestCase
     {
         $configuration = new ContainerBuilder();
         $loader = new TunaCMSMenuExtension();
-        $loader->load([
-            'tuna_cms_menu' => [
-                'model' => 'Custom\Model\Custom',
+        $loader->load(
+            [
+                'tuna_cms_menu' => [
+                    'model' => 'Custom\Model\Custom',
+                ],
             ],
-        ], $configuration);
+            $configuration
+        );
 
         $parameterBag = $configuration->getParameterBag();
 

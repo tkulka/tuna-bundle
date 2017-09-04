@@ -32,13 +32,16 @@ class ConfigurationTest extends TestCase
                 'tmp_path' => 'tmp/foo',
                 'web_root_dir' => './web',
                 'upload_files_path' => 'uploads/bar',
-            ]
+            ],
         ];
 
         $processor = new Processor();
-        $config = $processor->processConfiguration(new Configuration(), [
-            $data,
-        ]);
+        $config = $processor->processConfiguration(
+            new Configuration(),
+            [
+                $data,
+            ]
+        );
         $this->assertEquals($data, $config);
     }
 

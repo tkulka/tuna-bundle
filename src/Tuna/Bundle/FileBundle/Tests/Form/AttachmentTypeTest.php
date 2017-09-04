@@ -37,40 +37,42 @@ class AttachmentTypeTest extends TypeTestCase
         $this->translatableListener = $this->createMock(TranslatableListener::class);
         $this->translationForm = $this->getMockBuilder(GedmoTranslationForm::class)
             ->disableOriginalConstructor()
-            ->setMethods([
-                'getGedmoTranslatableListener',
-                'getTranslatableFields',
-                'getChildrenOptions',
-                'getTranslationClass',
-            ])
+            ->setMethods(
+                [
+                    'getGedmoTranslatableListener',
+                    'getTranslatableFields',
+                    'getChildrenOptions',
+                    'getTranslationClass',
+                ]
+            )
             ->getMock();
 
         $this->translationForm
             ->method('getGedmoTranslatableListener')
-            ->will($this->returnValue($this->translatableListener))
-        ;
+            ->will($this->returnValue($this->translatableListener));
 
         $this->translationForm
             ->method('getTranslatableFields')
-            ->will($this->returnValue([]))
-        ;
+            ->will($this->returnValue([]));
 
         $this->translationForm
             ->method('getChildrenOptions')
-            ->will($this->returnValue([
-                'en' => [
-                    'title' => [
-                        'required' => true,
-                        'field_type' => TextType::class,
-                    ],
-                ],
-            ]))
-        ;
+            ->will(
+                $this->returnValue(
+                    [
+                        'en' => [
+                            'title' => [
+                                'required' => true,
+                                'field_type' => TextType::class,
+                            ],
+                        ],
+                    ]
+                )
+            );
 
         $this->translationForm
             ->method('getTranslationClass')
-            ->will($this->returnValue(AttachmentTranslation::class))
-        ;
+            ->will($this->returnValue(AttachmentTranslation::class));
 
         $this->translationsListener = new GedmoTranslationsListener($this->translationForm);
 
@@ -88,12 +90,14 @@ class AttachmentTypeTest extends TypeTestCase
 
         $translationsFieldsType = new TranslationsFieldsType();
 
-        return array(
-            new PreloadedExtension([
-                $translationsType,
-                $translationsFieldsType,
-            ], []),
-        );
+        return [
+            new PreloadedExtension(
+                [
+                    $translationsType,
+                    $translationsFieldsType,
+                ], []
+            ),
+        ];
     }
 
     public function testSubmitValidData()
@@ -114,20 +118,17 @@ class AttachmentTypeTest extends TypeTestCase
         $file = new File();
         $file
             ->setPath($formData['file']['path'])
-            ->setFilename($formData['file']['filename'])
-        ;
+            ->setFilename($formData['file']['filename']);
         $translation = new AttachmentTranslation();
         $translation
             ->setLocale('en')
             ->setField('title')
-            ->setContent('foo')
-        ;
+            ->setContent('foo');
         $object = new Attachment();
         $object
             ->setPosition($formData['position'])
             ->setFile($file)
-            ->addTranslation($translation)
-        ;
+            ->addTranslation($translation);
 
         $form = $this->factory->create(AttachmentType::class);
 
@@ -139,7 +140,7 @@ class AttachmentTypeTest extends TypeTestCase
         $view = $form->createView();
         $children = $view->children;
 
-        foreach (array_keys($formData) as $key) {
+        foreach ($formData as $key => $value) {
             $this->assertArrayHasKey($key, $children);
         }
     }

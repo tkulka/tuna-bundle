@@ -60,8 +60,7 @@ class FileExistsValidatorTest extends AbstractConstraintValidatorTest
         $this->fileManager
             ->expects($this->once())
             ->method('fileExists')
-            ->will($this->returnValue(true))
-        ;
+            ->will($this->returnValue(true));
 
         $object = new File();
         $object->setPath('/for/test.bar');

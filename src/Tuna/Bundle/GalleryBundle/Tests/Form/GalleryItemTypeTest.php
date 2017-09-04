@@ -53,46 +53,47 @@ class GalleryItemTypeTest extends TypeTestCase
         $this->translatableListener = $this->createMock(TranslatableListener::class);
         $this->translationForm = $this->getMockBuilder(GedmoTranslationForm::class)
             ->disableOriginalConstructor()
-            ->setMethods([
-                'getGedmoTranslatableListener',
-                'getTranslatableFields',
-                'getChildrenOptions',
-                'getTranslationClass',
-            ])
+            ->setMethods(
+                [
+                    'getGedmoTranslatableListener',
+                    'getTranslatableFields',
+                    'getChildrenOptions',
+                    'getTranslationClass',
+                ]
+            )
             ->getMock();
 
         $this->translationForm
             ->method('getGedmoTranslatableListener')
-            ->will($this->returnValue($this->translatableListener))
-        ;
+            ->will($this->returnValue($this->translatableListener));
 
         $this->translationForm
             ->method('getTranslatableFields')
-            ->will($this->returnValue([]))
-        ;
+            ->will($this->returnValue([]));
 
         $this->translationForm
             ->method('getChildrenOptions')
-            ->will($this->returnValue([
-                'en' => [
-                    'name' => [
-                        'required' => true,
-                        'field_type' => TextType::class,
-                    ],
-                ],
-            ]))
-        ;
+            ->will(
+                $this->returnValue(
+                    [
+                        'en' => [
+                            'name' => [
+                                'required' => true,
+                                'field_type' => TextType::class,
+                            ],
+                        ],
+                    ]
+                )
+            );
 
         $this->translationForm
             ->method('getTranslationClass')
-            ->will($this->returnValue(GalleryItemTranslation::class))
-        ;
+            ->will($this->returnValue(GalleryItemTranslation::class));
 
         $this->videoManager = $this->getMockBuilder(VideoManager::class)
             ->disableOriginalConstructor()
             ->setMethods(['findByVideoId'])
-            ->getMock()
-        ;
+            ->getMock();
 
         $this->translationsListener = new GedmoTranslationsListener($this->translationForm);
 
@@ -112,13 +113,15 @@ class GalleryItemTypeTest extends TypeTestCase
 
         $videoUrlType = new VideoUrlType($this->videoManager);
 
-        return array(
-            new PreloadedExtension([
-                $translationsType,
-                $translationsFieldsType,
-                $videoUrlType,
-            ], []),
-        );
+        return [
+            new PreloadedExtension(
+                [
+                    $translationsType,
+                    $translationsFieldsType,
+                    $videoUrlType,
+                ], []
+            ),
+        ];
     }
 
     public function testSubmitWhenTypeIsEmpty()
@@ -179,14 +182,12 @@ class GalleryItemTypeTest extends TypeTestCase
         $translation
             ->setLocale('en')
             ->setField('name')
-            ->setContent('foo')
-        ;
+            ->setContent('foo');
         $object = new GalleryItem();
         $object
             ->setType($formData['type'])
             ->setPosition($formData['position'])
-            ->addTranslation($translation)
-        ;
+            ->addTranslation($translation);
 
         $galleryItem = new GalleryItem();
 
@@ -207,7 +208,7 @@ class GalleryItemTypeTest extends TypeTestCase
         $view = $form->createView();
         $children = $view->children;
 
-        foreach (array_keys($formData) as $key) {
+        foreach ($formData as $key => $value) {
             $this->assertArrayHasKey($key, $children);
         }
     }
@@ -241,7 +242,7 @@ class GalleryItemTypeTest extends TypeTestCase
                     'path' => '/root/foo',
                     'filename' => 'test.jpeg',
                 ],
-            ]
+            ],
         ];
     }
 }

@@ -27,9 +27,12 @@ class ConfigurationTest extends TestCase
     public function testValidConfiguration(array $data, array $expected)
     {
         $processor = new Processor();
-        $config = $processor->processConfiguration(new Configuration(), [
-            $data,
-        ]);
+        $config = $processor->processConfiguration(
+            new Configuration(),
+            [
+                $data,
+            ]
+        );
         $this->assertEquals($expected, $config);
     }
 
