@@ -2,12 +2,13 @@
 
 namespace TunaCMS\Bundle\FileBundle\Form;
 
-use A2lix\TranslationFormBundle\Form\Type\GedmoTranslationsType;
+use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use TunaCMS\Bundle\FileBundle\Entity\Attachment;
+use TunaCMS\Bundle\FileBundle\Entity\AttachmentTranslation;
 
 class AttachmentType extends AbstractType
 {
@@ -26,8 +27,7 @@ class AttachmentType extends AbstractType
                     'deletable' => false,
                 ]
             ])
-            ->add('translations', GedmoTranslationsType::class, [
-                'translatable_class' => Attachment::class,
+            ->add('translations', TranslationsType::class, [
                 'fields' => [
                     'title' => [
                         'required' => true,

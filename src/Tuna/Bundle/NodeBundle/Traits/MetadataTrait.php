@@ -1,5 +1,7 @@
 <?php
 
+// TODO remove
+
 namespace TunaCMS\Bundle\NodeBundle\Traits;
 
 use Doctrine\ORM\Mapping as ORM;

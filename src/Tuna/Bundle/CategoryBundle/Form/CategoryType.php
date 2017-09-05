@@ -2,7 +2,7 @@
 
 namespace TunaCMS\Bundle\CategoryBundle\Form;
 
-use A2lix\TranslationFormBundle\Form\Type\GedmoTranslationsType;
+use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -26,8 +26,7 @@ class CategoryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('translations', GedmoTranslationsType::class, [
-                'translatable_class' => $this->dataClass,
+            ->add('translations', TranslationsType::class, [
                 'fields' => [
                     'name' => [
                         'required' => true,

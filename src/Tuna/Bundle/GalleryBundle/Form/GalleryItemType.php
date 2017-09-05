@@ -2,7 +2,7 @@
 
 namespace TunaCMS\Bundle\GalleryBundle\Form;
 
-use A2lix\TranslationFormBundle\Form\Type\GedmoTranslationsType;
+use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -36,8 +36,7 @@ class GalleryItemType extends AbstractType
                             'placeholder' => 'ui.form.labels.video.url',
                         ],
                     ])
-                    ->add('translations', GedmoTranslationsType::class, [
-                        'translatable_class' => GalleryItem::class,
+                    ->add('translations', TranslationsType::class, [
                         'fields' => [
                             'name' => [
                                 'field_type' => 'text',
@@ -58,8 +57,7 @@ class GalleryItemType extends AbstractType
                             'deletable' => false,
                         ],
                     ])
-                    ->add('translations', GedmoTranslationsType::class, [
-                        'translatable_class' => GalleryItem::class,
+                    ->add('translations', TranslationsType::class, [
                         'fields' => [
                             'name' => [
                                 'label' => false,

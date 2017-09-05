@@ -2,11 +2,10 @@
 
 namespace TunaCMS\Bundle\FileBundle\Tests\Form;
 
-use A2lix\TranslationFormBundle\Form\EventListener\GedmoTranslationsListener;
-use A2lix\TranslationFormBundle\Form\Type\GedmoTranslationsType;
-use A2lix\TranslationFormBundle\Form\Type\TranslationsFieldsType;
-use A2lix\TranslationFormBundle\TranslationForm\GedmoTranslationForm;
-use Gedmo\Translatable\TranslatableListener;
+use A2lix\TranslationFormBundle\Form\EventListener\TranslationsListener;
+use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
+use A2lix\TranslationFormBundle\Locale\LocaleProviderInterface;
+use A2lix\TranslationFormBundle\TranslationForm\TranslationForm;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
@@ -18,45 +17,47 @@ use TunaCMS\Bundle\FileBundle\Form\AttachmentType;
 class AttachmentTypeTest extends TypeTestCase
 {
     /**
-     * @var TranslatableListener
-     */
-    private $translatableListener;
-
-    /**
-     * @var GedmoTranslationsListener
+     * @var TranslationsListener
      */
     private $translationsListener;
 
     /**
-     * @var GedmoTranslationForm
+     * @var LocaleProviderInterface
+     */
+    private $localeProvider;
+
+    /**
+     * @var TranslationForm
      */
     private $translationForm;
 
     protected function setUp()
     {
-        $this->translatableListener = $this->createMock(TranslatableListener::class);
-        $this->translationForm = $this->getMockBuilder(GedmoTranslationForm::class)
+        $this->localeProvider = $this->createMock(LocaleProviderInterface::class);
+        $this->localeProvider
+            ->method('getLocales')
+            ->will($this->returnValue(['en']))
+        ;
+        $this->localeProvider
+            ->method('getDefaultLocale')
+            ->will($this->returnValue('en'))
+        ;
+        $this->localeProvider
+            ->method('getRequiredLocales')
+            ->will($this->returnValue(['en']))
+        ;
+
+        $this->translationForm = $this->getMockBuilder(TranslationForm::class)
             ->disableOriginalConstructor()
             ->setMethods(
                 [
-                    'getGedmoTranslatableListener',
-                    'getTranslatableFields',
-                    'getChildrenOptions',
-                    'getTranslationClass',
+                    'getFieldsOptions',
                 ]
             )
             ->getMock()
         ;
         $this->translationForm
-            ->method('getGedmoTranslatableListener')
-            ->will($this->returnValue($this->translatableListener))
-        ;
-        $this->translationForm
-            ->method('getTranslatableFields')
-            ->will($this->returnValue([]))
-        ;
-        $this->translationForm
-            ->method('getChildrenOptions')
+            ->method('getFieldsOptions')
             ->will(
                 $this->returnValue(
                     [
@@ -70,33 +71,26 @@ class AttachmentTypeTest extends TypeTestCase
                 )
             )
         ;
-        $this->translationForm
-            ->method('getTranslationClass')
-            ->will($this->returnValue(AttachmentTranslation::class))
-        ;
 
-        $this->translationsListener = new GedmoTranslationsListener($this->translationForm);
+        $this->translationsListener = new TranslationsListener($this->translationForm);
 
         parent::setUp();
     }
 
     protected function getExtensions()
     {
-        $translationsType = new GedmoTranslationsType(
+        $translationsType = new TranslationsType(
             $this->translationsListener,
-            $this->translationForm,
-            ['en'],
-            true
+            $this->localeProvider
         );
 
-        $translationsFieldsType = new TranslationsFieldsType();
 
         return [
             new PreloadedExtension(
                 [
                     $translationsType,
-                    $translationsFieldsType,
-                ], []
+                ],
+                []
             ),
         ];
     }
@@ -104,7 +98,7 @@ class AttachmentTypeTest extends TypeTestCase
     public function testSubmitValidData()
     {
         $formData = [
-            'position' => 2,
+            'position' => '2',
             'file' => [
                 'path' => '/root/foo',
                 'filename' => 'test.bar',
@@ -124,14 +118,13 @@ class AttachmentTypeTest extends TypeTestCase
         $translation = new AttachmentTranslation();
         $translation
             ->setLocale('en')
-            ->setField('title')
-            ->setContent('foo')
+            ->setTitle('foo')
         ;
         $object = new Attachment();
         $object
+            ->addTranslation($translation)
             ->setPosition($formData['position'])
             ->setFile($file)
-            ->addTranslation($translation)
         ;
 
         $form = $this->factory->create(AttachmentType::class);

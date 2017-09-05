@@ -2,29 +2,32 @@
 
 namespace TunaCMS\Bundle\GalleryBundle\Entity;
 
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use TunaCMS\Bundle\FileBundle\Entity\Image;
 use TunaCMS\Bundle\VideoBundle\Entity\Video;
 
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
-use Doctrine\Common\Collections\ArrayCollection;
+use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 use Symfony\Component\Validator\Constraints as Assert;
-use TunaCMS\Bundle\FileBundle\Validator\Constraints as FileAssert;
 use TunaCMS\Bundle\GalleryBundle\Validator\Constraints as GalleryAssert;
+use TunaCMS\CommonComponent\Traits\TranslatableAccessorTrait;
 
 /**
- * PositionedImage
+ * GalleryItem
  *
  * @ORM\Table(name="gallery_items")
  * @ORM\Entity
- * @Gedmo\TranslationEntity(class="TunaCMS\Bundle\GalleryBundle\Entity\GalleryItemTranslation")
  * @GalleryAssert\GalleryItemFileNotNull
  *
  * @ORM\HasLifecycleCallbacks
+ *
+ * @method GalleryItem setName(string $name)
+ * @method string getName()
  */
 class GalleryItem
 {
+    use ORMBehaviors\Translatable\Translatable;
+    use TranslatableAccessorTrait;
+
     const VIDEO_TYPE = 'video';
     const IMAGE_TYPE = 'image';
 
@@ -77,36 +80,12 @@ class GalleryItem
     /**
      * @var string
      *
-     * @Gedmo\Translatable
-     * @ORM\Column(length=64, nullable=true, type="text")
-     */
-    private $name;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(length=10, nullable=false, type="string")
      */
     private $type;
 
-    /**
-     * @Assert\Valid
-     *
-     * @ORM\OneToMany(targetEntity="GalleryItemTranslation", mappedBy="object", cascade={"persist", "remove"})
-     */
-    private $translations;
-
-    /**
-     * @Gedmo\Locale
-     * Used locale to override Translation listener`s locale
-     * this is not a mapped field of entity metadata, just a simple property
-     */
-    private $locale;
-
     public function __construct($type = null)
     {
-        $this->translations = new ArrayCollection();
-
         if ($type !== null) {
             $this->setType($type);
         }
@@ -120,48 +99,6 @@ class GalleryItem
         if (null === $this->getPosition()) {
             $this->setPosition(0);
         }
-    }
-
-    public function setLocale($locale)
-    {
-        $this->locale = $locale;
-    }
-
-    public function getTranslations()
-    {
-        return $this->translations;
-    }
-
-    public function addTranslation(GalleryItemTranslation $translation)
-    {
-        if (!$this->translations->contains($translation) && $translation->getContent()) {
-            $translation->setObject($this);
-            $this->translations->add($translation);
-        }
-    }
-
-    /**
-     * Set translations
-     *
-     * @param ArrayCollection $translations
-     */
-    public function setTranslations($translations)
-    {
-        foreach ($translations as $translation) {
-            $translation->setObject($this);
-        }
-
-        $this->translations = $translations;
-    }
-
-    /**
-     * Remove translations
-     *
-     * @param GalleryItemTranslation $translations
-     */
-    public function removeTranslation(GalleryItemTranslation $translations)
-    {
-        $this->translations->removeElement($translations);
     }
 
     /**
@@ -295,28 +232,5 @@ class GalleryItem
     public function getGallery()
     {
         return $this->gallery;
-    }
-
-    /**
-     * Set name
-     *
-     * @param string $name
-     * @return GalleryItem
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
     }
 }

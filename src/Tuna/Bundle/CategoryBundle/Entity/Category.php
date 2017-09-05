@@ -2,24 +2,29 @@
 
 namespace TunaCMS\Bundle\CategoryBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Component\Validator\Constraints as Assert;
+use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use TunaCMS\CommonComponent\Traits\TranslatableAccessorTrait;
 
 /**
  * Category
  *
+ * @ORM\Entity
  * @ORM\Table(name="categories")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="string")
- * @Gedmo\TranslationEntity(class="TunaCMS\Bundle\CategoryBundle\Entity\CategoryTranslation")
  * @UniqueEntity("name")
- * @ORM\Entity
+ *
+ * @method Category setName(string $name)
+ * @method string getName()
  */
 class Category
 {
+    use ORMBehaviors\Translatable\Translatable;
+    use ORMBehaviors\Sluggable\Sluggable;
+    use TranslatableAccessorTrait;
+
     /**
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
@@ -30,33 +35,9 @@ class Category
     /**
      * @var string
      *
-     * @Gedmo\Translatable
-     * @ORM\Column(name="name", type="string", length=255, unique=true)
-     * @Assert\NotBlank()
-     */
-    protected $name;
-
-    /**
-     * @var string
-     *
-     * @Gedmo\Slug(fields={"name"})
      * @ORM\Column(type="string", unique=true)
      */
     protected $slug;
-
-    /**
-     * @var ArrayCollection
-     *
-     * @Assert\Valid
-     *
-     * @ORM\OneToMany(targetEntity="CategoryTranslation", mappedBy="object", cascade={"persist", "remove"})
-     */
-    protected $translations;
-
-    /**
-     * @Gedmo\Locale
-     */
-    protected $locale;
 
     /**
      * Category constructor.
@@ -65,8 +46,6 @@ class Category
      */
     public function __construct($name = null)
     {
-        $this->translations = new ArrayCollection();
-
         if ($name !== null) {
             $this->setName($name);
         }
@@ -103,54 +82,19 @@ class Category
     }
 
     /**
+     * TODO we need it? BC
+     *
+     * Set current location
+     *
      * @param $locale
+     *
+     * @return Category
      */
     public function setTranslatableLocale($locale)
     {
-        $this->locale = $locale;
-    }
-
-    /**
-     * @return ArrayCollection|CategoryTranslation[]
-     */
-    public function getTranslations()
-    {
-        return $this->translations;
-    }
-
-    /**
-     * @param CategoryTranslation $translation
-     *
-     * @return Category
-     */
-    public function addTranslation(CategoryTranslation $translation)
-    {
-        if (!$this->translations->contains($translation) && $translation->getContent()) {
-            $translation->setObject($this);
-            $this->translations->add($translation);
-        }
+        $this->setCurrentLocale($locale);
 
         return $this;
-    }
-
-    /**
-     * @param CategoryTranslation $translation
-     *
-     * @return Category
-     */
-    public function removeTranslation(CategoryTranslation $translation)
-    {
-        $this->translations->remove($translation);
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
     }
 
     /**
@@ -169,16 +113,8 @@ class Category
         return $this->slug;
     }
 
-    /**
-     * @param $name
-     *
-     * @return Category
-     */
-    public function setName($name)
+    public function getSluggableFields()
     {
-        $this->name = $name;
-
-        return $this;
+        return ['name'];
     }
-
 }

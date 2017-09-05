@@ -1,5 +1,7 @@
 <?php
 
+// TODO remove?
+
 namespace TunaCMS\Bundle\NodeBundle\Entity;
 
 use A2lix\TranslationFormBundle\Util\GedmoTranslatable;

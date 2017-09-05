@@ -2,7 +2,7 @@
 
 namespace TunaCMS\Bundle\NodeBundle\Form;
 
-use A2lix\TranslationFormBundle\Form\Type\GedmoTranslationsType;
+use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -12,7 +12,7 @@ class MetadataType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('translations', GedmoTranslationsType::class, [
+        $builder->add('translations', TranslationsType::class, [
             'translatable_class' => $options['data_class'],
             'label' => false,
             'fields' => [

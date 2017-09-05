@@ -95,12 +95,4 @@ class FileExtension extends \Twig_Extension
             throw new \InvalidArgumentException(sprintf('Upload path "%s" is not defined.', $name));
         }
     }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'tuna_cms_file_extension';
-    }
 }

@@ -2,7 +2,7 @@
 
 namespace TunaCMS\Bundle\NodeBundle\Form;
 
-use A2lix\TranslationFormBundle\Form\Type\GedmoTranslationsType;
+use A2lix\TranslationFormBundle\Form\Type\TranslationsType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -48,7 +48,7 @@ class NodeType extends AbstractType
         }
 
         $builder
-            ->add('translations', GedmoTranslationsType::class, [
+            ->add('translations', TranslationsType::class, [
                 'translatable_class' => $this->nodeModel,
                 'fields' => $this->getTranslatableFieldsConfig($builder->getData()),
                 'translation_domain' => 'tuna_admin',

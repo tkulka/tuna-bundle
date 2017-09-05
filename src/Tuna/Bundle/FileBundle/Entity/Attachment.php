@@ -3,24 +3,20 @@
 namespace TunaCMS\Bundle\FileBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
-use Gedmo\Mapping\Annotation as Gedmo;
-use TunaCMS\Bundle\FileBundle\Validator\Constraints as FileAssert;
+use Knp\DoctrineBehaviors\Model as ORMBehaviors;
+use TunaCMS\CommonComponent\Traits\TranslatableAccessorTrait;
 
 /**
  * Attachment
  *
- * @ORM\Table(name="attachments")
  * @ORM\Entity
- * @Gedmo\TranslationEntity(class="TunaCMS\Bundle\FileBundle\Entity\AttachmentTranslation")
- * @ORM\HasLifecycleCallbacks
+ * @ORM\Table(name="attachments")
+ *
+ * @method Attachment setTitle(string $title)
+ * @method string getTitle()
  */
 class Attachment extends AbstractAttachment
 {
-    /**
-     * @Assert\Valid
-     *
-     * @ORM\OneToMany(targetEntity="AttachmentTranslation", mappedBy="object", cascade={"persist", "remove"})
-     */
-    protected $translations;
+    use ORMBehaviors\Translatable\Translatable;
+    use TranslatableAccessorTrait;
 }
