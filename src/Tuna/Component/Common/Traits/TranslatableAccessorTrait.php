@@ -18,16 +18,17 @@ trait TranslatableAccessorTrait
         }
 
         $count = count($arguments);
+        $translate = $this->translate();
         if ($count > 0 || 'set' == substr($name, 0, 3)) {
             if ($count !== 1) {
                 throw new \RuntimeException(sprintf('The "%s" method requires exactly one argument.', $name));
             }
 
-            self::$propertyAccessor->setValue($this->translate(), $name, $arguments[0]);
+            self::$propertyAccessor->setValue($translate, $name, $arguments[0]);
 
             return $this;
         }
 
-        return self::$propertyAccessor->getValue($this->translate(), $name);
+        return self::$propertyAccessor->getValue($translate, $name);
     }
 }

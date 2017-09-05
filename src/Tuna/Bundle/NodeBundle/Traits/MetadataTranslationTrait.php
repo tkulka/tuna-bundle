@@ -1,20 +1,15 @@
 <?php
 
-// TODO remove
-
 namespace TunaCMS\Bundle\NodeBundle\Traits;
 
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 
-trait MetadataTrait
+trait MetadataTranslationTrait
 {
     /**
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
-     *
-     * @Gedmo\Translatable
      */
     protected $title;
 
@@ -22,8 +17,6 @@ trait MetadataTrait
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
-     *
-     * @Gedmo\Translatable
      */
     protected $description;
 
@@ -31,8 +24,6 @@ trait MetadataTrait
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
-     *
-     * @Gedmo\Translatable
      */
     protected $keywords;
 
@@ -40,8 +31,6 @@ trait MetadataTrait
      * @var boolean
      *
      * @ORM\Column(type="boolean")
-     *
-     * @Gedmo\Translatable
      */
     protected $indexable;
 

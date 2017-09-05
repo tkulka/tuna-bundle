@@ -3,7 +3,7 @@
 namespace TunaCMS\Bundle\FileBundle\Twig;
 
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
-use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
+use Symfony\Component\Asset\Packages;
 use TunaCMS\Bundle\FileBundle\Entity\AbstractFile;
 
 class FileExtension extends \Twig_Extension
@@ -14,9 +14,9 @@ class FileExtension extends \Twig_Extension
     private $paths;
 
     /**
-     * @var AssetsHelper
+     * @var Packages
      */
-    private $assetsHelper;
+    private $packages;
 
     /**
      * @var CacheManager
@@ -27,13 +27,13 @@ class FileExtension extends \Twig_Extension
      * FileExtension constructor.
      *
      * @param $paths
-     * @param AssetsHelper $assetsHelper
+     * @param Packages $packages
      * @param CacheManager $imagine
      */
-    public function __construct($paths, AssetsHelper $assetsHelper, CacheManager $imagine)
+    public function __construct($paths, Packages $packages, CacheManager $imagine)
     {
         $this->paths = $paths;
-        $this->assetsHelper = $assetsHelper;
+        $this->packages = $packages;
         $this->imagine = $imagine;
     }
 
@@ -59,7 +59,7 @@ class FileExtension extends \Twig_Extension
         if (!$file) {
             return '';
         }
-        return $this->assetsHelper->getUrl(sprintf('%s/%s',
+        return $this->packages->getUrl(sprintf('%s/%s',
             $this->getUploadDir($file->isUploaded() ? 'tmp_path' : 'upload_files_path'),
             $file->getPath()
         ));

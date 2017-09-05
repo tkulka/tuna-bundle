@@ -13,7 +13,6 @@ class MetadataType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('translations', TranslationsType::class, [
-            'translatable_class' => $options['data_class'],
             'label' => false,
             'fields' => [
                 'title' => [],

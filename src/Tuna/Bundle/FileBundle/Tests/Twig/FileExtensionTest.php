@@ -4,7 +4,7 @@ namespace TunaCMS\Bundle\FileBundle\Tests\Twig;
 
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use PHPUnit\Framework\TestCase;
-use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
+use Symfony\Component\Asset\Packages;
 use TunaCMS\Bundle\FileBundle\Entity\File;
 use TunaCMS\Bundle\FileBundle\Twig\FileExtension;
 
@@ -16,9 +16,9 @@ class FileExtensionTest extends TestCase
     private $imagineCacheManager;
 
     /**
-     * @var AssetsHelper
+     * @var Packages
      */
-    private $assetsHelper;
+    private $packages;
 
     /**
      * @var FileExtension
@@ -28,7 +28,7 @@ class FileExtensionTest extends TestCase
     protected function setUp()
     {
         $this->imagineCacheManager = $this->createMock(CacheManager::class);
-        $this->assetsHelper = $this->createMock(AssetsHelper::class);
+        $this->packages = $this->createMock(Packages::class);
 
         $this->extension = new FileExtension(
             [
@@ -36,7 +36,7 @@ class FileExtensionTest extends TestCase
                 'upload_files_path' => 'upload',
                 'tmp_path' => 'tmp',
             ],
-            $this->assetsHelper,
+            $this->packages,
             $this->imagineCacheManager
         );
     }
@@ -51,7 +51,7 @@ class FileExtensionTest extends TestCase
         $file = new File();
         $file->setPath('path/foo.bar');
 
-        $this->assetsHelper
+        $this->packages
             ->expects($this->once())
             ->method('getUrl')
             ->with('tmp/path/foo.bar')
@@ -70,7 +70,7 @@ class FileExtensionTest extends TestCase
         $file->setPath('path/foo.bar');
         $file->savePersistedPath();
 
-        $this->assetsHelper
+        $this->packages
             ->expects($this->once())
             ->method('getUrl')
             ->with('upload/path/foo.bar')
@@ -102,7 +102,7 @@ class FileExtensionTest extends TestCase
         $file = new File();
         $file->setPath('path/foo.bar');
 
-        $this->assetsHelper
+        $this->packages
             ->expects($this->once())
             ->method('getUrl')
             ->with('tmp/path/foo.bar')
@@ -128,7 +128,7 @@ class FileExtensionTest extends TestCase
             ->will($this->returnValue('/filter/tmp/path/foo.bar'))
         ;
 
-        $this->assetsHelper
+        $this->packages
             ->expects($this->once())
             ->method('getUrl')
             ->with('tmp/path/foo.bar')

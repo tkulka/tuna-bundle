@@ -13,13 +13,6 @@ interface TranslatableInterface
     public function getTranslations();
 
     /**
-     * @param ArrayCollection $translations
-     *
-     * @return TranslatableInterface
-     */
-    public function setTranslations(ArrayCollection $translations);
-
-    /**
      * @param AbstractPersonalTranslation $translation
      *
      * @return TranslatableInterface
@@ -34,9 +27,20 @@ interface TranslatableInterface
     public function removeTranslation($translation);
 
     /**
-     * @param $locale
-     *
-     * @return $this
+     * @param mixed $locale the current locale
      */
-    public function setTranslatableLocale($locale);
+    public function setCurrentLocale($locale);
+
+    /**
+     * Returns translation for specific locale (creates new one if doesn't exists).
+     * If requested translation doesn't exist, it will first try to fallback default locale
+     * If any translation doesn't exist, it will be added to newTranslations collection.
+     * In order to persist new translations, call mergeNewTranslations method, before flush
+     *
+     * @param string $locale The locale (en, ru, fr) | null If null, will try with current locale
+     * @param bool $fallbackToDefault Whether fallback to default locale
+     *
+     * @return TranslatableInterface
+     */
+    public function translate($locale = null, $fallbackToDefault = true);
 }

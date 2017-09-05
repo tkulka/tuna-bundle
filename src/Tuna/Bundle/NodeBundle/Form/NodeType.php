@@ -49,7 +49,6 @@ class NodeType extends AbstractType
 
         $builder
             ->add('translations', TranslationsType::class, [
-                'translatable_class' => $this->nodeModel,
                 'fields' => $this->getTranslatableFieldsConfig($builder->getData()),
                 'translation_domain' => 'tuna_admin',
             ]);

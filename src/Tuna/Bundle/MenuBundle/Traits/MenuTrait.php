@@ -2,8 +2,6 @@
 
 namespace TunaCMS\Bundle\MenuBundle\Traits;
 
-use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Component\Validator\Constraints as Assert;
 use TunaCMS\Bundle\MenuBundle\Model\MenuInterface;
 use TunaCMS\Bundle\NodeBundle\Model\NodeInterface;
 use Doctrine\ORM\Mapping as ORM;
@@ -32,30 +30,11 @@ trait MenuTrait
     protected $node;
 
     /**
-     * @var string|null
-     *
-     * @ORM\Column(type="string", nullable=true)
-     *
-     * @Assert\NotBlank
-     * @Gedmo\Translatable
-     */
-    protected $label;
-
-    /**
      * @var string
      *
      * @ORM\Column(type="string", length=10)
      */
     protected $linkType;
-
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(type="string", nullable=true)
-     *
-     * @Gedmo\Translatable
-     */
-    protected $url;
 
     public function menuTraitConstructor()
     {
@@ -125,26 +104,6 @@ trait MenuTrait
     }
 
     /**
-     * @return null|string
-     */
-    public function getLabel()
-    {
-        return $this->label;
-    }
-
-    /**
-     * @return $this
-     *
-     * @param null|string $label
-     */
-    public function setLabel($label = null)
-    {
-        $this->label = $label;
-
-        return $this;
-    }
-
-    /**
      * @return string
      */
     public function getLinkType()
@@ -160,26 +119,6 @@ trait MenuTrait
     public function setLinkType($linkType)
     {
         $this->linkType = $linkType;
-
-        return $this;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getUrl()
-    {
-        return $this->url;
-    }
-
-    /**
-     * @return $this
-     *
-     * @param null|string $url
-     */
-    public function setUrl($url = null)
-    {
-        $this->url = $url;
 
         return $this;
     }

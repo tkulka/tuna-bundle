@@ -33,13 +33,6 @@ class Category
     protected $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(type="string", unique=true)
-     */
-    protected $slug;
-
-    /**
      * Category constructor.
      *
      * @param null|string $name
@@ -82,37 +75,8 @@ class Category
     }
 
     /**
-     * TODO we need it? BC
-     *
-     * Set current location
-     *
-     * @param $locale
-     *
-     * @return Category
+     * {@inheritdoc}
      */
-    public function setTranslatableLocale($locale)
-    {
-        $this->setCurrentLocale($locale);
-
-        return $this;
-    }
-
-    /**
-     * @param mixed $slug
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-
     public function getSluggableFields()
     {
         return ['name'];

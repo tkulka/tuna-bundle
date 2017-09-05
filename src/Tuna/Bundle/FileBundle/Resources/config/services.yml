@@ -20,7 +20,7 @@ services:
         class: TunaCMS\Bundle\FileBundle\Twig\FileExtension
         arguments:
             - "%tuna_cms_file.file_manager%"
-            - "@templating.helper.assets"
+            - "@assets.packages"
             - "@liip_imagine.cache.manager"
         tags:
             - { name: twig.extension }

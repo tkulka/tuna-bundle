@@ -72,11 +72,11 @@ interface RouteInterface extends TreeInterface, TranslatableInterface
     public function getSlug();
 
     /**
-     * @param string|null $slug
+     * @param string $slug
      *
      * @return $this
      */
-    public function setSlug($slug = null);
+    public function setSlug($slug);
 
     /**
      * @return string

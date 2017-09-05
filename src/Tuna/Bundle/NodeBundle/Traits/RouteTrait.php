@@ -3,8 +3,6 @@
 namespace TunaCMS\Bundle\NodeBundle\Traits;
 
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Component\Validator\Constraints as Assert;
 use TunaCMS\Bundle\NodeBundle\Model\MetadataInterface;
 
 trait RouteTrait
@@ -29,41 +27,6 @@ trait RouteTrait
      * @ORM\Column(type="boolean")
      */
     protected $rootOfATree;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255, nullable=true)
-     *
-     * @Gedmo\Slug(handlers={
-     *      @Gedmo\SlugHandler(class="TunaCMS\Bundle\NodeBundle\Sluggable\Handler\TreeSlugHandler", options={
-     *          @Gedmo\SlugHandlerOption(name="parentRelationField", value="parent"),
-     *          @Gedmo\SlugHandlerOption(name="separator", value="/")
-     *      })
-     * }, fields={"name"})
-     * @Gedmo\Translatable
-     */
-    protected $slug;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string")
-     *
-     * @Assert\NotBlank
-     * @Gedmo\Translatable
-     *
-     */
-    protected $name;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(type="boolean")
-     *
-     * @Gedmo\Translatable
-     */
-    protected $published;
 
     /**
      * @var MetadataInterface
@@ -138,66 +101,6 @@ trait RouteTrait
     public function setRootOfATree($rootOfATree)
     {
         $this->rootOfATree = $rootOfATree;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
-
-    /**
-     * @return $this
-     *
-     * @param string $slug
-     */
-    public function setSlug($slug = null)
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @return $this
-     *
-     * @param string $name
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isPublished()
-    {
-        return $this->published;
-    }
-
-    /**
-     * @return $this
-     *
-     * @param bool $published
-     */
-    public function setPublished($published)
-    {
-        $this->published = $published;
 
         return $this;
     }
