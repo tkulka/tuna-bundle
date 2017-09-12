@@ -4,7 +4,7 @@ namespace TunaCMS\Bundle\FileBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\FileType as CoreFileType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
 
@@ -15,7 +15,7 @@ class UploadedFileType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('file', FileType::class, [
+        $builder->add('file', CoreFileType::class, [
             'error_bubbling' => true,
             'constraints' => [
                 new File([

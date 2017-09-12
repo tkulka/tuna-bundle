@@ -18,7 +18,7 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
             ->scalarNode('model')->cannotBeEmpty()->isRequired()->end()
-            ->scalarNode('form')->cannotBeEmpty()->defaultValue('TunaCMS\Bundle\MenuBundle\Form\MenuType')->end()
+            ->scalarNode('form')->cannotBeEmpty()->defaultValue('TunaCMS\Bundle\MenuBundle\Form\MenuType')->end() // TODO MenuType class not exists
             ->scalarNode('manager_class')->defaultValue('TunaCMS\Bundle\MenuBundle\Service\MenuManager')->end()
             ->end();
 

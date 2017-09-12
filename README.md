@@ -95,3 +95,9 @@ Here is full option config with defaults:
 ## Documentation
 
 You can find documentation [here](docs/index.md)
+
+## Tests
+
+```bash
+$ SYMFONY_DEPRECATIONS_HELPER=weak ./run-tests.sh
+```
