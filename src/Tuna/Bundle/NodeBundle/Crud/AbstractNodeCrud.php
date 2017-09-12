@@ -68,12 +68,12 @@ abstract class AbstractNodeCrud implements NodeCrudInterface
     {
         $nodeManager = $this->nodeManager;
 
-        /* @var $repository \TunaCMS\Bundle\NodeBundle\Repository\NodeRepositoryInterface */
+        /* @var $repository \TunaCMS\Bundle\NodeBundle\Repository\MenuRepositoryInterface */
         $repository = $this->em->getRepository($nodeManager->getModel());
         $roots = $repository->getMenuRoots();
 
         foreach ($roots as $root) {
-            $repository->loadNodeTree($root);
+            $repository->loadWholeNodeTree($root);
         }
 
         return $this->render($this->getTemplate('index', $request), [

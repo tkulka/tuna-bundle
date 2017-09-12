@@ -78,7 +78,7 @@ class MenuExtension extends \Twig_Extension
         return $this->twig->render(
             $options['template'],
             [
-                'menu' => $this->menuManager->getMenuTree($options['root']),
+                'menu' => $this->menuManager->getMenuTree($options['root'], $options['locale']),
                 'name' => $menuName,
                 'options' => $options,
             ]

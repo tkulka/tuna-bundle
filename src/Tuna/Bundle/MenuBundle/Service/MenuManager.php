@@ -5,8 +5,7 @@ namespace TunaCMS\Bundle\MenuBundle\Service;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\RequestStack;
 use TunaCMS\Bundle\MenuBundle\Model\MenuInterface;
-use TunaCMS\Bundle\MenuBundle\Entity\MenuRepository;
-use TunaCMS\Bundle\NodeBundle\Repository\NodeRepository;
+use TunaCMS\Bundle\MenuBundle\Repository\MenuRepositoryInterface;
 
 class MenuManager
 {
@@ -21,7 +20,7 @@ class MenuManager
     protected $formType;
 
     /**
-     * @var NodeRepository
+     * @var MenuRepositoryInterface
      */
     protected $repository;
 
@@ -103,22 +102,19 @@ class MenuManager
 
     /**
      * @param MenuInterface $root
-     * @param bool $filterUnpublished
      * @param string $locale
-     * @param string $defaultLocale
      *
-     * @return array
+     * @return MenuInterface
      */
-    public function getMenuTree(MenuInterface $root = null, $filterUnpublished = true, $locale = null, $defaultLocale = null)
+    public function getMenuTree(MenuInterface $root, $locale = null)
     {
         $locale = $locale ?: $this->locale;
-        $defaultLocale = $defaultLocale ?: $this->defaultLocale;
 
-        return $this->repository->loadNodeTree($root, $filterUnpublished, $locale, $defaultLocale);
+        return $this->repository->loadPublishedNodeTreeForLocale($root, $locale, $this->defaultLocale);
     }
 
     /**
-     * @return MenuRepository
+     * @return MenuRepositoryInterface
      */
     public function getRepository()
     {

@@ -2,19 +2,8 @@
 
 namespace TunaCMS\Bundle\NodeBundle\Repository;
 
-use TunaCMS\Bundle\NodeBundle\Model\NodeInterface;
+use TunaCMS\Bundle\MenuBundle\Repository\MenuRepositoryInterface;
 
-interface NodeRepositoryInterface
+interface NodeRepositoryInterface extends MenuRepositoryInterface
 {
-    /**
-     * @return NodeInterface[]
-     */
-    public function getMenuRoots();
-
-    /**
-     * @param NodeInterface|null $node
-     *
-     * @return NodeInterface
-     */
-    public function loadNodeTree(NodeInterface $node = null);
 }
