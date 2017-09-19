@@ -15,12 +15,13 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('tuna_cms_menu');
 
+        // @formatter:off
         $rootNode
             ->children()
-            ->scalarNode('model')->cannotBeEmpty()->isRequired()->end()
-            ->scalarNode('form')->cannotBeEmpty()->defaultValue('TunaCMS\Bundle\MenuBundle\Form\MenuType')->end() // TODO MenuType class not exists
-            ->scalarNode('manager_class')->defaultValue('TunaCMS\Bundle\MenuBundle\Service\MenuManager')->end()
+                ->scalarNode('model')->cannotBeEmpty()->isRequired()->end()
+                ->scalarNode('manager_class')->defaultValue('TunaCMS\Bundle\MenuBundle\Service\MenuManager')->end()
             ->end();
+        // @formatter:on
 
         return $treeBuilder;
     }

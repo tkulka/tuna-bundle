@@ -15,6 +15,5 @@ services:
         class: "%tuna_cms_menu.manager_class%"
         arguments:
             - "%tuna_cms_menu.model%"
-            - "%tuna_cms_menu.form%"
             - "@doctrine.orm.default_entity_manager"
             - "@request_stack"

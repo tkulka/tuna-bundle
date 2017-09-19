@@ -77,7 +77,7 @@ class Configuration implements ConfigurationInterface
                 ->children()
                     ->booleanNode('enabled')->defaultFalse()->end()
                     ->scalarNode('default_template')
-                        ->defaultValue('TunaCMSMenuBundle:Menu:render_menu.html.twig')
+                        ->defaultValue('@TunaCMSAdmin/menu/menu.html.twig')
                     ->end()
                     ->arrayNode('bundle')
                         ->prototype('scalar')->end()

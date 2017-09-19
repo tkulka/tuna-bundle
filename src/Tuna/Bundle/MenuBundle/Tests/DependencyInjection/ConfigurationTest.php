@@ -45,19 +45,16 @@ class ConfigurationTest extends TestCase
                 ],
                 [
                     'model' => 'Custom\Model\Custom',
-                    'form' => 'TunaCMS\Bundle\MenuBundle\Form\MenuType',
                     'manager_class' => 'TunaCMS\Bundle\MenuBundle\Service\MenuManager',
                 ],
             ],
             [
                 [
                     'model' => 'Custom\Model\Custom',
-                    'form' => 'Custom\Form\CustomMenuType',
                     'manager_class' => 'Custom\Service\CustomMenuManager',
                 ],
                 [
                     'model' => 'Custom\Model\Custom',
-                    'form' => 'Custom\Form\CustomMenuType',
                     'manager_class' => 'Custom\Service\CustomMenuManager',
                 ],
             ],

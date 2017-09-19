@@ -15,11 +15,6 @@ class MenuManager
     protected $class;
 
     /**
-     * @var string
-     */
-    protected $formType;
-
-    /**
      * @var MenuRepositoryInterface
      */
     protected $repository;
@@ -33,10 +28,9 @@ class MenuManager
 
     protected $locale;
 
-    public function __construct($class, $formType, EntityManager $entityManager, RequestStack $requestStack)
+    public function __construct($class, EntityManager $entityManager, RequestStack $requestStack)
     {
         $this->class = $class;
-        $this->formType = $formType;
         $this->entityManager = $entityManager;
 
         $this->repository = $this->entityManager->getRepository($this->class);
@@ -54,11 +48,6 @@ class MenuManager
     public function getMenuInstance()
     {
         return new $this->class();
-    }
-
-    public function getFormType()
-    {
-        return $this->formType;
     }
 
     public function getClassName()

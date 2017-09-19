@@ -1,0 +1,12 @@
+{% set menuHtml %}
+    {% for item in menu.children %}
+        {% include '@TunaCMSAdmin/menu/menu_item.html.twig' with { item: item } %}
+    {% endfor %}
+{% endset %}
+{% if options.wrap %}
+    <ul class="menu menu--{{ name|lower }}">{{ menuHtml }}</ul>
+{% else %}
+    {{ menuHtml }}
+{% endif %}
+
+
