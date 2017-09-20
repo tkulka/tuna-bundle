@@ -41,7 +41,7 @@ class NodeType extends AbstractType
                 'label' => 'Display children',
             ]);
 
-        if ($node->getLinkType() !== MenuInterface::LINK_EXTERNAL) {
+        if ($node->getLinkType() !== MenuInterface::LINK_URL) {
             $builder->add('metadata', MetadataType::class, [
                 'data_class' => $this->metadataModel,
             ]);
@@ -92,7 +92,7 @@ class NodeType extends AbstractType
             'slug' => ['display' => false],
         ];
 
-        if ($node->getLinkType() !== MenuInterface::LINK_EXTERNAL) {
+        if (!$node->isUrlLinkType()) {
             $config['url'] = ['display' => false];
         }
 

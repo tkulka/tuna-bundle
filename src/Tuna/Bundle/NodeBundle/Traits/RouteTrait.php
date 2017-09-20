@@ -33,10 +33,10 @@ trait RouteTrait
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true, unique=true)
      *
      * @Gedmo\Slug(handlers={
-     *      @Gedmo\SlugHandler(class="TunaCMS\Bundle\NodeBundle\Sluggable\Handler\TreeSlugHandler", options={
+     *      @Gedmo\SlugHandler(class="TunaCMS\Bundle\NodeBundle\Sluggable\Handler\NodeSlugHandler", options={
      *          @Gedmo\SlugHandlerOption(name="parentRelationField", value="parent"),
      *          @Gedmo\SlugHandlerOption(name="separator", value="/")
      *      })
@@ -80,6 +80,24 @@ trait RouteTrait
     public function getTypeName()
     {
         return (new \ReflectionClass($this))->getShortName();
+    }
+
+    public function setHomepage($label = null)
+    {
+        $this->setSlug('');
+
+        if ($label) {
+            $this
+                ->setName($label)
+                ->setLabel($label);
+        }
+
+        return $this;
+    }
+
+    public function isHomepage()
+    {
+        return $this->getSlug() === '';
     }
 
     /**

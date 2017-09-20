@@ -27,7 +27,8 @@ trait MenuTrait
     /**
      * @var NodeInterface|null
      *
-     * @ORM\OneToOne(targetEntity="TunaCMS\Bundle\NodeBundle\Model\NodeInterface", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="TunaCMS\Bundle\NodeBundle\Model\NodeInterface", cascade={"persist"})
+     * @ORM\JoinColumn(onDelete="SET NULL")
      */
     protected $node;
 
@@ -44,7 +45,7 @@ trait MenuTrait
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=10)
+     * @ORM\Column(type="string", length=100)
      */
     protected $linkType;
 
@@ -162,6 +163,30 @@ trait MenuTrait
         $this->linkType = $linkType;
 
         return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isUrlLinkType()
+    {
+        return $this->getLinkType() === NodeInterface::LINK_URL;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isExternalNodeLinkType()
+    {
+        return $this->isNodeLinkType() && $this->getNode() !== $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isNodeLinkType()
+    {
+        return $this->getLinkType() === NodeInterface::LINK_NODE;
     }
 
     /**

@@ -2,7 +2,7 @@
 {% extends 'TunaCMSAdminBundle::layout.html.twig' %}
 
 {% block content %}
-    {% embed 'TunaCMSAdminBundle:_partials/form:edit.html.twig' with { title: node.name, slug: node.slug } %}
+    {% embed 'TunaCMSAdminBundle:_partials/form:edit.html.twig' %}
         {% import '@TunaCMSAdmin/_partials/form/translations_macro.html.twig' as a2lix %}
 
         {% block header_checkboxes %}
@@ -13,8 +13,15 @@
             {% include "@TunaCMSAdmin/node/partials/options.html.twig" %}
         {% endblock %}
 
-        {% block body_content %}
-            {{ block('node_content') }}
+        {% block body %}
+            <h3 class="title-link">
+                <span class="title-link__title">{{ node.name|default }}</span>
+                <span class="title-link__link">{{ (node.isExternalLink ? node.url : '/' ~ node.slug)|default }}</span>
+            </h3>
+
+            {% block body_content %}
+                {{ block('node_content') }}
+            {% endblock %}
         {% endblock %}
     {% endembed %}
 {% endblock %}

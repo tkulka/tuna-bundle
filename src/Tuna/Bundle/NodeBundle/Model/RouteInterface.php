@@ -57,6 +57,18 @@ interface RouteInterface extends TreeInterface, TranslatableInterface
     public function getTypeName();
 
     /**
+     * @return boolean
+     */
+    public function isHomepage();
+
+    /**
+     * @param string|null $label
+     *
+     * @return $this
+     */
+    public function setHomepage($label = null);
+
+    /**
      * ##########################################
      *
      *          Translatable fields:

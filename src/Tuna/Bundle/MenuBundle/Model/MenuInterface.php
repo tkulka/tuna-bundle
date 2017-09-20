@@ -8,16 +8,10 @@ use TunaCMS\CommonComponent\Model\TranslatableInterface;
 
 interface MenuInterface extends TreeInterface, TranslatableInterface
 {
-    const LINK_EXTERNAL = 'external';
+    const LINK_URL = 'url';
     const LINK_NODE = 'node';
-    const LINK_TYPES = [
-        self::LINK_EXTERNAL,
-        self::LINK_NODE,
-    ];
 
     /**
-     * Tells if item links to something, or exists just for grouping other items
-     *
      * @return boolean
      */
     public function isClickable();
@@ -30,8 +24,6 @@ interface MenuInterface extends TreeInterface, TranslatableInterface
     public function setClickable($clickable);
 
     /**
-     * Tells if item should display its children
-     *
      * @return boolean
      */
     public function isDisplayingChildren();
@@ -44,8 +36,6 @@ interface MenuInterface extends TreeInterface, TranslatableInterface
     public function setDisplayingChildren($displayingChildren);
 
     /**
-     * In case your MenuInterface implementation implements also NodeInterface you can `return $this;` here and in `setNode()`
-     *
      * @return NodeInterface
      */
     public function getNode();
@@ -58,8 +48,6 @@ interface MenuInterface extends TreeInterface, TranslatableInterface
     public function setNode(NodeInterface $node = null);
 
     /**
-     * Tells if link is external (using `getUrl`), or connected with node (using `getNode`)
-     *
      * @return string
      */
     public function getLinkType();
@@ -72,12 +60,39 @@ interface MenuInterface extends TreeInterface, TranslatableInterface
     public function setLinkType($linkType);
 
     /**
+     * @return boolean
+     */
+    public function isUrlLinkType();
+
+    /**
+     * @return boolean
+     */
+    public function isExternalNodeLinkType();
+
+    /**
+     * @return boolean
+     */
+    public function isNodeLinkType();
+
+    /**
      * ##########################################
      *
      *          Translatable fields:
      *
      * ##########################################
      */
+
+    /**
+     * @return string
+     */
+    public function getSlug();
+
+    /**
+     * @return $this
+     *
+     * @param string $slug
+     */
+    public function setSlug($slug = null);
 
     /**
      * @return string|null

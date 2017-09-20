@@ -39,14 +39,4 @@ abstract class AbstractNode implements NodeInterface
     {
         $this->locale = $locale;
     }
-
-    public function getNode()
-    {
-        return $this;
-    }
-
-    public function setNode(NodeInterface $node = null)
-    {
-        return $this;
-    }
 }

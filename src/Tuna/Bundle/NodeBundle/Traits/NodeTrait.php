@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert; // workaround for a bug with annotations and nested traits
 use TunaCMS\Bundle\MenuBundle\Traits\MenuTrait;
+use TunaCMS\Bundle\NodeBundle\Model\NodeInterface;
 
 trait NodeTrait
 {
@@ -42,5 +43,18 @@ trait NodeTrait
         $this->menuTraitConstructor();
         $this->routeTraitConstructor();
         $this->setPublished(true);
+        $this->setNode($this);
+    }
+
+    public function getNode()
+    {
+        return $this->node;
+    }
+
+    public function setNode(NodeInterface $node = null)
+    {
+        $this->node = $node;
+
+        return $this;
     }
 }

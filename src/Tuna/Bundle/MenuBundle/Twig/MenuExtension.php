@@ -45,17 +45,19 @@ class MenuExtension extends \Twig_Extension
     }
 
     /**
-     * @param MenuInterface|array $menu Menu object or array containing 'externalUrl', 'slug', keys
+     * @param MenuInterface $menu
      *
      * @return string
      */
     public function getLink(MenuInterface $menu)
     {
-        if ($menu->getUrl()) {
+        if ($menu->isUrlLinkType()) {
             return $menu->getUrl();
-        } else {
-            return $this->router->generate('tuna_menu_item', ['slug' => $menu->getSlug()]); // todo getSlug method not exists in MenuInterface
         }
+
+        return $this->router->generate('tuna_menu_item', [
+            'slug' => $menu->getNode()->getSlug(),
+        ]);
     }
 
     public function renderMenu($menuName = 'Menu', array $options = [])
