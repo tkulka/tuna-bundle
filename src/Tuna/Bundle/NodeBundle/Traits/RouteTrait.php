@@ -38,11 +38,6 @@ trait RouteTrait
         return (new \ReflectionClass($this))->getShortName();
     }
 
-    public function isHomepage()
-    {
-        return $this->getSlug() === '';
-    }
-
     /**
      * @return null|string
      */

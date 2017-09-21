@@ -25,7 +25,6 @@ trait MenuTrait
      * @ORM\Column(type="string", nullable=true)
      *
      * @Assert\NotBlank
-     * @Gedmo\Translatable
      */
     protected $label;
 
@@ -64,7 +63,6 @@ trait MenuTrait
      *          @Gedmo\SlugHandlerOption(name="separator", value="/")
      *      })
      * }, fields={"name"})
-     * @Gedmo\Translatable
      */
     protected $slug;
 
@@ -79,8 +77,6 @@ trait MenuTrait
      * @var boolean
      *
      * @ORM\Column(type="boolean")
-     *
-     * @Gedmo\Translatable
      */
     protected $published;
 
@@ -193,11 +189,6 @@ trait MenuTrait
     public function isClickable()
     {
         return true;
-    }
-
-    public function isHomepage()
-    {
-        return $this->getSlug() === '';
     }
 
     public function isSluggable()

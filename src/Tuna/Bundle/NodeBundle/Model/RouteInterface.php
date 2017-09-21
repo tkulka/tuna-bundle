@@ -40,11 +40,6 @@ interface RouteInterface extends TreeInterface
     public function getTypeName();
 
     /**
-     * @return boolean
-     */
-    public function isHomepage();
-
-    /**
      * ##########################################
      *
      *          Translatable fields:

@@ -58,14 +58,4 @@ interface MenuInterface extends TreeInterface
      * @return boolean
      */
     public function isClickable();
-
-    /**
-     * @return boolean
-     */
-    public function isHomepage();
-
-    /**
-     * @return boolean
-     */
-    public function isSluggable();
 }

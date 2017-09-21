@@ -5,6 +5,7 @@ namespace TunaCMS\Bundle\MenuBundle\Sluggable\Handler;
 use Gedmo\Exception\InvalidArgumentException;
 use Gedmo\Sluggable\Handler\TreeSlugHandler;
 use TunaCMS\Bundle\MenuBundle\Model\MenuInterface;
+use TunaCMS\Bundle\MenuBundle\Model\SluggableInterface;
 
 class MenuSlugHandler extends TreeSlugHandler
 {
@@ -17,11 +18,11 @@ class MenuSlugHandler extends TreeSlugHandler
             return new InvalidArgumentException(sprintf('Invalid type for $object. Expected NodeInterface, but got %s', get_class($object)));
         }
 
-        if ($object->isHomepage()) {
+        if ($object->getSlug() === '') {
             return '';
         }
 
-        if (!$object->isSluggable()) {
+        if (!$object instanceof SluggableInterface) {
             return null;
         }
 

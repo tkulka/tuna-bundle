@@ -2,9 +2,7 @@
 
 namespace TunaCMS\Bundle\NodeBundle\Model;
 
-use TunaCMS\CommonComponent\Model\TranslatableInterface;
-
-interface MetadataInterface extends TranslatableInterface
+interface MetadataInterface
 {
     /**
      * @return string|null
