@@ -2,7 +2,10 @@
 
 namespace TunaCMS\Bundle\MenuBundle\Twig;
 
+use AppBundle\Entity\ExternalUrl;
+use AppBundle\Entity\MenuAlias;
 use Symfony\Component\Routing\RouterInterface;
+use TunaCMS\Bundle\MenuBundle\Model\MenuAliasInterface;
 use TunaCMS\Bundle\MenuBundle\Model\MenuInterface;
 use TunaCMS\Bundle\MenuBundle\Service\MenuManager;
 
@@ -51,12 +54,20 @@ class MenuExtension extends \Twig_Extension
      */
     public function getLink(MenuInterface $menu)
     {
-        if ($menu->isUrlLinkType()) {
+        if ($menu instanceof MenuAliasInterface) {
+            $menu = $menu->getTargetMenu();
+
+            if (!$menu) {
+                return null;
+            }
+        }
+
+        if ($menu instanceof ExternalUrl) {
             return $menu->getUrl();
         }
 
         return $this->router->generate('tuna_menu_item', [
-            'slug' => $menu->getNode()->getSlug(),
+            'slug' => $menu->getSlug(),
         ]);
     }
 

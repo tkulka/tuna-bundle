@@ -4,33 +4,20 @@ namespace TunaCMS\Bundle\MenuBundle\Traits;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
-use TunaCMS\Bundle\MenuBundle\Model\MenuInterface;
-use TunaCMS\Bundle\NodeBundle\Model\NodeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use TunaCMS\Bundle\NodeBundle\Traits\TreeTrait;
+use TunaCMS\CommonComponent\Traits\IdTrait;
 
 trait MenuTrait
 {
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(type="boolean")
-     */
-    protected $clickable;
+    use TreeTrait;
+    use IdTrait;
 
     /**
      * @var boolean
-     *
      * @ORM\Column(type="boolean")
      */
     protected $displayingChildren;
-
-    /**
-     * @var NodeInterface|null
-     *
-     * @ORM\ManyToOne(targetEntity="TunaCMS\Bundle\NodeBundle\Model\NodeInterface", cascade={"persist"})
-     * @ORM\JoinColumn(onDelete="SET NULL")
-     */
-    protected $node;
 
     /**
      * @var string|null
@@ -43,46 +30,72 @@ trait MenuTrait
     protected $label;
 
     /**
-     * @var string
+     * @var $this
      *
-     * @ORM\Column(type="string", length=100)
+     * @ORM\ManyToOne(targetEntity="TunaCMS\Bundle\MenuBundle\Model\MenuInterface", cascade={"persist"})
+     * @ORM\JoinColumn(name="tree_root", referencedColumnName="id", onDelete="CASCADE")
+     *
+     * @Gedmo\TreeRoot
      */
-    protected $linkType;
+    protected $root;
 
     /**
-     * @var string|null
+     * @ORM\ManyToOne(targetEntity="TunaCMS\Bundle\MenuBundle\Model\MenuInterface", inversedBy="children", cascade={"persist"})
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="CASCADE")
      *
-     * @ORM\Column(type="string", nullable=true)
+     * @Gedmo\TreeParent
+     */
+    protected $parent;
+
+    /**
+     * @ORM\OneToMany(targetEntity="TunaCMS\Bundle\MenuBundle\Model\MenuInterface", mappedBy="parent", cascade={"persist"})
+     * @ORM\OrderBy({"lft" = "ASC"})
+     */
+    protected $children;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255, nullable=true, unique=true)
+     *
+     * @Gedmo\Slug(handlers={
+     *      @Gedmo\SlugHandler(class="TunaCMS\Bundle\MenuBundle\Sluggable\Handler\MenuSlugHandler", options={
+     *          @Gedmo\SlugHandlerOption(name="parentRelationField", value="parent"),
+     *          @Gedmo\SlugHandlerOption(name="separator", value="/")
+     *      })
+     * }, fields={"name"})
+     * @Gedmo\Translatable
+     */
+    protected $slug;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $name;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean")
      *
      * @Gedmo\Translatable
      */
-    protected $url;
-
-    public function menuTraitConstructor()
-    {
-        $this->setClickable(true);
-        $this->setDisplayingChildren(true);
-        $this->setLinkType(MenuInterface::LINK_NODE);
-    }
+    protected $published;
 
     /**
-     * @return bool
-     */
-    public function isClickable()
-    {
-        return $this->clickable;
-    }
-
-    /**
-     * @return $this
+     * @var boolean
      *
-     * @param bool $clickable
+     * @ORM\Column(type="boolean")
      */
-    public function setClickable($clickable)
-    {
-        $this->clickable = $clickable;
+    protected $rootOfATree;
 
-        return $this;
+    public function menuConstructor()
+    {
+        $this->setDisplayingChildren(true);
+        $this->setRootOfATree(false);
+        $this->setPublished(true);
     }
 
     /**
@@ -101,26 +114,6 @@ trait MenuTrait
     public function setDisplayingChildren($displayingChildren)
     {
         $this->displayingChildren = $displayingChildren;
-
-        return $this;
-    }
-
-    /**
-     * @return NodeInterface|null
-     */
-    public function getNode()
-    {
-        return $this->node;
-    }
-
-    /**
-     * @return $this
-     *
-     * @param NodeInterface|null $node
-     */
-    public function setNode(NodeInterface $node = null)
-    {
-        $this->node = $node;
 
         return $this;
     }
@@ -148,19 +141,39 @@ trait MenuTrait
     /**
      * @return string
      */
-    public function getLinkType()
+    public function getSlug()
     {
-        return $this->linkType;
+        return $this->slug;
     }
 
     /**
      * @return $this
      *
-     * @param string $linkType
+     * @param string $slug
      */
-    public function setLinkType($linkType)
+    public function setSlug($slug = null)
     {
-        $this->linkType = $linkType;
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return $this
+     *
+     * @param string $name
+     */
+    public function setName($name = null)
+    {
+        $this->name = $name;
 
         return $this;
     }
@@ -168,43 +181,49 @@ trait MenuTrait
     /**
      * @return bool
      */
-    public function isUrlLinkType()
+    public function isPublished()
     {
-        return $this->getLinkType() === NodeInterface::LINK_URL;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isExternalNodeLinkType()
-    {
-        return $this->isNodeLinkType() && $this->getNode() !== $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isNodeLinkType()
-    {
-        return $this->getLinkType() === NodeInterface::LINK_NODE;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getUrl()
-    {
-        return $this->url;
+        return $this->published;
     }
 
     /**
      * @return $this
      *
-     * @param null|string $url
+     * @param bool $published
      */
-    public function setUrl($url = null)
+    public function setPublished($published)
     {
-        $this->url = $url;
+        $this->published = $published;
+
+        return $this;
+    }
+
+    public function isClickable()
+    {
+        return true;
+    }
+
+    public function isHomepage()
+    {
+        return $this->getSlug() === '';
+    }
+
+    /**
+     * @return bool
+     */
+    public function isRootOfATree()
+    {
+        return $this->rootOfATree;
+    }
+
+    /**
+     * @return $this
+     *
+     * @param bool $rootOfATree
+     */
+    public function setRootOfATree($rootOfATree)
+    {
+        $this->rootOfATree = $rootOfATree;
 
         return $this;
     }

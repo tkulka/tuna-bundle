@@ -2,9 +2,7 @@
 
 namespace TunaCMS\Bundle\NodeBundle\Model;
 
-use TunaCMS\CommonComponent\Model\TranslatableInterface;
-
-interface RouteInterface extends TreeInterface, TranslatableInterface
+interface RouteInterface extends TreeInterface
 {
     /**
      * Name of the controller if you want to call it explicitly (e.g. `AppBundle:Page:showItem`)
@@ -35,21 +33,6 @@ interface RouteInterface extends TreeInterface, TranslatableInterface
     public function setActionTemplate($template = null);
 
     /**
-     * Force field to have `null` slug
-     * (important, because without this flag roots could have slugs of `''`, `'-1'`, `'-2'` to ensure uniqueness)
-     *
-     * @return boolean
-     */
-    public function isRootOfATree();
-
-    /**
-     * @param boolean $rootOfATree
-     *
-     * @return $this
-     */
-    public function setRootOfATree($rootOfATree);
-
-    /**
      * Name of Node implementation, e.g. `Page`, `Node`, `News`, `Product`
      *
      * @return string
@@ -60,13 +43,6 @@ interface RouteInterface extends TreeInterface, TranslatableInterface
      * @return boolean
      */
     public function isHomepage();
-
-    /**
-     * @param string|null $label
-     *
-     * @return $this
-     */
-    public function setHomepage($label = null);
 
     /**
      * ##########################################
@@ -89,18 +65,6 @@ interface RouteInterface extends TreeInterface, TranslatableInterface
      * @return $this
      */
     public function setSlug($slug = null);
-
-    /**
-     * @return string
-     */
-    public function getName();
-
-    /**
-     * @param string $name
-     *
-     * @return $this
-     */
-    public function setName($name);
 
     /**
      * @return boolean

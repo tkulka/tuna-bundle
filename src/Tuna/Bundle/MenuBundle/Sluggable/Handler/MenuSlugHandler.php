@@ -1,19 +1,20 @@
 <?php
 
-namespace TunaCMS\Bundle\NodeBundle\Sluggable\Handler;
+namespace TunaCMS\Bundle\MenuBundle\Sluggable\Handler;
 
+use AppBundle\Entity\MenuAlias;
 use Gedmo\Exception\InvalidArgumentException;
-use Gedmo\Sluggable\Handler\TreeSlugHandler as BaseTreeSlugHandler;
-use TunaCMS\Bundle\NodeBundle\Model\NodeInterface;
+use Gedmo\Sluggable\Handler\TreeSlugHandler;
+use TunaCMS\Bundle\MenuBundle\Model\MenuInterface;
 
-class NodeSlugHandler extends BaseTreeSlugHandler
+class MenuSlugHandler extends TreeSlugHandler
 {
     /**
      * {@inheritDoc}
      */
     public function transliterate($text, $separator, $object)
     {
-        if (!$object instanceof NodeInterface) {
+        if (!$object instanceof MenuInterface) {
             return new InvalidArgumentException(sprintf('Invalid type for $object. Expected NodeInterface, but got %s', get_class($object)));
         }
 
@@ -21,11 +22,11 @@ class NodeSlugHandler extends BaseTreeSlugHandler
             return '';
         }
 
-        if ($object->isRootOfATree()) {
+        if ($object instanceof MenuAlias) {
             return null;
         }
 
-        if ($object->isUrlLinkType() || $object->isExternalNodeLinkType()) {
+        if ($object->isRootOfATree()) {
             return null;
         }
 

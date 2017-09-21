@@ -36,7 +36,6 @@ class TunaCMSNodeExtension extends Extension implements PrependExtensionInterfac
                 'resolve_target_entities' => [
                     'TunaCMS\Bundle\NodeBundle\Model\NodeInterface' => $config['node_types']['node']['model'],
                     'TunaCMS\Bundle\NodeBundle\Model\MetadataInterface' => $config['metadata']['model'],
-                    'TunaCMS\Bundle\MenuBundle\Model\MenuInterface' => $config['node_types']['node']['model'],
                 ],
             ],
         ];

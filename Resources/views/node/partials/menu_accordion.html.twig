@@ -1,11 +1,10 @@
 {# TODO: handle errors in accordion #}
 {% embed '@TunaCMSAdmin/_partials/accordion.html.twig' with {
 label: 'Menu',
-display_error: not form.translations.defaultLocale[app.request.defaultLocale].label.vars.valid
+display_error: false
 } %}
     {% block content %}
-        {{ a2lix.translations(form.translations, ['label', 'url']) }}
-        {{ form_row(form.clickable) }}
+        {{ form_row(form.label) }}
         {{ form_row(form.displayingChildren) }}
     {% endblock %}
 {% endembed %}

@@ -16,7 +16,7 @@
         {% block body %}
             <h3 class="title-link">
                 <span class="title-link__title">{{ node.name|default }}</span>
-                <span class="title-link__link">{{ (node.isExternalLink ? node.url : '/' ~ node.slug)|default }}</span>
+                <span class="title-link__link">{{ (node.isUrlLinkType ? node.url : '/' ~ node.slug)|default }}</span>
             </h3>
 
             {% block body_content %}

@@ -2,27 +2,10 @@
 
 namespace TunaCMS\Bundle\MenuBundle\Model;
 
-use TunaCMS\Bundle\NodeBundle\Model\NodeInterface;
 use TunaCMS\Bundle\NodeBundle\Model\TreeInterface;
-use TunaCMS\CommonComponent\Model\TranslatableInterface;
 
-interface MenuInterface extends TreeInterface, TranslatableInterface
+interface MenuInterface extends TreeInterface
 {
-    const LINK_URL = 'url';
-    const LINK_NODE = 'node';
-
-    /**
-     * @return boolean
-     */
-    public function isClickable();
-
-    /**
-     * @param boolean $clickable
-     *
-     * @return $this
-     */
-    public function setClickable($clickable);
-
     /**
      * @return boolean
      */
@@ -36,51 +19,16 @@ interface MenuInterface extends TreeInterface, TranslatableInterface
     public function setDisplayingChildren($displayingChildren);
 
     /**
-     * @return NodeInterface
-     */
-    public function getNode();
-
-    /**
-     * @param NodeInterface|null $node
-     *
-     * @return $this
-     */
-    public function setNode(NodeInterface $node = null);
-
-    /**
      * @return string
      */
-    public function getLinkType();
+    public function getName();
 
     /**
-     * @param string $linkType
-     *
      * @return $this
-     */
-    public function setLinkType($linkType);
-
-    /**
-     * @return boolean
-     */
-    public function isUrlLinkType();
-
-    /**
-     * @return boolean
-     */
-    public function isExternalNodeLinkType();
-
-    /**
-     * @return boolean
-     */
-    public function isNodeLinkType();
-
-    /**
-     * ##########################################
      *
-     *          Translatable fields:
-     *
-     * ##########################################
+     * @param string $name
      */
+    public function setName($name = null);
 
     /**
      * @return string
@@ -107,14 +55,27 @@ interface MenuInterface extends TreeInterface, TranslatableInterface
     public function setLabel($label = null);
 
     /**
-     * @return string|null
+     * @return boolean
      */
-    public function getUrl();
+    public function isClickable();
 
     /**
-     * @param string|null $url
+     * @return boolean
+     */
+    public function isHomepage();
+
+    /**
+     * Force field to have `null` slug
+     * (important, because without this flag roots could have slugs of `''`, `'-1'`, `'-2'` to ensure uniqueness)
+     *
+     * @return boolean
+     */
+    public function isRootOfATree();
+
+    /**
+     * @param boolean $rootOfATree
      *
      * @return $this
      */
-    public function setUrl($url = null);
+    public function setRootOfATree($rootOfATree);
 }
