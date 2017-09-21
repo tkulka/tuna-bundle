@@ -84,17 +84,9 @@ trait MenuTrait
      */
     protected $published;
 
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(type="boolean")
-     */
-    protected $rootOfATree;
-
     public function menuConstructor()
     {
         $this->setDisplayingChildren(true);
-        $this->setRootOfATree(false);
         $this->setPublished(true);
     }
 
@@ -208,23 +200,8 @@ trait MenuTrait
         return $this->getSlug() === '';
     }
 
-    /**
-     * @return bool
-     */
-    public function isRootOfATree()
+    public function isSluggable()
     {
-        return $this->rootOfATree;
-    }
-
-    /**
-     * @return $this
-     *
-     * @param bool $rootOfATree
-     */
-    public function setRootOfATree($rootOfATree)
-    {
-        $this->rootOfATree = $rootOfATree;
-
-        return $this;
+        return false;
     }
 }

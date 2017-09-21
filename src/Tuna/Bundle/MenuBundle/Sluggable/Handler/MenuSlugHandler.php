@@ -2,7 +2,6 @@
 
 namespace TunaCMS\Bundle\MenuBundle\Sluggable\Handler;
 
-use AppBundle\Entity\MenuAlias;
 use Gedmo\Exception\InvalidArgumentException;
 use Gedmo\Sluggable\Handler\TreeSlugHandler;
 use TunaCMS\Bundle\MenuBundle\Model\MenuInterface;
@@ -22,11 +21,7 @@ class MenuSlugHandler extends TreeSlugHandler
             return '';
         }
 
-        if ($object instanceof MenuAlias) {
-            return null;
-        }
-
-        if ($object->isRootOfATree()) {
+        if (!$object->isSluggable()) {
             return null;
         }
 

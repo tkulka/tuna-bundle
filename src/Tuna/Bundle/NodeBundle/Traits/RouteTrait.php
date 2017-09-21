@@ -3,7 +3,6 @@
 namespace TunaCMS\Bundle\NodeBundle\Traits;
 
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 use TunaCMS\Bundle\NodeBundle\Model\MetadataInterface;
 
 trait RouteTrait

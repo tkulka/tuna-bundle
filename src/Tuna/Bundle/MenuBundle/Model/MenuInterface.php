@@ -65,17 +65,7 @@ interface MenuInterface extends TreeInterface
     public function isHomepage();
 
     /**
-     * Force field to have `null` slug
-     * (important, because without this flag roots could have slugs of `''`, `'-1'`, `'-2'` to ensure uniqueness)
-     *
      * @return boolean
      */
-    public function isRootOfATree();
-
-    /**
-     * @param boolean $rootOfATree
-     *
-     * @return $this
-     */
-    public function setRootOfATree($rootOfATree);
+    public function isSluggable();
 }
