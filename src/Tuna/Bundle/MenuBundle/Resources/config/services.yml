@@ -14,6 +14,18 @@ services:
     tuna_cms_menu.manager:
         class: "%tuna_cms_menu.manager_class%"
         arguments:
-            - "%tuna_cms_menu.model%"
+            - "%tuna_cms_menu.types.menu.model%"
             - "@doctrine.orm.default_entity_manager"
             - "@request_stack"
+
+    tuna_cms_menu.request_param_converter.entity_interface_converter:
+        class: TunaCMS\AdminBundle\Request\ParamConverter\EntityInterfaceConverter
+        tags:
+            - { name: request.param_converter, priority: 100 }
+        arguments:
+            - "@doctrine"
+            - TunaCMS\Bundle\MenuBundle\Model\MenuInterface
+            - "%tuna_cms_menu.types.menu.model%"
+
+    tuna_cms_bundle_menu.factory.menu_factory:
+        class: TunaCMS\Bundle\MenuBundle\Factory\MenuFactory

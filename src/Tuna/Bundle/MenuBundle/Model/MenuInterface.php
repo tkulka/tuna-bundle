@@ -3,8 +3,9 @@
 namespace TunaCMS\Bundle\MenuBundle\Model;
 
 use TunaCMS\Bundle\NodeBundle\Model\TreeInterface;
+use TunaCMS\CommonComponent\Model\IdInterface;
 
-interface MenuInterface extends TreeInterface
+interface MenuInterface extends TreeInterface, IdInterface
 {
     /**
      * @return boolean

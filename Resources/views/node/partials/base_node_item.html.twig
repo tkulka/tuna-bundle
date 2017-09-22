@@ -54,7 +54,8 @@
         {% if item.children|length %}
             <ul>
                 {% for child in item.children %}
-                    {% include resolve_node_template(child) with { item: child } %}
+                    {% include '@TunaCMSAdmin/node/partials/base_node_item.html.twig' with { item: child } %}
+                    {#{% include resolve_node_template(child) with { item: child } %}#}
                 {% endfor %}
             </ul>
         {% endif %}

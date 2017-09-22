@@ -2,13 +2,15 @@
 
 namespace TunaCMS\Bundle\MenuBundle\DependencyInjection;
 
+use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
+use TunaCMS\CommonComponent\Helper\ArrayHelper;
 
-class TunaCMSMenuExtension extends Extension implements PrependExtensionInterface
+class TunaCMSMenuExtension extends Extension implements PrependExtensionInterface, CompilerPassInterface
 {
     /**
      * {@inheritDoc}
@@ -18,9 +20,7 @@ class TunaCMSMenuExtension extends Extension implements PrependExtensionInterfac
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        foreach ($config as $key => $value) {
-            $container->setParameter('tuna_cms_menu.'.$key, $value);
-        }
+        $this->setParameters($container, $config);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
@@ -32,14 +32,41 @@ class TunaCMSMenuExtension extends Extension implements PrependExtensionInterfac
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
+        if (!array_key_exists('menu', $config['types'])) {
+            throw new \LogicException('You have to provide `tuna_cms_menu.types.menu` configuration.');
+        }
+
         $doctrineConfig = [
             'orm' => [
                 'resolve_target_entities' => [
-                    'TunaCMS\Bundle\MenuBundle\Model\MenuInterface' => $config['model'],
+                    'TunaCMS\Bundle\MenuBundle\Model\MenuInterface' => $config['types']['menu']['model'],
                 ],
             ],
         ];
 
         $container->prependExtensionConfig('doctrine', $doctrineConfig);
+    }
+
+    public function process(ContainerBuilder $container)
+    {
+        $menuFactory = $container->get('tuna_cms_bundle_menu.factory.menu_factory');
+        // bullshiet, to trzeba jakoś inaczej zrobić..
+    }
+
+    /**
+     * @param ContainerBuilder $container
+     * @param array $config
+     */
+    protected function setParameters(ContainerBuilder $container, array $config)
+    {
+        $config += ArrayHelper::flattenArray($config);
+        foreach ($config as $key => $value) {
+            $container->setParameter('tuna_cms_menu.'.$key, $value);
+        }
+    }
+
+    protected function registerMenuTypes($config)
+    {
+
     }
 }

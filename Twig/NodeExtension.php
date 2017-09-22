@@ -2,7 +2,7 @@
 
 namespace TunaCMS\AdminBundle\Twig;
 
-use TunaCMS\Bundle\NodeBundle\Model\NodeInterface;
+use TunaCMS\Bundle\MenuBundle\Model\MenuInterface;
 use TunaCMS\Bundle\NodeBundle\NodeManager;
 
 class NodeExtension extends \Twig_Extension
@@ -25,12 +25,12 @@ class NodeExtension extends \Twig_Extension
         ];
     }
 
-    public function resolveNodeTemplate(NodeInterface $node = null, $template = 'node_item')
+    public function resolveNodeTemplate(MenuInterface $node = null, $template = 'node_item')
     {
         return $this->nodeManager->getTemplate($template, $node);
     }
 
-    public function resolveNodeType(NodeInterface $node = null)
+    public function resolveNodeType(MenuInterface $node = null)
     {
         return $this->nodeManager->resolveType($node);
     }

@@ -18,8 +18,23 @@ class Configuration implements ConfigurationInterface
         // @formatter:off
         $rootNode
             ->children()
-                ->scalarNode('model')->cannotBeEmpty()->isRequired()->end()
                 ->scalarNode('manager_class')->defaultValue('TunaCMS\Bundle\MenuBundle\Service\MenuManager')->end()
+                ->arrayNode('types')
+                    ->useAttributeAsKey('name')
+                    ->prototype('array')
+                        ->children()
+                            ->scalarNode('model')->cannotBeEmpty()->isRequired()->end()
+                            ->scalarNode('form')->defaultValue('TunaCMS\Bundle\MenuBundle\Form\MenuType')->end()
+                            ->arrayNode('templates')
+                                ->addDefaultsIfNotSet()
+                                ->children()
+                                    ->scalarNode('tree_item')->defaultValue('@TunaCMSMenu/tree_item.html.twig')->end()
+                                    ->scalarNode('edit')->defaultValue('@TunaCMSMenu/edit.html.twig')->end()
+                                ->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
             ->end();
         // @formatter:on
 

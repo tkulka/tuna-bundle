@@ -2,7 +2,9 @@
 
 namespace TunaCMS\Bundle\NodeBundle\Model;
 
-interface NodeInterface extends RouteInterface
+use TunaCMS\Bundle\MenuBundle\Model\MenuInterface;
+
+interface NodeInterface extends RouteInterface, MenuInterface
 {
     /**
      * @return integer

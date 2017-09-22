@@ -4,10 +4,10 @@ namespace TunaCMS\Bundle\MenuBundle\Repository;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Query\Expr;
-use Gedmo\Tree\Entity\Repository\NestedTreeRepository as BaseNestedTreeRepository;
+use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 use TunaCMS\Bundle\MenuBundle\Model\MenuInterface;
 
-class MenuRepository extends BaseNestedTreeRepository implements MenuRepositoryInterface
+class MenuRepository extends NestedTreeRepository implements MenuRepositoryInterface
 {
     const OBJECT_KEY = '__object';
     const CHILDREN_KEY = '__children';

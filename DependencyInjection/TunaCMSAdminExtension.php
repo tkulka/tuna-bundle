@@ -7,6 +7,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use TunaCMS\CommonComponent\Helper\ArrayHelper;
 
 class TunaCMSAdminExtension extends Extension implements PrependExtensionInterface
 {
@@ -58,31 +59,11 @@ class TunaCMSAdminExtension extends Extension implements PrependExtensionInterfa
     {
         $container->setParameter('tuna_cms_admin', $config);
 
-        $config += $this->flattenArray($config);
+        $config += ArrayHelper::flattenArray($config);
         foreach ($config as $key => $value) {
             $container->setParameter('tuna_cms_admin.'.$key, $value);
         }
         $container->setParameter('tuna_cms_admin.menu_builder.class', $config['menu_builder']);
-    }
-
-    /**
-     * @param $array
-     * @param string $prefix
-     *
-     * @return array
-     */
-    protected function flattenArray($array, $prefix = '')
-    {
-        $result = [];
-        foreach ($array as $key => $value) {
-            if (is_array($value)) {
-                $result = $result + $this->flattenArray($value, $prefix.$key.'.');
-            } else {
-                $result[$prefix.$key] = is_bool($value) ? ($value ? 1 : 0) : $value;
-            }
-        }
-
-        return $result;
     }
 
     /**

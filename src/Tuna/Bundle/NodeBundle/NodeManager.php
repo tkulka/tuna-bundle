@@ -2,6 +2,7 @@
 
 namespace TunaCMS\Bundle\NodeBundle;
 
+use TunaCMS\Bundle\MenuBundle\Model\MenuInterface;
 use TunaCMS\Bundle\NodeBundle\Model\NodeInterface;
 
 class NodeManager
@@ -58,7 +59,7 @@ class NodeManager
         return $this->getTypeConfigField($nodeType, 'templates')[$template];
     }
 
-    public function resolveType(NodeInterface $node)
+    public function resolveType(MenuInterface $node)
     {
         $className = get_class($node);
         $map = $this->getNodesMap();

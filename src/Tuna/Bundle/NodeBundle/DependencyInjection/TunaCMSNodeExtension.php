@@ -7,6 +7,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
+use TunaCMS\CommonComponent\Helper\ArrayHelper;
 
 class TunaCMSNodeExtension extends Extension implements PrependExtensionInterface
 {
@@ -49,29 +50,9 @@ class TunaCMSNodeExtension extends Extension implements PrependExtensionInterfac
      */
     protected function setParameters(ContainerBuilder $container, array $config)
     {
-        $config += $this->flattenArray($config);
+        $config += ArrayHelper::flattenArray($config);
         foreach ($config as $key => $value) {
             $container->setParameter('tuna_cms_node.'.$key, $value);
         }
-    }
-
-    /**
-     * @param $array
-     * @param string $prefix
-     *
-     * @return array
-     */
-    protected function flattenArray($array, $prefix = '')
-    {
-        $result = [];
-        foreach ($array as $key => $value) {
-            if (is_array($value)) {
-                $result = $result + $this->flattenArray($value, $prefix.$key.'.');
-            } else {
-                $result[$prefix.$key] = is_bool($value) ? ($value ? 1 : 0) : $value;
-            }
-        }
-
-        return $result;
     }
 }
