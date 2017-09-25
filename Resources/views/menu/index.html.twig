@@ -4,10 +4,10 @@
 {% block main_class %}bg-lightgray{% endblock %}
 
 {% block content %}
-    <div class="row admin-container edit-menu-tree" data-save-order-url="{{ path('tunacms_admin_node_saveorder') }}">
+    <div class="row admin-container edit-menu-tree" data-save-order-url="{{ path('tunacms_admin_menu_saveorder') }}">
         <div class="col-sm-12">
             <div class="admin-list">
-                {% for node in nodes %}
+                {% for menu in menu_items %}
                     <div class="sortable-wrapper">
                         <div class="action-buttons">
                             <a href="#" data-action="save-order" class="btn btn-primary btn-wide inactive">
@@ -15,7 +15,7 @@
                             </a>
                         </div>
                         <ul data-menu-tree>
-                            {% include resolve_node_template(node) with { item: node } %}
+                            {% include '@TunaCMSAdmin/menu/menu_item.html.twig' with { item: menu } %}
                         </ul>
                     </div>
                 {% endfor %}

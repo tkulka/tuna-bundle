@@ -3,8 +3,8 @@
 namespace TunaCMS\Bundle\MenuBundle\Twig;
 
 use AppBundle\Entity\ExternalUrl;
-use AppBundle\Entity\MenuAlias;
 use Symfony\Component\Routing\RouterInterface;
+use TunaCMS\Bundle\MenuBundle\Factory\MenuFactory;
 use TunaCMS\Bundle\MenuBundle\Model\MenuAliasInterface;
 use TunaCMS\Bundle\MenuBundle\Model\MenuInterface;
 use TunaCMS\Bundle\MenuBundle\Service\MenuManager;
@@ -22,6 +22,11 @@ class MenuExtension extends \Twig_Extension
     protected $menuManager;
 
     /**
+     * @var MenuFactory
+     */
+    protected $menuFactory;
+
+    /**
      * @var RouterInterface
      */
     protected $router;
@@ -29,21 +34,27 @@ class MenuExtension extends \Twig_Extension
     /**
      * @var string
      */
-    protected $defaultTemplate;
+    protected $templates;
 
-    public function __construct(\Twig_Environment $twig, MenuManager $menuManager, RouterInterface $router, $defaultTemplate)
+    public function __construct(\Twig_Environment $twig, MenuManager $menuManager, MenuFactory $menuFactory, RouterInterface $router, $templates)
     {
         $this->twig = $twig;
         $this->menuManager = $menuManager;
+        $this->menuFactory = $menuFactory;
         $this->router = $router;
-        $this->defaultTemplate = $defaultTemplate;
+        $this->templates = $templates;
     }
 
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('tuna_menu_render', [$this, 'renderMenu'], ['is_safe' => ['html' => true]]),
+            new \Twig_SimpleFunction('tuna_menu_render', [$this, 'renderMenu'], [
+                'is_safe' => [
+                    'html' => true,
+                ],
+            ]),
             new \Twig_SimpleFunction('tuna_menu_getLink', [$this, 'getLink']),
+            new \Twig_SimpleFunction('resolve_menu_type', [$this, 'resolveMenuType']),
         ];
     }
 
@@ -83,18 +94,22 @@ class MenuExtension extends \Twig_Extension
 
         $options += [
             'wrap' => true,
-            'template' => $this->defaultTemplate,
+            'templates' => $this->templates,
             'root' => isset($rootFromName) ? $rootFromName : $options['root'],
-            'locale' => null,
         ];
 
         return $this->twig->render(
-            $options['template'],
+            $options['templates']['menu'],
             [
-                'menu' => $this->menuManager->getMenuTree($options['root'], $options['locale']),
+                'menu' => $this->menuManager->getMenuTree($options['root']),
                 'name' => $menuName,
                 'options' => $options,
             ]
         );
+    }
+
+    public function resolveMenuType(MenuInterface $menu)
+    {
+        return $this->menuFactory->getTypeName($menu);
     }
 }

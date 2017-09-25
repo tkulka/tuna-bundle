@@ -5,7 +5,6 @@ namespace TunaCMS\Bundle\MenuBundle\Sluggable\Handler;
 use Gedmo\Exception\InvalidArgumentException;
 use Gedmo\Sluggable\Handler\TreeSlugHandler;
 use TunaCMS\Bundle\MenuBundle\Model\MenuInterface;
-use TunaCMS\Bundle\MenuBundle\Model\SluggableInterface;
 
 class MenuSlugHandler extends TreeSlugHandler
 {
@@ -22,7 +21,7 @@ class MenuSlugHandler extends TreeSlugHandler
             return '';
         }
 
-        if (!$object instanceof SluggableInterface) {
+        if ($object->isEmptySlug()) {
             return null;
         }
 

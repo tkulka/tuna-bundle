@@ -8,7 +8,7 @@
     {% if item.displayingChildren and hasChildren %}
         <ul class="menu__subnav">
             {% for child in item.children %}
-                {% include 'TunaCMSMenuBundle:Menu:render_menu_item.html.twig' with { item: child } %}
+                {% include options.templates['menu_item'] with { item: child } %}
             {% endfor %}
         </ul>
     {% endif %}

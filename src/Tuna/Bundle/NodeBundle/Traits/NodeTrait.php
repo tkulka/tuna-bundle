@@ -3,10 +3,18 @@
 namespace TunaCMS\Bundle\NodeBundle\Traits;
 
 use Doctrine\ORM\Mapping as ORM;
+use TunaCMS\Bundle\NodeBundle\Model\MenuNodeInterface;
 use TunaCMS\Bundle\NodeBundle\Model\MetadataInterface;
 
-trait RouteTrait
+trait NodeTrait
 {
+    /**
+     * @var MenuNodeInterface
+     *
+     * @ORM\OneToOne(targetEntity="TunaCMS\Bundle\NodeBundle\Model\MenuNodeInterface", mappedBy="node")
+     */
+    protected $menu;
+
     /**
      * @var string|null
      *
@@ -28,9 +36,24 @@ trait RouteTrait
      */
     protected $metadata;
 
-    public function routeTraitConstructor()
+    /**
+     * @return MenuNodeInterface
+     */
+    public function getMenu()
     {
-        $this->setPublished(true);
+        return $this->menu;
+    }
+
+    /**
+     * @return $this
+     *
+     * @param MenuNodeInterface $menu
+     */
+    public function setMenu(MenuNodeInterface $menu = null)
+    {
+        $this->menu = $menu;
+
+        return $this;
     }
 
     public function getTypeName()
@@ -96,5 +119,14 @@ trait RouteTrait
         $this->metadata = $metadata;
 
         return $this;
+    }
+
+    public function getSlug()
+    {
+        if (!$this->getMenu()) {
+            return null;
+        }
+
+        return $this->getMenu()->getSlug();
     }
 }

@@ -16,6 +16,6 @@ class DashboardController extends Controller
      */
     public function indexAction(Request $request)
     {
-        return $this->redirectToRoute('tunacms_admin_node_index');
+        return $this->redirectToRoute('tunacms_admin_menu_index');
     }
 }

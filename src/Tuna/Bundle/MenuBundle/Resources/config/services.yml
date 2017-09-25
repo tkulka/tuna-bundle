@@ -6,8 +6,9 @@ services:
         arguments:
             - "@twig"
             - "@tuna_cms_menu.manager"
+            - "@tuna_cms_bundle_menu.factory.menu_factory"
             - "@router"
-            - "%tuna_cms_admin.components.menu.default_template%"
+            - "%tuna_cms_menu.templates%"
         tags:
             - { name: twig.extension }
 
@@ -16,7 +17,6 @@ services:
         arguments:
             - "%tuna_cms_menu.types.menu.model%"
             - "@doctrine.orm.default_entity_manager"
-            - "@request_stack"
 
     tuna_cms_menu.request_param_converter.entity_interface_converter:
         class: TunaCMS\AdminBundle\Request\ParamConverter\EntityInterfaceConverter

@@ -51,14 +51,6 @@ services:
         tags:
             - { name: doctrine.event_subscriber }
 
-    tuna_cms_admin.twig.node_templates_extension:
-        class: TunaCMS\AdminBundle\Twig\NodeExtension
-        arguments: ['@tuna_cms_node.node_manager']
-        calls:
-            - [initRuntime, ['@twig']]
-        tags:
-            - { name: twig.extension }
-
     tuna_cms_admin.twig.tuna_config_extension:
         class: TunaCMS\AdminBundle\Twig\TunaConfigExtension
         arguments: ["%tuna_cms_admin%"]

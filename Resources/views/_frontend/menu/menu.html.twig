@@ -1,6 +1,6 @@
 {% set menuHtml %}
     {% for item in menu.children %}
-        {% include '@TunaCMSAdmin/menu/menu_item.html.twig' with { item: item } %}
+        {% include options.templates['menu_item'] with { item: item } %}
     {% endfor %}
 {% endset %}
 {% if options.wrap %}

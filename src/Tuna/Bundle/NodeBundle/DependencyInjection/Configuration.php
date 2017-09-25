@@ -22,7 +22,7 @@ class Configuration implements ConfigurationInterface
                     ->scalarNode('model')->isRequired()->end()
                 ->end()
             ->end()
-            ->arrayNode('node_types')
+            ->arrayNode('types')
                 ->useAttributeAsKey('name')
                 ->prototype('array')
                     ->children()

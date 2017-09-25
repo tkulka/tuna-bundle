@@ -4,7 +4,7 @@ namespace TunaCMS\Bundle\MenuBundle\Tests\Twig;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Routing\Router;
-use TunaCMS\Bundle\FileBundle\Tests\Fixtures\MenuInterface; // todo remove when MenuInterface will support getSlug method
+use TunaCMS\Bundle\MenuBundle\Model\MenuInterface;
 use TunaCMS\Bundle\MenuBundle\Service\MenuManager;
 use TunaCMS\Bundle\MenuBundle\Twig\MenuExtension;
 

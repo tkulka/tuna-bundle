@@ -10,30 +10,30 @@ use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use TunaCMS\Bundle\MenuBundle\Model\MenuInterface;
+use TunaCMS\Bundle\MenuBundle\Repository\MenuRepositoryInterface;
 use TunaCMS\Bundle\NodeBundle\NodeManager;
 
-class AbstractNodeController extends Controller
+class AbstractMenuController extends Controller
 {
     /**
-     * @Route("/", name="tunacms_admin_node_index")
+     * @Route("/", name="tunacms_admin_menu_index")
      */
     public function indexAction(Request $request)
     {
-        /* @var $repository \TunaCMS\Bundle\MenuBundle\Repository\MenuRepositoryInterface */
         $repository = $this->getMenuRepository();
-        $roots = $repository->getMenuRoots();
+        $roots = $repository->getRoots();
 
         foreach ($roots as $root) {
-            $repository->loadWholeNodeTree($root);
+            $repository->loadWholeTree($root);
         }
 
-        return $this->render($this->getTemplate('index', $request), [
-            'nodes' => $roots,
+        return $this->render('@TunaCMSAdmin/menu/index.html.twig', [
+            'menu_items' => $roots,
         ]);
     }
 
     /**
-     * @Route("/create/{type}", name="tunacms_admin_node_create")
+     * @Route("/create/{type}", name="tunacms_admin_menu_create")
      */
     public function createAction(Request $request, $type = NodeManager::BASE_TYPE)
     {
@@ -49,7 +49,7 @@ class AbstractNodeController extends Controller
     }
 
     /**
-     * @Route("/{id}/edit", name="tunacms_admin_node_edit")
+     * @Route("/{id}/edit", name="tunacms_admin_menu_edit")
      */
     public function editAction(Request $request, MenuInterface $node)
     {
@@ -59,7 +59,7 @@ class AbstractNodeController extends Controller
     }
 
     /**
-     * @Route("/{id}/delete", name="tunacms_admin_node_delete")
+     * @Route("/{id}/delete", name="tunacms_admin_menu_delete")
      */
     public function deleteAction(Request $request, MenuInterface $node)
     {
@@ -70,7 +70,7 @@ class AbstractNodeController extends Controller
     }
 
     /**
-     * @Route("/save-order", name="tunacms_admin_node_saveorder")
+     * @Route("/save-order", name="tunacms_admin_menu_saveorder")
      * @Method("POST")
      */
     public function saveOrderAction(Request $request)
@@ -105,6 +105,9 @@ class AbstractNodeController extends Controller
         return Menu::class;
     }
 
+    /**
+     * @return MenuRepositoryInterface
+     */
     protected function getMenuRepository()
     {
         return $this->getDoctrine()->getRepository($this->getMenuClass());
@@ -162,11 +165,11 @@ class AbstractNodeController extends Controller
 
     protected function getRedirectUrl(Request $request, MenuInterface $node = null)
     {
-        return $this->generateUrl('tunacms_admin_node_index');
+        return $this->generateUrl('tunacms_admin_menu_index');
     }
 
     protected function getTemplate($name, Request $request, MenuInterface $node = null)
     {
-        return $this->get('tuna_cms_node.node_manager')->getTemplate($name, $this->getNodeType($request, $node));
+        return $this->get('tuna_cms_bundle_node.factory.node_factory')->getTemplate($name, $this->getNodeType($request, $node));
     }
 }

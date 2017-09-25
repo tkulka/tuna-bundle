@@ -19,6 +19,13 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->scalarNode('manager_class')->defaultValue('TunaCMS\Bundle\MenuBundle\Service\MenuManager')->end()
+                ->arrayNode('templates')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('menu')->defaultNull()->end()
+                        ->scalarNode('menu_item')->defaultNull()->end()
+                    ->end()
+                ->end()
                 ->arrayNode('types')
                     ->useAttributeAsKey('name')
                     ->prototype('array')

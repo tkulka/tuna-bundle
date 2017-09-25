@@ -4,6 +4,7 @@ namespace TunaCMS\Bundle\MenuBundle\Factory;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use TunaCMS\Bundle\MenuBundle\DependencyInjection\TypeConfig;
+use TunaCMS\Bundle\MenuBundle\Model\MenuInterface;
 
 class MenuFactory
 {
@@ -12,17 +13,47 @@ class MenuFactory
      */
     protected $types;
 
+    /**
+     * @var array
+     */
+    protected $typesClassMap;
+
     public function __construct()
     {
         $this->types = new ArrayCollection();
     }
 
-    public function registerType(TypeConfig $config)
+    public function getTypes()
     {
-        $this->types[$config->getName()] = $config;
+        return $this->types;
     }
 
-    public function getEntityClass($type)
+    public function registerType($type, array $config)
+    {
+        $typeConfig = new TypeConfig();
+        $typeConfig
+            ->setName($type)
+            ->setModel($config['model'])
+            ->setForm($config['form'])
+            ->setTemplates($config['templates']);
+
+        $this->types->set($type, $typeConfig);
+        $this->typesClassMap[$typeConfig->getModel()] = $typeConfig->getName();
+    }
+
+    /**
+     * @param $type
+     *
+     * @return MenuInterface
+     */
+    public function getInstance($type)
+    {
+        $model = $this->getModel($type);
+
+        return new $model();
+    }
+
+    public function getModel($type)
     {
         return $this->getTypeConfig($type)->getModel();
     }
@@ -37,18 +68,41 @@ class MenuFactory
         return $this->getTypeConfig($type)->getTemplate($name);
     }
 
+    public function getTypeName($object)
+    {
+        $model = get_class($object);
+
+        if (!array_key_exists($model, $this->typesClassMap)) {
+            $this->throwInvalidTypeException();
+        }
+
+        return $this->typesClassMap[$model];
+    }
+
     /**
      * @param string $type
      *
-     * @return mixed|TypeConfig
+     * @return TypeConfig
      * @throws \Exception
      */
     protected function getTypeConfig($type)
     {
-        if (!array_key_exists($type, $this->types)) {
-            throw new \Exception('No type, dang');
+        if (is_object($type)) {
+            $type = $this->getTypeName($type);
         }
 
-        return $this->types[$type];
+        if (!$this->types->containsKey($type)) {
+            $this->throwInvalidTypeException();
+        }
+
+        return $this->types->get($type);
+    }
+
+    /**
+     * @throws \Exception
+     */
+    protected function throwInvalidTypeException()
+    {
+        throw new \Exception('No type, dang');
     }
 }

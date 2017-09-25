@@ -80,10 +80,17 @@ trait MenuTrait
      */
     protected $published;
 
-    public function menuConstructor()
+    /**
+     * @var boolean
+     * @ORM\Column(type="boolean")
+     */
+    protected $emptySlug;
+
+    public function __construct()
     {
         $this->setDisplayingChildren(true);
         $this->setPublished(true);
+        $this->setEmptySlug(false);
     }
 
     /**
@@ -137,7 +144,7 @@ trait MenuTrait
     /**
      * @return $this
      *
-     * @param string $slug
+     * @param string|null $slug
      */
     public function setSlug($slug = null)
     {
@@ -179,7 +186,7 @@ trait MenuTrait
      *
      * @param bool $published
      */
-    public function setPublished($published)
+    public function setPublished($published = null)
     {
         $this->published = $published;
 
@@ -191,8 +198,23 @@ trait MenuTrait
         return true;
     }
 
-    public function isSluggable()
+    /**
+     * @return bool
+     */
+    public function isEmptySlug()
     {
-        return false;
+        return $this->emptySlug;
+    }
+
+    /**
+     * @return $this
+     *
+     * @param bool|null $emptySlug
+     */
+    public function setEmptySlug($emptySlug = null)
+    {
+        $this->emptySlug = $emptySlug;
+
+        return $this;
     }
 }

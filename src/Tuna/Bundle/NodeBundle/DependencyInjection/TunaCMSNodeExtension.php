@@ -8,6 +8,7 @@ use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
 use TunaCMS\CommonComponent\Helper\ArrayHelper;
+use TunaCMS\Bundle\MenuBundle\DependencyInjection\Configuration as MenuConfiguration;
 
 class TunaCMSNodeExtension extends Extension implements PrependExtensionInterface
 {
@@ -26,17 +27,30 @@ class TunaCMSNodeExtension extends Extension implements PrependExtensionInterfac
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $this->setParameters($container, $config);
+        if (!array_key_exists('node', $config['types'])) {
+            throw new \LogicException('You have to provide `tuna_cms_node.types.node` configuration.');
+        }
 
-        if (!array_key_exists('node', $config['node_types'])) {
-            throw new \LogicException('You have to provide `tuna_cms_node.node_types.node` configuration.');
+        $this->setParameters($container, $config);
+        $this->prependDoctrineInterfaceConfig($container, $config);
+    }
+
+    protected function prependDoctrineInterfaceConfig(ContainerBuilder $container, $config)
+    {
+        $menuConfigs = $container->getExtensionConfig('tuna_cms_menu');
+        $configuration = new MenuConfiguration();
+        $menuConfig = $this->processConfiguration($configuration, $menuConfigs);
+
+        if (!array_key_exists('menu_node', $menuConfig['types'])) {
+            throw new \LogicException('You have to provide `tuna_cms_menu.types.menu_node` configuration in TunaCMSMenu.');
         }
 
         $doctrineConfig = [
             'orm' => [
                 'resolve_target_entities' => [
-                    'TunaCMS\Bundle\NodeBundle\Model\NodeInterface' => $config['node_types']['node']['model'],
+                    'TunaCMS\Bundle\NodeBundle\Model\NodeInterface' => $config['types']['node']['model'],
                     'TunaCMS\Bundle\NodeBundle\Model\MetadataInterface' => $config['metadata']['model'],
+                    'TunaCMS\Bundle\NodeBundle\Model\MenuNodeInterface' => $menuConfig['types']['menu_node']['model'],
                 ],
             ],
         ];

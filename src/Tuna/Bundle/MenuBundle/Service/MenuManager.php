@@ -24,22 +24,12 @@ class MenuManager
      */
     protected $entityManager;
 
-    protected $defaultLocale;
-
-    protected $locale;
-
-    public function __construct($class, EntityManager $entityManager, RequestStack $requestStack)
+    public function __construct($class, EntityManager $entityManager)
     {
         $this->class = $class;
         $this->entityManager = $entityManager;
 
         $this->repository = $this->entityManager->getRepository($this->class);
-
-
-        if (($request = $requestStack->getCurrentRequest())) {
-            $this->defaultLocale = $request->getDefaultLocale();
-            $this->locale = $request->getLocale();
-        }
     }
 
     /**
@@ -73,6 +63,7 @@ class MenuManager
         $nodes = [];
         $entities = $this->repository->findAll();
 
+        /* @var MenuInterface $entity */
         foreach ($entities as $entity) {
             $nodes[$entity->getId()] = $entity;
         }
@@ -91,15 +82,12 @@ class MenuManager
 
     /**
      * @param MenuInterface $root
-     * @param string $locale
      *
      * @return MenuInterface
      */
-    public function getMenuTree(MenuInterface $root, $locale = null)
+    public function getMenuTree(MenuInterface $root)
     {
-        $locale = $locale ?: $this->locale;
-
-        return $this->repository->loadPublishedNodeTreeForLocale($root, $locale, $this->defaultLocale);
+        return $this->repository->loadPublishedTree($root);
     }
 
     /**
@@ -108,25 +96,6 @@ class MenuManager
     public function getRepository()
     {
         return $this->repository;
-    }
-
-    public function isTranslated(MenuInterface $menu, $locale = null)
-    {
-        if (!$locale) {
-            $locale = $this->locale;
-        }
-
-        if ($locale == $this->defaultLocale) {
-            return true;
-        }
-
-        foreach ($menu->getTranslations() as $translation) {
-            if ($translation->getField() == 'label' && $translation->getLocale() == $locale) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     /**

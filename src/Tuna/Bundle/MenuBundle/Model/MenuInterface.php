@@ -10,6 +10,18 @@ interface MenuInterface extends TreeInterface, IdInterface
     /**
      * @return boolean
      */
+    public function isPublished();
+
+    /**
+     * @param boolean|null $published
+     *
+     * @return $this
+     */
+    public function setPublished($published = null);
+
+    /**
+     * @return boolean
+     */
     public function isDisplayingChildren();
 
     /**
@@ -59,4 +71,16 @@ interface MenuInterface extends TreeInterface, IdInterface
      * @return boolean
      */
     public function isClickable();
+
+    /**
+     * @return boolean|null
+     */
+    public function isEmptySlug();
+
+    /**
+     * @param boolean|null $emptySlug
+     *
+     * @return $this
+     */
+    public function setEmptySlug($emptySlug = null);
 }

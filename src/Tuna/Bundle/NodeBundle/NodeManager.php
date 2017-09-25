@@ -19,7 +19,7 @@ class NodeManager
     }
 
     /**
-     * @param NodeInterface|string $nodeType NodeInterface object or type of a node (as defined in tuna_cms_node.node_types config)
+     * @param NodeInterface|string $nodeType NodeInterface object or type of a node (as defined in tuna_cms_node.types config)
      *
      * @return string FQCN of model
      */
@@ -29,7 +29,7 @@ class NodeManager
     }
 
     /**
-     * @param NodeInterface|string $nodeType NodeInterface object or type of a node (as defined in tuna_cms_node.node_types config)
+     * @param NodeInterface|string $nodeType NodeInterface object or type of a node (as defined in tuna_cms_node.types config)
      *
      * @return NodeInterface
      */
@@ -41,7 +41,7 @@ class NodeManager
     }
 
     /**
-     * @param NodeInterface|string $nodeType NodeInterface object or type of a node (as defined in tuna_cms_node.node_types config)
+     * @param NodeInterface|string $nodeType NodeInterface object or type of a node (as defined in tuna_cms_node.types config)
      *
      * @return string FQCN of formType
      */
@@ -52,7 +52,7 @@ class NodeManager
 
     /**
      * @param string $template Template name (index|edit|node_item)
-     * @param NodeInterface|string $nodeType NodeInterface object or type of a node (as defined in tuna_cms_node.node_types config)
+     * @param NodeInterface|string $nodeType NodeInterface object or type of a node (as defined in tuna_cms_node.types config)
      */
     public function getTemplate($template, $nodeType = null)
     {

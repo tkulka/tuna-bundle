@@ -3,7 +3,6 @@
 namespace TunaCMS\Bundle\MenuBundle\Repository;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Query\Expr;
 use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 use TunaCMS\Bundle\MenuBundle\Model\MenuInterface;
 
@@ -12,34 +11,24 @@ class MenuRepository extends NestedTreeRepository implements MenuRepositoryInter
     const OBJECT_KEY = '__object';
     const CHILDREN_KEY = '__children';
 
-    public function getMenuRoots()
+    public function getRoots()
     {
         return $this->findByParent(null);
     }
 
-    public function loadPublishedNodeTree(MenuInterface $node = null)
+    public function loadPublishedTree(MenuInterface $menu = null)
     {
-        return $this->loadNodeTree($node, true);
+        return $this->loadMenuTree($menu, true);
     }
 
-    public function loadWholeNodeTree(MenuInterface $node = null)
+    public function loadWholeTree(MenuInterface $menu = null)
     {
-        return $this->loadNodeTree($node, false);
+        return $this->loadMenuTree($menu, false);
     }
 
-    public function loadPublishedNodeTreeForLocale(MenuInterface $node = null, $locale = null, $defaultLocale = null)
+    protected function loadMenuTree(MenuInterface $node = null, $filterUnpublished = true)
     {
-        return $this->loadNodeTree($node, true, $locale, $defaultLocale);
-    }
-
-    public function loadWholeNodeTreeForLocale(MenuInterface $node = null, $locale = null, $defaultLocale = null)
-    {
-        return $this->loadNodeTree($node, false, $locale, $defaultLocale);
-    }
-
-    protected function loadNodeTree(MenuInterface $node = null, $filterUnpublished = true, $locale = null, $defaultLocale = null)
-    {
-        $nodes = $this->getMenuTreeQuery($node, $filterUnpublished, $locale, $defaultLocale)->getResult();
+        $nodes = $this->getMenuTreeQuery($node, $filterUnpublished)->getResult();
         $tree = $this->buildTree($this->getArrifiedNodes($nodes));
 
         foreach ($tree as $menu) {
@@ -80,7 +69,7 @@ class MenuRepository extends NestedTreeRepository implements MenuRepositoryInter
         }, $array);
     }
 
-    protected function getMenuTreeQueryBuilder(MenuInterface $root = null, $filterUnpublished = true, $locale = null, $defaultLocale = null)
+    protected function getMenuTreeQueryBuilder(MenuInterface $root = null, $filterUnpublished = true)
     {
         $qb = $this->createQueryBuilder('m')
             ->orderBy('m.root, m.lft', 'ASC');
@@ -97,18 +86,11 @@ class MenuRepository extends NestedTreeRepository implements MenuRepositoryInter
             $qb->andWhere('m.published = 1');
         }
 
-        if ($locale && $locale !== $defaultLocale) {
-            $qb
-                ->leftJoin('m.translations', 't', Expr\Join::WITH, "t.field = 'label' AND t.locale = :locale")
-                ->andWhere('m.lvl = 0 OR m.lvl > 0 AND t IS NOT NULL')// menu root don't have to be translated.
-                ->setParameter('locale', $locale);
-        }
-
         return $qb;
     }
 
-    protected function getMenuTreeQuery(MenuInterface $root = null, $filterUnpublished = true, $locale = null, $defaultLocale = null)
+    protected function getMenuTreeQuery(MenuInterface $root = null, $filterUnpublished = true)
     {
-        return $this->getMenuTreeQueryBuilder($root, $filterUnpublished, $locale, $defaultLocale)->getQuery();
+        return $this->getMenuTreeQueryBuilder($root, $filterUnpublished)->getQuery();
     }
 }

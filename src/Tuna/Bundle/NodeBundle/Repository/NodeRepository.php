@@ -2,8 +2,8 @@
 
 namespace TunaCMS\Bundle\NodeBundle\Repository;
 
-use TunaCMS\Bundle\MenuBundle\Repository\MenuRepository;
+use Doctrine\ORM\EntityRepository;
 
-class NodeRepository extends MenuRepository implements NodeRepositoryInterface
+class NodeRepository extends EntityRepository implements NodeRepositoryInterface
 {
 }

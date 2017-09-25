@@ -2,44 +2,27 @@
 
 namespace TunaCMS\Bundle\MenuBundle\Repository;
 
+use Gedmo\Tree\RepositoryInterface;
 use TunaCMS\Bundle\MenuBundle\Model\MenuInterface;
 
-interface MenuRepositoryInterface
+interface MenuRepositoryInterface extends RepositoryInterface
 {
     /**
      * @return MenuInterface[]
      */
-    public function getMenuRoots();
+    public function getRoots();
 
     /**
-     * @param MenuInterface $node
+     * @param MenuInterface $menu
      *
      * @return MenuInterface
      */
-    public function loadPublishedNodeTree(MenuInterface $node);
+    public function loadPublishedTree(MenuInterface $menu);
 
     /**
-     * @param MenuInterface $node
+     * @param MenuInterface $menu
      *
      * @return MenuInterface
      */
-    public function loadWholeNodeTree(MenuInterface $node);
-
-    /**
-     * @param MenuInterface $node
-     * @param $locale
-     * @param $defaultLocale
-     *
-     * @return MenuInterface
-     */
-    public function loadPublishedNodeTreeForLocale(MenuInterface $node, $locale, $defaultLocale);
-
-    /**
-     * @param MenuInterface $node
-     * @param $locale
-     * @param $defaultLocale
-     *
-     * @return MenuInterface
-     */
-    public function loadWholeNodeTreeForLocale(MenuInterface $node, $locale, $defaultLocale);
+    public function loadWholeTree(MenuInterface $menu);
 }
