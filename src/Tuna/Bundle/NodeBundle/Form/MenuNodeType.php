@@ -25,13 +25,7 @@ class MenuNodeType extends AbstractType
     {
         /* @var \TunaCMS\Bundle\NodeBundle\Model\MenuNodeInterface $menu */
         $menu = $builder->getData();
-        $node = $menu->getNode();
-
-        if (!$node) {
-            $node = $this->nodeFactory->getInstance($options['node_type']);
-            $menu->setNode($node);
-        }
-        $nodeForm = $this->nodeFactory->getFormClass($node);
+        $nodeForm = $this->nodeFactory->getFormClass($menu->getNode());
 
         $builder->add('node', $nodeForm, [
             'label' => false,

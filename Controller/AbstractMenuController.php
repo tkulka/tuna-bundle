@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use TunaCMS\Bundle\MenuBundle\Model\MenuInterface;
 use TunaCMS\Bundle\MenuBundle\Repository\MenuRepositoryInterface;
+use TunaCMS\Bundle\NodeBundle\Model\MenuNodeInterface;
 
 class AbstractMenuController extends Controller
 {
@@ -22,7 +23,10 @@ class AbstractMenuController extends Controller
      */
     public function createAction(Request $request, $type, MenuInterface $parent)
     {
-        return $this->handleMenuCreation($request, $type, $parent);
+        $menu = $this->get('tuna_cms_bundle_menu.factory.menu_factory')->getInstance($type);
+        $menu->setParent($parent);
+
+        return $this->handleMenuCreation($request, $menu);
     }
 
     /**
@@ -30,9 +34,14 @@ class AbstractMenuController extends Controller
      */
     public function createNodeAction(Request $request, $type, MenuInterface $parent)
     {
-        return $this->handleMenuCreation($request, self::MENU_NODE, $parent, [
-            'node_type' => $type,
-        ]);
+        $node = $this->get('tuna_cms_bundle_node.factory.node_factory')->getInstance($type);
+        /* @var $menu MenuNodeInterface */
+        $menu = $this->get('tuna_cms_bundle_menu.factory.menu_factory')->getInstance(self::MENU_NODE);
+        $menu
+            ->setParent($parent)
+            ->setNode($node);
+
+        return $this->handleMenuCreation($request, $menu);
     }
 
     /**
@@ -90,16 +99,12 @@ class AbstractMenuController extends Controller
         return new JsonResponse('ok');
     }
 
-    protected function handleMenuCreation(Request $request, $menuType, MenuInterface $parent, $formOptions = [])
+    protected function handleMenuCreation(Request $request, MenuInterface $menu)
     {
         $menuFactory = $this->get('tuna_cms_bundle_menu.factory.menu_factory');
+        $formType = $menuFactory->getFormClass($menu);
 
-        $menu = $menuFactory->getInstance($menuType);
-        $formType = $menuFactory->getFormClass($menuType);
-
-        $menu->setParent($parent);
-
-        $form = $this->createForm($formType, $menu, $formOptions);
+        $form = $this->createForm($formType, $menu);
 
         return $this->handleForm($form, $menu, $request);
     }
