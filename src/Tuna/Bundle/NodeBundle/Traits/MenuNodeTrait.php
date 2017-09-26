@@ -10,7 +10,7 @@ trait MenuNodeTrait
     /**
      * @var NodeInterface
      *
-     * @ORM\OneToOne(targetEntity="TunaCMS\Bundle\NodeBundle\Model\NodeInterface", cascade={"persist"}, inversedBy="menu")
+     * @ORM\OneToOne(targetEntity="TunaCMS\Bundle\NodeBundle\Model\NodeInterface", cascade={"persist", "remove"}, inversedBy="menu")
      */
     protected $node;
 

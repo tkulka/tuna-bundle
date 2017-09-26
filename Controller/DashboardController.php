@@ -12,10 +12,21 @@ use Symfony\Component\HttpFoundation\Request;
 class DashboardController extends Controller
 {
     /**
-     * @Route("", name="tuna_cms_dashboard")
+     * @Route("/", name="tunacms_dashboard")
      */
     public function indexAction(Request $request)
     {
-        return $this->redirectToRoute('tunacms_admin_menu_index');
+        $menuModel = $this->get('tuna_cms_bundle_menu.factory.menu_factory')->getModel();
+        /* @var \TunaCMS\Bundle\MenuBundle\Repository\MenuRepositoryInterface $repository */
+        $repository = $this->getDoctrine()->getRepository($menuModel);
+        $roots = $repository->getRoots();
+
+        foreach ($roots as $root) {
+            $repository->loadWholeTree($root);
+        }
+
+        return $this->render('@TunaCMSAdmin/menu/index.html.twig', [
+            'menu_items' => $roots,
+        ]);
     }
 }

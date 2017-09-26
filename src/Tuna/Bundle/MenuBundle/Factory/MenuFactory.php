@@ -8,6 +8,8 @@ use TunaCMS\Bundle\MenuBundle\Model\MenuInterface;
 
 class MenuFactory
 {
+    const BASE_TYPE = 'menu';
+
     /**
      * @var TypeConfig[]
      */
@@ -46,24 +48,24 @@ class MenuFactory
      *
      * @return MenuInterface
      */
-    public function getInstance($type)
+    public function getInstance($type = null)
     {
         $model = $this->getModel($type);
 
         return new $model();
     }
 
-    public function getModel($type)
+    public function getModel($type = null)
     {
         return $this->getTypeConfig($type)->getModel();
     }
 
-    public function getFormClass($type)
+    public function getFormClass($type = null)
     {
         return $this->getTypeConfig($type)->getForm();
     }
 
-    public function getTemplate($type, $name)
+    public function getTemplate($type = null, $name)
     {
         return $this->getTypeConfig($type)->getTemplate($name);
     }
@@ -85,8 +87,12 @@ class MenuFactory
      * @return TypeConfig
      * @throws \Exception
      */
-    protected function getTypeConfig($type)
+    protected function getTypeConfig($type = null)
     {
+        if ($type == null) {
+            $type = static::BASE_TYPE;
+        }
+
         if (is_object($type)) {
             $type = $this->getTypeName($type);
         }

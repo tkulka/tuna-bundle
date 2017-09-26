@@ -31,7 +31,6 @@ class Configuration implements ConfigurationInterface
                         ->arrayNode('templates')
                             ->addDefaultsIfNotSet()
                             ->children()
-                                ->scalarNode('index')->defaultValue('@TunaCMSAdmin/node/index.html.twig')->end()
                                 ->scalarNode('edit')->defaultValue('@TunaCMSAdmin/node/edit.html.twig')->end()
                                 ->scalarNode('node_item')->defaultValue('@TunaCMSAdmin/node/node_item.html.twig')->end()
                             ->end()

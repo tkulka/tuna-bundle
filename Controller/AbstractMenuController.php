@@ -2,7 +2,7 @@
 
 namespace TunaCMS\AdminBundle\Controller;
 
-use AppBundle\Entity\Menu;
+use AppBundle\Entity\MenuNode;
 use Doctrine\ORM\EntityRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -16,23 +16,6 @@ use TunaCMS\Bundle\MenuBundle\Repository\MenuRepositoryInterface;
 class AbstractMenuController extends Controller
 {
     const MENU_NODE = 'menu_node';
-
-    /**
-     * @Route("/", name="tunacms_admin_menu_index")
-     */
-    public function indexAction(Request $request)
-    {
-        $repository = $this->getMenuRepository();
-        $roots = $repository->getRoots();
-
-        foreach ($roots as $root) {
-            $repository->loadWholeTree($root);
-        }
-
-        return $this->render('@TunaCMSAdmin/menu/index.html.twig', [
-            'menu_items' => $roots,
-        ]);
-    }
 
     /**
      * @Route("/{parent}/create/{type}", name="tunacms_admin_menu_create")
@@ -68,12 +51,14 @@ class AbstractMenuController extends Controller
     /**
      * @Route("/{id}/delete", name="tunacms_admin_menu_delete")
      */
-    public function deleteAction(Request $request, MenuInterface $node)
+    public function deleteAction(Request $request, MenuInterface $menu)
     {
-        $this->getDoctrine()->getManager()->remove($node);
-        $this->getDoctrine()->getManager()->flush();
+        $em = $this->getDoctrine()->getManager();
 
-        return $this->redirect($this->getRedirectUrl($request, $node));
+        $em->remove($menu);
+        $em->flush();
+
+        return $this->redirect($this->getRedirectUrl($request, $menu));
     }
 
     /**
@@ -119,50 +104,14 @@ class AbstractMenuController extends Controller
         return $this->handleForm($form, $menu, $request);
     }
 
-    protected function getMenuClass()
-    {
-        return Menu::class;
-    }
-
     /**
      * @return MenuRepositoryInterface|EntityRepository
      */
     protected function getMenuRepository()
     {
-        return $this->getDoctrine()->getRepository($this->getMenuClass());
-    }
+        $menuModel = $this->get('tuna_cms_bundle_menu.factory.menu_factory')->getModel();
 
-    protected function getFormType($nodeType, Request $request, MenuInterface $node = null)
-    {
-        if (!$nodeType) {
-            $nodeType = $this->getNodeType($request, $node);
-        }
-
-        return $this->get('tuna_cms_node.node_manager')->getFormType($nodeType);
-    }
-
-    protected function getNewInstance($nodeType, Request $request, MenuInterface $node = null)
-    {
-        if (!$nodeType) {
-            $nodeType = $this->getNodeType($request, $node);
-        }
-
-        return $this->get('tuna_cms_node.node_manager')->getNewInstance($nodeType);
-    }
-
-    protected function getNodeType(Request $request, MenuInterface $node = null)
-    {
-        if ($request->query->has('node-type')) {
-            // get node type from query parameter
-            return $request->query->get('node-type');
-        }
-
-        if ($node) {
-            // nodeManager methods can work with string type, or MenuInterface objects
-            return $node;
-        }
-
-        return null;
+        return $this->getDoctrine()->getRepository($menuModel);
     }
 
     protected function handleForm(Form $form, MenuInterface $menu, Request $request)
@@ -178,7 +127,7 @@ class AbstractMenuController extends Controller
             return $this->redirect($this->getRedirectUrl($request, $menu));
         }
 
-        $template = $this->get('tuna_cms_bundle_menu.factory.menu_factory')->getTemplate($menu, 'edit');
+        $template = $this->getTemplate($menu, 'edit');
 
         return $this->render($template, [
             'node' => $menu,
@@ -186,13 +135,17 @@ class AbstractMenuController extends Controller
         ]);
     }
 
-    protected function getRedirectUrl(Request $request, MenuInterface $node = null)
+    protected function getRedirectUrl(Request $request, MenuInterface $menu = null)
     {
-        return $this->generateUrl('tunacms_admin_menu_index');
+        return $this->generateUrl('tunacms_dashboard');
     }
 
-    protected function getTemplate($name, Request $request, MenuInterface $node = null)
+    protected function getTemplate(MenuInterface $menu, $name)
     {
-        return $this->get('tuna_cms_bundle_node.factory.node_factory')->getTemplate($name, $this->getNodeType($request, $node));
+        if ($menu instanceof MenuNode) {
+            return $this->get('tuna_cms_bundle_node.factory.node_factory')->getTemplate($menu->getNode(), $name);
+        }
+
+        return $this->get('tuna_cms_bundle_menu.factory.menu_factory')->getTemplate($menu, $name);
     }
 }

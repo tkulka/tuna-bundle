@@ -72,8 +72,8 @@ class Builder
             'childrenAttributes' => ['class' => 'nav']
         ]);
 
-        $this->addChild($menu, $request, 'menu.dashboard', 'tuna_cms_dashboard', 0, function (Request $request, $route) {
-            return preg_match_all('/tuna_cms_dashboard/i', $request->get('_route'));
+        $this->addChild($menu, $request, 'menu.dashboard', 'tunacms_dashboard', 0, function (Request $request, $route) {
+            return preg_match_all('/tunacms_dashboard/i', $request->get('_route'));
         });
 
         if ($this->componentsConfig['categories']['enabled']) {

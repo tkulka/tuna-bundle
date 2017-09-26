@@ -3,25 +3,16 @@
 
 {% block content %}
     {% embed 'TunaCMSAdminBundle:_partials/form:edit.html.twig' %}
-        {% import '@TunaCMSAdmin/_partials/form/translations_macro.html.twig' as a2lix %}
+        {% trans_default_domain 'tuna_admin' %}
 
         {% block header_checkboxes %}
-            {% include "@TunaCMSAdmin/node/partials/header_checkboxes.html.twig" %}
+            {% include '@TunaCMSAdmin/menu/partials/header_checkboxes.html.twig' %}
         {% endblock %}
 
         {% block options %}
-            {% include "@TunaCMSAdmin/node/partials/options.html.twig" %}
-        {% endblock %}
-
-        {% block body %}
-            <h3 class="title-link">
-                <span class="title-link__title">{{ node.name|default }}</span>
-                <span class="title-link__link">{{ (node.isUrlLinkType ? node.url : '/' ~ node.slug)|default }}</span>
-            </h3>
-
-            {% block body_content %}
-                {{ block('node_content') }}
-            {% endblock %}
+            {{ form_row(form.name) }}
+            {{ form_row(form.label) }}
+            {% include '@TunaCMSAdmin/node/partials/metadata_accordion.html.twig' with { metadata: form.node.metadata } %}
         {% endblock %}
     {% endembed %}
 {% endblock %}

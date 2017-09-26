@@ -4,8 +4,7 @@
 {% block content %}
     {% embed 'TunaCMSAdminBundle:_partials/form:edit.html.twig' %}
         {% block header_checkboxes %}
-            {{ form_row(form.displayingChildren) }}
-            {{ form_row(form.published) }}
+            {% include '@TunaCMSAdmin/menu/partials/header_checkboxes.html.twig' %}
         {% endblock %}
 
         {% block options %}
