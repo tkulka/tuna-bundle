@@ -3,6 +3,7 @@
 namespace TunaCMS\AdminBundle\Controller;
 
 use AppBundle\Entity\Menu;
+use Doctrine\ORM\EntityRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -11,10 +12,11 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use TunaCMS\Bundle\MenuBundle\Model\MenuInterface;
 use TunaCMS\Bundle\MenuBundle\Repository\MenuRepositoryInterface;
-use TunaCMS\Bundle\NodeBundle\NodeManager;
 
 class AbstractMenuController extends Controller
 {
+    const MENU_NODE = 'menu_node';
+
     /**
      * @Route("/", name="tunacms_admin_menu_index")
      */
@@ -33,29 +35,34 @@ class AbstractMenuController extends Controller
     }
 
     /**
-     * @Route("/create/{type}", name="tunacms_admin_menu_create")
+     * @Route("/{parent}/create/{type}", name="tunacms_admin_menu_create")
      */
-    public function createAction(Request $request, $type = NodeManager::BASE_TYPE)
+    public function createAction(Request $request, $type, MenuInterface $parent)
     {
-        $node = $this->getNewInstance($type, $request);
+        return $this->handleMenuCreation($request, $type, $parent);
+    }
 
-        if ($parentId = $request->query->get('parentId')) {
-            $node->setParent($this->getDoctrine()->getManager()->getReference($this->getMenuClass(), $parentId));
-        }
-
-        $form = $this->createForm($this->getFormType($type, $request), $node);
-
-        return $this->handleForm($form, $node, $request);
+    /**
+     * @Route("/{parent}/create/node/{type}", name="tunacms_admin_menu_create_node")
+     */
+    public function createNodeAction(Request $request, $type, MenuInterface $parent)
+    {
+        return $this->handleMenuCreation($request, self::MENU_NODE, $parent, [
+            'node_type' => $type,
+        ]);
     }
 
     /**
      * @Route("/{id}/edit", name="tunacms_admin_menu_edit")
      */
-    public function editAction(Request $request, MenuInterface $node)
+    public function editAction(Request $request, MenuInterface $menu)
     {
-        $form = $this->createForm($this->getFormType(null, $request, $node), $node);
+        $menuFactory = $this->get('tuna_cms_bundle_menu.factory.menu_factory');
 
-        return $this->handleForm($form, $node, $request);
+        $formType = $menuFactory->getFormClass($menu);
+        $form = $this->createForm($formType, $menu);
+
+        return $this->handleForm($form, $menu, $request);
     }
 
     /**
@@ -75,13 +82,11 @@ class AbstractMenuController extends Controller
      */
     public function saveOrderAction(Request $request)
     {
-        $nodeManager = $this->get('tuna_cms_node.node_manager');
-
-        /* @var $entities MenuInterface[] */
         $entities = $this->getMenuRepository()->findAll();
         $order = $request->request->get('order', []);
 
         $nodes = [];
+        /* @var $entity MenuInterface */
         foreach ($entities as $entity) {
             $nodes[$entity->getId()] = $entity;
         }
@@ -100,13 +105,27 @@ class AbstractMenuController extends Controller
         return new JsonResponse('ok');
     }
 
+    protected function handleMenuCreation(Request $request, $menuType, MenuInterface $parent, $formOptions = [])
+    {
+        $menuFactory = $this->get('tuna_cms_bundle_menu.factory.menu_factory');
+
+        $menu = $menuFactory->getInstance($menuType);
+        $formType = $menuFactory->getFormClass($menuType);
+
+        $menu->setParent($parent);
+
+        $form = $this->createForm($formType, $menu, $formOptions);
+
+        return $this->handleForm($form, $menu, $request);
+    }
+
     protected function getMenuClass()
     {
         return Menu::class;
     }
 
     /**
-     * @return MenuRepositoryInterface
+     * @return MenuRepositoryInterface|EntityRepository
      */
     protected function getMenuRepository()
     {
@@ -146,19 +165,23 @@ class AbstractMenuController extends Controller
         return null;
     }
 
-    protected function handleForm(Form $form, MenuInterface $node, Request $request)
+    protected function handleForm(Form $form, MenuInterface $menu, Request $request)
     {
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->persist($node);
-            $this->getDoctrine()->getManager()->flush();
+            $em = $this->getDoctrine()->getManager();
 
-            return $this->redirect($this->getRedirectUrl($request, $node));
+            $em->persist($menu);
+            $em->flush();
+
+            return $this->redirect($this->getRedirectUrl($request, $menu));
         }
 
-        return $this->render($this->getTemplate('edit', $request, $node), [
-            'node' => $node,
+        $template = $this->get('tuna_cms_bundle_menu.factory.menu_factory')->getTemplate($menu, 'edit');
+
+        return $this->render($template, [
+            'node' => $menu,
             'form' => $form->createView(),
         ]);
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace TunaCMS\CommonComponent\Model;
+namespace TunaCMS\Component\Common\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Translatable\Entity\MappedSuperclass\AbstractPersonalTranslation;

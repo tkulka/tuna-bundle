@@ -1,0 +1,28 @@
+{% trans_default_domain 'tuna_admin' %}
+{% extends 'TunaCMSAdminBundle::layout.html.twig' %}
+
+{% block content %}
+    {% embed 'TunaCMSAdminBundle:_partials/form:edit.html.twig' %}
+        {% block header_checkboxes %}
+            {{ form_row(form.displayingChildren) }}
+            {{ form_row(form.published) }}
+        {% endblock %}
+
+        {% block options %}
+            {{ form_row(form.name) }}
+            {% include '@TunaCMSAdmin/node/partials/menu_accordion.html.twig' %}
+            {% include '@TunaCMSAdmin/node/partials/metadata_accordion.html.twig' with { metadata: form.node.metadata } %}
+        {% endblock %}
+
+        {% block body %}
+            <h3 class="title-link">
+                <span class="title-link__title">{{ menu.name|default }}</span>
+                <span class="title-link__link">{{ menu.slug|default }}</span>
+            </h3>
+
+            {% block body_content %}
+                {{ form_row(form) }}
+            {% endblock %}
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

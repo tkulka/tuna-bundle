@@ -7,7 +7,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
-use TunaCMS\CommonComponent\Helper\ArrayHelper;
+use TunaCMS\Component\Common\Helper\ArrayHelper;
 use TunaCMS\Bundle\MenuBundle\DependencyInjection\Configuration as MenuConfiguration;
 
 class TunaCMSNodeExtension extends Extension implements PrependExtensionInterface

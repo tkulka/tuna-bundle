@@ -1,6 +1,6 @@
 <?php
 
-namespace TunaCMS\CommonComponent\Traits;
+namespace TunaCMS\Component\Common\Traits;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 

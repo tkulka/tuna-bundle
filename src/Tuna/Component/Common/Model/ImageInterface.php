@@ -1,6 +1,6 @@
 <?php
 
-namespace TunaCMS\CommonComponent\Model;
+namespace TunaCMS\Component\Common\Model;
 
 use TunaCMS\Bundle\FileBundle\Entity\Image;
 

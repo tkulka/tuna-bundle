@@ -4,7 +4,7 @@ namespace TunaCMS\Bundle\NodeBundle\Entity;
 
 use TunaCMS\Bundle\NodeBundle\Model\MetadataInterface;
 use TunaCMS\Bundle\NodeBundle\Traits\MetadataTrait;
-use TunaCMS\CommonComponent\Traits\IdTrait;
+use TunaCMS\Component\Common\Traits\IdTrait;
 
 class AbstractMetadata implements MetadataInterface
 {

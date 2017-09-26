@@ -5,7 +5,7 @@ services:
             - "%tuna_cms_node.types%"
 
     tuna_cms_node.request_param_converter.entity_interface_converter:
-        class: TunaCMS\AdminBundle\Request\ParamConverter\EntityInterfaceConverter
+        class: TunaCMS\Component\Common\Request\ParamConverter\EntityInterfaceConverter
         tags:
             - { name: request.param_converter, priority: 100 }
         arguments:
@@ -16,7 +16,6 @@ services:
     tuna_cms_node.form.node_type:
         class: TunaCMS\Bundle\NodeBundle\Form\NodeType
         arguments:
-            - "%tuna_cms_node.types.node.model%"
             - "%tuna_cms_node.metadata.model%"
         tags:
             - { name: form.type }
@@ -31,3 +30,9 @@ services:
             - [initRuntime, ['@twig']]
         tags:
             - { name: twig.extension }
+
+    tuna_cms_bundle_node.form.menu_node_type:
+        class: TunaCMS\Bundle\NodeBundle\Form\MenuNodeType
+        arguments: ['@tuna_cms_bundle_node.factory.node_factory']
+        tags:
+            - { name: form.type, alias: TunaCMS\Bundle\NodeBundle\Form\MenuNodeType }

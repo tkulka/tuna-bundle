@@ -1,6 +1,6 @@
 <?php
 
-namespace TunaCMS\AdminBundle\Request\ParamConverter;
+namespace TunaCMS\Component\Common\Request\ParamConverter;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\DoctrineParamConverter;

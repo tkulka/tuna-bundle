@@ -41,7 +41,7 @@
   "autoload": {
     "psr-4": {
       "TunaCMS\\AdminBundle\\": "",
-      "TunaCMS\\CommonComponent\\": "src/Tuna/Component/Common",
+      "TunaCMS\\Component\\": "src/Tuna/Component/",
       "TunaCMS\\Bundle\\": "src/Tuna/Bundle/"
     }
   },

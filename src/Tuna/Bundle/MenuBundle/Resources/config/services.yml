@@ -19,7 +19,7 @@ services:
             - "@doctrine.orm.default_entity_manager"
 
     tuna_cms_menu.request_param_converter.entity_interface_converter:
-        class: TunaCMS\AdminBundle\Request\ParamConverter\EntityInterfaceConverter
+        class: TunaCMS\Component\Common\Request\ParamConverter\EntityInterfaceConverter
         tags:
             - { name: request.param_converter, priority: 100 }
         arguments:

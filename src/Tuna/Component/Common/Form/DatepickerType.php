@@ -1,6 +1,6 @@
 <?php
 
-namespace TunaCMS\CommonComponent\Form;
+namespace TunaCMS\Component\Common\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;

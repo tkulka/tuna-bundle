@@ -8,9 +8,9 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
-use TunaCMS\CommonComponent\Helper\ArrayHelper;
+use TunaCMS\Component\Common\Helper\ArrayHelper;
 
-class TunaCMSMenuExtension extends Extension implements PrependExtensionInterface, CompilerPassInterface
+class TunaCMSMenuExtension extends Extension implements PrependExtensionInterface
 {
     /**
      * {@inheritDoc}
@@ -47,12 +47,6 @@ class TunaCMSMenuExtension extends Extension implements PrependExtensionInterfac
         $container->prependExtensionConfig('doctrine', $doctrineConfig);
     }
 
-    public function process(ContainerBuilder $container)
-    {
-        $menuFactory = $container->get('tuna_cms_bundle_menu.factory.menu_factory');
-        // bullshiet, to trzeba jakoś inaczej zrobić..
-    }
-
     /**
      * @param ContainerBuilder $container
      * @param array $config
@@ -63,10 +57,5 @@ class TunaCMSMenuExtension extends Extension implements PrependExtensionInterfac
         foreach ($config as $key => $value) {
             $container->setParameter('tuna_cms_menu.'.$key, $value);
         }
-    }
-
-    protected function registerMenuTypes($config)
-    {
-
     }
 }

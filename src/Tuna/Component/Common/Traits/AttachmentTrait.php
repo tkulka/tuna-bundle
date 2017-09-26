@@ -1,6 +1,6 @@
 <?php
 
-namespace TunaCMS\CommonComponent\Traits;
+namespace TunaCMS\Component\Common\Traits;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;

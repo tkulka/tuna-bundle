@@ -1,6 +1,6 @@
 <?php
 
-namespace TunaCMS\CommonComponent\Helper;
+namespace TunaCMS\Component\Common\Helper;
 
 class ArrayHelper
 {

@@ -31,26 +31,6 @@ services:
             - { name: security.voter }
         arguments: ["@security.access.decision_manager", "%tuna_cms_admin.components%"]
 
-    tuna_cms_translation.command.extract_translations_command:
-        class: TunaCMS\Bundle\TranslationBundle\Command\ExtractTranslationsCommand
-        arguments: ["%tuna_cms_admin.locales%"]
-        tags:
-            - { name: console.command }
-
-    tuna_cms_translation.command.update_translations_command:
-        class: TunaCMS\Bundle\TranslationBundle\Command\UpdateTranslationsCommand
-        arguments: ["%tuna_cms_admin.locales%"]
-        tags:
-            - { name: console.command }
-
-    tuna_cms.doctrine.class_metadata_reader:
-        class: TunaCMS\AdminBundle\Doctrine\ClassMetadataReader
-
-    tuna_cms_admin.event_listener.empty_translation_subscriber:
-        class: TunaCMS\AdminBundle\EventListener\EmptyTranslationSubscriber
-        tags:
-            - { name: doctrine.event_subscriber }
-
     tuna_cms_admin.twig.tuna_config_extension:
         class: TunaCMS\AdminBundle\Twig\TunaConfigExtension
         arguments: ["%tuna_cms_admin%"]

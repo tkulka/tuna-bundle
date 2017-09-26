@@ -2,7 +2,7 @@
 
 namespace TunaCMS\Bundle\NodeBundle\Model;
 
-use TunaCMS\CommonComponent\Model\IdInterface;
+use TunaCMS\Component\Common\Model\IdInterface;
 
 interface NodeInterface extends IdInterface
 {

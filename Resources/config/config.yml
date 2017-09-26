@@ -2,7 +2,6 @@ imports:
     - { resource: "../../src/Tuna/Bundle/EditorBundle/Resources/config/config.yml" }
     - { resource: "@TunaCMSAdminBundle/Resources/config/doctrine_extensions.yml" }
     - { resource: "@A2lixTranslationFormBundle/Resources/config/gedmo.xml" } # this is needed because A2lixTranslationFormBundle doesn't append this file if stof_doctrine_extensions isn't used (lame!)
-    - { resource: '@TunaCMSAdminBundle/Resources/config/a2lix_translation_form.yml' } # this is needed because gedmo.xml is using non-existing stof services (lame! part2)
 
 a2lix_translation_form:
     locales: "%tuna_cms_admin.locales%"

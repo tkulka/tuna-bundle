@@ -1,0 +1,20 @@
+{% trans_default_domain 'tuna_admin' %}
+{% extends 'TunaCMSAdminBundle::layout.html.twig' %}
+
+{% block content %}
+    {% embed 'TunaCMSAdminBundle:_partials/form:edit.html.twig' %}
+        {% block header_checkboxes %}
+            {{ form_row(form.displayingChildren) }}
+            {{ form_row(form.published) }}
+        {% endblock %}
+
+        {% block options %}
+            {{ form_row(form.name) }}
+            {{ form_row(form.label) }}
+        {% endblock %}
+
+        {% block body_content %}
+            {{ form_row(form) }}
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
