@@ -23,10 +23,14 @@ class AbstractMenuController extends Controller
      */
     public function createAction(Request $request, $type, MenuInterface $parent)
     {
-        $menu = $this->get('tuna_cms_bundle_menu.factory.menu_factory')->getInstance($type);
+        $menuFactory = $this->get('tuna_cms_bundle_menu.factory.menu_factory');
+
+        $menu = $menuFactory->getInstance($type);
         $menu->setParent($parent);
 
-        return $this->handleMenuCreation($request, $menu);
+        $form = $this->getFormForMenu($menu);
+
+        return $this->handleForm($form, $menu, $request);
     }
 
     /**
@@ -34,14 +38,20 @@ class AbstractMenuController extends Controller
      */
     public function createNodeAction(Request $request, $type, MenuInterface $parent)
     {
-        $node = $this->get('tuna_cms_bundle_node.factory.node_factory')->getInstance($type);
+        $menuFactory = $this->get('tuna_cms_bundle_menu.factory.menu_factory');
+        $nodeFactory = $this->get('tuna_cms_bundle_node.factory.node_factory');
+
+        $node = $nodeFactory->getInstance($type);
+
         /* @var $menu MenuNodeInterface */
-        $menu = $this->get('tuna_cms_bundle_menu.factory.menu_factory')->getInstance(self::MENU_NODE);
+        $menu = $menuFactory->getInstance(self::MENU_NODE);
         $menu
             ->setParent($parent)
             ->setNode($node);
 
-        return $this->handleMenuCreation($request, $menu);
+        $form = $this->getFormForMenu($menu);
+
+        return $this->handleForm($form, $menu, $request);
     }
 
     /**
@@ -49,10 +59,7 @@ class AbstractMenuController extends Controller
      */
     public function editAction(Request $request, MenuInterface $menu)
     {
-        $menuFactory = $this->get('tuna_cms_bundle_menu.factory.menu_factory');
-
-        $formType = $menuFactory->getFormClass($menu);
-        $form = $this->createForm($formType, $menu);
+        $form = $this->getFormForMenu($menu);
 
         return $this->handleForm($form, $menu, $request);
     }
@@ -99,14 +106,22 @@ class AbstractMenuController extends Controller
         return new JsonResponse('ok');
     }
 
-    protected function handleMenuCreation(Request $request, MenuInterface $menu)
+    protected function getFormForMenu(MenuInterface $menu)
     {
         $menuFactory = $this->get('tuna_cms_bundle_menu.factory.menu_factory');
         $formType = $menuFactory->getFormClass($menu);
 
-        $form = $this->createForm($formType, $menu);
+        if (!$menu instanceof MenuNodeInterface) {
+            return $this->createForm($formType, $menu);
+        }
 
-        return $this->handleForm($form, $menu, $request);
+        $nodeFactory = $this->get('tuna_cms_bundle_node.factory.node_factory');
+        $node = $menu->getNode();
+        $nodeFormType = $nodeFactory->getFormClass($node);
+
+        return $this->createForm($formType, $menu, [
+            'node_form_type' => $nodeFormType,
+        ]);
     }
 
     /**

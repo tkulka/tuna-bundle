@@ -23,11 +23,7 @@ class MenuNodeType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        /* @var \TunaCMS\Bundle\NodeBundle\Model\MenuNodeInterface $menu */
-        $menu = $builder->getData();
-        $nodeForm = $this->nodeFactory->getFormClass($menu->getNode());
-
-        $builder->add('node', $nodeForm, [
+        $builder->add('node', $options['node_form_type'], [
             'label' => false,
         ]);
     }
@@ -37,7 +33,7 @@ class MenuNodeType extends AbstractType
         $resolver->setDefaults([
             'data_class' => MenuNodeInterface::class,
             'translation_domain' => 'tuna_admin',
-            'node_type' => null,
+            'node_form_type' => null,
         ]);
     }
 
