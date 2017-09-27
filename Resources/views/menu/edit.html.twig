@@ -3,11 +3,6 @@
 
 {% block content %}
     {% embed 'TunaCMSAdminBundle:_partials/form:edit.html.twig' %}
-        {% block header_checkboxes %}
-            {{ form_row(form.displayingChildren) }}
-            {{ form_row(form.published) }}
-        {% endblock %}
-
         {% block options %}
             {{ form_row(form.name) }}
             {{ form_row(form.label) }}

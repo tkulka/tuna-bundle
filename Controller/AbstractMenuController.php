@@ -12,7 +12,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use TunaCMS\Bundle\MenuBundle\Model\MenuInterface;
 use TunaCMS\Bundle\MenuBundle\Repository\MenuRepositoryInterface;
-use TunaCMS\Bundle\NodeBundle\Model\MenuNodeInterface;
 
 class AbstractMenuController extends Controller
 {
@@ -20,36 +19,19 @@ class AbstractMenuController extends Controller
 
     /**
      * @Route("/{parent}/create/{type}", name="tunacms_admin_menu_create")
+     * @Route("/{parent}/create/node/{nodeType}", name="tunacms_admin_menu_create_node")
      */
-    public function createAction(Request $request, $type, MenuInterface $parent)
+    public function createAction(Request $request, MenuInterface $parent, $type = self::MENU_NODE, $nodeType = null)
     {
         $menuFactory = $this->get('tuna_cms_bundle_menu.factory.menu_factory');
 
         $menu = $menuFactory->getInstance($type);
         $menu->setParent($parent);
 
-        $form = $this->getFormForMenu($menu);
-
-        return $this->handleForm($form, $menu, $request);
-    }
-
-    /**
-     * @Route("/{parent}/create/node/{type}", name="tunacms_admin_menu_create_node")
-     */
-    public function createNodeAction(Request $request, $type, MenuInterface $parent)
-    {
-        $menuFactory = $this->get('tuna_cms_bundle_menu.factory.menu_factory');
-        $nodeFactory = $this->get('tuna_cms_bundle_node.factory.node_factory');
-
-        $node = $nodeFactory->getInstance($type);
-
-        /* @var $menu MenuNodeInterface */
-        $menu = $menuFactory->getInstance(self::MENU_NODE);
-        $menu
-            ->setParent($parent)
-            ->setNode($node);
-
-        $form = $this->getFormForMenu($menu);
+        $formType = $menuFactory->getFormClass($menu);
+        $form = $this->createForm($formType, $menu, [
+            'node_type' => $nodeType,
+        ]);
 
         return $this->handleForm($form, $menu, $request);
     }
@@ -59,7 +41,10 @@ class AbstractMenuController extends Controller
      */
     public function editAction(Request $request, MenuInterface $menu)
     {
-        $form = $this->getFormForMenu($menu);
+        $menuFactory = $this->get('tuna_cms_bundle_menu.factory.menu_factory');
+
+        $formType = $menuFactory->getFormClass($menu);
+        $form = $this->createForm($formType, $menu);
 
         return $this->handleForm($form, $menu, $request);
     }
@@ -104,24 +89,6 @@ class AbstractMenuController extends Controller
         $this->getDoctrine()->getManager()->flush();
 
         return new JsonResponse('ok');
-    }
-
-    protected function getFormForMenu(MenuInterface $menu)
-    {
-        $menuFactory = $this->get('tuna_cms_bundle_menu.factory.menu_factory');
-        $formType = $menuFactory->getFormClass($menu);
-
-        if (!$menu instanceof MenuNodeInterface) {
-            return $this->createForm($formType, $menu);
-        }
-
-        $nodeFactory = $this->get('tuna_cms_bundle_node.factory.node_factory');
-        $node = $menu->getNode();
-        $nodeFormType = $nodeFactory->getFormClass($node);
-
-        return $this->createForm($formType, $menu, [
-            'node_form_type' => $nodeFormType,
-        ]);
     }
 
     /**

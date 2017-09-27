@@ -1,7 +1,6 @@
-{# TODO: handle errors in accordion #}
 {% embed '@TunaCMSAdmin/_partials/accordion.html.twig' with {
 label: 'Menu',
-display_error: false
+display_error: not (form.label.vars.valid and form.displayingChildren.vars.valid)
 } %}
     {% block content %}
         {{ form_row(form.label) }}

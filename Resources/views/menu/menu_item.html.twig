@@ -6,7 +6,7 @@
             <div class="title">
                 {% block root_item_options %}
                     <span class="item-options">
-                        <a href="{{ path(path_create|default('tunacms_admin_menu_create_node'), { type: 'page', parent: item.id }) }}">
+                        <a href="{{ path(path_create|default('tunacms_admin_menu_create_node'), { nodeType: 'page', parent: item.id }) }}">
                             <i class="fa fa-plus"></i>
                         </a>
                     </span>
@@ -33,7 +33,7 @@
                 {% block item_options %}
                     <span class="item-options">
                         {% block item_options_create_link %}
-                            <a href="{{ path(path_create|default('tunacms_admin_menu_create_node'), { type: 'page', parent: item.id }) }}">
+                            <a href="{{ path(path_create|default('tunacms_admin_menu_create_node'), { nodeType: 'page', parent: item.id }) }}">
                                 <i class="fa fa-plus"></i>
                             </a>
                         {% endblock %}
