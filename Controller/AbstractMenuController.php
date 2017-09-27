@@ -28,10 +28,9 @@ class AbstractMenuController extends Controller
         $menu = $menuFactory->getInstance($type);
         $menu->setParent($parent);
 
-        $formType = $menuFactory->getFormClass($menu);
-        $form = $this->createForm($formType, $menu, [
-            'node_type' => $nodeType,
-        ]);
+        $formType = $menuFactory->getFormClass($type);
+        $options = $nodeType ? ['node_type' => $nodeType] : [];
+        $form = $this->createForm($formType, $menu, $options);
 
         return $this->handleForm($form, $menu, $request);
     }
