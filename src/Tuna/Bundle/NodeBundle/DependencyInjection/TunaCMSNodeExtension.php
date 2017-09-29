@@ -2,13 +2,11 @@
 
 namespace TunaCMS\Bundle\NodeBundle\DependencyInjection;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
-use TunaCMS\Component\Common\Helper\ArrayHelper;
-use TunaCMS\Bundle\MenuBundle\DependencyInjection\Configuration as MenuConfiguration;
+use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 class TunaCMSNodeExtension extends Extension implements PrependExtensionInterface
 {

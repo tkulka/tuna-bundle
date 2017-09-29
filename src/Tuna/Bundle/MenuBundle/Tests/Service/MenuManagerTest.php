@@ -6,8 +6,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 use TunaCMS\Bundle\MenuBundle\Model\MenuInterface;
 use TunaCMS\Bundle\MenuBundle\Repository\MenuRepositoryInterface;
-use TunaCMS\Bundle\MenuBundle\Tests\Model\DummyMenu;
 use TunaCMS\Bundle\MenuBundle\Service\MenuManager;
+use TunaCMS\Bundle\MenuBundle\Tests\Model\DummyMenu;
 
 class MenuManagerTest extends TestCase
 {

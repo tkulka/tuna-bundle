@@ -2,9 +2,9 @@
 
 namespace TunaCMS\Bundle\MenuBundle\Traits;
 
+use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
-use Doctrine\ORM\Mapping as ORM;
 use TunaCMS\Bundle\NodeBundle\Traits\TreeTrait;
 use TunaCMS\Component\Common\Traits\IdTrait;
 
