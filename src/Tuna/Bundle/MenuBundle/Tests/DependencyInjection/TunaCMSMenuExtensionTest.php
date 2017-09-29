@@ -32,7 +32,7 @@ class TunaCMSMenuExtensionTest extends TestCase
                 'menu' => 'menu.html.twig',
                 'menu_item' => 'menu_item.html.twig',
             ],
-            $configuration->getDefinition('tuna.menu.twig')->getArgument(4)
+            $configuration->getParameter('tuna_cms_menu.templates')
         );
     }
 
@@ -81,13 +81,13 @@ class TunaCMSMenuExtensionTest extends TestCase
                 'menu' => [
                     'model' => 'App\Model\Menu',
                     'templates' => [
-                        'edit' => 'menu-edit.html.twig',
+                        'edit' => 'menu_edit.html.twig',
                     ],
                 ],
                 'node' => [
                     'model' => 'App\Model\Node',
                     'templates' => [
-                        'edit' => 'node-edit.html.twig',
+                        'edit' => 'node_edit.html.twig',
                     ],
                 ],
             ],
@@ -103,7 +103,7 @@ class TunaCMSMenuExtensionTest extends TestCase
         $loader->prepend($configuration);
         $loader->load(
             [
-                'tuna_cms_menu' => $config
+                'tuna_cms_menu' => $config,
             ],
             $configuration
         );

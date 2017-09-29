@@ -17,13 +17,13 @@ class MenuTypesPassTest extends TestCase
             'menu' => [
                 'model' => 'App\Model\Menu',
                 'templates' => [
-                    'edit' => 'menu-edit.html.twig',
+                    'edit' => 'menu_edit.html.twig',
                 ],
             ],
             'node' => [
                 'model' => 'App\Model\Node',
                 'templates' => [
-                    'edit' => 'node-edit.html.twig',
+                    'edit' => 'node_edit.html.twig',
                 ],
             ],
         ]);

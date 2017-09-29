@@ -8,7 +8,7 @@ services:
             - "@tuna_cms_menu.menu_manager"
             - "@tuna_cms_bundle_menu.factory.menu_factory"
             - "@router"
-            - [] # templates
+            - "%tuna_cms_menu.templates%"
         tags:
             - { name: twig.extension }
         public: false

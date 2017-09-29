@@ -311,11 +311,13 @@ class MenuFactoryTest extends TestCase
                     [
                         'name' => 'node',
                         'model' => DummyNode::class,
+                        'form' => '',
                         'templates' => [],
                     ],
                     [
                         'name' => 'menu',
                         'model' => DummyMenu::class,
+                        'form' => '',
                         'templates' => [],
                     ],
                 ],

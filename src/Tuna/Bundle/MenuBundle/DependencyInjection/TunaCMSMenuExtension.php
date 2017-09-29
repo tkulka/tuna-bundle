@@ -24,10 +24,7 @@ class TunaCMSMenuExtension extends Extension implements PrependExtensionInterfac
         $container->setAlias('tuna_cms_menu.menu_manager', $config['menu_manager']);
         $container->setParameter('tuna_cms_menu.types.menu.model', $config['types']['menu']['model']);
         $container->setParameter('tuna_cms_menu.types', $config['types']);
-
-        $container->getDefinition('tuna.menu.twig')
-            ->replaceArgument(4, $config['templates'])
-        ;
+        $container->setParameter('tuna_cms_menu.templates', $config['templates']);
     }
 
     public function prepend(ContainerBuilder $container)

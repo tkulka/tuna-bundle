@@ -86,7 +86,7 @@ class ConfigurationTest extends TestCase
                         'model' => 'App\Model\MenuNode',
                         'form' => 'App\Form\MenuNodeType',
                         'templates' => [
-                            'edit' => 'menu-edit.html.twig',
+                            'edit' => 'menu_edit.html.twig',
                         ],
                     ],
                     'types' => [
@@ -94,7 +94,7 @@ class ConfigurationTest extends TestCase
                             'model' => 'App\Model\Node',
                             'form' => 'App\Form\NodeType',
                             'templates' => [
-                                'edit' => 'node-edit.html.twig',
+                                'edit' => 'node_edit.html.twig',
                                 'node_item' => 'node_item.html.twig',
                             ],
                         ],
@@ -108,7 +108,7 @@ class ConfigurationTest extends TestCase
                         'model' => 'App\Model\MenuNode',
                         'form' => 'App\Form\MenuNodeType',
                         'templates' => [
-                            'edit' => 'menu-edit.html.twig',
+                            'edit' => 'menu_edit.html.twig',
                         ],
                     ],
                     'types' => [
@@ -116,7 +116,7 @@ class ConfigurationTest extends TestCase
                             'model' => 'App\Model\Node',
                             'form' => 'App\Form\NodeType',
                             'templates' => [
-                                'edit' => 'node-edit.html.twig',
+                                'edit' => 'node_edit.html.twig',
                                 'node_item' => 'node_item.html.twig',
                             ],
                         ],

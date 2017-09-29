@@ -46,7 +46,7 @@ class ConfigurationTest extends TestCase
                         'menu' => [
                             'model' => 'App\Model\Menu',
                             'templates' => [
-                                'edit' => 'menu-edit.html.twig',
+                                'edit' => 'menu_edit.html.twig',
                             ],
                         ],
                     ],
@@ -61,7 +61,7 @@ class ConfigurationTest extends TestCase
                         'menu' => [
                             'model' => 'App\Model\Menu',
                             'templates' => [
-                                'edit' => 'menu-edit.html.twig',
+                                'edit' => 'menu_edit.html.twig',
                             ],
                             'form' => 'TunaCMS\Bundle\MenuBundle\Form\MenuType',
                         ],
@@ -80,13 +80,13 @@ class ConfigurationTest extends TestCase
                             'model' => 'App\Model\Node',
                             'form' => 'App\Form\MenuType',
                             'templates' => [
-                                'edit' => 'node-edit.html.twig',
+                                'edit' => 'node_edit.html.twig',
                             ],
                         ],
                         'menu' => [
                             'model' => 'App\Model\Menu',
                             'templates' => [
-                                'edit' => 'menu-edit.html.twig',
+                                'edit' => 'menu_edit.html.twig',
                             ],
                         ],
                     ],
@@ -102,13 +102,13 @@ class ConfigurationTest extends TestCase
                             'model' => 'App\Model\Node',
                             'form' => 'App\Form\MenuType',
                             'templates' => [
-                                'edit' => 'node-edit.html.twig',
+                                'edit' => 'node_edit.html.twig',
                             ],
                         ],
                         'menu' => [
                             'model' => 'App\Model\Menu',
                             'templates' => [
-                                'edit' => 'menu-edit.html.twig',
+                                'edit' => 'menu_edit.html.twig',
                             ],
                             'form' => 'TunaCMS\Bundle\MenuBundle\Form\MenuType',
                         ],
@@ -211,7 +211,7 @@ class ConfigurationTest extends TestCase
                         'node' => [
                             'model' => 'App\Model\Node',
                             'templates' => [
-                                'edit' => 'node-edit.html.twig',
+                                'edit' => 'node_edit.html.twig',
                             ],
                         ],
                     ],

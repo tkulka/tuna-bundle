@@ -48,7 +48,7 @@ class TunaCMSNodeExtensionTest extends TestCase
                             'model' => 'App\Model\MenuNode',
                             'form' => 'App\Form\MenuNodeType',
                             'templates' => [
-                                'edit' => 'menu-node-edit.html.twig',
+                                'edit' => 'menu_node_edit.html.twig',
                             ],
                         ],
                     ],
@@ -75,20 +75,20 @@ class TunaCMSNodeExtensionTest extends TestCase
                     'model' => 'App\Model\MenuNode',
                     'form' => 'App\Form\MenuNodeType',
                     'templates' => [
-                        'edit' => 'menu-node-edit.html.twig',
+                        'edit' => 'menu_node_edit.html.twig',
                     ],
                 ],
                 'types' => [
                     'node' => [
                         'model' => 'App\Model\Node',
                         'templates' => [
-                            'edit' => 'node-edit.html.twig',
+                            'edit' => 'node_edit.html.twig',
                         ],
                     ],
                     'page' => [
                         'model' => 'App\Model\Page',
                         'templates' => [
-                            'edit' => 'page-edit.html.twig',
+                            'edit' => 'page_edit.html.twig',
                         ],
                     ],
                 ],

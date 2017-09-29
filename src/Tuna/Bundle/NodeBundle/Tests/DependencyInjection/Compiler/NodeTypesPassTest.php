@@ -17,13 +17,13 @@ class NodeTypesPassTest extends TestCase
             'node' => [
                 'model' => 'App\Model\Node',
                 'templates' => [
-                    'edit' => 'node-edit.html.twig',
+                    'edit' => 'node_edit.html.twig',
                 ],
             ],
             'Page' => [
                 'model' => 'App\Model\Page',
                 'templates' => [
-                    'edit' => 'page-edit.html.twig',
+                    'edit' => 'page_edit.html.twig',
                 ],
             ],
         ]);
