@@ -27,46 +27,27 @@ class TunaCMSNodeExtension extends Extension implements PrependExtensionInterfac
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        if (!array_key_exists('node', $config['types'])) {
-            throw new \LogicException('You have to provide `tuna_cms_node.types.node` configuration.');
-        }
+        $container->setParameter('tuna_cms_node.types.node.model', $config['types']['node']['model']);
+        $container->setParameter('tuna_cms_node.types', $config['types']);
 
-        $this->setParameters($container, $config);
-        $this->prependDoctrineInterfaceConfig($container, $config);
-    }
+        $menuConfig = [
+            'types' => [
+                'node' => $config['menu'],
+            ]
+        ];
 
-    protected function prependDoctrineInterfaceConfig(ContainerBuilder $container, $config)
-    {
-        $menuConfigs = $container->getExtensionConfig('tuna_cms_menu');
-        $configuration = new MenuConfiguration();
-        $menuConfig = $this->processConfiguration($configuration, $menuConfigs);
-
-        if (!array_key_exists('menu_node', $menuConfig['types'])) {
-            throw new \LogicException('You have to provide `tuna_cms_menu.types.menu_node` configuration in TunaCMSMenu.');
-        }
+        $container->prependExtensionConfig('tuna_cms_menu', $menuConfig);
 
         $doctrineConfig = [
             'orm' => [
                 'resolve_target_entities' => [
                     'TunaCMS\Bundle\NodeBundle\Model\NodeInterface' => $config['types']['node']['model'],
                     'TunaCMS\Bundle\NodeBundle\Model\MetadataInterface' => $config['metadata']['model'],
-                    'TunaCMS\Bundle\NodeBundle\Model\MenuNodeInterface' => $menuConfig['types']['menu_node']['model'],
+                    'TunaCMS\Bundle\NodeBundle\Model\MenuNodeInterface' => $config['menu']['model'],
                 ],
             ],
         ];
 
         $container->prependExtensionConfig('doctrine', $doctrineConfig);
-    }
-
-    /**
-     * @param ContainerBuilder $container
-     * @param array $config
-     */
-    protected function setParameters(ContainerBuilder $container, array $config)
-    {
-        $config += ArrayHelper::flattenArray($config);
-        foreach ($config as $key => $value) {
-            $container->setParameter('tuna_cms_node.'.$key, $value);
-        }
     }
 }

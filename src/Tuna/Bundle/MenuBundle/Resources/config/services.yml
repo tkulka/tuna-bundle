@@ -5,18 +5,20 @@ services:
             - [initRuntime, ["@twig"]]
         arguments:
             - "@twig"
-            - "@tuna_cms_menu.manager"
+            - "@tuna_cms_menu.menu_manager"
             - "@tuna_cms_bundle_menu.factory.menu_factory"
             - "@router"
-            - "%tuna_cms_menu.templates%"
+            - [] # templates
         tags:
             - { name: twig.extension }
+        public: false
 
-    tuna_cms_menu.manager:
-        class: "%tuna_cms_menu.manager_class%"
+    tuna_cms_menu.menu_manager.default:
+        class: TunaCMS\Bundle\MenuBundle\Service\MenuManager
         arguments:
             - "%tuna_cms_menu.types.menu.model%"
             - "@doctrine.orm.default_entity_manager"
+        public: false
 
     tuna_cms_menu.request_param_converter.entity_interface_converter:
         class: TunaCMS\Component\Common\Request\ParamConverter\EntityInterfaceConverter
@@ -26,6 +28,8 @@ services:
             - "@doctrine"
             - TunaCMS\Bundle\MenuBundle\Model\MenuInterface
             - "%tuna_cms_menu.types.menu.model%"
+        public: false
 
     tuna_cms_bundle_menu.factory.menu_factory:
         class: TunaCMS\Bundle\MenuBundle\Factory\MenuFactory
+        public: false

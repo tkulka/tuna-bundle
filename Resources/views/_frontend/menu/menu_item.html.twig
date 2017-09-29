@@ -8,7 +8,7 @@
     {% if item.displayingChildren and hasChildren %}
         <ul class="menu__subnav">
             {% for child in item.children %}
-                {% include options.templates['menu_item'] with { item: child } %}
+                {% include templates['menu_item'] with { item: child } %}
             {% endfor %}
         </ul>
     {% endif %}

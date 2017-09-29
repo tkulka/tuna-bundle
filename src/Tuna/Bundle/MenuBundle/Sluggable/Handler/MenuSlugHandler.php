@@ -14,7 +14,9 @@ class MenuSlugHandler extends TreeSlugHandler
     public function transliterate($text, $separator, $object)
     {
         if (!$object instanceof MenuInterface) {
-            return new InvalidArgumentException(sprintf('Invalid type for $object. Expected NodeInterface, but got %s', get_class($object)));
+            return new InvalidArgumentException(sprintf(
+                'Expected argument of type "%s", "%s" given.', MenuInterface::class, get_class($object)
+            ));
         }
 
         if ($object->getSlug() === '') {

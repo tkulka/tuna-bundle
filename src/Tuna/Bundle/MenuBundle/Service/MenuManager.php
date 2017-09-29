@@ -2,8 +2,7 @@
 
 namespace TunaCMS\Bundle\MenuBundle\Service;
 
-use Doctrine\ORM\EntityManager;
-use Symfony\Component\HttpFoundation\RequestStack;
+use Doctrine\ORM\EntityManagerInterface;
 use TunaCMS\Bundle\MenuBundle\Model\MenuInterface;
 use TunaCMS\Bundle\MenuBundle\Repository\MenuRepositoryInterface;
 
@@ -20,11 +19,11 @@ class MenuManager
     protected $repository;
 
     /**
-     * @var EntityManager
+     * @var EntityManagerInterface
      */
     protected $entityManager;
 
-    public function __construct($class, EntityManager $entityManager)
+    public function __construct($class, EntityManagerInterface $entityManager)
     {
         $this->class = $class;
         $this->entityManager = $entityManager;
@@ -60,8 +59,16 @@ class MenuManager
      */
     public function saveOrder(array $order)
     {
+        if (!$order) {
+            return;
+        }
+
         $nodes = [];
         $entities = $this->repository->findAll();
+
+        if (!$entities) {
+            return;
+        }
 
         /* @var MenuInterface $entity */
         foreach ($entities as $entity) {
@@ -99,23 +106,23 @@ class MenuManager
     }
 
     /**
-     * @param $label
+     * @param string $label
      *
      * @return MenuInterface|null
      */
     public function findMenuItemByLabel($label)
     {
-        return $this->repository->findOneByLabel($label);
+        return $this->repository->findOneBy(['label' => $label]);
     }
 
     /**
-     * @param $label
+     * @param string $name
      *
      * @return MenuInterface|null
      */
-    public function findMenuItemByName($label)
+    public function findMenuItemByName($name)
     {
-        return $this->repository->findOneByName($label);
+        return $this->repository->findOneBy(['name' => $name]);
     }
 
     /**

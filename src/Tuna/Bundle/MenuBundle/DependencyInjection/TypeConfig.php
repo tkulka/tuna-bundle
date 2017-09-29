@@ -112,7 +112,7 @@ class TypeConfig
      *
      * @param array $templates
      */
-    public function setTemplates($templates)
+    public function setTemplates(array $templates)
     {
         $this->templates = $templates;
 

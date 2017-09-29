@@ -18,7 +18,7 @@ class MenuFactory
     /**
      * @var array
      */
-    protected $typesClassMap;
+    protected $typesClassMap = [];
 
     public function __construct()
     {
@@ -74,11 +74,12 @@ class MenuFactory
     {
         $model = get_class($object);
 
-        if (!array_key_exists($model, $this->typesClassMap)) {
-            $this->throwInvalidTypeException();
+        $typesClassMap = $this->getTypesClassMap();
+        if (!array_key_exists($model, $typesClassMap)) {
+            $this->throwInvalidTypeException($model);
         }
 
-        return $this->typesClassMap[$model];
+        return $typesClassMap[$model];
     }
 
     /**
@@ -98,17 +99,27 @@ class MenuFactory
         }
 
         if (!$this->types->containsKey($type)) {
-            $this->throwInvalidTypeException();
+            $this->throwInvalidTypeException($type);
         }
 
         return $this->types->get($type);
     }
 
     /**
+     * @return array
+     */
+    protected function getTypesClassMap()
+    {
+        return $this->typesClassMap;
+    }
+
+    /**
+     * @param string $type
+     *
      * @throws \Exception
      */
-    protected function throwInvalidTypeException()
+    protected function throwInvalidTypeException($type)
     {
-        throw new \Exception('No type, dang');
+        throw new \InvalidArgumentException(sprintf('Type "%s" is not registered.', $type));
     }
 }

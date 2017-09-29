@@ -2,9 +2,9 @@
 
 namespace TunaCMS\Bundle\MenuBundle\Twig;
 
-use AppBundle\Entity\ExternalUrl;
 use Symfony\Component\Routing\RouterInterface;
 use TunaCMS\Bundle\MenuBundle\Factory\MenuFactory;
+use TunaCMS\Bundle\MenuBundle\Model\ExternalUrlInterface;
 use TunaCMS\Bundle\MenuBundle\Model\MenuAliasInterface;
 use TunaCMS\Bundle\MenuBundle\Model\MenuInterface;
 use TunaCMS\Bundle\MenuBundle\Service\MenuManager;
@@ -73,7 +73,7 @@ class MenuExtension extends \Twig_Extension
             }
         }
 
-        if ($menu instanceof ExternalUrl) {
+        if ($menu instanceof ExternalUrlInterface) {
             return $menu->getUrl();
         }
 
@@ -82,7 +82,7 @@ class MenuExtension extends \Twig_Extension
         ]);
     }
 
-    public function renderMenu($menuName = 'Menu', array $options = [])
+    public function renderMenu($menuName = 'Menu', array $options = [], array $templates = [])
     {
         if (!array_key_exists('root', $options)) {
             $rootFromName = $this->menuManager->findMenuItemByName($menuName);
@@ -94,15 +94,17 @@ class MenuExtension extends \Twig_Extension
 
         $options += [
             'wrap' => true,
-            'templates' => $this->templates,
             'root' => isset($rootFromName) ? $rootFromName : $options['root'],
         ];
 
+        $templates += $this->templates;
+
         return $this->twig->render(
-            $options['templates']['menu'],
+            $templates['menu'],
             [
                 'menu' => $this->menuManager->getMenuTree($options['root']),
                 'name' => $menuName,
+                'templates' => $templates,
                 'options' => $options,
             ]
         );

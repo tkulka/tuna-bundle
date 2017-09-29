@@ -52,7 +52,7 @@ class MenuNodeType extends AbstractType
             return $menu->getNode();
         }
 
-        if (!array_key_exists('node_type', $options)) {
+        if (!isset($options['node_type'])) {
             throw new InvalidArgumentException('You have to either provide $menu with existing `node` or `node_type` option.');
         }
 

@@ -2,10 +2,14 @@
 
 namespace TunaCMS\Bundle\MenuBundle\Repository;
 
+use Doctrine\Common\Persistence\ObjectRepository;
 use Gedmo\Tree\RepositoryInterface;
 use TunaCMS\Bundle\MenuBundle\Model\MenuInterface;
 
-interface MenuRepositoryInterface extends RepositoryInterface
+/**
+ * Interface MenuRepositoryInterface
+ */
+interface MenuRepositoryInterface extends RepositoryInterface, ObjectRepository
 {
     /**
      * @return MenuInterface[]

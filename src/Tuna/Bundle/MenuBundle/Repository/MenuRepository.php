@@ -13,7 +13,7 @@ class MenuRepository extends NestedTreeRepository implements MenuRepositoryInter
 
     public function getRoots()
     {
-        return $this->findByParent(null);
+        return $this->findBy(['parent' => null]);
     }
 
     public function loadPublishedTree(MenuInterface $menu = null)
